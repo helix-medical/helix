@@ -1,0 +1,20 @@
+{
+  "name": "helix",
+  "version": "0.1.0",
+  "description": "A system for patients management",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xavier2p/helix.git"
+  },
+  "author": "Xavier2p",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Xavier2p/helix/issues"
+  },
+  "homepage": "https://github.com/Xavier2p/helix#readme"
+}
