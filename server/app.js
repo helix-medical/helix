@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cors())
 
 app.get('/', (req, res) => {
-    res.send('<h1>Helix: CRUD APP</h1><h2>Server</h2>');
+    res.send('<h1>Helix: CRUD APP [[SERVER]]</h1>');
 });
 
 app.get('/patients', (req, res) => {
@@ -48,6 +48,38 @@ app.post('/patients', (req, res) => {
         }
         return res.json("New patient added");
     });
+});
+
+app.delete('/patients/:id', (req, res) => {
+    const patientId = req.params.id;
+    const sqlQuery = 'DELETE FROM patients WHERE id = ?';
+
+    db.query(sqlQuery, patientId, (err, data) => {
+        if (err) {
+            console.log(err);
+            return res.json(err);
+        }
+        return res.json("Patient deleted");
+    })
+});
+
+app.put('/patients/:id', (req, res) => {
+    const patientId = req.params.id;
+    const sqlQuery = 'UPDATE patients SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ? WHERE id = ?';
+    const values = [
+        req.body.name,
+        req.body.lastName,
+        req.body.birthDate,
+        req.body.sex 
+    ];
+
+    db.query(sqlQuery, [...values, patientId], (err, data) => {
+        if (err) {
+            console.log(err);
+            return res.json(err);
+        }
+        return res.json("Patient updated");
+    })
 });
 
 app.listen(port, () => {

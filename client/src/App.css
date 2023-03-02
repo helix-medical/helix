@@ -27,3 +27,34 @@
 .form input {
   margin: 10px;
 }
+
+.patients {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+}
+
+.patient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+.patient button {
+  margin: 10px;
+}
+
+.delete {
+  background-color: red;
+}
+
+.edit {
+  background-color: blue;
+}
+
+.view {
+  background-color: green;
+}

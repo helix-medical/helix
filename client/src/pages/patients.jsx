@@ -1,6 +1,5 @@
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
@@ -19,15 +18,25 @@ const Patients = () => {
         fetchAllPatients()
     }, []);
 
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:3001/patients/${id}`);
+            window.location.reload();
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <div>
             <h1>Patients</h1>
-            <div className="form">
+            <div className="patients">
                 {patients.map((patient) => (
-                    <div className="form" key={patient.id}>
+                    <div className="patient" key={patient.id}>
                         <h2>{patient.name} {patient.lastName} ({patient.sex})</h2>
-                        <h3>{patient.birthDate}</h3>
+                        <button className="view">View</button>
+                        <button className="edit"><Link to={`/update/${patient.id}`}>Edit</Link></button>
+                        <button className="delete" onClick={() => handleDelete(patient.id)}>Delete</button>
                     </div>
                 ))}
             </div>
