@@ -1,14 +1,19 @@
-# node_modules/
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
 
+# editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
 # testing
 /coverage
 
 # production
-/build
+build/
 
 # misc
 .DS_Store

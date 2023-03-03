@@ -1,7 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import Button from "react-bootstrap/esm/Button";
+import CardGroup from "react-bootstrap/esm/CardGroup";
+import PatientItem from "../patientItem";
 
 const Patients = () => {
     const [patients, setPatients] = useState([]);
@@ -30,17 +32,12 @@ const Patients = () => {
     return (
         <div>
             <h1>Patients</h1>
-            <div className="patients">
+            <CardGroup>
                 {patients.map((patient) => (
-                    <div className="patient" key={patient.id}>
-                        <h2>{patient.name} {patient.lastName} ({patient.sex})</h2>
-                        <button className="view">View</button>
-                        <button className="edit"><Link to={`/update/${patient.id}`}>Edit</Link></button>
-                        <button className="delete" onClick={() => handleDelete(patient.id)}>Delete</button>
-                    </div>
+                    <PatientItem key={patient.id} patient={patient} handleDelete={handleDelete} />
                 ))}
-            </div>
-            <button><Link to="/add">Add a Patient</Link></button>
+            </CardGroup>
+            <Button variant="primary" href="/add" size="lg">Add a Patient</Button>
         </div>
     )
 };
