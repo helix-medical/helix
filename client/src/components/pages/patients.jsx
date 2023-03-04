@@ -12,7 +12,7 @@ import CardGroup from "react-bootstrap/esm/CardGroup";
 import PatientItemGrid from "../patientItemGrid";
 import ModalAddPatient from "./add";
 import PatientsTableView from "../patientsTableView";
-
+import Badge from "react-bootstrap/esm/Badge";
 
 const Patients = () => {
     const [patients, setPatients] = useState([]);
@@ -33,6 +33,8 @@ const Patients = () => {
         fetchAllPatients()
     }, []);
 
+    const nbPatients = patients.length;
+
     const handleDelete = async (id) => {
         try {
             await axios.delete(`http://172.16.183.69:3001/patients/${id}`);
@@ -44,10 +46,9 @@ const Patients = () => {
 
     return (
         <div>
-            <h1>Patients</h1>
             <Navbar bg="light" expand="lg">
                 <div className="container-fluid">
-                    <Navbar.Brand href="/">List of Patients</Navbar.Brand>
+                    <Navbar.Brand><h2>## Patients <Badge pill bg='secondary' size='xs'>{nbPatients}</Badge></h2></Navbar.Brand>
                     <div className="buttons-nav">
                         <Button variant="outline-primary" onClick={() =>
                             setViewType((currentState) => {

@@ -9,7 +9,7 @@ function Anamnesis(props) {
     };
 
     return (
-        <div className="anamnesis">
+        <div className="debug">
             <h2>Anamnesis</h2>
             <Form>
                 <Form.Group className="mb-3" controlId="formBasicReasons">

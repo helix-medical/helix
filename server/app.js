@@ -14,10 +14,10 @@ const db = mysql.createConnection({
 });
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
 app.get('/', (req, res) => {
-    res.send('<h1>Helix: CRUD APP [[SERVER]]</h1>');
+    res.send('<h1>Helix: A System for Patient Management</h1>');
 });
 
 app.get('/patients', (req, res) => {
@@ -90,6 +90,17 @@ app.put('/patients/:id', (req, res) => {
     })
 });
 
+app.get('/appointments', (req, res) => {
+    const sqlQuery = 'SELECT * FROM appointments';
+    db.query(sqlQuery, (err, data) => {
+        if (err) {
+            console.log(err);
+            return res.json(err);
+        }
+        return res.json(data);
+    });
+});
+
 app.post('/appointments', (req, res) => {
     const sqlQuery = 'INSERT INTO appointments (`patientId`, `date`, `reasons`, `anamnesis`, `conclusion`) VALUES (?)';
     const values = [
@@ -105,7 +116,7 @@ app.post('/appointments', (req, res) => {
             console.log(err);
             return res.json(err);
         }
-        console.log("New appointment added" + data);
+        console.log("New appointment added");
         return res.json("New appointment added");
     });
 });

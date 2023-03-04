@@ -9,7 +9,7 @@ function ConclusionApp(props) {
     };
 
     return (
-        <div className="conclusionApp">
+        <div className="debug">
             <h2>Conclusion</h2>
             <Form>
                 <Form.Group className="mb-3" controlId="formBasicDiagnosis">

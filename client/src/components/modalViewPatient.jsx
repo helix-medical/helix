@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
+import Badge from "react-bootstrap/Badge";
 
 
 function ModalViewPatient(props) {
@@ -20,7 +21,9 @@ function ModalViewPatient(props) {
                         <ListGroup.Item>Birth Date: {props.patient.birthDate}</ListGroup.Item>
                         <ListGroup.Item>Email: {props.patient.email}</ListGroup.Item>
                         <ListGroup.Item>City: {props.patient.city}</ListGroup.Item>
-                        <ListGroup.Item>Last Appointment: {props.patient.lastApp}</ListGroup.Item>
+                        <ListGroup.Item>Last Appointment: {props.patient.lastApp}
+                            <Badge pill bg='primary'>12</Badge>
+                        </ListGroup.Item>
                         <ListGroup.Item>Next Appointment: {props.patient.nextApp}</ListGroup.Item>
                     </ListGroup>
                 </Modal.Body>

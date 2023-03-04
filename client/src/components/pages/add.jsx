@@ -19,7 +19,7 @@ function ModalAddPatient(props) {
         city: "",
         lastApp: "",
         nextApp: "",
-        passif: JSON.stringify({}),
+        passif: JSON.stringify({})
     });
 
     const handleChange = (e) => {
@@ -47,20 +47,20 @@ function ModalAddPatient(props) {
                     <Form.Group as={Row} className="mb-2" controlId="formBasicName">
                         <Col sm="5">
                             <FloatingLabel className='mb-3' controlId="floatingInput" label="Name">
-                                <Form.Control type="text" onChange={handleChange} name="name" />
+                                <Form.Control type="text" placeholder='Name' onChange={handleChange} name="name" />
                             </FloatingLabel>
                         </Col>
                         <Col sm="5">
                             <FloatingLabel className='mb-3' controlId="floatingInput" label="Last Name">
-                                <Form.Control type="text" onChange={handleChange} name="lastName" />
+                                <Form.Control type="text" placeholder='Last Name' onChange={handleChange} name="lastName" />
                             </FloatingLabel>
                         </Col>
                         <Col sm="2">
                             <FloatingLabel className='mb-3' controlId="floatingSelect" label="Sex">
                                 <Form.Select onChange={handleChange} name="sex">
+                                    <option>Choose</option>
                                     <option value="F">F</option>
                                     <option value="M">M</option>
-                                    <option value="A">A</option>
                                 </Form.Select>
                             </FloatingLabel>
                         </Col>
@@ -73,19 +73,19 @@ function ModalAddPatient(props) {
                         </Col>
                         <Col sm="6">
                             <FloatingLabel className='mb-3' controlId="floatingInput" label="City">
-                                <Form.Control type="text" onChange={handleChange} name="city" />
+                                <Form.Control type="text" placeholder='City' onChange={handleChange} name="city" />
                             </FloatingLabel>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-1" controlId="formBasicCom">
                         <Col sm="6">
-                            <FloatingLabel className='mb-3' controlId="floatingInput" label="Email">
-                                <Form.Control type="email" onChange={handleChange} name="email" />
+                            <FloatingLabel className='mb-3' controlId="floatingInput" label="Email Address">
+                                <Form.Control type="email" placeholder='Email Address' onChange={handleChange} name="email" />
                             </FloatingLabel>
                         </Col>
                         <Col sm="6">
                             <FloatingLabel className='mb-3' controlId="floatingInput" label="Phone">
-                                <Form.Control type="phone" /* onChange={handleChange} name="phone" */ />
+                                <Form.Control type="tel" placeholder='Phone Number' defaultValue="+33 (0)" /* onChange={handleChange} name="phone" */ />
                             </FloatingLabel>
                         </Col>
                     </Form.Group>

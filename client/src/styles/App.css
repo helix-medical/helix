@@ -78,33 +78,16 @@
   align-self: flex-end;
 }
 
-.patient-data {
-  border: #61dafb 1px solid;
-  padding: 1%;
-}
-
-.anamnesis {
-  border: #61dafb 1px solid;
-  padding: 1%;
-  margin-top: 10px;
-}
-
-.appointment {
-  align-items: center;
-  justify-content: center;
-}
-
-.conclusionApp {
-  border: #61dafb 1px solid;
-  padding: 1%;
-  margin-top: 10px;
-}
-
 .debug {
-  border: #61dafb 2px dashed;
+  border: #61dafb 10px dashed;
   padding: 1%;
+  margin-top: 10px;
 }
 
 .buttons-nav Button {
   margin-left: 10px;
+}
+
+.step {
+  margin: 10px;
 }

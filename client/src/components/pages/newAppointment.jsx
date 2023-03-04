@@ -6,7 +6,7 @@ import Anamnesis from '../anamnesis';
 import ConclusionApp from '../conclusionApp';
 import axios from "axios";
 
-function Appointment(props) {
+function NewAppointment(props) {
     const patientExample = {
         id: 1,
         name: "Michelle",
@@ -47,10 +47,11 @@ function Appointment(props) {
         } catch (error) {
             console.log(error);
         }
+        window.location.reload();
     }
 
     return (
-        <div className="appointment">
+        <div>
             <h1>Appointment</h1>
             <PatientData patient={patientExample} />
             <Anamnesis handler={setAnamnesis} />
@@ -62,4 +63,4 @@ function Appointment(props) {
     );
 }
 
-export default Appointment;
+export default NewAppointment;

@@ -1,9 +1,11 @@
+import React from 'react';
+
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import React from 'react';
+
 import Icon from '@mdi/react';
 import { mdiAccount } from '@mdi/js';
 
@@ -11,7 +13,7 @@ function Header(props) {
   return (
     <Navbar bg="light" expand="md">
       <Container fluid>
-        <Navbar.Brand href="/">Helix</Navbar.Brand>
+        <Navbar.Brand href="/"><h1>Helix</h1></Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav
@@ -19,9 +21,9 @@ function Header(props) {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="/patients">Patients</Nav.Link>
-            <Nav.Link href="/calendar">Calendar</Nav.Link>
-            <Nav.Link href="/appointment">Appointment</Nav.Link>
+            <Nav.Link href="/patients"><h4>Patients</h4></Nav.Link>
+            <Nav.Link href="/calendar"><h4>Calendar</h4></Nav.Link>
+            <Nav.Link href="/appointments"><h4>Appointments</h4></Nav.Link>
             {/* <NavDropdown title="Link" id="navbarScrollingDropdown">
                   <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action4">
