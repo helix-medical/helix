@@ -7,8 +7,10 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Modal from "react-bootstrap/Modal";
 
-const Add = () => {
+function ModalAddPatient(props) {
+    const handleClose = () => props.toggleModal();
     const [patient, setPatient] = useState({
         name: "",
         lastName: "",
@@ -35,70 +37,82 @@ const Add = () => {
         } catch (error) {
             console.log(error);
         }
+        props.toggleModal();
+        window.location.reload();
     };
 
     return (
-        <div>
-            <h1>Add a Patient</h1>
-            <Form>
-                <Form.Group as={Row} className="mb-3" controlId="formBasicName">
-                    <Form.Label column sm="2">Name</Form.Label>
-                    <Col sm="10">
-                        <Form.Control type="text" placeholder="Name" onChange={handleChange} name="name" />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="formBasicLastName">
-                    <Form.Label column sm="2">Last Name</Form.Label>
-                    <Col sm="10">
-                        <Form.Control type="text" placeholder="Last name" onChange={handleChange} name="lastName" />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="formBasicSex">
-                    <Form.Label column sm="2">Sex</Form.Label>
-                    <Col sm="10">
-                        <FloatingLabel controlId="floatingSelect" label="Choose Sex">
-                            <Form.Select aria-label="Default select example" onChange={handleChange} name="sex">
-                                <option value="F">F</option>
-                                <option value="M">M</option>
-                                <option value="A">A</option>
-                            </Form.Select>
-                        </FloatingLabel>
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="formBasicBirthDate">
-                    <Form.Label column sm="2">Birth Date</Form.Label>
-                    <Col sm="10">
-                        <Form.Control type="text" placeholder="Birth Date (YYYY-MM-DD)" onChange={handleChange} name="birthDate" />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="formBasicEmail">
-                    <Form.Label column sm="2">Email</Form.Label>
-                    <Col sm="10">
-                        <Form.Control type="email" placeholder="Email" onChange={handleChange} name="email" />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="formBasicCity">
-                    <Form.Label column sm="2">City</Form.Label>
-                    <Col sm="10">
-                        <Form.Control type="text" placeholder="City" onChange={handleChange} name="city" />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="formBasicLastApp">
-                    <Form.Label column sm="2">Last Appointment</Form.Label>
-                    <Col sm="10">
-                        <Form.Control type="text" placeholder="Last Appointment (YYYY-MM-DD)" onChange={handleChange} name="lastApp" />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="formBasicNextApp">
-                    <Form.Label column sm="2">Next Appointment</Form.Label>
-                    <Col sm="10">
-                        <Form.Control type="text" placeholder="Next Appointment (YYYY-MM-DD)" onChange={handleChange} name="nextApp" />
-                    </Col>
-                </Form.Group>
-            </Form>
-            <Button variant="primary" onClick={handleClick} size='lg'>Add</Button>
-        </div>
+        <Modal show={props.show} onHide={handleClose} size='lg'>
+            <Modal.Header closeButton>
+                <Modal.Title>Add a Patient</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form>
+                    <Form.Group as={Row} className="mb-2" controlId="formBasicName">
+                        <Col sm="5">
+                            <FloatingLabel className='mb-3' controlId="floatingInput" label="Name">
+                                <Form.Control type="text" placeholder="Name" onChange={handleChange} name="name" />
+                            </FloatingLabel>
+                        </Col>
+                        <Col sm="5">
+                            <FloatingLabel className='mb-3' controlId="floatingInput" label="Last Name">
+                                <Form.Control type="text" placeholder="Last name" onChange={handleChange} name="lastName" />
+                            </FloatingLabel>
+                        </Col>
+                        <Col sm="2">
+                            <FloatingLabel className='mb-3' controlId="floatingSelect" label="Sex">
+                                <Form.Select onChange={handleChange} name="sex">
+                                    <option value="F">F</option>
+                                    <option value="M">M</option>
+                                    <option value="A">A</option>
+                                </Form.Select>
+                            </FloatingLabel>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-2" controlId="formBasicBirth">
+                        <Col sm="6">
+                            <FloatingLabel className='mb-3' controlId="floatingInput" label="Birth Date">
+                                <Form.Control type="date" onChange={handleChange} name="birthDate" />
+                            </FloatingLabel>
+                        </Col>
+                        <Col sm="6">
+                            <FloatingLabel className='mb-3' controlId="floatingInput" label="City">
+                                <Form.Control type="text" placeholder="City" onChange={handleChange} name="city" />
+                            </FloatingLabel>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-1" controlId="formBasicCom">
+                        <Col sm="6">
+                            <FloatingLabel className='mb-3' controlId="floatingInput" label="Email">
+                                <Form.Control type="email" placeholder="Email" onChange={handleChange} name="email" />
+                            </FloatingLabel>
+                        </Col>
+                        <Col sm="6">
+                            <FloatingLabel className='mb-3' controlId="floatingInput" label="Phone">
+                                <Form.Control type="phone" placeholder="Phone" /* onChange={handleChange} name="phone" */ />
+                            </FloatingLabel>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-1" controlId="formBasicApp">
+                        <Col sm="6">
+                            <FloatingLabel className='mb-3' controlId="floatingInput" label="Last Appointment">
+                                <Form.Control type="date" onChange={handleChange} name="lastApp" />
+                            </FloatingLabel>
+                        </Col>
+                        <Col sm="6">
+                            <FloatingLabel className='mb-3' controlId="floatingInput" label="Next Appointment">
+                                <Form.Control type="date" onChange={handleChange} name="nextApp" />
+                            </FloatingLabel>
+                        </Col>
+                    </Form.Group>
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="outline-danger" onClick={handleClose}>Cancel</Button>
+                <Button variant="success" onClick={handleClick}>Add</Button>
+            </Modal.Footer>
+        </Modal>
     )
 };
 
-export default Add;
+export default ModalAddPatient;

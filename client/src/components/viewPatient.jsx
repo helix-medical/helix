@@ -23,11 +23,11 @@ function ModalViewPatient(props) {
                         <ListGroup.Item>Last Appointment: {props.patient.lastApp}</ListGroup.Item>
                         <ListGroup.Item>Next Appointment: {props.patient.nextApp}</ListGroup.Item>
                     </ListGroup>
-                    <Button variant="primary" href={`/update/${props.patient.id}`}>Edit</Button>
-                    <Button variant="danger" onClick={() => props.handleDelete(props.patient.id)}>Delete</Button>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="outline-danger" onClick={handleClose}>
+                    <Button variant="outline-danger" onClick={() => props.handleDelete(props.patient.id)}>Delete</Button>
+                    <Button variant="outline-primary" href={`/update/${props.patient.id}`}>Edit</Button>
+                    <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
                 </Modal.Footer>

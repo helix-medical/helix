@@ -3,10 +3,13 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import Button from "react-bootstrap/esm/Button";
 import CardGroup from "react-bootstrap/esm/CardGroup";
-import PatientItem from "../patientItem";
+import PatientItemGrid from "../patientItemGrid";
+import ModalAddPatient from "./add";
 
 const Patients = () => {
     const [patients, setPatients] = useState([]);
+    const [show, setShow] = useState(false);
+    const toggleModal = () => setShow(!show);
 
     useEffect(() => {
         const fetchAllPatients = async () => {
@@ -34,10 +37,11 @@ const Patients = () => {
             <h1>Patients</h1>
             <CardGroup>
                 {patients.map((patient) => (
-                    <PatientItem key={patient.id} patient={patient} handleDelete={handleDelete} />
+                    <PatientItemGrid key={patient.id} patient={patient} handleDelete={handleDelete} />
                 ))}
             </CardGroup>
-            <Button variant="primary" href="/add" size="lg">Add a Patient</Button>
+            <Button variant="primary" onClick={toggleModal} size="lg">Add a Patient</Button>
+            {show && <ModalAddPatient show={show} toggleModal={toggleModal} />}
         </div>
     )
 };

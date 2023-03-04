@@ -5,7 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import ModalViewPatient from "./viewPatient";
 import { useState } from "react";
 
-function PatientItem(props) {
+function PatientItemGrid(props) {
     const [show, setShow] = useState(false);
     const toggleModal = () => setShow(!show);
 
@@ -30,4 +30,4 @@ function PatientItem(props) {
     );
 }
 
-export default PatientItem;
+export default PatientItemGrid;
