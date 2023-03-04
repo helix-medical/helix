@@ -32,12 +32,16 @@ app.get('/patients', (req, res) => {
 });
 
 app.post('/patients', (req, res) => {
-    const sqlQuery = 'INSERT INTO patients (`name`, `lastName`, `birthDate`, `sex`) VALUES (?)';
+    const sqlQuery = 'INSERT INTO patients (`name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `lastApp`, `nextApp`) VALUES (?)';
     const values = [
         req.body.name,
         req.body.lastName,
         req.body.birthDate,
-        req.body.sex
+        req.body.sex,
+        req.body.email,
+        req.body.city,
+        req.body.lastApp,
+        req.body.nextApp
     ];
 
     db.query(sqlQuery, [values], (err, data) => {
@@ -64,12 +68,16 @@ app.delete('/patients/:id', (req, res) => {
 
 app.put('/patients/:id', (req, res) => {
     const patientId = req.params.id;
-    const sqlQuery = 'UPDATE patients SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ? WHERE id = ?';
+    const sqlQuery = 'UPDATE patients SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ?, `email` = ?, `city` = ?, `lastApp` = ?, `nextApp` = ? WHERE id = ?';
     const values = [
         req.body.name,
         req.body.lastName,
         req.body.birthDate,
-        req.body.sex 
+        req.body.sex,
+        req.body.email,
+        req.body.city,
+        req.body.lastApp,
+        req.body.nextApp
     ];
 
     db.query(sqlQuery, [...values, patientId], (err, data) => {

@@ -13,7 +13,11 @@ const Add = () => {
         name: "",
         lastName: "",
         birthDate: "",
-        sex: ""
+        sex: "",
+        email: "",
+        city: "",
+        lastApp: "",
+        nextApp: "",
     });
 
     const navigate = useNavigate();
@@ -52,19 +56,43 @@ const Add = () => {
                 <Form.Group as={Row} className="mb-3" controlId="formBasicSex">
                     <Form.Label column sm="2">Sex</Form.Label>
                     <Col sm="10">
-                    <FloatingLabel controlId="floatingSelect" label="Choose Sex">
-                        <Form.Select aria-label="Default select example" onChange={handleChange} name="sex">
-                            <option value="F">F</option>
-                            <option value="M">M</option>
-                            <option value="A">A</option>
-                        </Form.Select>
-                    </FloatingLabel>
+                        <FloatingLabel controlId="floatingSelect" label="Choose Sex">
+                            <Form.Select aria-label="Default select example" onChange={handleChange} name="sex">
+                                <option value="F">F</option>
+                                <option value="M">M</option>
+                                <option value="A">A</option>
+                            </Form.Select>
+                        </FloatingLabel>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3" controlId="formBasicBirthDate">
                     <Form.Label column sm="2">Birth Date</Form.Label>
                     <Col sm="10">
                         <Form.Control type="text" placeholder="Birth Date (YYYY-MM-DD)" onChange={handleChange} name="birthDate" />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3" controlId="formBasicEmail">
+                    <Form.Label column sm="2">Email</Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="email" placeholder="Email" onChange={handleChange} name="email" />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3" controlId="formBasicCity">
+                    <Form.Label column sm="2">City</Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="City" onChange={handleChange} name="city" />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3" controlId="formBasicLastApp">
+                    <Form.Label column sm="2">Last Appointment</Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Last Appointment (YYYY-MM-DD)" onChange={handleChange} name="lastApp" />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3" controlId="formBasicNextApp">
+                    <Form.Label column sm="2">Next Appointment</Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="text" placeholder="Next Appointment (YYYY-MM-DD)" onChange={handleChange} name="nextApp" />
                     </Col>
                 </Form.Group>
             </Form>

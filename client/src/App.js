@@ -12,6 +12,7 @@ import Update from './components/pages/update';
 import Home from './components/pages/home';
 import Header from './components/header';
 import Calendar from './components/calendar';
+import Appointment from './components/pages/appointment';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/add" element={<Add />} />
             <Route path="/update/:id" element={<Update />} />
             <Route path="/calendar" element={<Calendar />} />
+            <Route path="/appointment" element={<Appointment />} />
           </Routes>
         </BrowserRouter>
       </div>

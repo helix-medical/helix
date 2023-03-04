@@ -6,11 +6,6 @@ import ModalViewPatient from "./viewPatient";
 import { useState } from "react";
 
 function PatientItem(props) {
-    // const openModalView = async (e) => {
-    //     e.preventDefault();
-    //     return <ModalViewPatient patient={props.patient} show={true}/>
-    // }
-
     const [show, setShow] = useState(false);
     const toggleModal = () => setShow(!show);
 
@@ -27,7 +22,7 @@ function PatientItem(props) {
                     <Button variant="outline-primary" onClick={toggleModal}>More Infos</Button>
                 </Card.Body>
                 <Card.Footer>
-                    <small className="text-muted">Next Appointment: 2023-02-28</small>
+                    <small className="text-muted">Next Appointment: {props.patient.nextApp}</small>
                 </Card.Footer>
             </Card>
             {show && <ModalViewPatient patient={props.patient} show={show} toggleModal={toggleModal} handleDelete={props.handleDelete} />}
