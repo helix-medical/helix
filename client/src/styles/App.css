@@ -101,6 +101,10 @@
 }
 
 .debug {
-  border: #61dafb 1px solid;
+  border: #61dafb 2px dashed;
   padding: 1%;
+}
+
+.buttons-nav Button {
+  margin-left: 10px;
 }
