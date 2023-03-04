@@ -22,7 +22,7 @@ const Update = () => {
     const handleClick = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:3001/patients/${patientId}`, patient);
+            await axios.put(`http://172.16.183.69:3001/patients/${patientId}`, patient);
             navigate('/patients');
         } catch (error) {
             console.log(error);
@@ -33,10 +33,10 @@ const Update = () => {
         <div>
             <h1>Update a Patient</h1>
             <div className="form">
-                <input type="text" placeholder="Name" onChange={handleChange} name="name" />
-                <input type="text" placeholder="Last Name" onChange={handleChange} name="lastName" />
-                <input type="text" placeholder="Sex" onChange={handleChange} name="sex" />
-                <input type="text" placeholder="Birth Date" onChange={handleChange} name="birthDate" />
+                <input type="text" onChange={handleChange} name="name" />
+                <input type="text" onChange={handleChange} name="lastName" />
+                <input type="text" onChange={handleChange} name="sex" />
+                <input type="text" onChange={handleChange} name="birthDate" />
             </div>
             <button onClick={handleClick}>Update</button>
         </div>

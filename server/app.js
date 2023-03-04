@@ -32,7 +32,7 @@ app.get('/patients', (req, res) => {
 });
 
 app.post('/patients', (req, res) => {
-    const sqlQuery = 'INSERT INTO patients (`name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `lastApp`, `nextApp`) VALUES (?)';
+    const sqlQuery = 'INSERT INTO patients (`name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `lastApp`, `nextApp`, `passif`) VALUES (?)';
     const values = [
         req.body.name,
         req.body.lastName,
@@ -41,7 +41,8 @@ app.post('/patients', (req, res) => {
         req.body.email,
         req.body.city,
         req.body.lastApp,
-        req.body.nextApp
+        req.body.nextApp,
+        req.body.passif
     ];
 
     db.query(sqlQuery, [values], (err, data) => {
@@ -87,6 +88,26 @@ app.put('/patients/:id', (req, res) => {
         }
         return res.json("Patient updated");
     })
+});
+
+app.post('/appointments', (req, res) => {
+    const sqlQuery = 'INSERT INTO appointments (`patientId`, `date`, `reasons`, `anamnesis`, `conclusion`) VALUES (?)';
+    const values = [
+        req.body.patientId,
+        req.body.date,
+        req.body.reasons,
+        req.body.anamnesis,
+        req.body.conclusion
+    ];
+
+    db.query(sqlQuery, [values], (err, data) => {
+        if (err) {
+            console.log(err);
+            return res.json(err);
+        }
+        console.log("New appointment added" + data);
+        return res.json("New appointment added");
+    });
 });
 
 app.listen(port, () => {

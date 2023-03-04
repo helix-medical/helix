@@ -1,7 +1,6 @@
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -20,20 +19,17 @@ function ModalAddPatient(props) {
         city: "",
         lastApp: "",
         nextApp: "",
+        passif: JSON.stringify({}),
     });
 
-    const navigate = useNavigate();
-
     const handleChange = (e) => {
-        console.log(e.target.value);
         setPatient(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
     const handleClick = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3001/patients', patient);
-            navigate('/patients');
+            await axios.post('http://172.16.183.69:3001/patients', patient);
         } catch (error) {
             console.log(error);
         }
@@ -51,12 +47,12 @@ function ModalAddPatient(props) {
                     <Form.Group as={Row} className="mb-2" controlId="formBasicName">
                         <Col sm="5">
                             <FloatingLabel className='mb-3' controlId="floatingInput" label="Name">
-                                <Form.Control type="text" placeholder="Name" onChange={handleChange} name="name" />
+                                <Form.Control type="text" onChange={handleChange} name="name" />
                             </FloatingLabel>
                         </Col>
                         <Col sm="5">
                             <FloatingLabel className='mb-3' controlId="floatingInput" label="Last Name">
-                                <Form.Control type="text" placeholder="Last name" onChange={handleChange} name="lastName" />
+                                <Form.Control type="text" onChange={handleChange} name="lastName" />
                             </FloatingLabel>
                         </Col>
                         <Col sm="2">
@@ -77,19 +73,19 @@ function ModalAddPatient(props) {
                         </Col>
                         <Col sm="6">
                             <FloatingLabel className='mb-3' controlId="floatingInput" label="City">
-                                <Form.Control type="text" placeholder="City" onChange={handleChange} name="city" />
+                                <Form.Control type="text" onChange={handleChange} name="city" />
                             </FloatingLabel>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-1" controlId="formBasicCom">
                         <Col sm="6">
                             <FloatingLabel className='mb-3' controlId="floatingInput" label="Email">
-                                <Form.Control type="email" placeholder="Email" onChange={handleChange} name="email" />
+                                <Form.Control type="email" onChange={handleChange} name="email" />
                             </FloatingLabel>
                         </Col>
                         <Col sm="6">
                             <FloatingLabel className='mb-3' controlId="floatingInput" label="Phone">
-                                <Form.Control type="phone" placeholder="Phone" /* onChange={handleChange} name="phone" */ />
+                                <Form.Control type="phone" /* onChange={handleChange} name="phone" */ />
                             </FloatingLabel>
                         </Col>
                     </Form.Group>

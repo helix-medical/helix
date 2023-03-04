@@ -2,7 +2,7 @@ import React from "react";
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
-import ModalViewPatient from "./viewPatient";
+import ModalViewPatient from "./modalViewPatient";
 import { useState } from "react";
 
 function PatientItemGrid(props) {
@@ -15,11 +15,10 @@ function PatientItemGrid(props) {
                 <Card.Body>
                     <Card.Title>{props.patient.name} {props.patient.lastName}</Card.Title>
                     <ListGroup variant="flush">
-                        <ListGroup.Item>Sex: {props.patient.sex}</ListGroup.Item>
-                        <ListGroup.Item>Birth Date: {props.patient.birthDate}</ListGroup.Item>
                         <ListGroup.Item>ID: {props.patient.id}</ListGroup.Item>
+                        <ListGroup.Item>Sex: {props.patient.sex}</ListGroup.Item>
                     </ListGroup>
-                    <Button variant="outline-primary" onClick={toggleModal}>More Infos</Button>
+                    <Button variant="outline-primary" onClick={toggleModal}>More Info</Button>
                 </Card.Body>
                 <Card.Footer>
                     <small className="text-muted">Next Appointment: {props.patient.nextApp}</small>

@@ -4,6 +4,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import React from 'react';
+import Icon from '@mdi/react';
+import { mdiAccount } from '@mdi/js';
 
 function Header(props) {
   return (
@@ -44,7 +46,7 @@ function Header(props) {
             <Button variant="outline-success">Search</Button>
           </Form>
           <Nav>
-            <Nav.Link href="/account">User</Nav.Link>
+            <Nav.Link href="/account"><Icon path={mdiAccount} size={1} />User</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

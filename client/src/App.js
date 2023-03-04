@@ -7,7 +7,6 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Patients from './components/pages/patients';
-import Add from './components/pages/add';
 import Update from './components/pages/update';
 import Home from './components/pages/home';
 import Header from './components/header';
@@ -23,7 +22,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/patients" element={<Patients />} />
-            <Route path="/add" element={<Add />} />
             <Route path="/update/:id" element={<Update />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/appointment" element={<Appointment />} />

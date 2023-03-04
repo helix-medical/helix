@@ -1,12 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from 'axios';
+
+import { Icon } from "@mdi/react";
+import { mdiTable, mdiViewGridOutline } from "@mdi/js";
+
+import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/esm/Button";
 import CardGroup from "react-bootstrap/esm/CardGroup";
+
 import PatientItemGrid from "../patientItemGrid";
 import ModalAddPatient from "./add";
-import Navbar from "react-bootstrap/Navbar";
 import PatientsTableView from "../patientsTableView";
+
 
 const Patients = () => {
     const [patients, setPatients] = useState([]);
@@ -18,7 +24,7 @@ const Patients = () => {
     useEffect(() => {
         const fetchAllPatients = async () => {
             try {
-                const res = await axios.get('http://localhost:3001/patients');
+                const res = await axios.get('http://172.16.183.69:3001/patients');
                 setPatients(res.data);
             } catch (error) {
                 console.log(error);
@@ -29,7 +35,7 @@ const Patients = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:3001/patients/${id}`);
+            await axios.delete(`http://172.16.183.69:3001/patients/${id}`);
             window.location.reload();
         } catch (error) {
             console.log(error);
@@ -48,7 +54,7 @@ const Patients = () => {
                                 if (currentState === "grid") return "table";
                                 else return "grid";
                             })
-                        }>{isGrid ? "Table" : "Grid"}</Button>
+                        }><Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}</Button>
                         <Button variant="primary" onClick={toggleModal}>Add a Patient</Button>
                     </div>
                 </div>
