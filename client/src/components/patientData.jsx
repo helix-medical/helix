@@ -74,7 +74,7 @@ function PatientData(props) {
                     <Form className="step">
                         <h3>Previous Medical Issues</h3>
                         <Form.Group controlId="formBasicMedicalIssues">
-                            <Form.Control as="textarea" rows={10} defaultValue={props.patient.lastIssues} />
+                            <Form.Control as="textarea" rows={10} defaultValue={props.patient.passif} />
                         </Form.Group>
                     </Form>
                 </Tab>

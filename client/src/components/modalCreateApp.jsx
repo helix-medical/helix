@@ -36,12 +36,10 @@ function ModalCreateApp(props) {
         e.preventDefault();
         try {
             index = await axios.post(`http://${process.env.REACT_APP_BACKEND_API}/appointments/new`, finalData);
-            console.log(index);
         } catch (error) {
             console.log(error);
         }
         props.toggleModal();
-        // go to the new appointment page
         window.location.href = "http://localhost:3000/appointments/new/" + index.data;
     }
 

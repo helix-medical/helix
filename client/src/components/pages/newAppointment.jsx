@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import PatientData from '../patientData';
 import Anamnesis from '../anamnesis';
@@ -9,7 +9,36 @@ import axios from "axios";
 function NewAppointment(props) {
     // the address of this page is /appointments/new/id. 
     const id = window.location.href.split("/").pop();
-    console.log(id);
+
+    const [appointment, setAppointment] = useState([]);
+    useEffect(() => {
+        const fetchAppointment = async () => {
+            try {
+                const res = await axios.get(`http://${process.env.REACT_APP_BACKEND_API}/appointments/${id}`);
+                setAppointment(res.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchAppointment()
+    }, []);
+
+    const patientId = appointment[0].patientId;
+
+    const [patient, setPatient] = useState([]);
+    useEffect(() => {
+        const fetchPatient = async () => {
+            try {
+                const res = await axios.get(`http://${process.env.REACT_APP_BACKEND_API}/patients/${patientId}`);
+                setPatient(res.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchPatient()
+    }, []);
+
+    console.log(patient[0]);
 
     const patientExample = {
         id: id,
@@ -21,7 +50,7 @@ function NewAppointment(props) {
         city: "Buenos Aires",
         lastApp: "2021-01-01",
         nextApp: "2023-01-01",
-        lastIssues: "Covid"
+        passif: "Covid"
     };
 
     const [anamnesis, setAnamnesis] = useState({

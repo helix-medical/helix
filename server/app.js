@@ -113,6 +113,18 @@ app.get('/api/appointments', (req, res) => {
     });
 });
 
+app.get('/api/appointments/:id', (req, res) => {
+    const appointmentId = req.params.id;
+    const sqlQuery = 'SELECT * FROM appointments WHERE id = ?';
+    db.query(sqlQuery, appointmentId, (err, data) => {
+        if (err) {
+            console.log(err);
+            return res.json(err);
+        }
+        return res.json(data);
+    });
+});
+
 app.post('/api/appointments/new', (req, res) => {
     const sqlQuery = 'INSERT INTO appointments (`patientId`, `date`, `names`, `reasons`, `anamnesis`, `conclusion`) VALUES (?)';
     const values = [
@@ -129,7 +141,6 @@ app.post('/api/appointments/new', (req, res) => {
             console.log(err);
             return res.json(err);
         }
-        console.log(data.insertId);
         return res.json(data.insertId);
     });
 });
