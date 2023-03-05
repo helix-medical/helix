@@ -17,11 +17,10 @@ import Badge from "react-bootstrap/esm/Badge";
 const Patients = () => {
     // fetch all patients
     const [patients, setPatients] = useState([]);
-
     useEffect(() => {
         const fetchAllPatients = async () => {
             try {
-                const res = await axios.get('http://172.16.183.69:3001/patients');
+                const res = await axios.get(`http://${process.env.REACT_APP_BACKEND_API}/patients`);
                 setPatients(res.data);
             } catch (error) {
                 console.log(error);
@@ -34,7 +33,7 @@ const Patients = () => {
     // Delete a patient
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://172.16.183.69:3001/patients/${id}`);
+            await axios.delete(`http://${process.env.REACT_APP_BACKEND_API}/patients/${id}`);
             window.location.reload();
         } catch (error) {
             console.log(error);

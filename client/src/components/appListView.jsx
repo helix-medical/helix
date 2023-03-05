@@ -7,6 +7,7 @@ function AppTableView(props) {
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Name</th>
                     <th>Date</th>
                     <th>Reasons</th>
                     <th>Patient ID</th>
@@ -16,6 +17,7 @@ function AppTableView(props) {
                 {props.appointments.map((appointment) => (
                     <tr key={appointment.id}>
                         <td>{appointment.id}</td>
+                        <td>{appointment.names}</td>
                         <td>{appointment.date}</td>
                         <td>{appointment.reasons}</td>
                         <td>{appointment.patientId}</td>

@@ -22,7 +22,7 @@ const Update = () => {
     const handleClick = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://172.16.183.69:3001/patients/${patientId}`, patient);
+            await axios.put(`http://${process.env.REACT_APP_BACKEND_API}/patients/${patientId}`, patient);
             navigate('/patients');
         } catch (error) {
             console.log(error);

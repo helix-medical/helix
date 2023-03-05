@@ -16,11 +16,11 @@ const db = mysql.createConnection({
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req, res) => {
-    res.send('<h1>Helix: A System for Patient Management</h1>');
+app.get('/api', (req, res) => {
+    res.send('<h1>Helix: A System for Patient Management [[API]]</h1>');
 });
 
-app.get('/patients', (req, res) => {
+app.get('/api/patients', (req, res) => {
     const sqlQuery = 'SELECT * FROM patients';
     db.query(sqlQuery, (err, data) => {
         if (err) {
@@ -31,7 +31,7 @@ app.get('/patients', (req, res) => {
     });
 });
 
-app.get('/patients/:id', (req, res) => {
+app.get('/api/patients/:id', (req, res) => {
     const patientId = req.params.id;
     const sqlQuery = 'SELECT * FROM patients WHERE id = ?';
     db.query(sqlQuery, patientId, (err, data) => {
@@ -43,7 +43,7 @@ app.get('/patients/:id', (req, res) => {
     });
 });
 
-app.post('/patients/add', (req, res) => {
+app.post('/api/patients/add', (req, res) => {
     const sqlQuery = 'INSERT INTO patients (`name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `lastApp`, `nextApp`, `passif`) VALUES (?)';
     const values = [
         req.body.name,
@@ -66,7 +66,7 @@ app.post('/patients/add', (req, res) => {
     });
 });
 
-app.delete('/patients/:id', (req, res) => {
+app.delete('/api/patients/:id', (req, res) => {
     const patientId = req.params.id;
     const sqlQuery = 'DELETE FROM patients WHERE id = ?';
 
@@ -79,7 +79,7 @@ app.delete('/patients/:id', (req, res) => {
     })
 });
 
-app.put('/patients/:id', (req, res) => {
+app.put('/api/patients/:id', (req, res) => {
     const patientId = req.params.id;
     const sqlQuery = 'UPDATE patients SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ?, `email` = ?, `city` = ?, `lastApp` = ?, `nextApp` = ? WHERE id = ?';
     const values = [
@@ -102,7 +102,7 @@ app.put('/patients/:id', (req, res) => {
     })
 });
 
-app.get('/appointments', (req, res) => {
+app.get('/api/appointments', (req, res) => {
     const sqlQuery = 'SELECT * FROM appointments';
     db.query(sqlQuery, (err, data) => {
         if (err) {
@@ -113,11 +113,12 @@ app.get('/appointments', (req, res) => {
     });
 });
 
-app.post('/appointments/new', (req, res) => {
-    const sqlQuery = 'INSERT INTO appointments (`patientId`, `date`, `reasons`, `anamnesis`, `conclusion`) VALUES (?)';
+app.post('/api/appointments/new', (req, res) => {
+    const sqlQuery = 'INSERT INTO appointments (`patientId`, `date`, `names`, `reasons`, `anamnesis`, `conclusion`) VALUES (?)';
     const values = [
         req.body.patientId,
         req.body.date,
+        req.body.names,
         req.body.reasons,
         req.body.anamnesis,
         req.body.conclusion
@@ -128,8 +129,8 @@ app.post('/appointments/new', (req, res) => {
             console.log(err);
             return res.json(err);
         }
-        console.log("New appointment added");
-        return res.json("New appointment added");
+        console.log(data.insertId);
+        return res.json(data.insertId);
     });
 });
 

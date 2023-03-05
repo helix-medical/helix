@@ -7,18 +7,22 @@ import ConclusionApp from '../conclusionApp';
 import axios from "axios";
 
 function NewAppointment(props) {
+    // the address of this page is /appointments/new/id. 
+    const id = window.location.href.split("/").pop();
+    console.log(id);
+
     const patientExample = {
-        id: 1,
-        name: "Michelle",
-        lastName: "Dalala",
-        sex: "F",
+        id: id,
+        name: id,
+        lastName: id,
+        sex: id,
         birthDate: "1990-01-01",
         email: "mich.dal@gmail.com",
         city: "Buenos Aires",
         lastApp: "2021-01-01",
         nextApp: "2023-01-01",
         lastIssues: "Covid"
-    }
+    };
 
     const [anamnesis, setAnamnesis] = useState({
         reasons: "",
@@ -37,13 +41,13 @@ function NewAppointment(props) {
         e.preventDefault();
         const appointment = {
             patientId: patientExample.id,
-            date: "2021-01-01",
+            date: "2021-01-01 12:00:00",
             reasons: anamnesis.reasons,
             anamnesis: JSON.stringify(anamnesis),
             conclusion: JSON.stringify(conclusion)
         }
         try {
-            await axios.post('http://172.16.183.69:3001/appointments/new', appointment);
+            await axios.post(`http://${process.env.REACT_APP_BACKEND_API}/appointments/new`, appointment);
         } catch (error) {
             console.log(error);
         }
