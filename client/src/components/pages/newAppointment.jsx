@@ -43,7 +43,7 @@ function NewAppointment(props) {
             conclusion: JSON.stringify(conclusion)
         }
         try {
-            await axios.post('http://172.16.183.69:3001/appointments', appointment);
+            await axios.post('http://172.16.183.69:3001/appointments/new', appointment);
         } catch (error) {
             console.log(error);
         }

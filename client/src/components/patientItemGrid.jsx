@@ -10,7 +10,7 @@ function PatientItemGrid(props) {
     const toggleModal = () => setShow(!show);
 
     return (
-        <div className="patient" key={props.patient.id}>
+        <div className="card-view" key={props.patient.id}>
             <Card border='primary' style={{ width: '18rem' }}>
                 <Card.Body>
                     <Card.Title>{props.patient.name} {props.patient.lastName}</Card.Title>

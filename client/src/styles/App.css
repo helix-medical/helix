@@ -43,7 +43,7 @@
   justify-content: center;
 }
 
-.patient {
+.card-view {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,7 +52,7 @@
   /* border: #61dafb 1px solid; */
 }
 
-.patient button {
+.card-view button {
   margin: 10px;
 }
 

@@ -31,7 +31,19 @@ app.get('/patients', (req, res) => {
     });
 });
 
-app.post('/patients', (req, res) => {
+app.get('/patients/:id', (req, res) => {
+    const patientId = req.params.id;
+    const sqlQuery = 'SELECT * FROM patients WHERE id = ?';
+    db.query(sqlQuery, patientId, (err, data) => {
+        if (err) {
+            console.log(err);
+            return res.json(err);
+        }
+        return res.json(data);
+    });
+});
+
+app.post('/patients/add', (req, res) => {
     const sqlQuery = 'INSERT INTO patients (`name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `lastApp`, `nextApp`, `passif`) VALUES (?)';
     const values = [
         req.body.name,
@@ -101,7 +113,7 @@ app.get('/appointments', (req, res) => {
     });
 });
 
-app.post('/appointments', (req, res) => {
+app.post('/appointments/new', (req, res) => {
     const sqlQuery = 'INSERT INTO appointments (`patientId`, `date`, `reasons`, `anamnesis`, `conclusion`) VALUES (?)';
     const values = [
         req.body.patientId,

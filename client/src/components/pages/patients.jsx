@@ -15,11 +15,8 @@ import PatientsTableView from "../patientsTableView";
 import Badge from "react-bootstrap/esm/Badge";
 
 const Patients = () => {
+    // fetch all patients
     const [patients, setPatients] = useState([]);
-    const [show, setShow] = useState(false);
-    const toggleModal = () => setShow(!show);
-    const [viewType, setViewType] = useState("grid");
-    const isGrid = viewType === "grid";
 
     useEffect(() => {
         const fetchAllPatients = async () => {
@@ -32,9 +29,9 @@ const Patients = () => {
         }
         fetchAllPatients()
     }, []);
-
     const nbPatients = patients.length;
 
+    // Delete a patient
     const handleDelete = async (id) => {
         try {
             await axios.delete(`http://172.16.183.69:3001/patients/${id}`);
@@ -43,6 +40,14 @@ const Patients = () => {
             console.log(error);
         }
     };
+
+    // Modal
+    const [show, setShow] = useState(false);
+    const toggleModal = () => setShow(!show);
+
+    // View Type
+    const [viewType, setViewType] = useState("grid");
+    const isGrid = viewType === "grid";
 
     return (
         <div>

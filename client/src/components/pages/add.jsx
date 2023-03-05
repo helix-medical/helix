@@ -29,7 +29,7 @@ function ModalAddPatient(props) {
     const handleClick = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://172.16.183.69:3001/patients', patient);
+            await axios.post('http://172.16.183.69:3001/patients/add', patient);
         } catch (error) {
             console.log(error);
         }
