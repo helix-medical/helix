@@ -2,10 +2,10 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/esm/Row";
+import Row from "react-bootstrap/Row";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Badge from "react-bootstrap/Badge";
 
 function PatientData(props) {

@@ -6,11 +6,11 @@ import { Icon } from "@mdi/react";
 import { mdiTable, mdiViewGridOutline } from "@mdi/js";
 
 import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/esm/Button";
-import CardGroup from "react-bootstrap/esm/CardGroup";
+import Button from "react-bootstrap/Button";
+import CardGroup from "react-bootstrap/CardGroup";
+import Badge from "react-bootstrap/Badge";
 
 import AppItemGrid from "../appItemGrid";
-import Badge from "react-bootstrap/esm/Badge";
 import AppTableView from "../appListView";
 import ModalCreateApp from "../modalCreateApp";
 

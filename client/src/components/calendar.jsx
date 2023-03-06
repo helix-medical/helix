@@ -1,5 +1,5 @@
 import React from "react";
-import Badge from "react-bootstrap/esm/Badge";
+import Badge from "react-bootstrap/Badge";
 
 const Calendar = () => {
     return (

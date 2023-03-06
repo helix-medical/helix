@@ -6,13 +6,13 @@ import { Icon } from "@mdi/react";
 import { mdiTable, mdiViewGridOutline } from "@mdi/js";
 
 import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/esm/Button";
-import CardGroup from "react-bootstrap/esm/CardGroup";
+import Button from "react-bootstrap/Button";
+import CardGroup from "react-bootstrap/CardGroup";
+import Badge from "react-bootstrap/Badge";
 
 import PatientItemGrid from "../patientItemGrid";
 import ModalAddPatient from "./add";
 import PatientsTableView from "../patientsTableView";
-import Badge from "react-bootstrap/esm/Badge";
 
 const Patients = () => {
     // fetch all patients

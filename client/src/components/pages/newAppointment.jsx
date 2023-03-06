@@ -1,13 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import Button from "react-bootstrap/Button";
 import PatientData from '../patientData';
 import Anamnesis from '../anamnesis';
 import ConclusionApp from '../conclusionApp';
-import axios from "axios";
+import AppointmentData from "../appointmentData";
 
 function NewAppointment(props) {
-    // the address of this page is /appointments/new/id. 
     const id = window.location.href.split("/").pop();
 
     const [appointment, setAppointment] = useState([]);
@@ -23,11 +23,11 @@ function NewAppointment(props) {
         fetchAppointment()
     }, []);
 
-    const patientId = appointment[0].patientId;
 
     const [patient, setPatient] = useState([]);
     useEffect(() => {
         const fetchPatient = async () => {
+            const patientId = appointment[0].patientId;
             try {
                 const res = await axios.get(`http://${process.env.REACT_APP_BACKEND_API}/patients/${patientId}`);
                 setPatient(res.data);
@@ -68,7 +68,7 @@ function NewAppointment(props) {
 
     const handleClick = async (e) => {
         e.preventDefault();
-        const appointment = {
+        const appointmentFinal = {
             patientId: patientExample.id,
             date: "2021-01-01 12:00:00",
             reasons: anamnesis.reasons,
@@ -76,16 +76,19 @@ function NewAppointment(props) {
             conclusion: JSON.stringify(conclusion)
         }
         try {
-            await axios.post(`http://${process.env.REACT_APP_BACKEND_API}/appointments/new`, appointment);
+            await axios.post(`http://${process.env.REACT_APP_BACKEND_API}/appointments/new`, appointmentFinal);
         } catch (error) {
             console.log(error);
         }
         window.location.reload();
     }
 
+    console.log(appointment)
+
     return (
         <div>
             <h1>Appointment</h1>
+            <AppointmentData appointment={appointment} />
             <PatientData patient={patientExample} />
             <Anamnesis handler={setAnamnesis} />
             <ConclusionApp handler={setConclusion} />

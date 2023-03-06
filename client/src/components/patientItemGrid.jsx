@@ -1,9 +1,9 @@
 import React from "react";
+import { useState } from "react";
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import ModalViewPatient from "./modalViewPatient";
-import { useState } from "react";
 
 function PatientItemGrid(props) {
     const [show, setShow] = useState(false);
