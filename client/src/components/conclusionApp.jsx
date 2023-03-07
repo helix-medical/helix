@@ -8,23 +8,26 @@ function ConclusionApp(props) {
         props.handler(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
+    const conclusion = JSON.parse(props.appointment.conclusion);
+    // const readonly = props.appointment.status === 'pending' ? false : true;
+
     return (
         <div className="debug">
             <h2>Conclusion</h2>
             <Form>
                 <Form.Group className="mb-3" controlId="formBasicDiagnosis">
                     <Form.Label>Diagnosis</Form.Label>
-                    <Form.Control as="textarea" rows={1} name='diagnosis' onChange={handleChange} />
+                    <Form.Control as="textarea" rows={1} name='diagnosis' onChange={handleChange} defaultValue={conclusion.diagnosis} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicTreatment">
                     <Form.Label>Treatment</Form.Label>
-                    <Form.Control as="textarea" rows={3} name='treatment' onChange={handleChange} />
+                    <Form.Control as="textarea" rows={3} name='treatment' onChange={handleChange} defaultValue={conclusion.treatment} />
                 </Form.Group>
                 <Row>
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicObservations">
                             <Form.Label>Observations</Form.Label>
-                            <Form.Control as="textarea" rows={3} name='observations' onChange={handleChange} />
+                            <Form.Control as="textarea" rows={3} name='observations' onChange={handleChange} defaultValue={conclusion.observations} />
                         </Form.Group>
                     </Col>
                     <Col>

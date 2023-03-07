@@ -17,9 +17,11 @@ function ModalAddPatient(props) {
         sex: "",
         email: "",
         city: "",
-        lastApp: "",
         nextApp: "",
-        passif: JSON.stringify({})
+        passif: JSON.stringify({
+            medicalIssues: "",
+            lastAppointments: [],
+        })
     });
 
     const handleChange = (e) => {

@@ -15,8 +15,17 @@ function ModalCreateApp(props) {
         time: "",
         names: "",
         reasons: "",
-        anamnesis: "{}",
-        conclusion: "{}"
+        anamnesis: {
+            reasons: "",
+            symptoms: "",
+            knownDiseases: "",
+            knownMedications: ""
+        },
+        conclusion: {
+            diagnosis: "",
+            treatment: "",
+            observations: ""
+        }
     });
 
     const handleChange = (e) => {
@@ -30,9 +39,10 @@ function ModalCreateApp(props) {
             date: data.date + " " + data.time,
             names: data.names,
             reasons: data.reasons,
-            anamnesis: data.anamnesis,
-            conclusion: data.conclusion
+            anamnesis: JSON.stringify(data.anamnesis),
+            conclusion: JSON.stringify(data.conclusion)
         }
+        console.log(finalData);
         e.preventDefault();
         try {
             index = await axios.post(`http://${process.env.REACT_APP_BACKEND_API}/appointments/new`, finalData);
@@ -40,7 +50,7 @@ function ModalCreateApp(props) {
             console.log(error);
         }
         props.toggleModal();
-        window.location.href = "http://localhost:3000/appointments/new/" + index.data;
+        window.location.href = `http://${process.env.REACT_APP_FRONTEND}/appointments/edit/${index.data}`;
     }
 
     return (

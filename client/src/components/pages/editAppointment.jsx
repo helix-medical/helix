@@ -7,22 +7,27 @@ import Anamnesis from '../anamnesis';
 import ConclusionApp from '../conclusionApp';
 import AppointmentData from "../appointmentData";
 
-function NewAppointment(props) {
+function EditAppointment(props) {
     const id = window.location.href.split("/").pop();
 
     const [data, setData] = useState(
         {
-            // id: id,
-            // date: "",
-            // reasons: "",
-            // anamnesis: "{}",
-            // conclusion: "{}",
-            // patientId: "",
-            // name: "",
-            // lastName: "",
-            // birthDate: "",
-            // sex: "",
-            // passif: "{}"
+            id: id,
+            date: "",
+            reasons: "",
+            anamnesis: "{}",
+            conclusion: "{}",
+            patientId: "",
+            status: "",
+            name: "",
+            lastName: "",
+            email: "",
+            birthDate: "",
+            sex: "",
+            passif: JSON.stringify({
+                medicalIssues: "",
+                lastAppointments: []
+            })
         }
     );
     useEffect(() => {
@@ -34,7 +39,8 @@ function NewAppointment(props) {
                 console.log(error);
             }
         }
-        fetchData()
+        fetchData();
+        // eslint-disable-next-line
     }, []);
 
     const [anamnesis, setAnamnesis] = useState({
@@ -53,18 +59,18 @@ function NewAppointment(props) {
     const handleClick = async (e) => {
         e.preventDefault();
         const appointmentFinal = {
-            patientId: data.patientId,
-            date: "2021-01-01 12:00:00",
-            reasons: anamnesis.reasons,
             anamnesis: JSON.stringify(anamnesis),
             conclusion: JSON.stringify(conclusion)
-        }
+        };
+
+        console.log(appointmentFinal);
+
         try {
-            await axios.post(`http://${process.env.REACT_APP_BACKEND_API}/appointments/new`, appointmentFinal);
+            await axios.put(`http://${process.env.REACT_APP_BACKEND_API}/appointments/update/${id}`, appointmentFinal);
         } catch (error) {
             console.log(error);
         }
-        window.location.reload();
+        window.location.href = `http://${process.env.REACT_APP_FRONTEND}/appointments`;
     }
 
     return (
@@ -72,13 +78,13 @@ function NewAppointment(props) {
             <h1>Appointment</h1>
             <AppointmentData appointment={data} />
             <PatientData patient={data} />
-            <Anamnesis handler={setAnamnesis} />
-            <ConclusionApp handler={setConclusion} />
+            <Anamnesis appointment={data} handler={setAnamnesis} />
+            <ConclusionApp appointment={data} handler={setConclusion} />
             <Button variant="primary" onClick={handleClick}>
                 Valid Appointment
             </Button>
         </div>
     );
-}
+};
 
-export default NewAppointment;
+export default EditAppointment;

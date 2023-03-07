@@ -31,16 +31,6 @@ const Patients = () => {
     }, []);
     const nbAppointments = appointments.length;
 
-    // // Delete a patient
-    // const handleDelete = async (id) => {
-    //     try {
-    //         await axios.delete(`http://172.16.183.69:3001/api/patients/${id}`);
-    //         window.location.reload();
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
     // Modal
     const [show, setShow] = useState(false);
     const toggleModal = () => setShow(!show);
