@@ -101,6 +101,22 @@ app.put('/api/patients/:id', (req, res) => {
     })
 });
 
+app.put('/api/patients/newAppointment/:id', (req, res) => {
+    const patientId = req.params.id;
+    const sqlQuery = 'UPDATE patients SET `passif` = JSON_ARRAY_APPEND(`passif`, "$.lastAppointments", ?) WHERE id = ?';
+    const values = [
+        req.body.id
+    ];
+
+    db.query(sqlQuery, [...values, patientId], (err, data) => {
+        if (err) {
+            console.log(err);
+            return res.json(err);
+        }
+        return res.json(data);
+    })
+});
+
 app.get('/api/appointments', (req, res) => {
     const sqlQuery = 'SELECT appointments.id, appointments.date, appointments.reasons, appointments.status, patients.name, patients.lastName, patients.sex FROM appointments INNER JOIN patients ON appointments.patientId = patients.id';
     db.query(sqlQuery, (err, data) => {

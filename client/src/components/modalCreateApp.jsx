@@ -46,6 +46,7 @@ function ModalCreateApp(props) {
         e.preventDefault();
         try {
             index = await axios.post(`http://${process.env.REACT_APP_BACKEND_API}/appointments/new`, finalData);
+            await axios.put(`http://${process.env.REACT_APP_BACKEND_API}/patients/newAppointment/${data.patientId}`, { "id": index.data });
         } catch (error) {
             console.log(error);
         }

@@ -11,7 +11,7 @@ import CardGroup from "react-bootstrap/CardGroup";
 import Badge from "react-bootstrap/Badge";
 
 import PatientItemGrid from "../patientItemGrid";
-import ModalAddPatient from "./add";
+import ModalAddPatient from "./createPatient";
 import PatientsTableView from "../patientsTableView";
 
 const Patients = () => {

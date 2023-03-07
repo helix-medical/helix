@@ -10,7 +10,7 @@ import Badge from "react-bootstrap/Badge";
 
 function PatientData(props) {
     const passif = JSON.parse(props.patient.passif);
-    
+
     return (
         <div className="debug">
             <h2>Patient Data</h2>
@@ -71,7 +71,7 @@ function PatientData(props) {
                 </Tab>
                 <Tab eventKey="appointments" title="Previous Appointments">
                     <div className="step">
-                        <h3>Previous Appointments <Badge pill bg='secondary'>{passif.lastAppointments.length}</Badge></h3>
+                        <h3>Previous Appointments <Badge pill bg='secondary'>{passif.lastAppointments.length - 1}</Badge></h3>
                     </div>
                 </Tab>
             </Tabs>

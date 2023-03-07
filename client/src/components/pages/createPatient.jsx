@@ -20,7 +20,7 @@ function ModalAddPatient(props) {
         nextApp: "",
         passif: JSON.stringify({
             medicalIssues: "",
-            lastAppointments: [],
+            lastAppointments: [0],
         })
     });
 
