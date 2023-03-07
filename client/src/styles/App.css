@@ -78,11 +78,11 @@
   align-self: flex-end;
 }
 
-.debug {
+/* .debug {
   border: #61dafb 10px dashed;
   padding: 1%;
   margin-top: 10px;
-}
+} */
 
 .buttons-nav Button {
   margin-left: 10px;

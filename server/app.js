@@ -103,7 +103,7 @@ app.put('/api/patients/:id', (req, res) => {
 });
 
 app.get('/api/appointments', (req, res) => {
-    const sqlQuery = 'SELECT * FROM appointments';
+    const sqlQuery = 'SELECT appointments.id, appointments.date, appointments.reasons, patients.name, patients.lastName, patients.sex FROM appointments INNER JOIN patients ON appointments.patientId = patients.id';
     db.query(sqlQuery, (err, data) => {
         if (err) {
             console.log(err);
@@ -125,12 +125,23 @@ app.get('/api/appointments/:id', (req, res) => {
     });
 });
 
+app.get('/api/appointments/use/:id', (req, res) => {
+    const appointmentId = req.params.id;
+    const sqlQuery = 'SELECT appointments.id, appointments.date, appointments.reasons, appointments.anamnesis, appointments.conclusion, appointments.patientId, patients.name, patients.lastName, patients.email, patients.birthDate, patients.city, patients.sex, patients.passif FROM appointments INNER JOIN patients ON appointments.patientId = patients.id WHERE appointments.id = ?';
+    db.query(sqlQuery, appointmentId, (err, data) => {
+        if (err) {
+            console.log(err);
+            return res.json(err);
+        }
+        return res.json(data);
+    });
+});
+
 app.post('/api/appointments/new', (req, res) => {
-    const sqlQuery = 'INSERT INTO appointments (`patientId`, `date`, `names`, `reasons`, `anamnesis`, `conclusion`) VALUES (?)';
+    const sqlQuery = 'INSERT INTO appointments (`patientId`, `date`, `reasons`, `anamnesis`, `conclusion`) VALUES (?)';
     const values = [
         req.body.patientId,
         req.body.date,
-        req.body.names,
         req.body.reasons,
         req.body.anamnesis,
         req.body.conclusion

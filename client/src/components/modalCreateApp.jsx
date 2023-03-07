@@ -66,6 +66,7 @@ function ModalCreateApp(props) {
                             <option value="follow-up">Follow Up</option>
                             <option value="pediatrics">Pediatrics</option>
                             <option value="maternity">Maternity</option>
+                            <option value="emergency">Emergency</option>
                         </Form.Select>
                     </FloatingLabel>
                 </Form>

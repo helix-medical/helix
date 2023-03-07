@@ -28,7 +28,8 @@ function PatientData(props) {
                             </Col>
                             <Col sm="4">
                                 <FloatingLabel className="mb-3" label='Sex'>
-                                    <Form.Select defaultValue={props.patient.sex}>
+                                    <Form.Select>
+                                        <option>{props.patient.sex}</option>
                                         <option value="F">F</option>
                                         <option value="M">M</option>
                                         <option value="A">A</option>
@@ -50,18 +51,6 @@ function PatientData(props) {
                             <Col sm="4">
                                 <FloatingLabel className="mb-3" label="City">
                                     <Form.Control defaultValue={props.patient.city} />
-                                </FloatingLabel>
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-1" controlId="formBasicApps">
-                            <Col sm="6">
-                                <FloatingLabel className="mb-3" label="Last Appointment">
-                                    <Form.Control defaultValue={props.patient.lastApp} />
-                                </FloatingLabel>
-                            </Col>
-                            <Col sm="6">
-                                <FloatingLabel className="mb-3" label="Next Appointment">
-                                    <Form.Control defaultValue={props.patient.nextApp} />
                                 </FloatingLabel>
                             </Col>
                         </Form.Group>
