@@ -15,7 +15,7 @@ import ModalAddPatient from "./createPatient";
 import PatientsTableView from "../patientsTableView";
 
 const Patients = () => {
-    // fetch all patients
+    // Fetch all patients
     const [patients, setPatients] = useState([]);
     useEffect(() => {
         const fetchAllPatients = async () => {
@@ -40,7 +40,7 @@ const Patients = () => {
         }
     };
 
-    // Modal
+    // Modal for create a patient
     const [show, setShow] = useState(false);
     const toggleModal = () => setShow(!show);
 
