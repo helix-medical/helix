@@ -25,7 +25,7 @@ function App() {
             <Route path="/patients" element={<Patients />} />
             <Route path="/update/:id" element={<Update />} />
             <Route path="/calendar" element={<Calendar />} />
-            <Route path="/appointments/edit/:appointmentID" element={<EditAppointment />} />
+            <Route path="/appointments/:appointmentID/edit" element={<EditAppointment />} />
             <Route path='/appointments' element={<Appointments />} />
           </Routes>
         </BrowserRouter>

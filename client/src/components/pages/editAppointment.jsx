@@ -8,7 +8,7 @@ import ConclusionApp from '../conclusionApp';
 import AppointmentData from "../appointmentData";
 
 function EditAppointment(props) {
-    const id = window.location.href.split("/").pop();
+    const id = window.location.href.split("/").slice(-2)[0];
 
     const [data, setData] = useState(
         {

@@ -47,7 +47,7 @@ router.post('/add', (req, res) => {
         req.body.passif
     ];
 
-    // TODO: ADD A VALIDATOR HERE
+    // TODO: ADD A VALIDATOR HERE (USE MIDDLEWARE)
 
     db.query(sqlQuery, [values], (err, data) => {
         if (err) {
@@ -90,7 +90,7 @@ router.put('/:id/update', (req, res) => {
         req.body.passif
     ];
 
-    // TODO: ADD A VALIDATOR HERE
+    // TODO: ADD A VALIDATOR HERE (USE MIDDLEWARE)
 
     db.query(sqlQuery, [...values, patientId], (err, data) => {
         if (err) {
