@@ -22,7 +22,7 @@ const Update = () => {
     const handleClick = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://${process.env.REACT_APP_BACKEND_API}/patients/${patientId}`, patient);
+            await axios.put(`/api/patients/${patientId}/update`, patient);
             navigate('/patients');
         } catch (error) {
             console.log(error);

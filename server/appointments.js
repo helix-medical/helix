@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/read/:id', (req, res) => {
+router.get('/:id/read', (req, res) => {
     const appointmentId = req.params.id;
     const sqlQuery = `
     SELECT *
@@ -32,7 +32,7 @@ router.get('/read/:id', (req, res) => {
     });
 });
 
-router.get('/appointment/:id', (req, res) => {
+router.get('/:id/appointment', (req, res) => {
     const appointmentId = req.params.id;
     const sqlQuery = `
     SELECT appointments.id, appointments.date, appointments.reasons, appointments.anamnesis, appointments.conclusion, appointments.patientId, appointments.status, patients.name, patients.lastName, patients.email, patients.birthDate, patients.city, patients.sex, patients.passif 
@@ -71,7 +71,7 @@ router.post('/new', (req, res) => {
     });
 });
 
-router.put('/update/:id', (req, res) => {
+router.put('/:id/update', (req, res) => {
     const appointmentId = req.params.id;
     const sqlQuery = 'UPDATE appointments ' +
         'SET `anamnesis` = ?, `conclusion` = ?, `status` = ? ' +

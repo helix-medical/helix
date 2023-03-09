@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/read/:id', (req, res) => {
+router.get('/:id/read', (req, res) => {
     const patientId = req.params.id;
     const sqlQuery = `
     SELECT *
@@ -58,7 +58,7 @@ router.post('/add', (req, res) => {
     });
 });
 
-router.delete('/delete/:id', (req, res) => {
+router.delete('/:id/delete', (req, res) => {
     const patientId = req.params.id;
     const sqlQuery = `DELETE 
     FROM patients
@@ -74,7 +74,7 @@ router.delete('/delete/:id', (req, res) => {
     });
 });
 
-router.put('/update/:id', (req, res) => {
+router.put('/:id/update', (req, res) => {
     const patientId = req.params.id;
     const sqlQuery = 'UPDATE patients ' +
         'SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ?, `email` = ?, `city` = ?, `nextApp` = ?, `passif` = ? ' +
@@ -101,7 +101,7 @@ router.put('/update/:id', (req, res) => {
     });
 });
 
-router.put('/add_appointment/:id', (req, res) => {
+router.put('/:id/add_appointment/', (req, res) => {
     const patientId = req.params.id;
     const sqlQuery = 'UPDATE patients ' +
         'SET `passif` = JSON_ARRAY_APPEND(`passif`, "$.lastAppointments", ?) ' +

@@ -33,7 +33,7 @@ function EditAppointment(props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`/api/appointments/appointment/${id}`);
+                const res = await axios.get(`/api/appointments/${id}/appointment`);
                 setData(res.data[0]);
             } catch (error) {
                 console.log(error);
@@ -65,7 +65,7 @@ function EditAppointment(props) {
         console.log(appointmentFinal);
 
         try {
-            await axios.put(`/api/appointments/update/${id}`, appointmentFinal);
+            await axios.put(`/api/appointments/${id}/update`, appointmentFinal);
         } catch (error) {
             console.log(error);
         }

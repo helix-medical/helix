@@ -33,7 +33,7 @@ const Patients = () => {
     // Delete a patient
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`/api/patients/delete/${id}`);
+            await axios.delete(`/api/patients/${id}/delete`);
             window.location.reload();
         } catch (error) {
             console.log(error);
