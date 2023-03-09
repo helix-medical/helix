@@ -3,6 +3,7 @@ import { useState } from "react";
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
+import dateToReadable from "../utils/date";
 import ModalViewPatient from "./modalViewPatient";
 
 function PatientItemGrid(props) {
@@ -21,7 +22,7 @@ function PatientItemGrid(props) {
                     <Button variant="outline-primary" onClick={toggleModal}>More Info</Button>
                 </Card.Body>
                 <Card.Footer>
-                    <small className="text-muted">Next Appointment: {props.patient.nextApp}</small>
+                    <small className="text-muted">Next Appointment: {dateToReadable(props.patient.nextApp)}</small>
                 </Card.Footer>
             </Card>
             {show && <ModalViewPatient patient={props.patient} show={show} toggleModal={toggleModal} handleDelete={props.handleDelete} />}

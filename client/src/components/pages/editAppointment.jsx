@@ -33,15 +33,14 @@ function EditAppointment(props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://${process.env.REACT_APP_BACKEND_API}/appointments/use/${id}`);
+                const res = await axios.get(`/api/appointments/appointment/${id}`);
                 setData(res.data[0]);
             } catch (error) {
                 console.log(error);
             }
         }
         fetchData();
-        // eslint-disable-next-line
-    }, []);
+    }, [id]);
 
     const [anamnesis, setAnamnesis] = useState({
         reasons: "",
@@ -66,7 +65,7 @@ function EditAppointment(props) {
         console.log(appointmentFinal);
 
         try {
-            await axios.put(`http://${process.env.REACT_APP_BACKEND_API}/appointments/update/${id}`, appointmentFinal);
+            await axios.put(`/api/appointments/update/${id}`, appointmentFinal);
         } catch (error) {
             console.log(error);
         }

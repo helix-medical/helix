@@ -21,10 +21,10 @@ function ModalViewPatient(props) {
                     <ListGroup.Item>Birth Date: {dateToReadable(props.patient.birthDate)}</ListGroup.Item>
                     <ListGroup.Item>Email: {props.patient.email}</ListGroup.Item>
                     <ListGroup.Item>City: {props.patient.city}</ListGroup.Item>
-                    <ListGroup.Item>Last Appointment: {props.patient.lastApp}
-                        <Badge pill bg='primary'>12</Badge>
+                    <ListGroup.Item>Last Appointments: 
+                        <Badge bg='danger'>TODO</Badge>
                     </ListGroup.Item>
-                    <ListGroup.Item>Next Appointment: {props.patient.nextApp}</ListGroup.Item>
+                    <ListGroup.Item>Next Appointment: {dateToReadable(props.patient.nextApp)}</ListGroup.Item>
                 </ListGroup>
             </Modal.Body>
             <Modal.Footer>

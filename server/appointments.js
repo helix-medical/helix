@@ -32,7 +32,7 @@ router.get('/read/:id', (req, res) => {
     });
 });
 
-router.get('/use/:id', (req, res) => {
+router.get('/appointment/:id', (req, res) => {
     const appointmentId = req.params.id;
     const sqlQuery = `
     SELECT appointments.id, appointments.date, appointments.reasons, appointments.anamnesis, appointments.conclusion, appointments.patientId, appointments.status, patients.name, patients.lastName, patients.email, patients.birthDate, patients.city, patients.sex, patients.passif 

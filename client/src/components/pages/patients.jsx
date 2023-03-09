@@ -20,7 +20,7 @@ const Patients = () => {
     useEffect(() => {
         const fetchAllPatients = async () => {
             try {
-                const res = await axios.get(`http://${process.env.REACT_APP_BACKEND_API}/patients`);
+                const res = await axios.get(`/api/patients`);
                 setPatients(res.data);
             } catch (error) {
                 console.log(error);
@@ -33,7 +33,7 @@ const Patients = () => {
     // Delete a patient
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://${process.env.REACT_APP_BACKEND_API}/patients/${id}`);
+            await axios.delete(`/api/patients/delete/${id}`);
             window.location.reload();
         } catch (error) {
             console.log(error);

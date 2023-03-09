@@ -8,20 +8,20 @@ function AppTableView(props) {
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
                     <th>Date</th>
+                    <th>Name</th>
                     <th>Reasons</th>
-                    <th>Patient ID</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 {props.appointments.map((appointment) => (
                     <tr key={appointment.id}>
                         <td>{appointment.id}</td>
-                        <td>{appointment.names}</td>
                         <td>{dateToReadable(appointment.date)}</td>
+                        <td>{appointment.name} {appointment.lastName} ({appointment.sex})</td>
                         <td>{appointment.reasons}</td>
-                        <td>{appointment.patientId}</td>
+                        <td>{appointment.status}</td>
                     </tr>
                 ))}
             </tbody>
