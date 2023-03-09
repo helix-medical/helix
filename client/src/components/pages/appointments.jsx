@@ -21,7 +21,7 @@ const Patients = () => {
     useEffect(() => {
         const fetchAllAppointments = async () => {
             try {
-                const res = await axios.get(`http://${process.env.REACT_APP_BACKEND_API}/appointments`);
+                const res = await axios.get('/api/appointments');
                 setAppointments(res.data);
             } catch (error) {
                 console.log(error);

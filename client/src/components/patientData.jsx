@@ -57,9 +57,6 @@ function PatientData(props) {
                                 </FloatingLabel>
                             </Col>
                         </Form.Group>
-                        <Button variant="outline-primary">
-                            Edit Patient Data
-                        </Button>
                     </Form>
                 </Tab>
                 <Tab eventKey="medical" title="Previous Medical Issues">
@@ -76,6 +73,10 @@ function PatientData(props) {
                     </div>
                 </Tab>
             </Tabs>
+            {/* simply send the new data to server */}
+            <Button variant="outline-primary">
+                Edit Patient Data
+            </Button>
         </div>
     );
 }
