@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import dateToReadable from "../utils/date";
 
 function AppointmentData(props) {
     return (
@@ -12,7 +13,7 @@ function AppointmentData(props) {
                 <Form.Group as={Row} className="mb-1" controlId="formBasicDate">
                     <Col sm="4">
                         <FloatingLabel className="mb-3" label="Date">
-                            <Form.Control readOnly defaultValue={props.appointment.date} />
+                            <Form.Control readOnly defaultValue={dateToReadable(props.appointment.date)} />
                         </FloatingLabel>
                     </Col>
                     <Col sm="4">

@@ -7,6 +7,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Badge from "react-bootstrap/Badge";
+import dateToReadable from "../utils/date";
 
 function PatientData(props) {
     const passif = JSON.parse(props.patient.passif);
@@ -42,7 +43,7 @@ function PatientData(props) {
                         <Form.Group as={Row} className="mb-1" controlId="formBasicBirthDate">
                             <Col sm="4">
                                 <FloatingLabel className="mb-3" label="Birth Date">
-                                    <Form.Control defaultValue={props.patient.birthDate} />
+                                    <Form.Control defaultValue={dateToReadable(props.patient.birthDate)} />
                                 </FloatingLabel>
                             </Col>
                             <Col sm="4">

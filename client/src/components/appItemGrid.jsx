@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import KindAppointment from "./kindAppointment";
 import Badge from 'react-bootstrap/Badge'
+import dateToReadable from "../utils/date";
 
 const status = (state) => {
     if (state === "finished")
@@ -21,7 +22,7 @@ function AppItemGrid(props) {
                 <Card.Body>
                     <Card.Title>{props.appointment.name} {props.appointment.lastName} ({props.appointment.sex})</Card.Title>
                     <ListGroup variant="flush">
-                        <ListGroup.Item>Date: {props.appointment.date}</ListGroup.Item>
+                        <ListGroup.Item>Date: {dateToReadable(props.appointment.date)}</ListGroup.Item>
                         <ListGroup.Item>Kind: <KindAppointment kind={props.appointment.reasons} /></ListGroup.Item>
                         <ListGroup.Item>Status: {status(props.appointment.status)}</ListGroup.Item>
                     </ListGroup>

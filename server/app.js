@@ -75,7 +75,7 @@ app.delete('/api/patients/:id', (req, res) => {
             return res.json(err);
         }
         return res.json("Patient deleted");
-    })
+    });
 });
 
 app.put('/api/patients/:id', (req, res) => {
@@ -98,7 +98,7 @@ app.put('/api/patients/:id', (req, res) => {
             return res.json(err);
         }
         return res.json("Patient updated");
-    })
+    });
 });
 
 app.put('/api/patients/newAppointment/:id', (req, res) => {
@@ -114,7 +114,7 @@ app.put('/api/patients/newAppointment/:id', (req, res) => {
             return res.json(err);
         }
         return res.json(data);
-    })
+    });
 });
 
 app.get('/api/appointments', (req, res) => {
