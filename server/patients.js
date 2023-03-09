@@ -33,7 +33,9 @@ router.get('/read/:id', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    const sqlQuery = 'INSERT INTO patients (`name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `nextApp`, `passif`) VALUES (?)';
+    const sqlQuery = 'INSERT ' +
+        'INTO patients ' +
+        '(`name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `nextApp`, `passif`) VALUES (?)';
     const values = [
         req.body.name,
         req.body.lastName,
@@ -58,8 +60,7 @@ router.post('/add', (req, res) => {
 
 router.delete('/delete/:id', (req, res) => {
     const patientId = req.params.id;
-    const sqlQuery = `
-    DELETE 
+    const sqlQuery = `DELETE 
     FROM patients
     WHERE id = ?
     `;
@@ -75,7 +76,9 @@ router.delete('/delete/:id', (req, res) => {
 
 router.put('/update/:id', (req, res) => {
     const patientId = req.params.id;
-    const sqlQuery = 'UPDATE patients SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ?, `email` = ?, `city` = ?, `nextApp` = ?, `passif` = ? WHERE id = ?';
+    const sqlQuery = 'UPDATE patients ' +
+        'SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ?, `email` = ?, `city` = ?, `nextApp` = ?, `passif` = ? ' +
+        'WHERE id = ?';
     const values = [
         req.body.name,
         req.body.lastName,
@@ -100,7 +103,9 @@ router.put('/update/:id', (req, res) => {
 
 router.put('/add_appointment/:id', (req, res) => {
     const patientId = req.params.id;
-    const sqlQuery = 'UPDATE patients SET `passif` = JSON_ARRAY_APPEND(`passif`, "$.lastAppointments", ?) WHERE id = ?';
+    const sqlQuery = 'UPDATE patients ' +
+        'SET `passif` = JSON_ARRAY_APPEND(`passif`, "$.lastAppointments", ?) ' +
+        'WHERE id = ?';
     const values = [
         req.body.id
     ];

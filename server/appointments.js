@@ -49,7 +49,8 @@ router.get('/appointment/:id', (req, res) => {
 });
 
 router.post('/new', (req, res) => {
-    const sqlQuery = 'INSERT INTO appointments (`patientId`, `date`, `reasons`, `anamnesis`, `conclusion`, `status`) VALUES (?)';
+    const sqlQuery = 'INSERT INTO appointments ' +
+        '(`patientId`, `date`, `reasons`, `anamnesis`, `conclusion`, `status`) VALUES (?)';
     const values = [
         req.body.patientId,
         req.body.date,
@@ -72,7 +73,9 @@ router.post('/new', (req, res) => {
 
 router.put('/update/:id', (req, res) => {
     const appointmentId = req.params.id;
-    const sqlQuery = 'UPDATE appointments SET `anamnesis` = ?, `conclusion` = ?, `status` = ? WHERE id = ?';
+    const sqlQuery = 'UPDATE appointments ' +
+        'SET `anamnesis` = ?, `conclusion` = ?, `status` = ? ' +
+        'WHERE id = ?';
     const values = [
         req.body.anamnesis,
         req.body.conclusion,

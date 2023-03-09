@@ -11,11 +11,10 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/api', (req, res) => {
-    res.send('<h1>Helix: A System for Patient Management [[API]]</h1>');
+    res.json('Helix: A System for Patient Management [[API]]');
 });
 
 app.use('/api/patients', patients);
-
 app.use('/api/appointments', appointments);
 
 app.listen(port, () => {
