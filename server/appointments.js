@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./db');
+const validate = require('./validator');
 
 router.get('/', (req, res) => {
     const sqlQuery = `
@@ -48,6 +49,14 @@ router.get('/:id/appointment', (req, res) => {
     });
 });
 
+router.use('/new', (req, res, next) => {
+    const valid = validate.appointmentCreate(req.body);
+    if (!valid) {
+        return res.json(validate.appointmentCreate.errors);
+    }
+    next();
+});
+
 router.post('/new', (req, res) => {
     const sqlQuery = 'INSERT INTO appointments ' +
         '(`patientId`, `date`, `reasons`, `anamnesis`, `conclusion`, `status`) VALUES (?)';
@@ -60,8 +69,6 @@ router.post('/new', (req, res) => {
         "pending"
     ];
 
-    // TODO: ADD A VALIDATOR HERE
-
     db.query(sqlQuery, [values], (err, data) => {
         if (err) {
             console.log(err);
@@ -69,6 +76,14 @@ router.post('/new', (req, res) => {
         }
         return res.json(data.insertId);
     });
+});
+
+router.use('/:id/update', (req, res, next) => {
+    const valid = validate.appointmentUpdate(req.body);
+    if (!valid) {
+        return res.json(validate.appointmentUpdate.errors);
+    }
+    next();
 });
 
 router.put('/:id/update', (req, res) => {
@@ -81,8 +96,6 @@ router.put('/:id/update', (req, res) => {
         req.body.conclusion,
         "finished"
     ];
-
-    // TODO: ADD A VALIDATOR HERE
 
     db.query(sqlQuery, [...values, appointmentId], (err, data) => {
         if (err) {

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./db');
+const validate = require('./validator');
 
 router.get('/', (req, res) => {
     const sqlQuery = `
@@ -32,6 +33,14 @@ router.get('/:id/read', (req, res) => {
     });
 });
 
+router.use('/add', (req, res, next) => {
+    const valid = validate.patient(req.body);
+    if (!valid) {
+        return res.json(validate.patient.errors);
+    }
+    next();
+});
+
 router.post('/add', (req, res) => {
     const sqlQuery = 'INSERT ' +
         'INTO patients ' +
@@ -46,8 +55,6 @@ router.post('/add', (req, res) => {
         req.body.nextApp,
         req.body.passif
     ];
-
-    // TODO: ADD A VALIDATOR HERE (USE MIDDLEWARE)
 
     db.query(sqlQuery, [values], (err, data) => {
         if (err) {

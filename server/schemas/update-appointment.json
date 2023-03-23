@@ -1,0 +1,16 @@
+{
+    "type": "object",
+    "properties": {
+        "anamnesis": {
+            "type": "string"
+        },
+        "conclusion": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "anamnesis",
+        "conclusion"
+    ],
+    "additionalProperties": false
+}

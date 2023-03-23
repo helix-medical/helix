@@ -1,0 +1,28 @@
+{
+    "type": "object",
+    "properties": {
+        "patientId": {
+            "type": "string"
+        },
+        "date": {
+            "type": "string"
+        },
+        "reason": {
+            "type": "string"
+        },
+        "anamnesis": {
+            "type": "string"
+        },
+        "conclusion": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "patientId",
+        "date",
+        "reason",
+        "anamnesis",
+        "conclusion"
+    ],
+    "additionalProperties": false
+}
