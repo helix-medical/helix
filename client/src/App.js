@@ -14,6 +14,7 @@ import Calendar from './components/calendar';
 import EditAppointment from './components/pages/editAppointment';
 import Appointments from './components/pages/appointments';
 import ViewAppointment from './components/pages/viewAppointment';
+import NotFound from './components/pages/404';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/appointments/:appointmentID/edit" element={<EditAppointment />} />
             <Route path='/appointments' element={<Appointments />} />
             <Route path="/appointments/:appointmentID/view" element={<ViewAppointment />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </div>
