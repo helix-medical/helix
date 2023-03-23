@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import KindAppointment from "./main/kindAppointment";
 import Badge from 'react-bootstrap/Badge'
-import dateToReadable from "../utils/date";
+import dateToReadable from "../tools/date";
 
 const status = (state) => {
     if (state === "finished")

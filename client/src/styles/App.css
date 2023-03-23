@@ -78,11 +78,10 @@
   align-self: flex-end;
 }
 
-/* .debug {
-  border: #61dafb 10px dashed;
-  padding: 1%;
-  margin-top: 10px;
-} */
+.debug {
+  bmargin-left: auto;
+  margin-right: auto;
+}
 
 .buttons-nav Button {
   margin-left: 10px;
@@ -90,4 +89,9 @@
 
 .step {
   margin: 10px;
+}
+
+.card-view {
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Badge from "react-bootstrap/Badge";
-import dateToReadable from "../utils/date";
+import dateToReadable from "../tools/date";
 
 
 function ModalViewPatient(props) {

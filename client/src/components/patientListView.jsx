@@ -1,6 +1,6 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-import dateToReadable from "../utils/date";
+import dateToReadable from "../tools/date";
 
 function PatientsTableView(props) {
     return (

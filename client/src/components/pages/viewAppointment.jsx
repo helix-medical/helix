@@ -2,10 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 // import Button from "react-bootstrap/Button";
-import PatientMetadata from '../appointment/patientMetadata';
-import Anamnesis from '../appointment/anamnesis';
-import Conclusion from '../appointment/conclusion';
+import PatientMetadata from '../appointment/readOnly/patientMetadata';
+import Anamnesis from '../appointment/readOnly/anamnesis';
+import Conclusion from '../appointment/readOnly/conclusion';
 import Metadata from "../appointment/metadata";
+import Badge from "react-bootstrap/Badge";
 
 function ViewAppointment(props) {
     const id = window.location.href.split("/").slice(-2)[0];
@@ -15,8 +16,17 @@ function ViewAppointment(props) {
             id: id,
             date: "",
             reasons: "",
-            anamnesis: "{}",
-            conclusion: "{}",
+            anamnesis: JSON.stringify({
+                reasons: "",
+                symptoms: "",
+                knownDiseases: "",
+                knownMedications: ""
+            }),
+            conclusion: JSON.stringify({
+                diagnosis: "",
+                treatment: "",
+                observations: ""
+            }),
             patientId: "",
             status: "",
             name: "",
@@ -42,26 +52,13 @@ function ViewAppointment(props) {
         fetchData();
     }, [id]);
 
-    const [anamnesis, setAnamnesis] = useState({
-        reasons: "",
-        symptoms: "",
-        knownDiseases: "",
-        knownMedications: ""
-    });
-
-    const [conclusion, setConclusion] = useState({
-        diagnosis: "",
-        treatment: "",
-        observations: ""
-    });
-
     return (
         <div>
-            <h1>Appointment READONLY</h1>
+            <h1>Appointment <Badge bg='danger'>READONLY</Badge></h1>
             <Metadata appointment={data} />
             <PatientMetadata patient={data} />
-            <Anamnesis appointment={data} handler={setAnamnesis} />
-            <Conclusion appointment={data} handler={setConclusion} />
+            <Anamnesis appointment={data} />
+            <Conclusion appointment={data} />
             {/* <Button variant="primary" onClick={handleClick}>
                 Valid Appointment
             </Button> */}

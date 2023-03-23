@@ -7,7 +7,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Badge from "react-bootstrap/Badge";
-import dateToReadable from "../../utils/date";
+import dateToReadable from "../../tools/date";
 
 function PatientMetadata(props) {
     const passif = JSON.parse(props.patient.passif);
