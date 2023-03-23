@@ -7,7 +7,7 @@
         "date": {
             "type": "string"
         },
-        "reason": {
+        "reasons": {
             "type": "string"
         },
         "anamnesis": {
@@ -20,7 +20,7 @@
     "required": [
         "patientId",
         "date",
-        "reason",
+        "reasons",
         "anamnesis",
         "conclusion"
     ],

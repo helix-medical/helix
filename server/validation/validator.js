@@ -1,7 +1,6 @@
 const Ajv = require('ajv');
 const ajv = new Ajv();
 
-// Schemas
 const schemaPatient = require('./schemas/patient.json');
 const schemaAppointmentCreate = require('./schemas/create-appointment.json');
 const schemaAppointmentUpdate = require('./schemas/update-appointment.json');

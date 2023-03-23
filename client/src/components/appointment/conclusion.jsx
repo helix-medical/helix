@@ -9,7 +9,6 @@ function Conclusion(props) {
     };
 
     const conclusion = JSON.parse(props.appointment.conclusion);
-    // const readonly = props.appointment.status === 'pending' ? false : true;
 
     return (
         <div className="debug">

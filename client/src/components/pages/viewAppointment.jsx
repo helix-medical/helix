@@ -59,9 +59,6 @@ function ViewAppointment(props) {
             <PatientMetadata patient={data} />
             <Anamnesis appointment={data} />
             <Conclusion appointment={data} />
-            {/* <Button variant="primary" onClick={handleClick}>
-                Valid Appointment
-            </Button> */}
         </div>
     );
 };

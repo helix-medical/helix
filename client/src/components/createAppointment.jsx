@@ -13,7 +13,6 @@ function ModalCreateApp(props) {
         patientId: 0,
         date: "",
         time: "",
-        names: "",
         reasons: "",
         anamnesis: {
             reasons: "",
@@ -37,7 +36,6 @@ function ModalCreateApp(props) {
         const finalData = {
             patientId: data.patientId,
             date: data.date + " " + data.time,
-            names: data.names,
             reasons: data.reasons,
             anamnesis: JSON.stringify(data.anamnesis),
             conclusion: JSON.stringify(data.conclusion)
@@ -51,7 +49,8 @@ function ModalCreateApp(props) {
             console.log(error);
         }
         props.toggleModal();
-        window.location.href = `http://${process.env.REACT_APP_FRONTEND}/appointments/${index.data}/edit`;
+        console.log(index.data);
+        window.location.href = `/appointments/${index.data}/edit`;
     }
 
     return (

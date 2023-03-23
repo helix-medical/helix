@@ -81,6 +81,14 @@ router.delete('/:id/delete', (req, res) => {
     });
 });
 
+router.use('/:id/update', (req, res, next) => {
+    const valid = validate.patient(req.body);
+    if (!valid) {
+        return res.json(validate.patient.errors);
+    }
+    next();
+});
+
 router.put('/:id/update', (req, res) => {
     const patientId = req.params.id;
     const sqlQuery = 'UPDATE patients ' +

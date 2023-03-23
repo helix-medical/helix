@@ -35,7 +35,6 @@ function PatientMetadata(props) {
                                         <option>{props.patient.sex}</option>
                                         <option value="F">F</option>
                                         <option value="M">M</option>
-                                        <option value="A">A</option>
                                     </Form.Select>
                                 </FloatingLabel>
                             </Col>

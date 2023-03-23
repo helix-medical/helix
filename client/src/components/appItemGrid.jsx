@@ -16,7 +16,7 @@ function AppItemGrid(props) {
     // const [show, setShow] = useState(false);
     // const toggleModal = () => setShow(!show);
     const handleClick = () => {
-        window.location.href = `http://${process.env.REACT_APP_FRONTEND}/appointments/${props.appointment.id}/view`;
+        window.location.href = `/appointments/${props.appointment.id}/view`;
     }
 
     return (

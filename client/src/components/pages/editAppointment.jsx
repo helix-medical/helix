@@ -69,7 +69,7 @@ function EditAppointment(props) {
         } catch (error) {
             console.log(error);
         }
-        window.location.href = `http://${process.env.REACT_APP_FRONTEND}/appointments`;
+        window.location.href = '/appointments';
     }
 
     return (
