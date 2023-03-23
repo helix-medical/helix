@@ -12,7 +12,7 @@ import Badge from "react-bootstrap/Badge";
 
 import AppItemGrid from "../appItemGrid";
 import AppTableView from "../appListView";
-import ModalCreateApp from "../modalCreateApp";
+import ModalCreateApp from "../createAppointment";
 
 const Patients = () => {
     // fetch all appointments

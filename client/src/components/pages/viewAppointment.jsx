@@ -1,13 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
+// import Button from "react-bootstrap/Button";
 import PatientMetadata from '../appointment/patientMetadata';
 import Anamnesis from '../appointment/anamnesis';
 import Conclusion from '../appointment/conclusion';
 import Metadata from "../appointment/metadata";
 
-function EditAppointment(props) {
+function ViewAppointment(props) {
     const id = window.location.href.split("/").slice(-2)[0];
 
     const [data, setData] = useState(
@@ -55,35 +55,18 @@ function EditAppointment(props) {
         observations: ""
     });
 
-    const handleClick = async (e) => {
-        e.preventDefault();
-        const appointmentFinal = {
-            anamnesis: JSON.stringify(anamnesis),
-            conclusion: JSON.stringify(conclusion)
-        };
-
-        console.log(appointmentFinal);
-
-        try {
-            await axios.put(`/api/appointments/${id}/update`, appointmentFinal);
-        } catch (error) {
-            console.log(error);
-        }
-        window.location.href = `http://${process.env.REACT_APP_FRONTEND}/appointments`;
-    }
-
     return (
         <div>
-            <h1>Appointment</h1>
+            <h1>Appointment READONLY</h1>
             <Metadata appointment={data} />
             <PatientMetadata patient={data} />
             <Anamnesis appointment={data} handler={setAnamnesis} />
             <Conclusion appointment={data} handler={setConclusion} />
-            <Button variant="primary" onClick={handleClick}>
+            {/* <Button variant="primary" onClick={handleClick}>
                 Valid Appointment
-            </Button>
+            </Button> */}
         </div>
     );
 };
 
-export default EditAppointment;
+export default ViewAppointment;

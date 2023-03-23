@@ -51,7 +51,7 @@ function ModalCreateApp(props) {
             console.log(error);
         }
         props.toggleModal();
-        window.location.href = `http://${process.env.REACT_APP_FRONTEND}/appointments/edit/${index.data}`;
+        window.location.href = `http://${process.env.REACT_APP_FRONTEND}/appointments/${index.data}/edit`;
     }
 
     return (

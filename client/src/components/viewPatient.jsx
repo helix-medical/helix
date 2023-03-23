@@ -9,6 +9,8 @@ import dateToReadable from "../utils/date";
 function ModalViewPatient(props) {
     const handleClose = () => props.toggleModal();
 
+    const passif = JSON.parse(props.patient.passif);
+
     return (
         <Modal show={props.show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -21,8 +23,8 @@ function ModalViewPatient(props) {
                     <ListGroup.Item>Birth Date: {dateToReadable(props.patient.birthDate)}</ListGroup.Item>
                     <ListGroup.Item>Email: {props.patient.email}</ListGroup.Item>
                     <ListGroup.Item>City: {props.patient.city}</ListGroup.Item>
-                    <ListGroup.Item>Last Appointments: 
-                        <Badge bg='danger'>TODO</Badge>
+                    <ListGroup.Item>Last Appointment:
+                        <Badge bg='success'>{passif.lastAppointments.length}</Badge>
                     </ListGroup.Item>
                     <ListGroup.Item>Next Appointment: {dateToReadable(props.patient.nextApp)}</ListGroup.Item>
                 </ListGroup>

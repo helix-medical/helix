@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-function ConclusionApp(props) {
+function Conclusion(props) {
     const handleChange = (e) => {
         props.handler(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
@@ -46,4 +46,4 @@ function ConclusionApp(props) {
     );
 }
 
-export default ConclusionApp;
+export default Conclusion;

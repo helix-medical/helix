@@ -9,10 +9,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Patients from './components/pages/patients';
 import Update from './components/pages/update';
 import Home from './components/pages/home';
-import Header from './components/header';
+import Header from './components/main/header';
 import Calendar from './components/calendar';
 import EditAppointment from './components/pages/editAppointment';
 import Appointments from './components/pages/appointments';
+import ViewAppointment from './components/pages/viewAppointment';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/appointments/:appointmentID/edit" element={<EditAppointment />} />
             <Route path='/appointments' element={<Appointments />} />
+            <Route path="/appointments/:appointmentID/view" element={<ViewAppointment />} />
           </Routes>
         </BrowserRouter>
       </div>

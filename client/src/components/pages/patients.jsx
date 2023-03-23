@@ -12,7 +12,7 @@ import Badge from "react-bootstrap/Badge";
 
 import PatientItemGrid from "../patientItemGrid";
 import ModalAddPatient from "./createPatient";
-import PatientsTableView from "../patientsTableView";
+import PatientsTableView from "../patientListView";
 
 const Patients = () => {
     // Fetch all patients

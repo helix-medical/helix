@@ -1,7 +1,7 @@
 import React from "react";
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
-import KindAppointment from "./kindAppointment";
+import KindAppointment from "./main/kindAppointment";
 import Badge from 'react-bootstrap/Badge'
 import dateToReadable from "../utils/date";
 
@@ -15,10 +15,13 @@ const status = (state) => {
 function AppItemGrid(props) {
     // const [show, setShow] = useState(false);
     // const toggleModal = () => setShow(!show);
+    const handleClick = () => {
+        window.location.href = `http://${process.env.REACT_APP_FRONTEND}/appointments/${props.appointment.id}/view`;
+    }
 
     return (
         <div className="card-view" key={props.appointment.id}>
-            <Card border='primary' style={{ width: '18rem' }}>
+            <Card border='primary' style={{ width: '18rem' }} onClick={handleClick}>
                 <Card.Body>
                     <Card.Title>{props.appointment.name} {props.appointment.lastName} ({props.appointment.sex})</Card.Title>
                     <ListGroup variant="flush">

@@ -3,9 +3,9 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import dateToReadable from "../utils/date";
+import dateToReadable from "../../utils/date";
 
-function AppointmentData(props) {
+function Metadata(props) {
     return (
         <div className="debug">
             <h2>Appointment Data</h2>
@@ -32,4 +32,4 @@ function AppointmentData(props) {
     )
 }
 
-export default AppointmentData;
+export default Metadata;
