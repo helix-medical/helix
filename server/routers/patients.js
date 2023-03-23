@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('./db');
-const validate = require('./validator');
+const db = require('../db');
+const validate = require('../validation/validator');
 
 router.get('/', (req, res) => {
     const sqlQuery = `

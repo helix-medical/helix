@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const patients = require('./patients');
-const appointments = require('./appointments');
+const patients = require('./routers/patients');
+const appointments = require('./routers/appointments');
 
 const app = express();
 const port = process.env.PORT_API;
