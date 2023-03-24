@@ -1,6 +1,5 @@
 function getNbLines(input, limit) {
-  const lines = input.split(/\r\n|\r|\n/);
-  const len = lines.length;
+  const len = input.split(/\r\n|\r|\n/).length;
   return limit && len > limit ? limit : len;
 }
 
