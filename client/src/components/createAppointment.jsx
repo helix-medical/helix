@@ -82,8 +82,8 @@ function ModalCreateApp(props) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="outline-secondary" onClick={handleClose}>Cancel</Button>
-                <Button variant='primary' onClick={handleClick}>Submit</Button>
+                <Button variant="outline-danger" onClick={handleClose}>Cancel</Button>
+                <Button variant='success' onClick={handleClick}>Submit</Button>
             </Modal.Footer>
         </Modal>
     );

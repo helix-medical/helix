@@ -1,6 +1,5 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-import dateToReadable from "../tools/date";
 
 function PatientsTableView(props) {
     return (
@@ -22,7 +21,7 @@ function PatientsTableView(props) {
                         <td>{patient.id}</td>
                         <td>{patient.name}</td>
                         <td>{patient.lastName}</td>
-                        <td>{dateToReadable(patient.birthDate)}</td>
+                        <td>{patient.birthDate}</td>
                         <td>{patient.sex}</td>
                         <td>{patient.city}</td>
                         <td>{patient.email}</td>
