@@ -130,12 +130,12 @@ function PatientMetadata(props) {
                 </Tab>
                 <Tab eventKey="appointments" title="Previous Appointments">
                     <div className="step">
-                        <h3>Previous Appointments <Badge pill bg='secondary'>{passif.lastAppointments.length - 1}</Badge></h3>
+                        <h3>Previous Appointments <Badge pill bg='secondary'>{passif.lastAppointments.length - 1}</Badge><Badge bg='danger'>NOT IMPLEMENTED</Badge></h3>
                     </div>
                 </Tab>
             </Tabs>
-            <Button variant="outline-primary" onClick={handleClick}>
-                Edit Patient Data
+            <Button variant="outline-primary" onClick={handleClick} className="button-center">
+                Update Patient Data
             </Button>
         </div>
     );
