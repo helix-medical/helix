@@ -1,3 +1,12 @@
+:root {
+  --header-background-color: #2C3049;
+  --patients-color: #87E3CF;
+  --calendar-color: #D6689E;
+  --appointments-color: #FE7C6B;
+  --title-color: #FFB400;
+  --app-background-color: #1E2334;
+}
+
 .body {
   /* text-align: center; */
   margin: 16px;

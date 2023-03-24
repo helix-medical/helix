@@ -1,10 +1,11 @@
-import './styles/App.css';
+import './styles/main.css';
 import {
   BrowserRouter,
   Routes,
   Route,
 } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import style from './styles/app.module.css'
 
 import Patients from './components/pages/patients';
 import Update from './components/pages/update';
@@ -15,10 +16,11 @@ import EditAppointment from './components/pages/editAppointment';
 import Appointments from './components/pages/appointments';
 import ViewAppointment from './components/pages/viewAppointment';
 import NotFound from './components/pages/404';
+import Account from './components/pages/account';
 
 function App() {
   return (
-    <div className="App">
+    <div className={style.app}>
       <Header />
       <div className='body'>
         <BrowserRouter>
@@ -30,6 +32,7 @@ function App() {
             <Route path="/appointments/:appointmentID/edit" element={<EditAppointment />} />
             <Route path='/appointments' element={<Appointments />} />
             <Route path="/appointments/:appointmentID/view" element={<ViewAppointment />} />
+            <Route path="/account" element={<Account />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

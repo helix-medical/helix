@@ -1,0 +1,39 @@
+.navbar {
+    background-color: var(--header-background-color);
+}
+
+.navbar h1 {
+    color: var(--title-color);
+}
+
+.patients {
+    color: var(--patients-color);
+}
+
+.patients:hover {
+    color: var(--patients-color);
+    text-decoration: underline;
+}
+
+.calendar {
+    color: var(--calendar-color);
+}
+
+.calendar:hover {
+    color: var(--calendar-color);
+    text-decoration: underline;
+}
+
+.appointments {
+    color: var(--appointments-color);
+}
+
+.appointments:hover {
+    color: var(--appointments-color);
+    text-decoration: underline;
+}
+
+.btn_search {
+    background-color: none;
+    border: var(--patients-color) 3px solid 10px;
+}

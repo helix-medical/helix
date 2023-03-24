@@ -41,9 +41,9 @@ const Patients = () => {
 
     return (
         <div>
-            <Navbar bg="light" expand="lg">
+            <Navbar expand="lg">
                 <div className="container-fluid">
-                    <Navbar.Brand><h2>## Appointments <Badge pill bg='secondary' size='xs'>{nbAppointments}</Badge></h2></Navbar.Brand>
+                    <Navbar.Brand><h2>Appointments <Badge pill bg='primary'>{nbAppointments}</Badge></h2></Navbar.Brand>
                     <div className="buttons-nav">
                         <Button variant="outline-primary" onClick={() =>
                             setViewType((currentState) => {
@@ -51,7 +51,7 @@ const Patients = () => {
                                 else return "grid";
                             })
                         }><Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}</Button>
-                        <Button variant="primary" onClick={toggleModal}>Create Appointment</Button>
+                        <Button variant="primary" onClick={toggleModal}>New Appointment</Button>
                     </div>
                 </div>
             </Navbar>

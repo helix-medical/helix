@@ -7,6 +7,8 @@ import Anamnesis from '../appointment/readOnly/anamnesis';
 import Conclusion from '../appointment/readOnly/conclusion';
 import Metadata from "../appointment/metadata";
 import Badge from "react-bootstrap/Badge";
+import Navbar from "react-bootstrap/Navbar";
+import Button from "react-bootstrap/Button";
 
 function ViewAppointment(props) {
     const id = window.location.href.split("/").slice(-2)[0];
@@ -54,7 +56,14 @@ function ViewAppointment(props) {
 
     return (
         <div>
-            <h1>Appointment <Badge bg='danger'>READONLY</Badge></h1>
+            <Navbar expand="lg">
+                <div className="container-fluid">
+                    <Navbar.Brand><h1>Appointment <Badge bg='danger'>READONLY</Badge></h1></Navbar.Brand>
+                    <div className="buttons-nav">
+                        <Button variant="primary" disabled>Export to PDF</Button>
+                    </div>
+                </div>
+            </Navbar>
             <Metadata appointment={data} />
             <PatientMetadata patient={data} />
             <Anamnesis appointment={data} />
