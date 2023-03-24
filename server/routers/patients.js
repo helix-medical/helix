@@ -34,9 +34,9 @@ router.get('/:id/read', (req, res) => {
 });
 
 router.use('/add', (req, res, next) => {
-    const valid = validate.patient(req.body);
+    const valid = validate.patientCreate(req.body);
     if (!valid) {
-        return res.json(validate.patient.errors);
+        return res.json(validate.patientCreate.errors);
     }
     next();
 });
@@ -82,9 +82,9 @@ router.delete('/:id/delete', (req, res) => {
 });
 
 router.use('/:id/update', (req, res, next) => {
-    const valid = validate.patient(req.body);
+    const valid = validate.patientUpdate(req.body);
     if (!valid) {
-        return res.json(validate.patient.errors);
+        return res.json(validate.patientUpdate.errors);
     }
     next();
 });
@@ -92,7 +92,7 @@ router.use('/:id/update', (req, res, next) => {
 router.put('/:id/update', (req, res) => {
     const patientId = req.params.id;
     const sqlQuery = 'UPDATE patients ' +
-        'SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ?, `email` = ?, `city` = ?, `nextApp` = ?, `passif` = ? ' +
+        'SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ?, `email` = ?, `city` = ?, `passif` = ? ' +
         'WHERE id = ?';
     const values = [
         req.body.name,
@@ -101,11 +101,8 @@ router.put('/:id/update', (req, res) => {
         req.body.sex,
         req.body.email,
         req.body.city,
-        req.body.nextApp,
         req.body.passif
     ];
-
-    // TODO: ADD A VALIDATOR HERE (USE MIDDLEWARE)
 
     db.query(sqlQuery, [...values, patientId], (err, data) => {
         if (err) {

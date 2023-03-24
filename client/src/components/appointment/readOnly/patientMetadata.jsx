@@ -3,7 +3,6 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import dateToReadable from "../../../tools/date";
 
 function PatientMetadata(props) {
     return (
@@ -30,7 +29,7 @@ function PatientMetadata(props) {
                 <Form.Group as={Row} className="mb-1" controlId="formBasicBirthDate">
                     <Col sm="4">
                         <FloatingLabel className="mb-3" label="Birth Date">
-                            <Form.Control readOnly defaultValue={dateToReadable(props.patient.birthDate)} />
+                            <Form.Control readOnly defaultValue={props.patient.birthDate} />
                         </FloatingLabel>
                     </Col>
                     <Col sm="4">

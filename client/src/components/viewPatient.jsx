@@ -20,7 +20,7 @@ function ModalViewPatient(props) {
                 <ListGroup variant="flush">
                     <ListGroup.Item>ID: {props.patient.id}</ListGroup.Item>
                     <ListGroup.Item>Sex: {props.patient.sex}</ListGroup.Item>
-                    <ListGroup.Item>Birth Date: {dateToReadable(props.patient.birthDate)}</ListGroup.Item>
+                    <ListGroup.Item>Birth Date: {props.patient.birthDate}</ListGroup.Item>
                     <ListGroup.Item>Email: {props.patient.email}</ListGroup.Item>
                     <ListGroup.Item>City: {props.patient.city}</ListGroup.Item>
                     <ListGroup.Item>Last Appointment:
