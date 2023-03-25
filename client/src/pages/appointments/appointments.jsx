@@ -10,9 +10,9 @@ import Button from "react-bootstrap/Button";
 import CardGroup from "react-bootstrap/CardGroup";
 import Badge from "react-bootstrap/Badge";
 
-import AppItemGrid from "../appItemGrid";
-import AppTableView from "../appListView";
-import ModalCreateApp from "../createAppointment";
+import AppItemGrid from './itemGrid';
+import AppTableView from "./listView";
+import ModalCreateApp from "./create";
 
 const Patients = () => {
     // fetch all appointments

@@ -10,9 +10,9 @@ import Button from "react-bootstrap/Button";
 import CardGroup from "react-bootstrap/CardGroup";
 import Badge from "react-bootstrap/Badge";
 
-import PatientItemGrid from "../patientItemGrid";
+import PatientItemGrid from "./itemGrid";
 import ModalAddPatient from "./create";
-import PatientsTableView from "../patientListView";
+import PatientsTableView from "./listView";
 
 const Patients = () => {
     // Fetch all patients

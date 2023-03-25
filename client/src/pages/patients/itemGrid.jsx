@@ -4,7 +4,7 @@ import { useState } from "react";
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import dateToReadable from "../../tools/date";
-import ModalViewPatient from "./viewPatient";
+import ModalViewPatient from "./view";
 
 function PatientItemGrid(props) {
     const [show, setShow] = useState(false);
