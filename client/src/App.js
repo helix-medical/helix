@@ -7,16 +7,16 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import style from './styles/app.module.css'
 
-import Patients from './components/pages/patients';
-import Update from './components/pages/update';
-import Home from './components/pages/home';
+import Patients from './pages/patients/patients';
+import Update from './pages/patients/update';
+import Home from './pages/home';
 import Header from './components/main/header';
 import Calendar from './components/calendar';
-import EditAppointment from './components/pages/editAppointment';
-import Appointments from './components/pages/appointments';
-import ViewAppointment from './components/pages/viewAppointment';
-import NotFound from './components/pages/404';
-import Account from './components/pages/account';
+import EditAppointment from './pages/appointment/edit';
+import Appointments from './pages/appointments/appointments';
+import ViewAppointment from './pages/appointment/view';
+import NotFound from './pages/system/404';
+import Account from './pages/account';
 
 function App() {
   return (

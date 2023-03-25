@@ -2,10 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
-import PatientMetadata from '../appointment/patientMetadata';
-import Anamnesis from '../appointment/anamnesis';
-import Conclusion from '../appointment/conclusion';
-import Metadata from "../appointment/metadata";
+import PatientMetadata from './patientMetadata';
+import Anamnesis from './anamnesis';
+import Conclusion from './conclusion';
+import Metadata from "./metadata";
 
 function EditAppointment(props) {
     const id = window.location.href.split("/").slice(-2)[0];

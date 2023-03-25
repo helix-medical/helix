@@ -3,7 +3,7 @@ import { useState } from "react";
 // import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
-import dateToReadable from "../tools/date";
+import dateToReadable from "../../tools/date";
 import ModalViewPatient from "./viewPatient";
 
 function PatientItemGrid(props) {

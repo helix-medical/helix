@@ -4,7 +4,7 @@ import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
-import dateToReadable from "../tools/date";
+import dateToReadable from "../../tools/date";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Row from "react-bootstrap/Row";
