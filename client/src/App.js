@@ -8,9 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import style from './styles/app.module.css'
 
 import Patients from './pages/patients/patients';
-import Update from './pages/patients/update';
 import Home from './pages/home';
-import Header from './components/main/header';
+import Header from './components/header';
 import Calendar from './components/calendar';
 import EditAppointment from './pages/appointment/edit';
 import Appointments from './pages/appointments/appointments';
@@ -27,7 +26,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/patients" element={<Patients />} />
-            <Route path="/:id/update" element={<Update />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/appointments/:appointmentID/edit" element={<EditAppointment />} />
             <Route path='/appointments' element={<Appointments />} />
@@ -39,6 +37,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;

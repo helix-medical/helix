@@ -1,43 +1,34 @@
 import React from "react";
+import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
-import KindAppointment from "../../components/main/kindAppointment";
-import Badge from 'react-bootstrap/Badge'
+import KindAppointment from "../../components/kindAppointment";
+import StateAppointment from "../../components/stateAppointment";
 import dateToReadable from "../../tools/date";
 
-const status = (state) => {
-    if (state === "finished")
-        return (<Badge bg='success'>Finished</Badge>)
-    if (state === "pending")
-        return (<Badge bg='primary'>Pending</Badge>)
-}
-
-function AppItemGrid(props) {
-    // const [show, setShow] = useState(false);
-    // const toggleModal = () => setShow(!show);
+function AppItemGrid({ appointment }) {
     const handleClick = () => {
-        window.location.href = `/appointments/${props.appointment.id}/view`;
-    }
+        window.location.href = `/appointments/${appointment.id}/view`;
+    };
 
     return (
-        <div className="card-view" key={props.appointment.id}>
-            <Card border='primary' style={{ width: '18rem' }} onClick={handleClick}>
+        <div className="card-view" key={appointment.id}>
+            <Card border='primary' style={{ width: '18rem' }}>
                 <Card.Body>
-                    <Card.Title>{props.appointment.name} {props.appointment.lastName} ({props.appointment.sex})</Card.Title>
+                    <Card.Title>{appointment.name} {appointment.lastName} ({appointment.sex})</Card.Title>
                     <ListGroup variant="flush">
-                        <ListGroup.Item>Date: {dateToReadable(props.appointment.date)}</ListGroup.Item>
-                        <ListGroup.Item>Kind: <KindAppointment kind={props.appointment.reasons} /></ListGroup.Item>
-                        <ListGroup.Item>Status: {status(props.appointment.status)}</ListGroup.Item>
+                        <ListGroup.Item>Date: {dateToReadable(appointment.date)}</ListGroup.Item>
+                        <ListGroup.Item>Kind: <KindAppointment kind={appointment.reasons} /></ListGroup.Item>
+                        <ListGroup.Item>Status: <StateAppointment state={appointment.status} /></ListGroup.Item>
                     </ListGroup>
-                    {/* <Button variant="outline-primary">View</Button> */}
+                    <Button variant="outline-primary" onClick={handleClick}>View</Button>
                 </Card.Body>
                 <Card.Footer>
-                    <small className="text-muted">ID: {props.appointment.id}</small>
+                    <small className="text-muted">ID: {appointment.id}</small>
                 </Card.Footer>
             </Card>
-            {/* {show && <ModalViewPatient patient={props.patient} show={show} toggleModal={toggleModal} handleDelete={props.handleDelete} />} */}
-        </div>
+        </div >
     );
-}
+};
 
 export default AppItemGrid;

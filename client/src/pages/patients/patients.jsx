@@ -26,7 +26,7 @@ const Patients = () => {
                 console.log(error);
             }
         }
-        fetchAllPatients()
+        fetchAllPatients();
     }, []);
     const nbPatients = patients.length;
 
@@ -40,6 +40,14 @@ const Patients = () => {
         }
     };
 
+    const changeView = () => {
+        setViewType((currentState) => {
+            if (currentState === "grid") return "table";
+            else return "grid";
+        });
+    };
+
+
     // Modal for create a patient
     const [show, setShow] = useState(false);
     const toggleModal = () => setShow(!show);
@@ -49,17 +57,16 @@ const Patients = () => {
     const isGrid = viewType === "grid";
 
     return (
-        <div>
+        <>
             <Navbar expand="lg">
                 <div className="container-fluid">
-                    <Navbar.Brand><h2>Patients <Badge pill bg='primary'>{nbPatients}</Badge></h2></Navbar.Brand>
+                    <Navbar.Brand>
+                        <h2>Patients <Badge pill bg='primary'>{nbPatients}</Badge></h2>
+                    </Navbar.Brand>
                     <div className="buttons-nav">
-                        <Button variant="outline-primary" onClick={() =>
-                            setViewType((currentState) => {
-                                if (currentState === "grid") return "table";
-                                else return "grid";
-                            })
-                        }><Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}</Button>
+                        <Button variant="outline-primary" onClick={changeView}>
+                            <Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
+                        </Button>
                         <Button variant="primary" onClick={toggleModal}>New Patient</Button>
                     </div>
                 </div>
@@ -74,7 +81,7 @@ const Patients = () => {
                 <PatientsTableView patients={patients} />
             )}
             {show && <ModalAddPatient show={show} toggleModal={toggleModal} />}
-        </div>
+        </>
     )
 };
 

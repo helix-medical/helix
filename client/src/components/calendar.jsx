@@ -8,11 +8,13 @@ const Calendar = () => {
             <h2>## Calendar <Badge bg='secondary' pill>12</Badge></h2>
             <div className="calendar">
                 <Alert variant="danger">
-                    <Alert.Heading>Calendar Not Implemented</Alert.Heading>
+                    <Alert.Heading>
+                        Calendar Not Implemented
+                    </Alert.Heading>
                 </Alert>
             </div>
         </div>
     );
-}
+};
 
 export default Calendar;

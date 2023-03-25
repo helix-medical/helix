@@ -9,7 +9,6 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Badge from "react-bootstrap/Badge";
-import dateToReadable from "../../tools/date";
 
 function PatientMetadata(props) {
     const passif = JSON.parse(props.patient.passif);
@@ -45,7 +44,7 @@ function PatientMetadata(props) {
         if (patient.email === "") {
             patient.email = props.patient.email;
         }
-        if (patient.city === "") {
+        if (patient.city === "" || patient.city === undefined) {
             patient.city = props.patient.city;
         }
         if (patient.medicalIssues === "") {
@@ -54,7 +53,7 @@ function PatientMetadata(props) {
         const finalPatient = {
             name: patient.name,
             lastName: patient.lastName,
-            birthDate: dateToReadable(patient.birthDate),
+            birthDate: patient.birthDate,
             sex: patient.sex,
             email: patient.email,
             city: patient.city,
@@ -130,7 +129,11 @@ function PatientMetadata(props) {
                 </Tab>
                 <Tab eventKey="appointments" title="Previous Appointments">
                     <div className="step">
-                        <h3>Previous Appointments <Badge pill bg='secondary'>{passif.lastAppointments.length - 1}</Badge><Badge bg='danger'>NOT IMPLEMENTED</Badge></h3>
+                        <h3>
+                            Previous Appointments&nbsp;
+                            <Badge pill bg='secondary'>{passif.lastAppointments.length - 1}</Badge>
+                            <Badge bg='danger'>NOT IMPLEMENTED</Badge>
+                        </h3>
                     </div>
                 </Tab>
             </Tabs>

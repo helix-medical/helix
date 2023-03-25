@@ -1,7 +1,7 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 
-function PatientsTableView(props) {
+function PatientsTableView({ patients }) {
     return (
         <Table striped bordered hover responsive className="debug">
             <thead>
@@ -16,7 +16,7 @@ function PatientsTableView(props) {
                 </tr>
             </thead>
             <tbody>
-                {props.patients.map((patient) => (
+                {patients.map((patient) => (
                     <tr key={patient.id}>
                         <td>{patient.id}</td>
                         <td>{patient.name}</td>
@@ -30,6 +30,6 @@ function PatientsTableView(props) {
             </tbody>
         </Table>
     );
-}
+};
 
 export default PatientsTableView;

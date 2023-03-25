@@ -1,16 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import Button from "react-bootstrap/Button";
-import PatientMetadata from './readOnly/patientMetadata';
-import Anamnesis from './readOnly/anamnesis';
-import Conclusion from './readOnly/conclusion';
+import PatientMetadata from './patientMetadataReadOnly';
+import Anamnesis from './anamnesis';
+import Conclusion from './conclusion';
 import Metadata from "./metadata";
-import Badge from "react-bootstrap/Badge";
-import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
+import NavBarAppointment from "./navbar";
 
-function ViewAppointment(props) {
+const ViewAppointment = () => {
     const id = window.location.href.split("/").slice(-2)[0];
 
     const [data, setData] = useState(
@@ -56,18 +53,11 @@ function ViewAppointment(props) {
 
     return (
         <div>
-            <Navbar expand="lg">
-                <div className="container-fluid">
-                    <Navbar.Brand><h1>Appointment <Badge bg='danger'>READONLY</Badge></h1></Navbar.Brand>
-                    <div className="buttons-nav">
-                        <Button variant="primary" disabled>Export to PDF</Button>
-                    </div>
-                </div>
-            </Navbar>
+            <NavBarAppointment view={true} />
             <Metadata appointment={data} />
             <PatientMetadata patient={data} />
-            <Anamnesis appointment={data} />
-            <Conclusion appointment={data} />
+            <Anamnesis appointment={data} view={true} />
+            <Conclusion appointment={data} view={true} />
         </div>
     );
 };

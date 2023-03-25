@@ -8,8 +8,8 @@ import Col from "react-bootstrap/Col";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Modal from "react-bootstrap/Modal";
 
-function ModalAddPatient(props) {
-    const handleClose = () => props.toggleModal();
+function ModalAddPatient({ show, toggleModal }) {
+    const handleClose = () => toggleModal();
     const [patient, setPatient] = useState({
         name: "",
         lastName: "",
@@ -35,14 +35,14 @@ function ModalAddPatient(props) {
         } catch (error) {
             console.log(error);
         }
-        props.toggleModal();
+        toggleModal();
         window.location.reload();
     };
 
     return (
-        <Modal show={props.show} onHide={handleClose} size='lg'>
+        <Modal show={show} onHide={handleClose} size='lg'>
             <Modal.Header closeButton>
-                <Modal.Title>Add a Patient</Modal.Title>
+                <Modal.Title>New Patient</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
@@ -110,7 +110,7 @@ function ModalAddPatient(props) {
                 <Button variant="success" onClick={handleClick}>Add</Button>
             </Modal.Footer>
         </Modal>
-    )
+    );
 };
 
 export default ModalAddPatient;

@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import dateToReadable from "../../tools/date";
 
-function Metadata(props) {
+function Metadata({ appointment }) {
     return (
         <div className="debug">
             <h2>Appointment Data</h2>
@@ -13,23 +13,23 @@ function Metadata(props) {
                 <Form.Group as={Row} className="mb-1" controlId="formBasicDate">
                     <Col sm="4">
                         <FloatingLabel className="mb-3" label="Date">
-                            <Form.Control readOnly defaultValue={dateToReadable(props.appointment.date)} />
+                            <Form.Control readOnly defaultValue={dateToReadable(appointment.date)} />
                         </FloatingLabel>
                     </Col>
                     <Col sm="4">
                         <FloatingLabel className="mb-3" label="Kind">
-                            <Form.Control readOnly defaultValue={props.appointment.reasons} />
+                            <Form.Control readOnly defaultValue={appointment.reasons} />
                         </FloatingLabel>
                     </Col>
                     <Col sm="4">
                         <FloatingLabel className="mb-3" label="Patient ID">
-                            <Form.Control readOnly defaultValue={props.appointment.patientId} />
+                            <Form.Control readOnly defaultValue={appointment.patientId} />
                         </FloatingLabel>
                     </Col>
                 </Form.Group>
             </Form>
         </div>
-    )
-}
+    );
+};
 
 export default Metadata;

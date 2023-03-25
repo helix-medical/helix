@@ -1,13 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 
-function ModalCreateApp(props) {
-    const handleClose = () => props.toggleModal();
+function ModalCreateApp({ show, toggleModal }) {
+    const handleClose = () => toggleModal();
 
     const [data, setData] = useState({
         patientId: 0,
@@ -39,7 +40,7 @@ function ModalCreateApp(props) {
             reasons: data.reasons,
             anamnesis: JSON.stringify(data.anamnesis),
             conclusion: JSON.stringify(data.conclusion)
-        }
+        };
         console.log(finalData);
         e.preventDefault();
         try {
@@ -48,13 +49,12 @@ function ModalCreateApp(props) {
         } catch (error) {
             console.log(error);
         }
-        props.toggleModal();
-        console.log(index.data);
+        toggleModal();
         window.location.href = `/appointments/${index.data}/edit`;
-    }
+    };
 
     return (
-        <Modal show={props.show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Create Appointment</Modal.Title>
             </Modal.Header>
@@ -87,6 +87,6 @@ function ModalCreateApp(props) {
             </Modal.Footer>
         </Modal>
     );
-}
+};
 
 export default ModalCreateApp;

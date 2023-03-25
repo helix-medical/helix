@@ -10,16 +10,16 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-function ModalViewPatient(props) {
-    const handleClose = () => props.toggleModal();
-    const passif = JSON.parse(props.patient.passif);
+function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }) {
+    const handleClose = () => toggleModal();
+    const passif = JSON.parse(patientInput.passif);
 
     const [update, setUpdate] = useState(false);
     const [patient, setPatient] = useState({
-        birthDate: props.patient.birthDate,
-        sex: props.patient.sex,
-        email: props.patient.email,
-        city: props.patient.city,
+        birthDate: patientInput.birthDate,
+        sex: patientInput.sex,
+        email: patientInput.email,
+        city: patientInput.city,
         medicalIssues: passif.medicalIssues,
     });
 
@@ -30,23 +30,23 @@ function ModalViewPatient(props) {
     const handleUpdate = async () => {
         if (update) {
             if (patient.birthDate === "") {
-                patient.birthDate = props.patient.birthDate;
+                patient.birthDate = patientInput.birthDate;
             }
             if (patient.sex === "") {
-                patient.sex = props.patient.sex;
+                patient.sex = patientInput.sex;
             }
             if (patient.email === "") {
-                patient.email = props.patient.email;
+                patient.email = patientInput.email;
             }
             if (patient.city === "") {
-                patient.city = props.patient.city;
+                patient.city = patientInput.city;
             }
             if (patient.medicalIssues === "") {
                 patient.medicalIssues = passif.medicalIssues;
             }
             const finalPatient = {
-                name: props.patient.name,
-                lastName: props.patient.lastName,
+                name: patientInput.name,
+                lastName: patientInput.lastName,
                 birthDate: patient.birthDate,
                 sex: patient.sex,
                 email: patient.email,
@@ -57,47 +57,47 @@ function ModalViewPatient(props) {
                 })
             };
             try {
-                await axios.put(`/api/patients/${props.patient.id}/update`, finalPatient);
+                await axios.put(`/api/patients/${patientInput.id}/update`, finalPatient);
             } catch (err) {
                 console.log(err);
             }
         }
         setUpdate(!update);
-    }
+    };
 
     return (
-        <Modal show={props.show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>{props.patient.name} {props.patient.lastName}</Modal.Title>
+                <Modal.Title>{patientInput.name} {patientInput.lastName}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
                     <Form.Group as={Row} className="mb-2" controlId="formBasicName">
                         <Col sm="6">
                             <FloatingLabel controlId="floatingID" label="ID" className="mb-3">
-                                <Form.Control type="text" placeholder="ID" defaultValue={props.patient.id} readOnly />
+                                <Form.Control type="text" placeholder="ID" defaultValue={patientInput.id} readOnly />
                             </FloatingLabel>
                         </Col>
                         <Col sm="6">
                             <FloatingLabel controlId="floatingSex" label="Sex" className="mb-3">
-                                <Form.Control type="text" placeholder="Sex" defaultValue={props.patient.sex} readOnly={!update} onChange={handleChange} name="sex" />
+                                <Form.Control type="text" placeholder="Sex" defaultValue={patientInput.sex} readOnly={!update} onChange={handleChange} name="sex" />
                             </FloatingLabel>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-2">
                         <Col sm="6">
                             <FloatingLabel controlId="floatingBirthDate" label="Birth Date" className="mb-3">
-                                <Form.Control type="text" placeholder="Birth Date" defaultValue={props.patient.birthDate} readOnly={!update} onChange={handleChange} name="birthDate" />
+                                <Form.Control type="text" placeholder="Birth Date" defaultValue={patientInput.birthDate} readOnly={!update} onChange={handleChange} name="birthDate" />
                             </FloatingLabel>
                         </Col>
                         <Col sm="6">
                             <FloatingLabel controlId="floatingCity" label="City" className="mb-3">
-                                <Form.Control type="text" placeholder="City" defaultValue={props.patient.city} readOnly={!update} onChange={handleChange} name="city" />
+                                <Form.Control type="text" placeholder="City" defaultValue={patientInput.city} readOnly={!update} onChange={handleChange} name="city" />
                             </FloatingLabel>
                         </Col>
                     </Form.Group>
                     <FloatingLabel controlId="floatingEmail" label="Email" className="mb-3">
-                        <Form.Control type="email" placeholder="Email" defaultValue={props.patient.email} readOnly={!update} onChange={handleChange} name="email" />
+                        <Form.Control type="email" placeholder="Email" defaultValue={patientInput.email} readOnly={!update} onChange={handleChange} name="email" />
                     </FloatingLabel>
                     <Form.Group as={Row} className="mb-2">
                         <Col sm="6">
@@ -106,7 +106,7 @@ function ModalViewPatient(props) {
                         </Col>
                         <Col sm="6">
                             <FloatingLabel controlId="floatingNextApp" label="Next Appointment" className="mb-3">
-                                <Form.Control type="text" placeholder="Next Appointment" defaultValue={dateToReadable(props.patient.nextApp)} readOnly />
+                                <Form.Control type="text" placeholder="Next Appointment" defaultValue={dateToReadable(patientInput.nextApp)} readOnly />
                             </FloatingLabel>
                         </Col>
                     </Form.Group>
@@ -116,7 +116,7 @@ function ModalViewPatient(props) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="outline-danger" onClick={() => props.handleDelete(props.patient.id)}>Delete</Button>
+                <Button variant="outline-danger" onClick={() => handleDelete(patientInput.id)}>Delete</Button>
                 <Button variant="outline-primary" onClick={handleUpdate}>{update ? "Save" : "Edit"}</Button>
                 <Button variant="secondary" onClick={handleClose}>
                     Close
@@ -124,6 +124,6 @@ function ModalViewPatient(props) {
             </Modal.Footer>
         </Modal>
     );
-}
+};
 
 export default ModalViewPatient;

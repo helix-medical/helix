@@ -27,9 +27,16 @@ const Patients = () => {
                 console.log(error);
             }
         }
-        fetchAllAppointments()
+        fetchAllAppointments();
     }, []);
     const nbAppointments = appointments.length;
+
+    const changeView = () => {
+        setViewType((currentState) => {
+            if (currentState === "grid") return "table";
+            else return "grid";
+        });
+    };
 
     // Modal
     const [show, setShow] = useState(false);
@@ -40,17 +47,16 @@ const Patients = () => {
     const isGrid = viewType === "grid";
 
     return (
-        <div>
+        <>
             <Navbar expand="lg">
                 <div className="container-fluid">
-                    <Navbar.Brand><h2>Appointments <Badge pill bg='primary'>{nbAppointments}</Badge></h2></Navbar.Brand>
+                    <Navbar.Brand>
+                        <h2>Appointments <Badge pill bg='primary'>{nbAppointments}</Badge></h2>
+                    </Navbar.Brand>
                     <div className="buttons-nav">
-                        <Button variant="outline-primary" onClick={() =>
-                            setViewType((currentState) => {
-                                if (currentState === "grid") return "table";
-                                else return "grid";
-                            })
-                        }><Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}</Button>
+                        <Button variant="outline-primary" onClick={changeView}>
+                            <Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
+                        </Button>
                         <Button variant="primary" onClick={toggleModal}>New Appointment</Button>
                     </div>
                 </div>
@@ -58,15 +64,15 @@ const Patients = () => {
             {isGrid ? (
                 <CardGroup className="debug">
                     {appointments.map((appointment) => (
-                        <AppItemGrid key={appointment.id} appointment={appointment} /* handleDelete={handleDelete} */ />
+                        <AppItemGrid key={appointment.id} appointment={appointment} />
                     ))}
                 </CardGroup>
             ) : (
                 <AppTableView appointments={appointments} />
             )}
             {show && <ModalCreateApp show={show} toggleModal={toggleModal} />}
-        </div>
-    )
+        </>
+    );
 };
 
 export default Patients;

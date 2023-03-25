@@ -6,8 +6,9 @@ import PatientMetadata from './patientMetadata';
 import Anamnesis from './anamnesis';
 import Conclusion from './conclusion';
 import Metadata from "./metadata";
+import NavBarAppointment from "./navbar";
 
-function EditAppointment(props) {
+const EditAppointment = () => {
     const id = window.location.href.split("/").slice(-2)[0];
 
     const [data, setData] = useState(
@@ -70,11 +71,11 @@ function EditAppointment(props) {
             console.log(error);
         }
         window.location.href = '/appointments';
-    }
+    };
 
     return (
-        <div>
-            <h1>Appointment</h1>
+        <>
+            <NavBarAppointment />
             <Metadata appointment={data} />
             <PatientMetadata patient={data} />
             <Anamnesis appointment={data} handler={setAnamnesis} />
@@ -82,7 +83,7 @@ function EditAppointment(props) {
             <Button variant="primary" onClick={handleClick}>
                 Valid Appointment
             </Button>
-        </div>
+        </>
     );
 };
 
