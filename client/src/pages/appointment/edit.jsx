@@ -63,8 +63,6 @@ const EditAppointment = () => {
             conclusion: JSON.stringify(conclusion)
         };
 
-        console.log(appointmentFinal);
-
         try {
             await axios.put(`/api/appointments/${id}/update`, appointmentFinal);
         } catch (error) {
@@ -77,7 +75,7 @@ const EditAppointment = () => {
         <>
             <NavBarAppointment />
             <Metadata appointment={data} />
-            <PatientMetadata patient={data} />
+            <PatientMetadata patientInput={data} />
             <Anamnesis appointment={data} handler={setAnamnesis} />
             <Conclusion appointment={data} handler={setConclusion} />
             <Button variant="primary" onClick={handleClick}>

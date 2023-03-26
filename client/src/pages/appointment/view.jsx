@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import PatientMetadata from './patientMetadataReadOnly';
+import Biodatas from "./biodatas";
 import Anamnesis from './anamnesis';
 import Conclusion from './conclusion';
 import Metadata from "./metadata";
@@ -55,7 +55,8 @@ const ViewAppointment = () => {
         <div>
             <NavBarAppointment view={true} />
             <Metadata appointment={data} />
-            <PatientMetadata patient={data} />
+            <h2>Patient Data</h2>
+            <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} />
             <Anamnesis appointment={data} view={true} />
             <Conclusion appointment={data} view={true} />
         </div>
