@@ -33,6 +33,7 @@ const ViewAppointment = () => {
             email: "",
             birthDate: "",
             sex: "",
+            city: "",
             passif: JSON.stringify({
                 medicalIssues: "",
                 lastAppointments: []
@@ -56,9 +57,9 @@ const ViewAppointment = () => {
             <NavBarAppointment view={true} />
             <Metadata appointment={data} />
             <h2>Patient Data</h2>
-            <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} />
+            <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} handler={undefined} />
             <Anamnesis appointment={data} view={true} />
-            <Conclusion appointment={data} view={true} />
+            <Conclusion appointment={data} view={true} handler={undefined} />
         </div>
     );
 };

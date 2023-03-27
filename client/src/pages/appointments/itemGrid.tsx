@@ -5,8 +5,13 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import KindAppointment from "../../components/kindAppointment";
 import StateAppointment from "../../components/stateAppointment";
 import dateToReadable from "../../tools/date";
+import { IAppointmentExtended } from "../../interfaces";
 
-function AppItemGrid({ appointment }) {
+interface IProps {
+    appointment: IAppointmentExtended;
+}
+
+function AppItemGrid({ appointment }: IProps): JSX.Element {
     const handleClick = () => {
         window.location.href = `/appointments/${appointment.id}/view`;
     };

@@ -1,7 +1,12 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import { IPatient } from "../../interfaces";
 
-function PatientsTableView({ patients }) {
+interface IProps {
+    patients: IPatient[];
+}
+
+function PatientsTableView({ patients }: IProps): JSX.Element {
     return (
         <Table striped bordered hover responsive className="debug">
             <thead>
@@ -16,7 +21,7 @@ function PatientsTableView({ patients }) {
                 </tr>
             </thead>
             <tbody>
-                {patients.map((patient) => (
+                {patients.map((patient: IPatient) => (
                     <tr key={patient.id}>
                         <td>{patient.id}</td>
                         <td>{patient.name}</td>

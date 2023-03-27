@@ -10,35 +10,27 @@ import Button from "react-bootstrap/Button";
 import CardGroup from "react-bootstrap/CardGroup";
 import Badge from "react-bootstrap/Badge";
 
-import PatientItemGrid from "./itemGrid";
-import ModalAddPatient from "./create";
-import PatientsTableView from "./listView";
+import AppItemGrid from './itemGrid';
+import AppTableView from "./listView";
+import ModalCreateApp from "./create";
+import { IAppointment } from "../../interfaces";
 
 const Patients = () => {
-    // Fetch all patients
-    const [patients, setPatients] = useState([]);
+    // fetch all appointments
+    const [appointments, setAppointments] = useState([]);
+
     useEffect(() => {
-        const fetchAllPatients = async () => {
+        const fetchAllAppointments = async () => {
             try {
-                const res = await axios.get(`/api/patients`);
-                setPatients(res.data);
+                const res = await axios.get('/api/appointments');
+                setAppointments(res.data);
             } catch (error) {
                 console.log(error);
             }
         }
-        fetchAllPatients();
+        fetchAllAppointments();
     }, []);
-    const nbPatients = patients.length;
-
-    // Delete a patient
-    const handleDelete = async (id) => {
-        try {
-            await axios.delete(`/api/patients/${id}/delete`);
-            window.location.reload();
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const nbAppointments = appointments.length;
 
     const changeView = () => {
         setViewType((currentState) => {
@@ -47,8 +39,7 @@ const Patients = () => {
         });
     };
 
-
-    // Modal for create a patient
+    // Modal
     const [show, setShow] = useState(false);
     const toggleModal = () => setShow(!show);
 
@@ -61,28 +52,28 @@ const Patients = () => {
             <Navbar expand="lg">
                 <div className="container-fluid">
                     <Navbar.Brand>
-                        <h2>Patients <Badge pill bg='primary'>{nbPatients}</Badge></h2>
+                        <h2>Appointments <Badge pill bg='primary'>{nbAppointments}</Badge></h2>
                     </Navbar.Brand>
                     <div className="buttons-nav">
                         <Button variant="outline-primary" onClick={changeView}>
                             <Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
                         </Button>
-                        <Button variant="primary" onClick={toggleModal}>New Patient</Button>
+                        <Button variant="primary" onClick={toggleModal}>New Appointment</Button>
                     </div>
                 </div>
             </Navbar>
             {isGrid ? (
                 <CardGroup className="debug">
-                    {patients.map((patient) => (
-                        <PatientItemGrid key={patient.id} patient={patient} handleDelete={handleDelete} />
+                    {appointments.map((appointment: IAppointment) => (
+                        <AppItemGrid key={appointment.id} appointment={appointment} />
                     ))}
                 </CardGroup>
             ) : (
-                <PatientsTableView patients={patients} />
+                <AppTableView appointments={appointments} />
             )}
-            {show && <ModalAddPatient show={show} toggleModal={toggleModal} />}
+            {show && <ModalCreateApp show={show} toggleModal={toggleModal} />}
         </>
-    )
+    );
 };
 
 export default Patients;

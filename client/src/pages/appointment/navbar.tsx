@@ -3,8 +3,11 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 
+interface IProps {
+    view?: boolean;
+}
 
-function NavBarAppointment({ view }) {
+function NavBarAppointment({ view }: IProps): JSX.Element {
     return (
         <Navbar expand="lg">
             <div className="container-fluid">

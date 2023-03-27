@@ -3,17 +3,23 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import getNbLines from "../../tools/getLines";
+import { IAppointmentData } from "../../interfaces";
 
-function Anamnesis({ appointment, handler, view }) {
-    const handleChange = (e) => {
-        handler(prev => ({ ...prev, [e.target.name]: e.target.value }));
+interface IProps {
+    appointment: IAppointmentData;
+    handler?: (arg0: any) => void;
+    view?: boolean;
+}
+
+function Anamnesis({ appointment, handler, view }: IProps): JSX.Element {
+    const handleChange = (e: { target: { name: any; value: any; }; }) => {
+        if (handler)
+            handler((prev: any) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
     const anamnesis = JSON.parse(appointment.anamnesis);
 
-    const nbLines = (text, base) => {
-        return view ? getNbLines(text) : base;
-    };
+    const nbLines = (text: string, base: number) => view ? getNbLines(text) : base;
 
     return (
         <div className="debug">

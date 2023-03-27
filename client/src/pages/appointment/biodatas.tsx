@@ -4,11 +4,19 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import getNbLines from "../../tools/getLines";
+import { IPassif, IAppointmentData } from "../../interfaces";
 
+interface IProps {
+    patient: IAppointmentData,
+    handler?: (arg0: any) => void,
+    view?: boolean,
+    passif?: IPassif
+}
 
-const Biodatas = ({ patient, handler, view, passif }) => {
-    const handleChange = (e) => {
-        handler(prev => ({ ...prev, [e.target.name]: e.target.value }));
+const Biodatas = ({ patient, handler, view, passif }: IProps): JSX.Element => {
+    const handleChange = (e: { target: { name: any; value: any; }; }) => {
+        if (handler)
+            handler((prev: any) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
     return (
@@ -56,7 +64,7 @@ const Biodatas = ({ patient, handler, view, passif }) => {
                 </Col>
             </Form.Group>
             {
-                view &&
+                view && passif &&
                 <Form.Group as={Row} className="mb-3" controlId="formBasicMedicalIssues">
                     <Col sm="12">
                         <Form.Label>Previous Medical Issues</Form.Label>

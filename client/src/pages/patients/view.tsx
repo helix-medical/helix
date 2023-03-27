@@ -9,8 +9,16 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { IPatient } from "../../interfaces";
 
-function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }) {
+interface IProps {
+    show: boolean;
+    toggleModal: () => void;
+    patientInput: IPatient;
+    handleDelete: (id: number | undefined) => void;
+}
+
+function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IProps): JSX.Element {
     const handleClose = () => toggleModal();
     const passif = JSON.parse(patientInput.passif);
 
@@ -23,7 +31,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }) {
         medicalIssues: passif.medicalIssues,
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e: { target: { name: any; value: any; }; }) => {
         setPatient(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 

@@ -8,7 +8,7 @@ import Conclusion from './conclusion';
 import Metadata from "./metadata";
 import NavBarAppointment from "./navbar";
 
-const EditAppointment = () => {
+const EditAppointment = (): JSX.Element => {
     const id = window.location.href.split("/").slice(-2)[0];
 
     const [data, setData] = useState(
@@ -25,6 +25,7 @@ const EditAppointment = () => {
             email: "",
             birthDate: "",
             sex: "",
+            city: "",
             passif: JSON.stringify({
                 medicalIssues: "",
                 lastAppointments: []
@@ -56,7 +57,7 @@ const EditAppointment = () => {
         observations: ""
     });
 
-    const handleClick = async (e) => {
+    const handleClick = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         const appointmentFinal = {
             anamnesis: JSON.stringify(anamnesis),
@@ -73,11 +74,11 @@ const EditAppointment = () => {
 
     return (
         <>
-            <NavBarAppointment />
+            <NavBarAppointment view={false} />
             <Metadata appointment={data} />
             <PatientMetadata patientInput={data} />
-            <Anamnesis appointment={data} handler={setAnamnesis} />
-            <Conclusion appointment={data} handler={setConclusion} />
+            <Anamnesis appointment={data} handler={setAnamnesis} view={false} />
+            <Conclusion appointment={data} handler={setConclusion} view={false} />
             <Button variant="primary" onClick={handleClick}>
                 Valid Appointment
             </Button>

@@ -8,7 +8,12 @@ import Col from "react-bootstrap/Col";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Modal from "react-bootstrap/Modal";
 
-function ModalAddPatient({ show, toggleModal }) {
+interface IProps {
+    show: boolean;
+    toggleModal: () => void;
+}
+
+function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
     const handleClose = () => toggleModal();
     const [patient, setPatient] = useState({
         name: "",
@@ -24,11 +29,11 @@ function ModalAddPatient({ show, toggleModal }) {
         })
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e: { target: { name: any; value: any; }; }) => {
         setPatient(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleClick = async (e) => {
+    const handleClick = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         try {
             await axios.post(`/api/patients/add`, patient);

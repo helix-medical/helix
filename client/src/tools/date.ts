@@ -1,4 +1,4 @@
-function dateToReadable(dateTimeString) {
+function dateToReadable(dateTimeString: string) {
   if (!dateTimeString) {
     return 'no-date';
   };

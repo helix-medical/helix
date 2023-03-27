@@ -3,8 +3,13 @@ import Table from "react-bootstrap/Table";
 import KindAppointment from "../../components/kindAppointment";
 import StateAppointment from "../../components/stateAppointment";
 import dateToReadable from "../../tools/date";
+import { IAppointmentExtended } from "../../interfaces";
 
-function AppTableView({ appointments }) {
+interface IProps {
+    appointments: IAppointmentExtended[];
+}
+
+function AppTableView({ appointments }: IProps) {
     return (
         <Table striped bordered hover responsive className="debug">
             <thead>

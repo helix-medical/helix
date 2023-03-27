@@ -3,15 +3,23 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import getNbLines from "../../tools/getLines";
+import { IAppointmentData } from "../../interfaces";
 
-function Conclusion({ appointment, handler, view }) {
-    const handleChange = (e) => {
-        handler(prev => ({ ...prev, [e.target.name]: e.target.value }));
+interface IProps {
+    appointment: IAppointmentData,
+    handler?: (arg0: any) => void,
+    view?: boolean
+}
+
+function Conclusion({ appointment, handler, view }: IProps): JSX.Element {
+    const handleChange = (e: { target: { name: any; value: any; }; }) => {
+        if (handler)
+            handler((prev: any) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
     const conclusion = JSON.parse(appointment.conclusion);
 
-    const nbLines = (text, base) => {
+    const nbLines = (text: string, base: number) => {
         return view ? getNbLines(text) : base;
     };
 
@@ -37,13 +45,13 @@ function Conclusion({ appointment, handler, view }) {
                     <Col sm="2">
                         <Form.Group className="mb-3" controlId="formBasicNeedApp">
                             <Form.Label>Need appointment</Form.Label>
-                            <Form.Check type="checkbox" readOnly={view} disabled/>
+                            <Form.Check type="checkbox" readOnly={view} disabled />
                         </Form.Group>
                     </Col>
                     <Col sm="3">
                         <Form.Group className="mb-3" controlId="formBasicNextApp">
                             <Form.Label>Next appointment</Form.Label>
-                            <Form.Control as="textarea" rows={1} placeholder='NOT WORKING' readOnly={view} disabled/>
+                            <Form.Control as="textarea" rows={1} placeholder='NOT WORKING' readOnly={view} disabled />
                         </Form.Group>
                     </Col>
                 </Row>

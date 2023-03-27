@@ -10,8 +10,13 @@ import Tab from "react-bootstrap/Tab";
 // import FloatingLabel from "react-bootstrap/FloatingLabel";
 import PreviousAppointments from "./previousAppointments";
 import Biodatas from "./biodatas";
+import { IAppointmentData } from "../../interfaces";
 
-function PatientMetadata({ patientInput }) {
+interface IProps {
+    patientInput: IAppointmentData;
+}
+
+function PatientMetadata({ patientInput }: IProps): JSX.Element {
     const passif = JSON.parse(patientInput.passif);
     const id = patientInput.patientId;
 
@@ -25,11 +30,11 @@ function PatientMetadata({ patientInput }) {
         medicalIssues: passif.medicalIssues,
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e: { target: { name: any; value: any; }; }) => {
         setPatient(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleClick = async (e) => {
+    const handleClick = async (e: { preventDefault: () => void; }) => {
         if (patient.name === "") {
             patient.name = patientInput.name;
         }
@@ -78,7 +83,7 @@ function PatientMetadata({ patientInput }) {
             <h2>Patient Data</h2>
             <Tabs defaultActiveKey="data" id="uncontrolled-tab-example" className="mb-3">
                 <Tab eventKey="data" title="BioData">
-                    <Biodatas patient={patientInput} handler={setPatient} view={false} />
+                    <Biodatas patient={patientInput} handler={setPatient} view={false} passif={passif} />
                 </Tab>
                 <Tab eventKey="medical" title="Previous Medical Issues">
                     <Form className="step">

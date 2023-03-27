@@ -4,8 +4,13 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import dateToReadable from "../../tools/date";
+import { IAppointmentData } from "../../interfaces";
 
-function Metadata({ appointment }) {
+interface IProps {
+    appointment: IAppointmentData;
+}
+
+function Metadata({ appointment }: IProps): JSX.Element {
     return (
         <div className="debug">
             <h2>Appointment Data</h2>

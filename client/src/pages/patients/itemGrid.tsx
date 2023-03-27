@@ -5,8 +5,14 @@ import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import dateToReadable from "../../tools/date";
 import ModalViewPatient from "./view";
+import { IPatient } from "../../interfaces";
 
-function PatientItemGrid({ patient, handleDelete }) {
+interface IProps {
+    patient: IPatient;
+    handleDelete: (id: number | undefined) => void;
+}
+
+function PatientItemGrid({ patient, handleDelete }: IProps): JSX.Element {
     const [show, setShow] = useState(false);
     const toggleModal = () => setShow(!show);
 

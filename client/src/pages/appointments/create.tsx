@@ -7,7 +7,12 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 
-function ModalCreateApp({ show, toggleModal }) {
+interface IProps {
+    show: boolean;
+    toggleModal: () => void;
+}
+
+function ModalCreateApp({ show, toggleModal }: IProps): JSX.Element {
     const handleClose = () => toggleModal();
 
     const [data, setData] = useState({
@@ -28,11 +33,11 @@ function ModalCreateApp({ show, toggleModal }) {
         }
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e: { target: { name: any; value: any; }; }) => {
         setData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleClick = async (e) => {
+    const handleClick = async (e: { preventDefault: () => void; }) => {
         let index;
         const finalData = {
             patientId: data.patientId,
@@ -50,7 +55,8 @@ function ModalCreateApp({ show, toggleModal }) {
             console.log(error);
         }
         toggleModal();
-        window.location.href = `/appointments/${index.data}/edit`;
+        if (index)
+            window.location.href = `/appointments/${index.data}/edit`;
     };
 
     return (

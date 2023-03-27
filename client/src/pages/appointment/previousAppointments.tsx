@@ -1,7 +1,12 @@
 import React from "react";
 import Badge from "react-bootstrap/Badge";
+import { IPassif } from "../../interfaces";
 
-const PreviousAppointments = ({ passif }) => {
+interface IProps {
+    passif: IPassif;
+}
+
+const PreviousAppointments = ({ passif }: IProps): JSX.Element => {
     return (
         <div className="step">
             <h3>
