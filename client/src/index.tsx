@@ -7,6 +7,7 @@ import AppRouter from './pages/system/appRouter';
 // import style from './styles/app.module.css';
 import './styles/main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import Log from './pages/system/logs';
 
 function App() {
   return (
