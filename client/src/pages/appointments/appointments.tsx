@@ -13,7 +13,7 @@ import Badge from "react-bootstrap/Badge";
 import AppItemGrid from './itemGrid';
 import AppTableView from "./listView";
 import ModalCreateApp from "./create";
-import { IAppointment } from "../../interfaces";
+import { IAppointmentExtended } from "../../interfaces";
 
 const Patients = () => {
     // fetch all appointments
@@ -64,7 +64,7 @@ const Patients = () => {
             </Navbar>
             {isGrid ? (
                 <CardGroup className="debug">
-                    {appointments.map((appointment: IAppointment) => (
+                    {appointments.map((appointment: IAppointmentExtended) => (
                         <AppItemGrid key={appointment.id} appointment={appointment} />
                     ))}
                 </CardGroup>

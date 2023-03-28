@@ -1,5 +1,5 @@
 import Ajv from 'ajv';
-const ajv = new Ajv();
+const ajv: Ajv = new Ajv();
 
 import schemaPatientCreate from './schemas/create-patient.json';
 import schemaPatientUpdate from './schemas/update-patient.json';
