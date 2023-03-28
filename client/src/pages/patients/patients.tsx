@@ -14,7 +14,7 @@ import PatientItemGrid from "./itemGrid";
 import ModalAddPatient from "./create";
 import PatientsTableView from "./listView";
 import { IPatient } from "../../interfaces";
-import NoPatients from "../system/errors/noPatients";
+// import NoPatients from "../system/errors/noPatients";
 
 const Patients = (): JSX.Element => {
     // Fetch all patients
@@ -79,7 +79,7 @@ const Patients = (): JSX.Element => {
                     </div>
                 </div>
             </Navbar>
-            { error && <NoPatients error={error} />}
+            {/* { error && <NoPatients error={error} />} */}
             {isGrid ? (
                 <CardGroup className="debug">
                     {patients.map((patient: IPatient) => (
