@@ -14,17 +14,22 @@ import PatientItemGrid from "./itemGrid";
 import ModalAddPatient from "./create";
 import PatientsTableView from "./listView";
 import { IPatient } from "../../interfaces";
+import NoPatients from "../system/errors/noPatients";
 
 const Patients = (): JSX.Element => {
     // Fetch all patients
-    const [patients, setPatients] = useState([]);
+    const [patients, setPatients] = useState<IPatient[]>([]);
+    const [error, setError] = useState<string | null>(null);
+
     useEffect(() => {
         const fetchAllPatients = async () => {
             try {
                 const res = await axios.get(`/api/patients`);
                 setPatients(res.data);
-            } catch (error) {
+                console.log(res);
+            } catch (error: any) {
                 console.log(error);
+                setError(error.response.data);
             }
         }
         fetchAllPatients();
@@ -74,6 +79,7 @@ const Patients = (): JSX.Element => {
                     </div>
                 </div>
             </Navbar>
+            { error && <NoPatients error={error} />}
             {isGrid ? (
                 <CardGroup className="debug">
                     {patients.map((patient: IPatient) => (

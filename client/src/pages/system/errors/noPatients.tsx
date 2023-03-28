@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 
-const NoPatients = (): JSX.Element => {
+interface IProps {
+    error: {
+        code: string;
+        errno: number;
+        sqlMessage: string;
+        sqlState: string;
+        index: number;
+        sql: string;
+    };
+}
+
+const NoPatients = ({ error }: IProps): JSX.Element => {
     const [show, setShow] = useState(true);
 
     if (show) {
         return (
             <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-                <Alert.Heading>No Patient Found</Alert.Heading>
+                <Alert.Heading>{ error.sql}</Alert.Heading>
                 <hr />
                 <p>
-                    You don't have any patient yet. Please add a patient to start.
+                    <strong>{ error.sqlState }</strong> <br />
+                    { error.code } ({ error.errno }) : <code>{ error.sqlMessage }</code>
                 </p>
             </Alert>
         );
