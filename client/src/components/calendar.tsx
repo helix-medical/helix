@@ -1,16 +1,12 @@
-import Alert from "react-bootstrap/Alert";
 import React from "react";
-import Badge from "react-bootstrap/Badge";
+import { Alert, Badge, Title } from "@mantine/core";
 
 const Calendar = () => {
     return (
         <div>
-            <h2>## Calendar <Badge bg='secondary' pill>12</Badge></h2>
+            <Title order={2}>## Calendar <Badge color='red' radius='md' variant="outline">12</Badge></Title>
             <div className="calendar">
-                <Alert variant="danger">
-                    <Alert.Heading>
-                        Calendar Not Implemented
-                    </Alert.Heading>
+                <Alert color='red' title='Calendar Not Implemented'>
                 </Alert>
             </div>
         </div>

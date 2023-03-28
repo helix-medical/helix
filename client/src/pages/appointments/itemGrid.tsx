@@ -1,7 +1,5 @@
 import React from "react";
-import Button from 'react-bootstrap/Button'
-import Card from 'react-bootstrap/Card'
-import ListGroup from 'react-bootstrap/ListGroup'
+import { Card, Text, Button, Group, List } from '@mantine/core';
 import KindAppointment from "../../components/kindAppointment";
 import StateAppointment from "../../components/stateAppointment";
 import dateToReadable from "../../tools/date";
@@ -18,19 +16,17 @@ function AppItemGrid({ appointment }: IProps): JSX.Element {
 
     return (
         <div className="card-view" key={appointment.id}>
-            <Card border='primary' style={{ width: '18rem' }}>
-                <Card.Body>
-                    <Card.Title>{appointment.name} {appointment.lastName} ({appointment.sex})</Card.Title>
-                    <ListGroup variant="flush">
-                        <ListGroup.Item>Date: {dateToReadable(appointment.date)}</ListGroup.Item>
-                        <ListGroup.Item>Kind: <KindAppointment kind={appointment.reasons} /></ListGroup.Item>
-                        <ListGroup.Item>Status: <StateAppointment state={appointment.status} /></ListGroup.Item>
-                    </ListGroup>
-                    <Button variant="outline-primary" onClick={handleClick}>View</Button>
-                </Card.Body>
-                <Card.Footer>
-                    <small className="text-muted">ID: {appointment.id}</small>
-                </Card.Footer>
+            <Card radius="md" withBorder shadow="sm" padding="lg" >
+                <Group position="apart" mt="md" mb="xs">
+                    <Text size='xl' weight={500}>{appointment.name} {appointment.lastName} ({appointment.sex})</Text>
+                </Group>
+                <List>
+                    <List.Item>Date: {dateToReadable(appointment.date)}</List.Item>
+                    <List.Item>Kind: <KindAppointment kind={appointment.reasons} /></List.Item>
+                    <List.Item>Status: <StateAppointment state={appointment.status} /></List.Item>
+                </List>
+                <Button variant="light" radius="md" mt="md" fullWidth onClick={handleClick}>View</Button>
+                <Text color="dimmed" size='sm'>ID: {appointment.id}</Text>
             </Card>
         </div >
     );

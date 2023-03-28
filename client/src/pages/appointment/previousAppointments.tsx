@@ -1,5 +1,5 @@
 import React from "react";
-import Badge from "react-bootstrap/Badge";
+import { Badge, Title } from "@mantine/core";
 import { IPassif } from "../../interfaces";
 
 interface IProps {
@@ -8,13 +8,13 @@ interface IProps {
 
 const PreviousAppointments = ({ passif }: IProps): JSX.Element => {
     return (
-        <div className="step">
-            <h3>
+        <>
+            <Title order={3}>
                 Previous Appointments&nbsp;
-                <Badge pill bg='secondary'>{passif.lastAppointments.length - 1}</Badge>&nbsp;
-                <Badge bg='danger'>NOT IMPLEMENTED</Badge>
-            </h3>
-        </div>
+                <Badge color='gray' variant='filled' size='md'>{passif.lastAppointments.length - 1}</Badge>&nbsp;
+                <Badge color='red' radius='sm' variant='filled' size="xl">NOT IMPLEMENTED</Badge>
+            </Title>
+        </>
     );
 };
 

@@ -2,18 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
-import { Icon } from "@mdi/react";
-import { mdiTable, mdiViewGridOutline } from "@mdi/js";
-
-import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
-import CardGroup from "react-bootstrap/CardGroup";
-import Badge from "react-bootstrap/Badge";
+import { IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
 
 import AppItemGrid from './itemGrid';
 import AppTableView from "./listView";
 import ModalCreateApp from "./create";
 import { IAppointmentExtended } from "../../interfaces";
+import { Button, Badge, Group, Grid, Title } from "@mantine/core";
 
 const Patients = () => {
     // fetch all appointments
@@ -49,25 +44,23 @@ const Patients = () => {
 
     return (
         <>
-            <Navbar expand="lg">
-                <div className="container-fluid">
-                    <Navbar.Brand>
-                        <h2>Appointments <Badge pill bg='primary'>{nbAppointments}</Badge></h2>
-                    </Navbar.Brand>
-                    <div className="buttons-nav">
-                        <Button variant="outline-primary" onClick={changeView}>
-                            <Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
-                        </Button>
-                        <Button variant="primary" onClick={toggleModal}>New Appointment</Button>
-                    </div>
-                </div>
-            </Navbar>
+            <Grid justify="space-between" align="center" bg='dark.6' p='md'>
+                <Group>
+                    <Title order={2}>Appointments <Badge size='lg' radius="lg" variant="filled">{nbAppointments}</Badge></Title>
+                </Group>
+                <Group>
+                    <Button variant="outline" onClick={changeView}>
+                        {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
+                    </Button>
+                    <Button onClick={toggleModal}>New Appointment</Button>
+                </Group>
+            </Grid>
             {isGrid ? (
-                <CardGroup className="debug">
+                <Group className="debug">
                     {appointments.map((appointment: IAppointmentExtended) => (
                         <AppItemGrid key={appointment.id} appointment={appointment} />
                     ))}
-                </CardGroup>
+                </Group>
             ) : (
                 <AppTableView appointments={appointments} />
             )}

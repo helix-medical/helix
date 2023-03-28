@@ -2,13 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
-import { Icon } from "@mdi/react";
-import { mdiTable, mdiViewGridOutline } from "@mdi/js";
+import { IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
 
-import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
-import CardGroup from "react-bootstrap/CardGroup";
-import Badge from "react-bootstrap/Badge";
+import { Button, Badge, Group, Grid, Title } from "@mantine/core";
 
 import PatientItemGrid from "./itemGrid";
 import ModalAddPatient from "./create";
@@ -19,7 +15,7 @@ import { IPatient } from "../../interfaces";
 const Patients = (): JSX.Element => {
     // Fetch all patients
     const [patients, setPatients] = useState<IPatient[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    // const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchAllPatients = async () => {
@@ -29,7 +25,7 @@ const Patients = (): JSX.Element => {
                 console.log(res);
             } catch (error: any) {
                 console.log(error);
-                setError(error.response.data);
+                // setError(error.response.data);
             }
         }
         fetchAllPatients();
@@ -66,26 +62,24 @@ const Patients = (): JSX.Element => {
 
     return (
         <>
-            <Navbar expand="lg">
-                <div className="container-fluid">
-                    <Navbar.Brand>
-                        <h2>Patients <Badge pill bg='primary'>{nbPatients}</Badge></h2>
-                    </Navbar.Brand>
-                    <div className="buttons-nav">
-                        <Button variant="outline-primary" onClick={changeView}>
-                            <Icon size={1} path={isGrid ? mdiTable : mdiViewGridOutline} />{" "}
-                        </Button>
-                        <Button variant="primary" onClick={toggleModal}>New Patient</Button>
-                    </div>
-                </div>
-            </Navbar>
+            <Grid justify="space-between" align="center" bg='dark.6' p='md'>
+                <Group position="left">
+                    <Title order={2}>Patients <Badge size='lg' radius="lg" variant="filled">{nbPatients}</Badge></Title>
+                </Group>
+                <Group position="right">
+                    <Button variant="outline" onClick={changeView}>
+                        {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
+                    </Button>
+                    <Button onClick={toggleModal}>New Patient</Button>
+                </Group>
+            </Grid>
             {/* { error && <NoPatients error={error} />} */}
             {isGrid ? (
-                <CardGroup className="debug">
+                <Group className="debug">
                     {patients.map((patient: IPatient) => (
                         <PatientItemGrid key={patient.id} patient={patient} handleDelete={handleDelete} />
                     ))}
-                </CardGroup>
+                </Group>
             ) : (
                 <PatientsTableView patients={patients} />
             )}

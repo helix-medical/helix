@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
+import { Button } from "@mantine/core";
 import PatientMetadata from './patientMetadata';
 import Anamnesis from './anamnesis';
 import Conclusion from './conclusion';
@@ -79,7 +79,7 @@ const EditAppointment = (): JSX.Element => {
             <PatientMetadata patientInput={data} />
             <Anamnesis appointment={data} handler={setAnamnesis} view={false} />
             <Conclusion appointment={data} handler={setConclusion} view={false} />
-            <Button variant="primary" onClick={handleClick}>
+            <Button onClick={handleClick}>
                 Valid Appointment
             </Button>
         </>

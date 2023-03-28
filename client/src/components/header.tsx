@@ -1,28 +1,20 @@
 import React from 'react';
 
-// import Container from 'react-bootstrap/Container';
-// import Nav from 'react-bootstrap/Nav';
-// import Navbar from 'react-bootstrap/Navbar';
-// import Form from 'react-bootstrap/Form';
-// import Button from 'react-bootstrap/Button';
-
-// import Icon from '@mdi/react';
-// import { mdiAccount } from '@mdi/js'
-
 import {
     createStyles,
-    Menu,
-    Center,
     Header,
     Container,
     Group,
-    Button,
     Burger,
-    Flex,
     rem,
+    Title,
+    ActionIcon
+    // TextInput
 } from '@mantine/core';
 import { MantineLogo } from '@mantine/ds';
 import { useDisclosure } from '@mantine/hooks';
+import { IconSearch } from '@tabler/icons-react';
+import ToggleTheme from './toggleTheme';
 
 const useStyles = createStyles((theme) => ({
     inner: {
@@ -51,7 +43,7 @@ const useStyles = createStyles((theme) => ({
         borderRadius: theme.radius.sm,
         textDecoration: 'none',
         color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
-        fontSize: theme.fontSizes.sm,
+        // fontSize: theme.fontSizes.sm,
         fontWeight: 500,
 
         '&:hover': {
@@ -76,62 +68,35 @@ const HeaderApp = ({ links }: HeaderAppProps) => {
     const { classes } = useStyles();
     const items = links.map((link) => {
         return (
-            <a
-                key={link.label}
-                href={link.link}
-                className={classes.link}
-            >
-                {link.label}
-            </a>
+            <Title order={4} key={link.label}>
+                <a
+                    href={link.link}
+                    className={classes.link}
+                >
+                    {link.label}
+                </a>
+            </Title>
         );
     });
 
     return (
         <Header height={rem(60)} sx={{ borderBottom: 0 }} mb={10}>
             <Container className={classes.inner} fluid>
-                {/* <Flex
-                    mih={50}
-                    gap="xl"
-                    justify="center"
-                    align="center"
-                    direction="row"
-                    wrap="wrap"
-                >
-                    
-                    {items}
-                    
-                </Flex> */}
                 <Group>
                     <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
                     <MantineLogo type='mark' size={28} />
-                    <h1>Helix</h1>
+                    <Title order={1}>Helix</Title>
                 </Group>
                 <Group spacing={5} className={classes.links}>
                     {items}
                 </Group>
-                <Button color="green" radius='md'>Search</Button>
-                {/* <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="me-auto my-2 my-lg-0">
-                        <Nav.Link href="/patients"><h4>Patients</h4></Nav.Link>
-                        <Nav.Link href="/appointments"><h4>Appointments</h4></Nav.Link>
-                        <Nav.Link href="/calendar" disabled><h4>Calendar</h4></Nav.Link>
-                    </Nav> */}
-                {/* <Form className="d-flex">
-                        <Form.Control
-                            type="search"
-                            placeholder="Search Patient"
-                            className="me-2"
-                            aria-label="Search"
-                            disabled
-                        /> */}
-                {/* </Form> */}
-                {/* <Nav>
-                        <Nav.Link href="/account">
-                            <Icon path={mdiAccount} size={1} />User
-                        </Nav.Link>
-                    </Nav>
-                </Navbar.Collapse> */}
+                <Group>
+                    {/* <TextInput placeholder="Search" /> */}
+                    <ActionIcon color="green" variant="light" size='lg'>
+                        <IconSearch size="1.2rem" />
+                    </ActionIcon>
+                    <ToggleTheme />
+                </Group>
             </Container>
         </Header>
     );

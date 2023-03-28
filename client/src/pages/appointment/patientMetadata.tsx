@@ -1,13 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-// import Col from "react-bootstrap/Col";
-// import Row from "react-bootstrap/Row";
-import Tabs from "react-bootstrap/Tabs";
-import Tab from "react-bootstrap/Tab";
-// import FloatingLabel from "react-bootstrap/FloatingLabel";
+import { Textarea, Title, /* Grid, Group, */ Tabs, Button } from "@mantine/core";
 import PreviousAppointments from "./previousAppointments";
 import Biodatas from "./biodatas";
 import { IAppointmentData } from "../../interfaces";
@@ -81,23 +75,24 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
     return (
         <div className="debug">
             <h2>Patient Data</h2>
-            <Tabs defaultActiveKey="data" id="uncontrolled-tab-example" className="mb-3">
-                <Tab eventKey="data" title="BioData">
+            <Tabs defaultValue="data" variant="pills" radius='md'>
+                <Tabs.List>
+                    <Tabs.Tab value="data">BioData</Tabs.Tab>
+                    <Tabs.Tab value="medical">Previous Medical Issues</Tabs.Tab>
+                    <Tabs.Tab value="appointments">Previous Appointments</Tabs.Tab>
+                </Tabs.List>
+                <Tabs.Panel value="data">
                     <Biodatas patient={patientInput} handler={setPatient} view={false} passif={passif} />
-                </Tab>
-                <Tab eventKey="medical" title="Previous Medical Issues">
-                    <Form className="step">
-                        <h3>Previous Medical Issues</h3>
-                        <Form.Group controlId="formBasicMedicalIssues">
-                            <Form.Control as="textarea" rows={10} defaultValue={passif.medicalIssues} name="medicalIssues" onChange={handleChange} />
-                        </Form.Group>
-                    </Form>
-                </Tab>
-                <Tab eventKey="appointments" title="Previous Appointments">
+                </Tabs.Panel>
+                <Tabs.Panel value="medical">
+                    <Title order={3}>Previous Medical Issues</Title>
+                    <Textarea maxRows={10} defaultValue={passif.medicalIssues} name="medicalIssues" onChange={handleChange} />
+                </Tabs.Panel>
+                <Tabs.Panel value="appointments">
                     <PreviousAppointments passif={passif} />
-                </Tab>
+                </Tabs.Panel>
             </Tabs>
-            <Button variant="outline-primary" onClick={handleClick} className="button-center">
+            <Button variant="light" onClick={handleClick}>
                 Update Patient Data
             </Button>
         </div>

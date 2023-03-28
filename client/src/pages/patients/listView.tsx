@@ -1,5 +1,5 @@
 import React from "react";
-import Table from "react-bootstrap/Table";
+import { Table } from '@mantine/core';
 import { IPatient } from "../../interfaces";
 
 interface IProps {
@@ -7,8 +7,20 @@ interface IProps {
 }
 
 function PatientsTableView({ patients }: IProps): JSX.Element {
+    const rows = patients.map((patient: IPatient) => (
+        <tr key={patient.id}>
+            <td>{patient.id}</td>
+            <td>{patient.name}</td>
+            <td>{patient.lastName}</td>
+            <td>{patient.birthDate}</td>
+            <td>{patient.sex}</td>
+            <td>{patient.city}</td>
+            <td>{patient.email}</td>
+        </tr>
+    ));
+
     return (
-        <Table striped bordered hover responsive className="debug">
+        <Table horizontalSpacing="md" verticalSpacing="md" className="debug" highlightOnHover withColumnBorders>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -21,17 +33,7 @@ function PatientsTableView({ patients }: IProps): JSX.Element {
                 </tr>
             </thead>
             <tbody>
-                {patients.map((patient: IPatient) => (
-                    <tr key={patient.id}>
-                        <td>{patient.id}</td>
-                        <td>{patient.name}</td>
-                        <td>{patient.lastName}</td>
-                        <td>{patient.birthDate}</td>
-                        <td>{patient.sex}</td>
-                        <td>{patient.city}</td>
-                        <td>{patient.email}</td>
-                    </tr>
-                ))}
+                {rows}
             </tbody>
         </Table>
     );

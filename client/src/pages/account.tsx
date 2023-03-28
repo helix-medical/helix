@@ -1,9 +1,10 @@
 import React from "react";
+import { Title } from "@mantine/core";
 
 const Account = () => {
     return (
         <div>
-            <h2>## Account</h2>
+            <Title order={2}>## Account</Title>
             <div className="account">
                 <p>Account Not Implemented</p>
             </div>

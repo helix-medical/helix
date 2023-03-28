@@ -1,11 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import Button from 'react-bootstrap/Button'
-import Card from 'react-bootstrap/Card'
-import ListGroup from 'react-bootstrap/ListGroup'
 import dateToReadable from "../../tools/date";
 import ModalViewPatient from "./view";
 import { IPatient } from "../../interfaces";
+import { Card, Text, Button, Group, List } from '@mantine/core';
 
 interface IProps {
     patient: IPatient;
@@ -18,18 +16,16 @@ function PatientItemGrid({ patient, handleDelete }: IProps): JSX.Element {
 
     return (
         <div className="card-view" key={patient.id}>
-            <Card border='primary' style={{ width: '18rem' }}>
-                <Card.Body>
-                    <Card.Title>{patient.name} {patient.lastName}</Card.Title>
-                    <ListGroup variant="flush">
-                        <ListGroup.Item>ID: {patient.id}</ListGroup.Item>
-                        <ListGroup.Item>Sex: {patient.sex}</ListGroup.Item>
-                    </ListGroup>
-                    <Button variant="outline-primary" onClick={toggleModal}>View</Button>
-                </Card.Body>
-                <Card.Footer>
-                    <small className="text-muted">Next Appointment: {dateToReadable(patient.nextApp)}</small>
-                </Card.Footer>
+            <Card radius="md" withBorder shadow="sm" padding="lg" /*border='primary' style={{ width: '18rem' }}*/>
+                <Group position="apart" mt="md" mb="xs">
+                    <Text size="xl" weight={500}>{patient.name} {patient.lastName}</Text>
+                </Group>
+                <List>
+                    <List.Item>ID: {patient.id}</List.Item>
+                    <List.Item>Sex: {patient.sex}</List.Item>
+                </List>
+                <Button variant="light" radius="md" mt="md" fullWidth onClick={toggleModal}>View</Button>
+                <Text color="dimmed" size="sm">Next Appointment: {dateToReadable(patient.nextApp)}</Text>
             </Card>
             {show && <ModalViewPatient patientInput={patient} show={show} toggleModal={toggleModal} handleDelete={handleDelete} />}
         </div>

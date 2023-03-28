@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { useState } from 'react';
 
-import { MantineProvider } from '@mantine/core';
+import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 
 import HeaderApp from './components/header';
 import AppRouter from './pages/system/appRouter';
@@ -16,15 +17,23 @@ function App() {
     { label: 'Home', link: '/' },
     { label: 'Patients', link: '/patients' },
     { label: 'Appointments', link: '/appointments' },
+    { label: 'Calendar', link: '/calendar' },
+    { label: 'User', link: '/account' }
   ];
 
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: 'dark' }}>
-      <HeaderApp links={links} />
-      <div className='body'>
-        <AppRouter />
-      </div>
-    </MantineProvider>
+    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+      <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: colorScheme }}>
+        <HeaderApp links={links} />
+        <div className='body'>
+          <AppRouter />
+        </div>
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 };
 

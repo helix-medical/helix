@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Alert from "react-bootstrap/Alert";
+import { Alert, Code } from "@mantine/core";
 
 interface IProps {
     error: {
@@ -17,12 +17,10 @@ const NoPatients = ({ error }: IProps): JSX.Element => {
 
     if (show) {
         return (
-            <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-                <Alert.Heading>{ error.sql}</Alert.Heading>
-                <hr />
+            <Alert color="red" onClose={() => setShow(false)} title={error.sql} withCloseButton>
                 <p>
-                    <strong>{ error.sqlState }</strong> <br />
-                    { error.code } ({ error.errno }) : <code>{ error.sqlMessage }</code>
+                    <strong>{error.sqlState}</strong> <br />
+                    {error.code} ({error.errno}) : <Code>{error.sqlMessage}</Code>
                 </p>
             </Alert>
         );

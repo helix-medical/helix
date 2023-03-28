@@ -1,11 +1,10 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
+import { Button, Modal, Select, ActionIcon, NumberInput, Group } from "@mantine/core";
+import { DateInput, TimeInput } from "@mantine/dates";
+import { IconClock } from '@tabler/icons-react';
 
 interface IProps {
     show: boolean;
@@ -14,6 +13,7 @@ interface IProps {
 
 function ModalCreateApp({ show, toggleModal }: IProps): JSX.Element {
     const handleClose = () => toggleModal();
+    const ref = useRef<HTMLInputElement>();
 
     const [data, setData] = useState({
         patientId: 0,
@@ -60,37 +60,42 @@ function ModalCreateApp({ show, toggleModal }: IProps): JSX.Element {
     };
 
     return (
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Create Appointment</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Form>
-                    <FloatingLabel className='mb-3' controlId="floatingDate" label="Date">
-                        <Form.Control type="date" placeholder="Date" onChange={handleChange} name='date' />
-                    </FloatingLabel>
-                    <FloatingLabel className='mb-3' controlId="floatingTime" label="Time">
-                        <Form.Control type="time" placeholder="Time" onChange={handleChange} name='time' />
-                    </FloatingLabel>
-                    <FloatingLabel className='mb-3' controlId="floatingPatientId" label="Patient ID">
-                        <Form.Control type="number" placeholder="Patient ID" onChange={handleChange} name='patientId' />
-                    </FloatingLabel>
-                    <FloatingLabel className='mb-3' controlId="floatingKind" label="Kind">
-                        <Form.Select onChange={handleChange} name="reasons">
-                            <option>Choose Option</option>
-                            <option value="first-visit">First Visit</option>
-                            <option value="follow-up">Follow Up</option>
-                            <option value="pediatrics">Pediatrics</option>
-                            <option value="maternity">Maternity</option>
-                            <option value="emergency">Emergency</option>
-                        </Form.Select>
-                    </FloatingLabel>
-                </Form>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="outline-danger" onClick={handleClose}>Cancel</Button>
-                <Button variant='success' onClick={handleClick}>Submit</Button>
-            </Modal.Footer>
+        <Modal opened={show} onClose={handleClose} title="Create Appointment">
+            {/* <FloatingLabel className='mb-3' controlId="floatingDate" label="Date"> */}
+            <DateInput label="Date" placeholder="Date" /*onChange={handleChange}*/ name='date' withAsterisk />
+            {/* </FloatingLabel> */}
+            {/* <FloatingLabel className='mb-3' controlId="floatingTime" label="Time"> */}
+            {ref &&
+                <TimeInput label="Time" placeholder="Time" onChange={handleChange} name='time' withAsterisk
+                    ref={ref}
+                    rightSection={
+                        <ActionIcon onClick={() => ref.current.showPicker()}>
+                            <IconClock size="1rem" stroke={1.5} />
+                        </ActionIcon>
+                    } />
+            }
+            {/* </FloatingLabel> */}
+            {/* <FloatingLabel className='mb-3' controlId="floatingPatientId" label="Patient ID"> */}
+            <NumberInput label='Patient ID' placeholder="Patient ID" /*onChange={handleChange}*/ name='patientId' withAsterisk />
+            {/* </FloatingLabel> */}
+            {/* <FloatingLabel className='mb-3' controlId="floatingKind" label="Kind"> */}
+            {/* <Form.Select onChange={handleChange} name="reasons"> */}
+            {/* <option>Choose Option</option> */}
+            {/* <option value="first-visit">First Visit</option> */}
+            {/* <option value="follow-up">Follow Up</option> */}
+            {/* <option value="pediatrics">Pediatrics</option> */}
+            {/* <option value="maternity">Maternity</option> */}
+            {/* <option value="emergency">Emergency</option> */}
+            {/* </Form.Select> */}
+            <Select label="Kind" placeholder="Kind" /*onChange={handleChange}*/ name="reasons" withAsterisk
+                data={['first-visit', 'follow-up', 'pediatrics', 'maternity', 'emergency']} />
+
+            {/* <Modal.Footer> */}
+            <Group position="right">
+                <Button variant="light" color="red" onClick={handleClose}>Cancel</Button>
+                <Button color="green" onClick={handleClick}>Submit</Button>
+            </Group>
+            {/* </Modal.Footer> */}
         </Modal>
     );
 };

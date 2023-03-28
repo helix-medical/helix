@@ -1,25 +1,25 @@
 import React from "react";
-import Badge from "react-bootstrap/Badge";
+import { Badge } from "@mantine/core";
 
 interface IProps {
     kind: string;
 }
 
 function KindAppointment({ kind }: IProps): JSX.Element {
-    let color = 'primary';
+    let color = 'blue';
     if (kind === 'follow-up')
-        color = 'primary';
+        color = 'indigo';
     if (kind === 'first-visit')
-        color = 'success';
+        color = 'green';
     if (kind === 'emergency')
-        color = 'danger';
+        color = 'red';
     if (kind === 'pediatrics')
-        color = 'warning';
+        color = 'yellow';
     if (kind === 'maternity')
-        color = 'info';
+        color = 'cyan';
 
     return (
-        <Badge bg={color} className="mb-3">{kind}</Badge>
+        <Badge color={color} radius='md' variant="outline">{kind}</Badge>
     );
 };
 
