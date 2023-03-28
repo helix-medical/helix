@@ -1,7 +1,11 @@
 import React from "react";
 import Badge from "react-bootstrap/Badge";
 
-function KindAppointment({ kind }) {
+interface IProps {
+    kind: string;
+}
+
+function KindAppointment({ kind }: IProps): JSX.Element {
     let color = 'primary';
     if (kind === 'follow-up')
         color = 'primary';
@@ -16,7 +20,7 @@ function KindAppointment({ kind }) {
 
     return (
         <Badge bg={color} className="mb-3">{kind}</Badge>
-    )
-}
+    );
+};
 
 export default KindAppointment;

@@ -1,16 +1,17 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-const patients = require('./routers/patients');
-const appointments = require('./routers/appointments');
+import express, { Express, Request, Response } from 'express';
 
-const app = express();
+import cors from 'cors';
+require('dotenv').config();
+import patients from './routers/patients';
+import appointments from './routers/appointments';
+
+const app: Express = express();
 const port = process.env.PORT_API;
 
 app.use(express.json());
 app.use(cors());
 
-app.get('/api', (req, res) => {
+app.get('/api', (req: Request, res: Response) => {
     res.json('Helix: A System for Patient Management [[API]]');
 });
 

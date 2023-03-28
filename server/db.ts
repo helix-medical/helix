@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+import mysql from 'mysql';
 require('dotenv').config();
 
 const db = mysql.createConnection({
@@ -8,4 +8,4 @@ const db = mysql.createConnection({
     database: process.env.NAME_DB
 });
 
-module.exports = db;
+export default db;

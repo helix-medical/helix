@@ -1,14 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const db = require('../db');
-const validate = require('../validation/validator');
+import { Router, Response, Request, NextFunction } from 'express';
+const router: Router = Router();
+import db from '../db';
+import validate from '../validation/validator';
 
-router.get('/', (req, res) => {
+router.get('/', (req: Request, res: Response) => {
     const sqlQuery = `
     SELECT appointments.id, appointments.date, appointments.reasons, appointments.status, patients.name, patients.lastName, patients.sex 
     FROM appointments INNER JOIN patients ON appointments.patientId = patients.id
     `;
-    db.query(sqlQuery, (err, data) => {
+    db.query(sqlQuery, (err: any, data: any) => {
         if (err) {
             console.log(err);
             return res.json(err);
@@ -17,14 +17,14 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id/read', (req, res) => {
+router.get('/:id/read', (req: Request, res: Response) => {
     const appointmentId = req.params.id;
     const sqlQuery = `
     SELECT *
     FROM appointments
     WHERE id = ?
     `;
-    db.query(sqlQuery, appointmentId, (err, data) => {
+    db.query(sqlQuery, appointmentId, (err: any, data: any) => {
         if (err) {
             console.log(err);
             return res.json(err);
@@ -33,14 +33,14 @@ router.get('/:id/read', (req, res) => {
     });
 });
 
-router.get('/:id/appointment', (req, res) => {
+router.get('/:id/appointment', (req: Request, res: Response) => {
     const appointmentId = req.params.id;
     const sqlQuery = `
     SELECT appointments.id, appointments.date, appointments.reasons, appointments.anamnesis, appointments.conclusion, appointments.patientId, appointments.status, patients.name, patients.lastName, patients.email, patients.birthDate, patients.city, patients.sex, patients.passif 
     FROM appointments INNER JOIN patients ON appointments.patientId = patients.id
     WHERE appointments.id = ?
     `;
-    db.query(sqlQuery, appointmentId, (err, data) => {
+    db.query(sqlQuery, appointmentId, (err: any, data: any) => {
         if (err) {
             console.log(err);
             return res.json(err);
@@ -49,15 +49,15 @@ router.get('/:id/appointment', (req, res) => {
     });
 });
 
-router.use('/new', (req, res, next) => {
-    const valid = validate.appointmentCreate(req.body);
-    if (!valid) {
+router.use('/new', (req: Request, res: Response, next: NextFunction) => {
+    const isValid = validate.appointmentCreate(req.body);
+    if (!isValid) {
         return res.json(validate.appointmentCreate.errors);
     }
     next();
 });
 
-router.post('/new', (req, res) => {
+router.post('/new', (req: Request, res: Response) => {
     const sqlQuery = 'INSERT INTO appointments ' +
         '(`patientId`, `date`, `reasons`, `anamnesis`, `conclusion`, `status`) VALUES (?)';
     const values = [
@@ -69,7 +69,7 @@ router.post('/new', (req, res) => {
         "pending"
     ];
 
-    db.query(sqlQuery, [values], (err, data) => {
+    db.query(sqlQuery, [values], (err: any, data: { insertId: any; }) => {
         if (err) {
             console.log(err);
             return res.json(err);
@@ -78,15 +78,15 @@ router.post('/new', (req, res) => {
     });
 });
 
-router.use('/:id/update', (req, res, next) => {
-    const valid = validate.appointmentUpdate(req.body);
-    if (!valid) {
+router.use('/:id/update', (req: Request, res: Response, next: NextFunction) => {
+    const isValid = validate.appointmentUpdate(req.body);
+    if (!isValid) {
         return res.json(validate.appointmentUpdate.errors);
     }
     next();
 });
 
-router.put('/:id/update', (req, res) => {
+router.put('/:id/update', (req: Request, res: Response) => {
     const appointmentId = req.params.id;
     const sqlQuery = 'UPDATE appointments ' +
         'SET `anamnesis` = ?, `conclusion` = ?, `status` = ? ' +
@@ -97,7 +97,7 @@ router.put('/:id/update', (req, res) => {
         "finished"
     ];
 
-    db.query(sqlQuery, [...values, appointmentId], (err, data) => {
+    db.query(sqlQuery, [...values, appointmentId], (err: any, data: any) => {
         if (err) {
             console.log(err);
             return res.json(err);
@@ -106,4 +106,4 @@ router.put('/:id/update', (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;

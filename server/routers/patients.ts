@@ -1,14 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const db = require('../db');
-const validate = require('../validation/validator');
+import { Router, Response, Request, NextFunction } from 'express';
+const router: Router = Router();
+import db from '../db';
+import validate from '../validation/validator';
 
-router.get('/', (req, res) => {
+router.get('/', (req: Request, res: Response) => {
     const sqlQuery = `
     SELECT *
     FROM patients
     `;
-    db.query(sqlQuery, (err, data) => {
+    db.query(sqlQuery, (err: any, data: any) => {
         if (err) {
             console.log(err);
             return res.json(err);
@@ -17,14 +17,14 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id/read', (req, res) => {
+router.get('/:id/read', (req: Request, res: Response) => {
     const patientId = req.params.id;
     const sqlQuery = `
     SELECT *
     FROM patients
     WHERE id = ?
     `;
-    db.query(sqlQuery, patientId, (err, data) => {
+    db.query(sqlQuery, patientId, (err: any, data: any) => {
         if (err) {
             console.log(err);
             return res.json(err);
@@ -33,15 +33,15 @@ router.get('/:id/read', (req, res) => {
     });
 });
 
-router.use('/add', (req, res, next) => {
-    const valid = validate.patientCreate(req.body);
-    if (!valid) {
+router.use('/add', (req: Request, res: Response, next: NextFunction) => {
+    const isValid = validate.patientCreate(req.body);
+    if (!isValid) {
         return res.json(validate.patientCreate.errors);
     }
     next();
 });
 
-router.post('/add', (req, res) => {
+router.post('/add', (req: Request, res: Response) => {
     const sqlQuery = 'INSERT ' +
         'INTO patients ' +
         '(`name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `nextApp`, `passif`) VALUES (?)';
@@ -56,7 +56,7 @@ router.post('/add', (req, res) => {
         req.body.passif
     ];
 
-    db.query(sqlQuery, [values], (err, data) => {
+    db.query(sqlQuery, [values], (err: any, data: { insertId: any; }) => {
         if (err) {
             console.log(err);
             return res.json(err);
@@ -65,14 +65,14 @@ router.post('/add', (req, res) => {
     });
 });
 
-router.delete('/:id/delete', (req, res) => {
+router.delete('/:id/delete', (req: Request, res: Response) => {
     const patientId = req.params.id;
     const sqlQuery = `DELETE 
     FROM patients
     WHERE id = ?
     `;
 
-    db.query(sqlQuery, patientId, (err, data) => {
+    db.query(sqlQuery, patientId, (err: any, data: any) => {
         if (err) {
             console.log(err);
             return res.json(err);
@@ -81,15 +81,15 @@ router.delete('/:id/delete', (req, res) => {
     });
 });
 
-router.use('/:id/update', (req, res, next) => {
-    const valid = validate.patientUpdate(req.body);
-    if (!valid) {
+router.use('/:id/update', (req: Request, res: Response, next: NextFunction) => {
+    const isValid = validate.patientUpdate(req.body);
+    if (!isValid) {
         return res.json(validate.patientUpdate.errors);
     }
     next();
 });
 
-router.put('/:id/update', (req, res) => {
+router.put('/:id/update', (req: Request, res: Response) => {
     const patientId = req.params.id;
     const sqlQuery = 'UPDATE patients ' +
         'SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ?, `email` = ?, `city` = ?, `passif` = ? ' +
@@ -104,7 +104,7 @@ router.put('/:id/update', (req, res) => {
         req.body.passif
     ];
 
-    db.query(sqlQuery, [...values, patientId], (err, data) => {
+    db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
         if (err) {
             console.log(err);
             return res.json(err);
@@ -113,7 +113,7 @@ router.put('/:id/update', (req, res) => {
     });
 });
 
-router.put('/:id/add_appointment/', (req, res) => {
+router.put('/:id/add_appointment/', (req: Request, res: Response) => {
     const patientId = req.params.id;
     const sqlQuery = 'UPDATE patients ' +
         'SET `passif` = JSON_ARRAY_APPEND(`passif`, "$.lastAppointments", ?) ' +
@@ -122,7 +122,7 @@ router.put('/:id/add_appointment/', (req, res) => {
         req.body.id
     ];
 
-    db.query(sqlQuery, [...values, patientId], (err, data) => {
+    db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
         if (err) {
             console.log(err);
             return res.json(err);
@@ -131,4 +131,4 @@ router.put('/:id/add_appointment/', (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;
