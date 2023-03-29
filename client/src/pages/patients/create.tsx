@@ -1,8 +1,8 @@
 // import axios from "axios";
-import React from "react";
-import { useForm } from "@mantine/form";
-import { Button, Modal, TextInput, Select, Group, Grid } from "@mantine/core";
-import { DateInput, DateTimePicker } from "@mantine/dates";
+import React from 'react';
+import { useForm } from '@mantine/form';
+import { Button, Modal, TextInput, Select, Group, Grid } from '@mantine/core';
+import { DateInput, DateTimePicker } from '@mantine/dates';
 
 interface IProps {
     show: boolean;
@@ -25,28 +25,28 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
 
     const form = useForm({
         initialValues: {
-            name: "",
-            lastName: "",
-            birthDate: "",
-            sex: "",
-            email: "",
-            city: "",
-            nextApp: "",
+            name: '',
+            lastName: '',
+            birthDate: '',
+            sex: '',
+            email: '',
+            city: '',
+            nextApp: '',
             passif: JSON.stringify({
-                medicalIssues: "",
+                medicalIssues: '',
                 lastAppointments: [0],
             }),
         },
 
         validate: {
-            name: (value) => (value ? null : "Name is required"),
-            lastName: (value) => (value ? null : "Last name is required"),
-            birthDate: (value) => (value ? null : "Birth date is required"),
-            sex: (value) => (value ? null : "Sex is required"),
+            name: (value) => (value ? null : 'Name is required'),
+            lastName: (value) => (value ? null : 'Last name is required'),
+            birthDate: (value) => (value ? null : 'Birth date is required'),
+            sex: (value) => (value ? null : 'Sex is required'),
             email: (value) =>
-                /^\S+@\S+$/.test(value) ? null : "Invalid email",
-            city: (value) => (value ? null : "City is required"),
-            nextApp: (value) => (value ? null : "Next appointment is required"),
+                /^\S+@\S+$/.test(value) ? null : 'Invalid email',
+            city: (value) => (value ? null : 'City is required'),
+            nextApp: (value) => (value ? null : 'Next appointment is required'),
         },
     });
 
@@ -65,7 +65,7 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
                                     placeholder="Name"
                                     label="Name"
                                     withAsterisk
-                                    {...form.getInputProps("name")}
+                                    {...form.getInputProps('name')}
                                 />
                             </Grid.Col>
                             <Grid.Col span={5}>
@@ -73,16 +73,16 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
                                     placeholder="Last Name"
                                     label="Last Name"
                                     withAsterisk
-                                    {...form.getInputProps("lastName")}
+                                    {...form.getInputProps('lastName')}
                                 />
                             </Grid.Col>
                             <Grid.Col span={2}>
                                 <Select
                                     label="Sex"
                                     placeholder="Sex"
-                                    data={["F", "M"]}
+                                    data={['F', 'M']}
                                     withAsterisk
-                                    {...form.getInputProps("sex")}
+                                    {...form.getInputProps('sex')}
                                 />
                             </Grid.Col>
                             <Grid.Col span={6}>
@@ -90,7 +90,7 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
                                     label="Date of Birth"
                                     placeholder="Choose"
                                     withAsterisk
-                                    {...form.getInputProps("birthDate")}
+                                    {...form.getInputProps('birthDate')}
                                     valueFormat="DD/MM/YYYY"
                                     firstDayOfWeek={0}
                                 />
@@ -100,7 +100,7 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
                                     label="City"
                                     placeholder="City"
                                     withAsterisk
-                                    {...form.getInputProps("city")}
+                                    {...form.getInputProps('city')}
                                 />
                             </Grid.Col>
                             <Grid.Col span={6}>
@@ -108,7 +108,7 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
                                     placeholder="Email Address"
                                     label="Email Address"
                                     withAsterisk
-                                    {...form.getInputProps("email")}
+                                    {...form.getInputProps('email')}
                                 />
                             </Grid.Col>
                             <Grid.Col span={6}>
@@ -123,7 +123,7 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
                                     label="Next Appointment"
                                     placeholder="Choose"
                                     withAsterisk
-                                    {...form.getInputProps("nextApp")}
+                                    {...form.getInputProps('nextApp')}
                                     valueFormat="DD/MM/YYYY HH:mm"
                                     firstDayOfWeek={0}
                                 />

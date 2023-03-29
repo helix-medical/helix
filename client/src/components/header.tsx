@@ -11,7 +11,7 @@ import {
     ActionIcon,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconSearch, IconUser } from "@tabler/icons-react";
+import { IconSearch, IconPower } from "@tabler/icons-react";
 import ToggleTheme from "./toggleTheme";
 
 const useStyles = createStyles((theme) => ({
@@ -103,8 +103,8 @@ const HeaderApp = ({ links }: HeaderAppProps) => {
                         <IconSearch size="1.2rem" />
                     </ActionIcon>
                     <ToggleTheme />
-                    <ActionIcon color="gray" variant="light" size="lg">
-                        <IconUser size="1.2rem" />
+                    <ActionIcon color="red" variant="light" size="lg">
+                        <IconPower size="1.2rem" />
                     </ActionIcon>
                 </Group>
             </Container>

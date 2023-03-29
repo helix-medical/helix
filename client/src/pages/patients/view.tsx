@@ -1,8 +1,19 @@
-import React from "react";
-import { useState } from "react";
-import axios from "axios";
-import { Button, Modal, TextInput, Group, Grid, Textarea } from "@mantine/core";
-import { IPatient } from "../../interfaces";
+import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
+import {
+    Button,
+    Modal,
+    TextInput,
+    Group,
+    Grid,
+    Textarea,
+    Text,
+    Badge,
+} from '@mantine/core';
+import { useForm, isEmail } from '@mantine/form';
+import { IPatient } from '../../interfaces';
+import dateToReadable from '../../tools/date';
 
 interface IProps {
     show: boolean;
@@ -21,44 +32,29 @@ function ModalViewPatient({
     const passif = JSON.parse(patientInput.passif);
 
     const [update, setUpdate] = useState(false);
-    const [patient, setPatient] = useState({
-        birthDate: patientInput.birthDate,
-        sex: patientInput.sex,
-        email: patientInput.email,
-        city: patientInput.city,
-        medicalIssues: passif.medicalIssues,
-    });
-
-    const handleChange = (e: { target: { name: any; value: any } }) => {
-        setPatient((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    };
 
     const handleUpdate = async () => {
         if (update) {
-            if (patient.birthDate === "") {
-                patient.birthDate = patientInput.birthDate;
-            }
-            if (patient.sex === "") {
-                patient.sex = patientInput.sex;
-            }
-            if (patient.email === "") {
-                patient.email = patientInput.email;
-            }
-            if (patient.city === "") {
-                patient.city = patientInput.city;
-            }
-            if (patient.medicalIssues === "") {
-                patient.medicalIssues = passif.medicalIssues;
-            }
+            if (form.validate().hasErrors) return;
+
+            // if (form.values.birthDate === '')
+            //     form.values.birthDate = patientInput.birthDate;
+            // if (form.values.sex === '') form.values.sex = patientInput.sex;
+            // if (form.values.email === '')
+            //     form.values.email = patientInput.email;
+            // if (form.values.city === '') form.values.city = patientInput.city;
+            // if (form.values.medicalIssues === '')
+            //     form.values.medicalIssues = passif.medicalIssues;
+
             const finalPatient = {
-                name: patientInput.name,
-                lastName: patientInput.lastName,
-                birthDate: patient.birthDate,
-                sex: patient.sex,
-                email: patient.email,
-                city: patient.city,
+                name: form.values.name,
+                lastName: form.values.lastName,
+                birthDate: form.values.birthDate,
+                sex: form.values.sex,
+                email: form.values.email,
+                city: form.values.city,
                 passif: JSON.stringify({
-                    medicalIssues: patient.medicalIssues,
+                    medicalIssues: form.values.medicalIssues,
                     lastAppointments: passif.lastAppointments,
                 }),
             };
@@ -74,110 +70,155 @@ function ModalViewPatient({
         setUpdate(!update);
     };
 
+    const form = useForm({
+        initialValues: {
+            name: patientInput.name,
+            lastName: patientInput.lastName,
+            birthDate: patientInput.birthDate,
+            sex: patientInput.sex,
+            email: patientInput.email,
+            city: patientInput.city,
+            medicalIssues: passif.medicalIssues,
+        },
+
+        validate: {
+            name: (value) =>
+                value.length < 2 ? 'Name must be at least 2 chars' : null,
+            lastName: (value) =>
+                value.length < 2 ? 'Last name must be at least 2 chars' : null,
+            birthDate: (value) =>
+                value.length !== 10
+                    ? 'Birth date must be at `DD/MM/YYYY` format'
+                    : null,
+            sex: (value) =>
+                value !== 'F' && value !== 'M'
+                    ? 'Sex must be at `M` or `F`'
+                    : null,
+            email: isEmail('Email must be valid'),
+            city: (value) =>
+                value.length < 2 ? 'City must be at least 2 chars' : null,
+        },
+    });
+
     return (
         <Modal.Root opened={show} onClose={handleClose}>
             <Modal.Content>
                 <Modal.Header>
                     <Modal.Title>
-                        {patientInput.name} {patientInput.lastName}
+                        <Text size="xl" weight={700}>
+                            Patient Details
+                        </Text>
                     </Modal.Title>
                     <Modal.CloseButton />
                 </Modal.Header>
-                <Modal.Body>
-                    <Grid columns={12}>
-                        <Grid.Col span={6}>
-                            <TextInput
-                                label="ID"
-                                placeholder="ID"
-                                value={patientInput.id}
-                                readOnly
-                            />
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                            <TextInput
-                                label="Sex"
-                                placeholder="Sex"
-                                value={patientInput.sex}
-                                readOnly={!update}
-                                onChange={handleChange}
-                                name="sex"
-                                withAsterisk={update}
-                            />
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                            <TextInput
-                                label="Birth Date"
-                                placeholder="Birth Date"
-                                value={patientInput.birthDate}
-                                readOnly={!update}
-                                onChange={handleChange}
-                                name="birthDate"
-                                withAsterisk={update}
-                            />
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                            <TextInput
-                                label="City"
-                                placeholder="City"
-                                value={patientInput.city}
-                                readOnly={!update}
-                                onChange={handleChange}
-                                name="city"
-                                withAsterisk={update}
-                            />
-                        </Grid.Col>
-                        <Grid.Col span={12}>
-                            <TextInput
-                                label="Email"
-                                placeholder="Email"
-                                defaultValue={patientInput.email}
-                                readOnly={!update}
-                                onChange={handleChange}
-                                name="email"
-                                withAsterisk={update}
-                            />
-                        </Grid.Col>
-                        {/* </FloatingLabel> */}
-                        {/* <Form.Group as={Row} className="mb-2"> */}
-                        {/* <Col sm="6"> */}
-                        {/* <Form.Label>Last Appointment:</Form.Label> */}
-                        {/* <Badge bg='success'>{passif.lastAppointments.length}</Badge> */}
-                        {/* </Col> */}
-                        {/* <Col sm="6"> */}
-                        {/* <FloatingLabel controlId="floatingNextApp" label="Next Appointment" className="mb-3"> */}
-                        {/* <Form.Control type="text" placeholder="Next Appointment" defaultValue={dateToReadable(patientInput.nextApp)} readOnly /> */}
-                        {/* </FloatingLabel> */}
-                        {/* </Col> */}
-                        {/* </Form.Group> */}
-                        {/* <FloatingLabel controlId="floatingPassif" label="Passif" className="mb-3"> */}
-                        <Grid.Col span={12}>
-                            <Textarea
-                                label="Passif"
-                                rows={4}
-                                placeholder="Passif"
-                                defaultValue={passif.medicalIssues}
-                                readOnly={!update}
-                                onChange={handleChange}
-                                name="medicalIssues"
-                            />
-                        </Grid.Col>
-                    </Grid>
-                </Modal.Body>
-                <Group position="right" p="md">
-                    <Button
-                        variant="light"
-                        color="red"
-                        onClick={() => handleDelete(patientInput.id)}
-                    >
-                        Delete
-                    </Button>
-                    <Button variant="light" onClick={handleUpdate}>
-                        {update ? "Save" : "Edit"}
-                    </Button>
-                    <Button color="gray" onClick={handleClose}>
-                        Close
-                    </Button>
-                </Group>
+                <form>
+                    <Modal.Body>
+                        <Grid columns={12}>
+                            <Grid.Col span={6}>
+                                <TextInput
+                                    label="Name"
+                                    placeholder="Name"
+                                    {...form.getInputProps('name')}
+                                    readOnly={!update}
+                                    withAsterisk={update}
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <TextInput
+                                    label="Last Name"
+                                    placeholder="Last Name"
+                                    {...form.getInputProps('lastName')}
+                                    readOnly={!update}
+                                    withAsterisk={update}
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <TextInput
+                                    label="ID"
+                                    placeholder="ID"
+                                    value={patientInput.id}
+                                    readOnly
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <TextInput
+                                    label="Sex"
+                                    placeholder="Sex"
+                                    {...form.getInputProps('sex')}
+                                    readOnly={!update}
+                                    withAsterisk={update}
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <TextInput
+                                    label="Birth Date"
+                                    placeholder="Birth Date"
+                                    {...form.getInputProps('birthDate')}
+                                    readOnly={!update}
+                                    withAsterisk={update}
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <TextInput
+                                    label="City"
+                                    placeholder="City"
+                                    {...form.getInputProps('city')}
+                                    readOnly={!update}
+                                    withAsterisk={update}
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={12}>
+                                <TextInput
+                                    label="Email"
+                                    placeholder="Email"
+                                    {...form.getInputProps('email')}
+                                    readOnly={!update}
+                                    withAsterisk={update}
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <Text>Last Appointments</Text>
+                                <Badge color="green" variant="dot">
+                                    {passif.lastAppointments.length}
+                                </Badge>
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <TextInput
+                                    label="Next Appointment"
+                                    placeholder="Next Appointment"
+                                    defaultValue={dateToReadable(
+                                        patientInput.nextApp
+                                    )}
+                                    readOnly
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={12}>
+                                <Textarea
+                                    label="Passif"
+                                    maxRows={4}
+                                    placeholder="Passif"
+                                    {...form.getInputProps('medicalIssues')}
+                                    readOnly={!update}
+                                />
+                            </Grid.Col>
+                        </Grid>
+                    </Modal.Body>
+                    <Group position="right" p="md">
+                        <Button
+                            variant="light"
+                            color="red"
+                            onClick={() => handleDelete(patientInput.id)}
+                        >
+                            Delete
+                        </Button>
+                        <Button variant="light" onClick={handleUpdate}>
+                            {update ? 'Save' : 'Edit'}
+                        </Button>
+                        <Button color="gray" onClick={handleClose}>
+                            Close
+                        </Button>
+                    </Group>
+                </form>
             </Modal.Content>
         </Modal.Root>
     );
