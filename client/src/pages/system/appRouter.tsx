@@ -13,6 +13,7 @@ import Appointments from '../../pages/appointments/appointments';
 import ViewAppointment from '../../pages/appointment/view';
 import NotFound from '../../pages/system/404';
 import Account from '../../pages/account';
+import Admin from "./admin";
 
 const AppRouter = () => {
     return (
@@ -25,6 +26,7 @@ const AppRouter = () => {
                 <Route path='/appointments' element={<Appointments />} />
                 <Route path="/appointments/:appointmentID/view" element={<ViewAppointment />} />
                 <Route path="/account" element={<Account />} />
+                <Route path='/admin' element={<Admin />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>

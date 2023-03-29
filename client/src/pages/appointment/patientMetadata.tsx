@@ -75,8 +75,8 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
     return (
         <div className="debug">
             <h2>Patient Data</h2>
-            <Tabs defaultValue="data" variant="pills" radius='md'>
-                <Tabs.List>
+            <Tabs defaultValue="data" radius='md'>
+                <Tabs.List grow>
                     <Tabs.Tab value="data">BioData</Tabs.Tab>
                     <Tabs.Tab value="medical">Previous Medical Issues</Tabs.Tab>
                     <Tabs.Tab value="appointments">Previous Appointments</Tabs.Tab>

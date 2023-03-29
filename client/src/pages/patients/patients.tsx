@@ -22,7 +22,7 @@ const Patients = (): JSX.Element => {
             try {
                 const res = await axios.get(`/api/patients`);
                 setPatients(res.data);
-                console.log(res);
+                // console.log(res);
             } catch (error: any) {
                 console.log(error);
                 // setError(error.response.data);
@@ -62,7 +62,7 @@ const Patients = (): JSX.Element => {
 
     return (
         <>
-            <Grid justify="space-between" align="center" bg='dark.6' p='md'>
+            <Grid justify="space-between" align="center" p='md'>
                 <Group position="left">
                     <Title order={2}>Patients <Badge size='lg' radius="lg" variant="filled">{nbPatients}</Badge></Title>
                 </Group>
@@ -75,11 +75,13 @@ const Patients = (): JSX.Element => {
             </Grid>
             {/* { error && <NoPatients error={error} />} */}
             {isGrid ? (
-                <Group className="debug">
+                <Grid columns={12}>
                     {patients.map((patient: IPatient) => (
-                        <PatientItemGrid key={patient.id} patient={patient} handleDelete={handleDelete} />
+                        <Grid.Col xs={6} sm={4} md={3} lg={3} xl={2} key={patient.id}>
+                            <PatientItemGrid key={patient.id} patient={patient} handleDelete={handleDelete} />
+                        </Grid.Col>
                     ))}
-                </Group>
+                </Grid>
             ) : (
                 <PatientsTableView patients={patients} />
             )}

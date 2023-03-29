@@ -44,7 +44,7 @@ const Patients = () => {
 
     return (
         <>
-            <Grid justify="space-between" align="center" bg='dark.6' p='md'>
+            <Grid justify="space-between" align="center" p='md'>
                 <Group>
                     <Title order={2}>Appointments <Badge size='lg' radius="lg" variant="filled">{nbAppointments}</Badge></Title>
                 </Group>
@@ -56,11 +56,13 @@ const Patients = () => {
                 </Group>
             </Grid>
             {isGrid ? (
-                <Group className="debug">
+                <Grid columns={12}>
                     {appointments.map((appointment: IAppointmentExtended) => (
-                        <AppItemGrid key={appointment.id} appointment={appointment} />
+                        <Grid.Col xs={6} sm={4} md={3} lg={3} xl={2} key={appointment.id}>
+                            <AppItemGrid key={appointment.id} appointment={appointment} />
+                        </Grid.Col>
                     ))}
-                </Group>
+                </Grid>
             ) : (
                 <AppTableView appointments={appointments} />
             )}

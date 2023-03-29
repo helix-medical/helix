@@ -14,11 +14,10 @@ import './styles/main.css';
 
 function App() {
   const links = [
-    { label: 'Home', link: '/' },
     { label: 'Patients', link: '/patients' },
     { label: 'Appointments', link: '/appointments' },
     { label: 'Calendar', link: '/calendar' },
-    { label: 'User', link: '/account' }
+    { label: 'Admin', link: '/admin' }
   ];
 
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');

@@ -1,8 +1,8 @@
-import axios from "axios";
+// import axios from "axios";
 import React from "react";
-import { useState } from "react";
-import { Button, Modal, TextInput, Select, Group } from "@mantine/core";
-import { DateInput } from '@mantine/dates';
+import { useForm } from "@mantine/form";
+import { Button, Modal, TextInput, Select, Group, Grid } from "@mantine/core";
+import { DateInput, DateTimePicker } from '@mantine/dates';
 
 interface IProps {
     show: boolean;
@@ -11,101 +11,87 @@ interface IProps {
 
 function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
     const handleClose = () => toggleModal();
-    const [patient, setPatient] = useState({
-        name: "",
-        lastName: "",
-        birthDate: "",
-        sex: "",
-        email: "",
-        city: "",
-        nextApp: "",
-        passif: JSON.stringify({
-            medicalIssues: "",
-            lastAppointments: [0],
-        })
+
+    // const handleClick = async (e: { preventDefault: () => void; }) => {
+    //     e.preventDefault();
+    //     try {
+    //         await axios.post(`/api/patients/add`, patient);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    //     toggleModal();
+    //     window.location.reload();
+    // };
+
+    const form = useForm({
+        initialValues: {
+            name: "",
+            lastName: "",
+            birthDate: "",
+            sex: "",
+            email: "",
+            city: "",
+            nextApp: "",
+            passif: JSON.stringify({
+                medicalIssues: "",
+                lastAppointments: [0],
+            })
+        },
+
+        validate: {
+            name: (value) => value ? null : 'Name is required',
+            lastName: (value) => value ? null : 'Last name is required',
+            birthDate: (value) => value ? null : 'Birth date is required',
+            sex: (value) => value ? null : 'Sex is required',
+            email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+            city: (value) => value ? null : 'City is required',
+            nextApp: (value) => value ? null : 'Next appointment is required',
+        }
     });
 
-    const handleChange = (e: { target: { name: any; value: any; }; }) => {
-        setPatient(prev => ({ ...prev, [e.target.name]: e.target.value }));
-    };
-
-    const handleClick = async (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-        try {
-            await axios.post(`/api/patients/add`, patient);
-        } catch (error) {
-            console.log(error);
-        }
-        toggleModal();
-        window.location.reload();
-    };
-
     return (
-        <Modal opened={show} onClose={handleClose} size='lg' title="New Patient">
-            {/* <Modal.Body> */}
-            {/* <Form> */}
-            {/* <Form.Group as={Row} className="mb-2" controlId="formBasicName"> */}
-            {/* <Col sm="5"> */}
-            {/* <FloatingLabel className='mb-3' controlId="floatingInput" label="Name"> */}
-            <TextInput placeholder='Name' label="Name" onChange={handleChange} name="name" withAsterisk />
-            {/* </FloatingLabel> */}
-            {/* </Col> */}
-            {/* <Col sm="5"> */}
-            {/* <FloatingLabel className='mb-3' controlId="floatingInput" label="Last Name"> */}
-            <TextInput placeholder='Last Name' label="Last Name" onChange={handleChange} name="lastName" withAsterisk />
-            {/* </FloatingLabel> */}
-            {/* </Col> */}
-            {/* <Col sm="2"> */}
-            {/* <FloatingLabel className='mb-3' controlId="floatingSelect" label="Sex"> */}
-            <Select label='Sex' placeholder="Choose" data={['F', 'M']}/*onChange={handleChange}*/ name="sex" withAsterisk />
-            {/* </FloatingLabel> */}
-            {/* </Col> */}
-            {/* </Form.Group> */}
-            {/* <Form.Group as={Row} className="mb-2" controlId="formBasicBirth"> */}
-            {/* <Col sm="6"> */}
-            {/* <FloatingLabel className='mb-3' controlId="floatingInput" label="Birth Date"> */}
-            <DateInput label="Date of Birth" placeholder="Choose" /*onChange={handleChange}*/ name="birthDate" withAsterisk />
-            {/* </FloatingLabel> */}
-            {/* </Col> */}
-            {/* <Col sm="6"> */}
-            {/* <FloatingLabel className='mb-3' controlId="floatingInput" label="City"> */}
-            <TextInput label="City" placeholder='City' onChange={handleChange} name="city" withAsterisk />
-            {/* </FloatingLabel> */}
-            {/* </Col> */}
-            {/* </Form.Group> */}
-            {/* // <Form.Group as={Row} className="mb-1" controlId="formBasicCom"> */}
-            {/* <Col sm="6"> */}
-            {/* <FloatingLabel className='mb-3' controlId="floatingInput" label="Email Address"> */}
-            <TextInput placeholder='Email Address' label='Email Address' onChange={handleChange} name="email" withAsterisk />
-            {/* </FloatingLabel> */}
-            {/* </Col> */}
-            {/* <Col sm="6"> */}
-            {/* <FloatingLabel className='mb-3' controlId="floatingInput" label="Phone"> */}
-            {/* <Form.Control type="tel" placeholder='Phone Number' defaultValue="+33 (0)" /* onChange={handleChange} name="phone" /> */}
-            {/* </FloatingLabel> */}
-            {/* </Col> */}
-            {/* </Form.Group> */}
-            {/* <Form.Group as={Row} className="mb-1" controlId="formBasicApp"> */}
-            {/* <Col sm="6"> */}
-            {/* <FloatingLabel className='mb-3' controlId="floatingInput" label="Last Appointment"> */}
-            {/* <Form.Control type="date" onChange={handleChange} name="lastApp" /> */}
-            {/* </FloatingLabel> */}
-            {/* </Col> */}
-            {/* <Col sm="6"> */}
-            {/* <FloatingLabel className='mb-3' controlId="floatingInput" label="Next Appointment"> */}
-            {/* <Form.Control type="date" onChange={handleChange} name="nextApp" /> */}
-            {/* </FloatingLabel> */}
-            {/* </Col> */}
-            {/* </Form.Group> */}
-            {/* // </Form> */}
-            {/* // </Modal.Body > */}
-            {/* // <Modal.Footer> */}
-            <Group position="right">
-                <Button variant="light" color="red" onClick={handleClose}>Cancel</Button>
-                <Button color="green" onClick={handleClick}>Add</Button>
-            </Group>
-            {/* </Modal.Footer> */}
-        </Modal >
+        <Modal.Root opened={show} onClose={handleClose} size='lg' padding={12}>
+            <Modal.Content>
+                <Modal.Header>
+                    <Modal.Title>Add Patient</Modal.Title>
+                    <Modal.CloseButton />
+                </Modal.Header>
+                <form onSubmit={form.onSubmit((values) => console.log(values))}>
+                    <Modal.Body>
+                        <Grid columns={12}>
+                            <Grid.Col span={5}>
+                                <TextInput placeholder='Name' label="Name" withAsterisk {...form.getInputProps('name')} />
+                            </Grid.Col>
+                            <Grid.Col span={5}>
+                                <TextInput placeholder='Last Name' label="Last Name" withAsterisk {...form.getInputProps('lastName')} />
+                            </Grid.Col>
+                            <Grid.Col span={2}>
+                                <Select label='Sex' placeholder="Sex" data={['F', 'M']} withAsterisk {...form.getInputProps('sex')} />
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <DateInput label="Date of Birth" placeholder="Choose" withAsterisk {...form.getInputProps('birthDate')} valueFormat="DD/MM/YYYY" firstDayOfWeek={0} />
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <TextInput label="City" placeholder='City' withAsterisk {...form.getInputProps('city')} />
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <TextInput placeholder='Email Address' label='Email Address' withAsterisk {...form.getInputProps('email')} />
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <TextInput label="Phone Number" placeholder='Phone Number' defaultValue="+33 (0)" />
+                            </Grid.Col>
+                            <Grid.Col span={12}>
+                                <DateTimePicker label="Next Appointment" placeholder="Choose" withAsterisk {...form.getInputProps('nextApp')} valueFormat="DD/MM/YYYY HH:mm" firstDayOfWeek={0} />
+                            </Grid.Col>
+                        </Grid>
+                    </Modal.Body>
+                    <Group position="right" p='md'>
+                        <Button variant="light" color="red" onClick={handleClose}>Cancel</Button>
+                        <Button color="green" type="submit">Add</Button>
+                    </Group>
+                </form>
+            </Modal.Content>
+        </Modal.Root >
     );
 };
 

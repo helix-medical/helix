@@ -9,11 +9,9 @@ import {
     rem,
     Title,
     ActionIcon
-    // TextInput
 } from '@mantine/core';
-import { MantineLogo } from '@mantine/ds';
 import { useDisclosure } from '@mantine/hooks';
-import { IconSearch } from '@tabler/icons-react';
+import { IconSearch, IconUser } from '@tabler/icons-react';
 import ToggleTheme from './toggleTheme';
 
 const useStyles = createStyles((theme) => ({
@@ -84,8 +82,9 @@ const HeaderApp = ({ links }: HeaderAppProps) => {
             <Container className={classes.inner} fluid>
                 <Group>
                     <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
-                    <MantineLogo type='mark' size={28} />
-                    <Title order={1}>Helix</Title>
+                    <a href='/' className={classes.link}>
+                        <Title order={1}>Helix</Title>
+                    </a>
                 </Group>
                 <Group spacing={5} className={classes.links}>
                     {items}
@@ -96,6 +95,9 @@ const HeaderApp = ({ links }: HeaderAppProps) => {
                         <IconSearch size="1.2rem" />
                     </ActionIcon>
                     <ToggleTheme />
+                    <ActionIcon color="gray" variant="light" size='lg'>
+                        <IconUser size="1.2rem" />
+                    </ActionIcon>
                 </Group>
             </Container>
         </Header>

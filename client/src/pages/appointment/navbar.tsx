@@ -11,7 +11,7 @@ interface IProps {
 
 function NavBarAppointment({ view }: IProps): JSX.Element {
     return (
-        <Grid justify="space-between" align="center" bg='dark.6' p='md'>
+        <Grid justify="space-between" align="center" p='md'>
             <Group>
                 <Title order={1}>Appointment&nbsp;
                     <Badge
