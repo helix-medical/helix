@@ -1,5 +1,5 @@
-import React from "react";
-import { Badge } from "@mantine/core";
+import React from 'react';
+import { Badge } from '@mantine/core';
 
 interface IProps {
     id: number;

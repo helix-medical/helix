@@ -1,5 +1,5 @@
-import React from "react";
-import { Badge } from "@mantine/core";
+import React from 'react';
+import { Badge } from '@mantine/core';
 
 interface IProps {
     state: string;
@@ -7,8 +7,8 @@ interface IProps {
 
 function StateAppointment({ state }: IProps): JSX.Element {
     return (
-        <Badge color={state === "pending" ? "blue" : "green"}>
-            {state === "pending" ? "Pending" : "Finished"}
+        <Badge color={state === 'pending' ? 'blue' : 'green'}>
+            {state === 'pending' ? 'Pending' : 'Finished'}
         </Badge>
     );
 }
