@@ -4,15 +4,18 @@ import getNbLines from "../../tools/getLines";
 import { IAppointmentData } from "../../interfaces";
 
 interface IProps {
-    appointment: IAppointmentData,
-    handler?: (arg0: any) => void,
-    view?: boolean
+    appointment: IAppointmentData;
+    handler?: (arg0: any) => void;
+    view?: boolean;
 }
 
 function Conclusion({ appointment, handler, view }: IProps): JSX.Element {
-    const handleChange = (e: { target: { name: any; value: any; }; }) => {
+    const handleChange = (e: { target: { name: any; value: any } }) => {
         if (handler)
-            handler((prev: any) => ({ ...prev, [e.target.name]: e.target.value }));
+            handler((prev: any) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+            }));
     };
 
     const conclusion = JSON.parse(appointment.conclusion);
@@ -26,13 +29,33 @@ function Conclusion({ appointment, handler, view }: IProps): JSX.Element {
             <Title order={2}>Conclusion</Title>
             <Grid columns={12}>
                 <Grid.Col span={12}>
-                    <TextInput label="Diagnosis" name='diagnosis' onChange={handleChange} defaultValue={conclusion.diagnosis} readOnly={view} />
+                    <TextInput
+                        label="Diagnosis"
+                        name="diagnosis"
+                        onChange={handleChange}
+                        defaultValue={conclusion.diagnosis}
+                        readOnly={view}
+                    />
                 </Grid.Col>
                 <Grid.Col span={12}>
-                    <Textarea label="Treatment" maxRows={nbLines(conclusion.treatment, 3)} name='treatment' onChange={handleChange} defaultValue={conclusion.treatment} readOnly={view} />
+                    <Textarea
+                        label="Treatment"
+                        maxRows={nbLines(conclusion.treatment, 3)}
+                        name="treatment"
+                        onChange={handleChange}
+                        defaultValue={conclusion.treatment}
+                        readOnly={view}
+                    />
                 </Grid.Col>
                 <Grid.Col span={6}>
-                    <Textarea label="Observations" maxRows={nbLines(conclusion.observations, 3)} name='observations' onChange={handleChange} defaultValue={conclusion.observations} readOnly={view} />
+                    <Textarea
+                        label="Observations"
+                        maxRows={nbLines(conclusion.observations, 3)}
+                        name="observations"
+                        onChange={handleChange}
+                        defaultValue={conclusion.observations}
+                        readOnly={view}
+                    />
                 </Grid.Col>
                 {/* <Col sm="2"> */}
                 {/* <Form.Group className="mb-3" controlId="formBasicNeedApp"> */}
@@ -44,6 +67,6 @@ function Conclusion({ appointment, handler, view }: IProps): JSX.Element {
             </Grid>
         </>
     );
-};
+}
 
 export default Conclusion;

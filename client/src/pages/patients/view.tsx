@@ -11,7 +11,12 @@ interface IProps {
     handleDelete: (id: number | undefined) => void;
 }
 
-function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IProps): JSX.Element {
+function ModalViewPatient({
+    show,
+    toggleModal,
+    patientInput,
+    handleDelete,
+}: IProps): JSX.Element {
     const handleClose = () => toggleModal();
     const passif = JSON.parse(patientInput.passif);
 
@@ -24,8 +29,8 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
         medicalIssues: passif.medicalIssues,
     });
 
-    const handleChange = (e: { target: { name: any; value: any; }; }) => {
-        setPatient(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const handleChange = (e: { target: { name: any; value: any } }) => {
+        setPatient((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
     const handleUpdate = async () => {
@@ -54,11 +59,14 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                 city: patient.city,
                 passif: JSON.stringify({
                     medicalIssues: patient.medicalIssues,
-                    lastAppointments: passif.lastAppointments
-                })
+                    lastAppointments: passif.lastAppointments,
+                }),
             };
             try {
-                await axios.put(`/api/patients/${patientInput.id}/update`, finalPatient);
+                await axios.put(
+                    `/api/patients/${patientInput.id}/update`,
+                    finalPatient
+                );
             } catch (err) {
                 console.log(err);
             }
@@ -70,25 +78,64 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
         <Modal.Root opened={show} onClose={handleClose}>
             <Modal.Content>
                 <Modal.Header>
-                    <Modal.Title>{patientInput.name} {patientInput.lastName}</Modal.Title>
+                    <Modal.Title>
+                        {patientInput.name} {patientInput.lastName}
+                    </Modal.Title>
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
                     <Grid columns={12}>
                         <Grid.Col span={6}>
-                            <TextInput label="ID" placeholder="ID" value={patientInput.id} readOnly />
+                            <TextInput
+                                label="ID"
+                                placeholder="ID"
+                                value={patientInput.id}
+                                readOnly
+                            />
                         </Grid.Col>
                         <Grid.Col span={6}>
-                            <TextInput label="Sex" placeholder="Sex" value={patientInput.sex} readOnly={!update} onChange={handleChange} name="sex" withAsterisk={update} />
+                            <TextInput
+                                label="Sex"
+                                placeholder="Sex"
+                                value={patientInput.sex}
+                                readOnly={!update}
+                                onChange={handleChange}
+                                name="sex"
+                                withAsterisk={update}
+                            />
                         </Grid.Col>
                         <Grid.Col span={6}>
-                            <TextInput label="Birth Date" placeholder="Birth Date" value={patientInput.birthDate} readOnly={!update} onChange={handleChange} name="birthDate" withAsterisk={update} />
+                            <TextInput
+                                label="Birth Date"
+                                placeholder="Birth Date"
+                                value={patientInput.birthDate}
+                                readOnly={!update}
+                                onChange={handleChange}
+                                name="birthDate"
+                                withAsterisk={update}
+                            />
                         </Grid.Col>
                         <Grid.Col span={6}>
-                            <TextInput label="City" placeholder="City" value={patientInput.city} readOnly={!update} onChange={handleChange} name="city" withAsterisk={update} />
+                            <TextInput
+                                label="City"
+                                placeholder="City"
+                                value={patientInput.city}
+                                readOnly={!update}
+                                onChange={handleChange}
+                                name="city"
+                                withAsterisk={update}
+                            />
                         </Grid.Col>
                         <Grid.Col span={12}>
-                            <TextInput label="Email" placeholder="Email" defaultValue={patientInput.email} readOnly={!update} onChange={handleChange} name="email" withAsterisk={update} />
+                            <TextInput
+                                label="Email"
+                                placeholder="Email"
+                                defaultValue={patientInput.email}
+                                readOnly={!update}
+                                onChange={handleChange}
+                                name="email"
+                                withAsterisk={update}
+                            />
                         </Grid.Col>
                         {/* </FloatingLabel> */}
                         {/* <Form.Group as={Row} className="mb-2"> */}
@@ -104,13 +151,29 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                         {/* </Form.Group> */}
                         {/* <FloatingLabel controlId="floatingPassif" label="Passif" className="mb-3"> */}
                         <Grid.Col span={12}>
-                            <Textarea label="Passif" rows={4} placeholder="Passif" defaultValue={passif.medicalIssues} readOnly={!update} onChange={handleChange} name="medicalIssues" />
+                            <Textarea
+                                label="Passif"
+                                rows={4}
+                                placeholder="Passif"
+                                defaultValue={passif.medicalIssues}
+                                readOnly={!update}
+                                onChange={handleChange}
+                                name="medicalIssues"
+                            />
                         </Grid.Col>
                     </Grid>
                 </Modal.Body>
                 <Group position="right" p="md">
-                    <Button variant="light" color="red" onClick={() => handleDelete(patientInput.id)}>Delete</Button>
-                    <Button variant="light" onClick={handleUpdate}>{update ? "Save" : "Edit"}</Button>
+                    <Button
+                        variant="light"
+                        color="red"
+                        onClick={() => handleDelete(patientInput.id)}
+                    >
+                        Delete
+                    </Button>
+                    <Button variant="light" onClick={handleUpdate}>
+                        {update ? "Save" : "Edit"}
+                    </Button>
                     <Button color="gray" onClick={handleClose}>
                         Close
                     </Button>
@@ -118,6 +181,6 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
             </Modal.Content>
         </Modal.Root>
     );
-};
+}
 
 export default ModalViewPatient;

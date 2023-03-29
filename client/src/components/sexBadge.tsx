@@ -5,14 +5,9 @@ interface IProps {
     sex: string;
 }
 
-const SexBadge = ({sex}: IProps) => {
+const SexBadge = ({ sex }: IProps) => {
     return (
-        <Badge
-        variant='outline'
-         color={
-            sex === 'F' ? 'pink' : 'blue'
-         }
-        >
+        <Badge variant="outline" color={sex === "F" ? "pink" : "blue"}>
             {sex}
         </Badge>
     );

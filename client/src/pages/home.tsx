@@ -6,7 +6,12 @@ const Home = () => {
     return (
         <>
             <Title order={1}>Welcome User</Title>
-            <Alert icon={<IconHeart size="1rem" />} title="Important" color="yellow" radius="lg">
+            <Alert
+                icon={<IconHeart size="1rem" />}
+                title="Important"
+                color="yellow"
+                radius="lg"
+            >
                 <Title order={2}>Je t'aime Maivy 💛</Title>
             </Alert>
         </>

@@ -13,17 +13,29 @@ function Metadata({ appointment }: IProps): JSX.Element {
             <Title order={2}>Appointment Data</Title>
             <Grid>
                 <Grid.Col span={4}>
-                    <TextInput label="Date" readOnly defaultValue={dateToReadable(appointment.date)} />
+                    <TextInput
+                        label="Date"
+                        readOnly
+                        defaultValue={dateToReadable(appointment.date)}
+                    />
                 </Grid.Col>
                 <Grid.Col span={4}>
-                    <TextInput label="Kind" readOnly defaultValue={appointment.reasons} />
+                    <TextInput
+                        label="Kind"
+                        readOnly
+                        defaultValue={appointment.reasons}
+                    />
                 </Grid.Col>
                 <Grid.Col span={4}>
-                    <TextInput label="Patient ID" readOnly defaultValue={appointment.patientId} />
+                    <TextInput
+                        label="Patient ID"
+                        readOnly
+                        defaultValue={appointment.patientId}
+                    />
                 </Grid.Col>
             </Grid>
         </>
     );
-};
+}
 
 export default Metadata;

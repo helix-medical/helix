@@ -56,5 +56,11 @@
     "@types/react": "^18.0.29",
     "@types/react-dom": "^18.0.11",
     "typescript": "^5.0.2"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": true
   }
 }

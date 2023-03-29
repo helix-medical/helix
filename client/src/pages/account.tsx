@@ -1,5 +1,5 @@
-import React from "react";
-import { Title } from "@mantine/core";
+import React from 'react'
+import { Title } from '@mantine/core'
 
 const Account = () => {
     return (
@@ -9,7 +9,7 @@ const Account = () => {
                 <p>Account Not Implemented</p>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Account;
+export default Account

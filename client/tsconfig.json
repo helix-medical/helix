@@ -1,24 +1,17 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "jsx": "react",
-    "module": "commonjs",
-    "noEmit": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "es6",
-    "lib": [
-      "dom",
-      "es2017"
-    ]
-  },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "src/**/*"
-  ]
+    "compilerOptions": {
+        "allowJs": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true,
+        "jsx": "react",
+        "module": "commonjs",
+        "noEmit": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "target": "es6",
+        "lib": ["dom", "es2017"]
+    },
+    "exclude": ["node_modules"],
+    "include": ["src/**/*"]
 }

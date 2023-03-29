@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 import { IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
 
@@ -27,15 +27,14 @@ const Patients = (): JSX.Element => {
                 console.log(error);
                 // setError(error.response.data);
             }
-        }
+        };
         fetchAllPatients();
     }, []);
     const nbPatients = patients.length;
 
     // Delete a patient
     const handleDelete = async (id: number | undefined) => {
-        if (!id)
-            return console.error("No id");
+        if (!id) return console.error("No id");
         try {
             await axios.delete(`/api/patients/${id}/delete`);
             window.location.reload();
@@ -51,7 +50,6 @@ const Patients = (): JSX.Element => {
         });
     };
 
-
     // Modal for create a patient
     const [show, setShow] = useState(false);
     const toggleModal = () => setShow(!show);
@@ -62,9 +60,14 @@ const Patients = (): JSX.Element => {
 
     return (
         <>
-            <Grid justify="space-between" align="center" p='md'>
+            <Grid justify="space-between" align="center" p="md">
                 <Group position="left">
-                    <Title order={2}>Patients <Badge size='lg' radius="lg" variant="filled">{nbPatients}</Badge></Title>
+                    <Title order={2}>
+                        Patients{" "}
+                        <Badge size="lg" radius="lg" variant="filled">
+                            {nbPatients}
+                        </Badge>
+                    </Title>
                 </Group>
                 <Group position="right">
                     <Button variant="outline" onClick={changeView}>
@@ -77,8 +80,19 @@ const Patients = (): JSX.Element => {
             {isGrid ? (
                 <Grid columns={12}>
                     {patients.map((patient: IPatient) => (
-                        <Grid.Col xs={6} sm={4} md={3} lg={3} xl={2} key={patient.id}>
-                            <PatientItemGrid key={patient.id} patient={patient} handleDelete={handleDelete} />
+                        <Grid.Col
+                            xs={6}
+                            sm={4}
+                            md={3}
+                            lg={3}
+                            xl={2}
+                            key={patient.id}
+                        >
+                            <PatientItemGrid
+                                key={patient.id}
+                                patient={patient}
+                                handleDelete={handleDelete}
+                            />
                         </Grid.Col>
                     ))}
                 </Grid>
@@ -87,7 +101,7 @@ const Patients = (): JSX.Element => {
             )}
             {show && <ModalAddPatient show={show} toggleModal={toggleModal} />}
         </>
-    )
+    );
 };
 
 export default Patients;

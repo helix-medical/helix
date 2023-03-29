@@ -11,24 +11,18 @@ interface IProps {
 
 function NavBarAppointment({ view }: IProps): JSX.Element {
     return (
-        <Grid justify="space-between" align="center" p='md'>
+        <Grid justify="space-between" align="center" p="md">
             <Group>
-                <Title order={1}>Appointment&nbsp;
-                    <Badge
-                        color={view ? 'red' : 'blue'}
-                        size='xl'
-                        radius='sm'
-                    >
-                        {view ? 'READONLY' : 'CAN EDIT'}
+                <Title order={1}>
+                    Appointment&nbsp;
+                    <Badge color={view ? "red" : "blue"} size="xl" radius="sm">
+                        {view ? "READONLY" : "CAN EDIT"}
                     </Badge>
                 </Title>
             </Group>
-            <Group>
-                {view &&
-                    <Button>Export to PDF</Button>}
-            </Group>
+            <Group>{view && <Button>Export to PDF</Button>}</Group>
         </Grid>
     );
-};
+}
 
 export default NavBarAppointment;

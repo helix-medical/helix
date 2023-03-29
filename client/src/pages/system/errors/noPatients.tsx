@@ -17,10 +17,16 @@ const NoPatients = ({ error }: IProps): JSX.Element => {
 
     if (show) {
         return (
-            <Alert color="red" onClose={() => setShow(false)} title={error.sql} withCloseButton>
+            <Alert
+                color="red"
+                onClose={() => setShow(false)}
+                title={error.sql}
+                withCloseButton
+            >
                 <p>
                     <strong>{error.sqlState}</strong> <br />
-                    {error.code} ({error.errno}) : <Code>{error.sqlMessage}</Code>
+                    {error.code} ({error.errno}) :{" "}
+                    <Code>{error.sqlMessage}</Code>
                 </p>
             </Alert>
         );

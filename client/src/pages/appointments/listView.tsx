@@ -15,19 +15,29 @@ function AppTableView({ appointments }: IProps) {
         <tr key={appointment.id}>
             <td>{appointment.id}</td>
             <td>{dateToReadable(appointment.date)}</td>
-            <td><SexBadge sex={appointment.sex} /> {appointment.name} {appointment.lastName}</td>
-            <td><KindAppointment kind={appointment.reasons} /></td>
-            <td><StateAppointment state={appointment.status} /></td>
             <td>
-                <Button variant='light'>
-                    NOT IMPLEMENTED
-                </Button>
+                <SexBadge sex={appointment.sex} /> {appointment.name}{" "}
+                {appointment.lastName}
+            </td>
+            <td>
+                <KindAppointment kind={appointment.reasons} />
+            </td>
+            <td>
+                <StateAppointment state={appointment.status} />
+            </td>
+            <td>
+                <Button variant="light">NOT IMPLEMENTED</Button>
             </td>
         </tr>
     ));
 
     return (
-        <Table horizontalSpacing="md" verticalSpacing="md" highlightOnHover withColumnBorders>
+        <Table
+            horizontalSpacing="md"
+            verticalSpacing="md"
+            highlightOnHover
+            withColumnBorders
+        >
             <thead>
                 <tr>
                     <th>ID</th>
@@ -38,11 +48,9 @@ function AppTableView({ appointments }: IProps) {
                     <th>View</th>
                 </tr>
             </thead>
-            <tbody>
-                {rows}
-            </tbody>
+            <tbody>{rows}</tbody>
         </Table>
     );
-};
+}
 
 export default AppTableView;

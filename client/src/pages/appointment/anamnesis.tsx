@@ -10,14 +10,18 @@ interface IProps {
 }
 
 const Anamnesis = ({ appointment, handler, view }: IProps): JSX.Element => {
-    const handleChange = (e: { target: { name: any; value: any; }; }) => {
+    const handleChange = (e: { target: { name: any; value: any } }) => {
         if (handler)
-            handler((prev: any) => ({ ...prev, [e.target.name]: e.target.value }));
+            handler((prev: any) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+            }));
     };
 
     const anamnesis = JSON.parse(appointment.anamnesis);
 
-    const nbLines = (text: string, base: number) => view ? getNbLines(text) : base;
+    const nbLines = (text: string, base: number) =>
+        view ? getNbLines(text) : base;
 
     return (
         <div className="debug">
@@ -27,7 +31,8 @@ const Anamnesis = ({ appointment, handler, view }: IProps): JSX.Element => {
                     <Textarea
                         label="Reasons for the consultation"
                         maxRows={nbLines(anamnesis.reasons, 1)}
-                        name='reasons' onChange={handleChange}
+                        name="reasons"
+                        onChange={handleChange}
                         defaultValue={anamnesis.reasons}
                         readOnly={view}
                     />
@@ -36,7 +41,7 @@ const Anamnesis = ({ appointment, handler, view }: IProps): JSX.Element => {
                     <Textarea
                         label="Symptoms"
                         maxRows={nbLines(anamnesis.symptoms, 3)}
-                        name='symptoms'
+                        name="symptoms"
                         onChange={handleChange}
                         defaultValue={anamnesis.symptoms}
                         readOnly={view}
@@ -46,7 +51,8 @@ const Anamnesis = ({ appointment, handler, view }: IProps): JSX.Element => {
                     <Textarea
                         label="Known diseases"
                         maxRows={nbLines(anamnesis.knownDiseases, 3)}
-                        name='knownDiseases' onChange={handleChange}
+                        name="knownDiseases"
+                        onChange={handleChange}
                         defaultValue={anamnesis.knownDiseases}
                         readOnly={view}
                     />
@@ -55,7 +61,7 @@ const Anamnesis = ({ appointment, handler, view }: IProps): JSX.Element => {
                     <Textarea
                         label="Medications"
                         maxRows={nbLines(anamnesis.knownMedications, 3)}
-                        name='knownMedications'
+                        name="knownMedications"
                         onChange={handleChange}
                         defaultValue={anamnesis.knownMedications}
                         readOnly={view}
