@@ -1,17 +1,9 @@
-import React from "react";
-import { useState, useRef } from "react";
-import axios from "axios";
+import React from 'react';
+// import axios from 'axios';
 
-import {
-    Button,
-    Modal,
-    Select,
-    ActionIcon,
-    NumberInput,
-    Group,
-} from "@mantine/core";
-import { DateInput, TimeInput } from "@mantine/dates";
-import { IconClock } from "@tabler/icons-react";
+import { Button, Modal, Select, Group, Text, Grid } from '@mantine/core';
+import { DateTimePicker } from '@mantine/dates';
+import { isNotEmpty, useForm } from '@mantine/form';
 
 interface IProps {
     show: boolean;
@@ -20,122 +12,132 @@ interface IProps {
 
 function ModalCreateApp({ show, toggleModal }: IProps): JSX.Element {
     const handleClose = () => toggleModal();
-    const ref = useRef<HTMLInputElement>();
 
-    const [data, setData] = useState({
-        patientId: 0,
-        date: "",
-        time: "",
-        reasons: "",
-        anamnesis: {
-            reasons: "",
-            symptoms: "",
-            knownDiseases: "",
-            knownMedications: "",
+    const handleClick = async (e: { preventDefault: () => void }) => {
+        // let index;
+        console.log(form.validate());
+        console.log(form.values);
+        // e.preventDefault();
+        // try {
+        //     index = await axios.post(`/api/appointments/new`, finalData);
+        //     await axios.put(`/api/patients/${data.patientId}/add_appointment`, {
+        //         id: index.data,
+        //     });
+        // } catch (error) {
+        //     console.log(error);
+        // }
+        // toggleModal();
+        // if (index) window.location.href = `/appointments/${index.data}/edit`;
+    };
+
+    const form = useForm({
+        initialValues: {
+            patientId: '',
+            date: '',
+            reasons: '',
+            anamnesis: JSON.stringify({
+                reasons: '',
+                symptoms: '',
+                knownDiseases: '',
+                knownMedications: '',
+            }),
+            conclusion: JSON.stringify({
+                diagnosis: '',
+                treatment: '',
+                observations: '',
+            }),
         },
-        conclusion: {
-            diagnosis: "",
-            treatment: "",
-            observations: "",
+
+        validate: {
+            patientId: isNotEmpty('Patient is required'),
+            date: isNotEmpty('Date is required'),
+            reasons: isNotEmpty('Kind is required'),
         },
     });
 
-    const handleChange = (e: { target: { name: any; value: any } }) => {
-        setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    };
-
-    const handleClick = async (e: { preventDefault: () => void }) => {
-        let index;
-        const finalData = {
-            patientId: data.patientId,
-            date: data.date + " " + data.time,
-            reasons: data.reasons,
-            anamnesis: JSON.stringify(data.anamnesis),
-            conclusion: JSON.stringify(data.conclusion),
-        };
-        console.log(finalData);
-        e.preventDefault();
-        try {
-            index = await axios.post(`/api/appointments/new`, finalData);
-            await axios.put(`/api/patients/${data.patientId}/add_appointment`, {
-                id: index.data,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-        toggleModal();
-        if (index) window.location.href = `/appointments/${index.data}/edit`;
-    };
-
     return (
-        <Modal opened={show} onClose={handleClose} title="Create Appointment">
-            {/* <FloatingLabel className='mb-3' controlId="floatingDate" label="Date"> */}
-            <DateInput
-                label="Date"
-                placeholder="Date"
-                /*onChange={handleChange}*/ name="date"
-                withAsterisk
-            />
-            {/* </FloatingLabel> */}
-            {/* <FloatingLabel className='mb-3' controlId="floatingTime" label="Time"> */}
-            {ref && (
-                <TimeInput
-                    label="Time"
-                    placeholder="Time"
-                    onChange={handleChange}
-                    name="time"
-                    withAsterisk
-                    ref={ref}
-                    rightSection={
-                        <ActionIcon onClick={() => ref.current.showPicker()}>
-                            <IconClock size="1rem" stroke={1.5} />
-                        </ActionIcon>
-                    }
-                />
-            )}
-            {/* </FloatingLabel> */}
-            {/* <FloatingLabel className='mb-3' controlId="floatingPatientId" label="Patient ID"> */}
-            <NumberInput
-                label="Patient ID"
-                placeholder="Patient ID"
-                /*onChange={handleChange}*/ name="patientId"
-                withAsterisk
-            />
-            {/* </FloatingLabel> */}
-            {/* <FloatingLabel className='mb-3' controlId="floatingKind" label="Kind"> */}
-            {/* <Form.Select onChange={handleChange} name="reasons"> */}
-            {/* <option>Choose Option</option> */}
-            {/* <option value="first-visit">First Visit</option> */}
-            {/* <option value="follow-up">Follow Up</option> */}
-            {/* <option value="pediatrics">Pediatrics</option> */}
-            {/* <option value="maternity">Maternity</option> */}
-            {/* <option value="emergency">Emergency</option> */}
-            {/* </Form.Select> */}
-            <Select
-                label="Kind"
-                placeholder="Kind"
-                /*onChange={handleChange}*/ name="reasons"
-                withAsterisk
-                data={[
-                    "first-visit",
-                    "follow-up",
-                    "pediatrics",
-                    "maternity",
-                    "emergency",
-                ]}
-            />
-
-            {/* <Modal.Footer> */}
-            <Group position="right">
-                <Button variant="light" color="red" onClick={handleClose}>
-                    Cancel
-                </Button>
-                <Button color="green" onClick={handleClick}>
-                    Submit
-                </Button>
-            </Group>
-            {/* </Modal.Footer> */}
-        </Modal>
+        <Modal.Root opened={show} onClose={handleClose}>
+            <Modal.Content>
+                <Modal.Header>
+                    <Modal.Title>
+                        <Text size="xl" weight={700}>
+                            Add Patient
+                        </Text>
+                    </Modal.Title>
+                    <Modal.CloseButton />
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handleClick}>
+                        <Grid columns={12}>
+                            <Grid.Col span={12}>
+                                <DateTimePicker
+                                    label="Date"
+                                    placeholder="Date"
+                                    withAsterisk
+                                    {...form.getInputProps('date')}
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={12}>
+                                <Select
+                                    label="Patient"
+                                    placeholder="Patient"
+                                    withAsterisk
+                                    {...form.getInputProps('patientId')}
+                                    data={[
+                                        {
+                                            value: '11',
+                                            label: 'Marie Delbreuve',
+                                        },
+                                        {
+                                            value: '21',
+                                            label: 'Xavier de Place',
+                                        },
+                                        {
+                                            value: '24',
+                                            label: 'Marie de Place',
+                                        },
+                                    ]}
+                                    searchable
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={12}>
+                                <Select
+                                    label="Kind"
+                                    placeholder="Kind"
+                                    withAsterisk
+                                    data={[
+                                        'first-visit',
+                                        'follow-up',
+                                        'pediatrics',
+                                        'maternity',
+                                        'emergency',
+                                    ]}
+                                    searchable
+                                    dropdownPosition="bottom"
+                                    {...form.getInputProps('reasons')}
+                                />
+                            </Grid.Col>
+                        </Grid>
+                        <Group position="right" p="md">
+                            <Button
+                                variant="light"
+                                color="red"
+                                onClick={handleClose}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                color="green"
+                                onClick={handleClick}
+                                // type="submit"
+                            >
+                                Submit
+                            </Button>
+                        </Group>
+                    </form>
+                </Modal.Body>
+            </Modal.Content>
+        </Modal.Root>
     );
 }
 

@@ -1,7 +1,15 @@
 // import axios from "axios";
 import React from 'react';
-import { useForm } from '@mantine/form';
-import { Button, Modal, TextInput, Select, Group, Grid } from '@mantine/core';
+import { useForm, isEmail, isNotEmpty } from '@mantine/form';
+import {
+    Button,
+    Modal,
+    TextInput,
+    Select,
+    Group,
+    Grid,
+    Text,
+} from '@mantine/core';
 import { DateInput, DateTimePicker } from '@mantine/dates';
 
 interface IProps {
@@ -12,16 +20,16 @@ interface IProps {
 function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
     const handleClose = () => toggleModal();
 
-    // const handleClick = async (e: { preventDefault: () => void; }) => {
-    //     e.preventDefault();
-    //     try {
-    //         await axios.post(`/api/patients/add`, patient);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    //     toggleModal();
-    //     window.location.reload();
-    // };
+    const handleClick = async () => {
+        console.log(form.values);
+        //     try {
+        //         await axios.post(`/api/patients/add`, patient);
+        //     } catch (error) {
+        //         console.log(error);
+        // }
+        // toggleModal();
+        // window.location.reload();
+    };
 
     const form = useForm({
         initialValues: {
@@ -39,14 +47,22 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
         },
 
         validate: {
-            name: (value) => (value ? null : 'Name is required'),
-            lastName: (value) => (value ? null : 'Last name is required'),
-            birthDate: (value) => (value ? null : 'Birth date is required'),
-            sex: (value) => (value ? null : 'Sex is required'),
-            email: (value) =>
-                /^\S+@\S+$/.test(value) ? null : 'Invalid email',
-            city: (value) => (value ? null : 'City is required'),
-            nextApp: (value) => (value ? null : 'Next appointment is required'),
+            name: (value) =>
+                value.length < 2 ? 'Name must be at least 2 chars' : null,
+            lastName: (value) =>
+                value.length < 2 ? 'Last name must be at least 2 chars' : null,
+            birthDate: (value) =>
+                value.length !== 10
+                    ? 'Birth date must be at `DD/MM/YYYY` format'
+                    : null,
+            sex: (value) =>
+                value !== 'F' && value !== 'M'
+                    ? 'Sex must be at `M` or `F`'
+                    : null,
+            email: isEmail('Invalid email'),
+            city: (value) =>
+                value.length < 2 ? 'City must be at least 2 chars' : null,
+            nextApp: isNotEmpty('Next appointment is required'),
         },
     });
 
@@ -54,11 +70,15 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
         <Modal.Root opened={show} onClose={handleClose} size="lg" padding={12}>
             <Modal.Content>
                 <Modal.Header>
-                    <Modal.Title>Add Patient</Modal.Title>
+                    <Modal.Title>
+                        <Text size="xl" weight={700}>
+                            Add Patient
+                        </Text>
+                    </Modal.Title>
                     <Modal.CloseButton />
                 </Modal.Header>
-                <form onSubmit={form.onSubmit((values) => console.log(values))}>
-                    <Modal.Body>
+                <Modal.Body>
+                    <form onSubmit={handleClick}>
                         <Grid columns={12}>
                             <Grid.Col span={5}>
                                 <TextInput
@@ -129,20 +149,20 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
                                 />
                             </Grid.Col>
                         </Grid>
-                    </Modal.Body>
-                    <Group position="right" p="md">
-                        <Button
-                            variant="light"
-                            color="red"
-                            onClick={handleClose}
-                        >
-                            Cancel
-                        </Button>
-                        <Button color="green" type="submit">
-                            Add
-                        </Button>
-                    </Group>
-                </form>
+                        <Group position="right" p="md">
+                            <Button
+                                variant="light"
+                                color="red"
+                                onClick={handleClose}
+                            >
+                                Cancel
+                            </Button>
+                            <Button color="green" type="submit">
+                                Add
+                            </Button>
+                        </Group>
+                    </form>
+                </Modal.Body>
             </Modal.Content>
         </Modal.Root>
     );
