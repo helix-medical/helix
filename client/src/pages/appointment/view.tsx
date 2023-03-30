@@ -62,7 +62,7 @@ const ViewAppointment = () => {
                 view={true}
                 patient={data}
                 passif={JSON.parse(data.passif)}
-                handler={undefined}
+                form={undefined}
             />
             <Anamnesis appointment={data} view={true} />
             <Conclusion appointment={data} view={true} handler={undefined} />
