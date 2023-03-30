@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from '@mantine/core';
+import { Button, Table } from '@mantine/core';
 import { IPatient } from '../../interfaces';
 import SexBadge from '../../components/sexBadge';
 import Id from '../../components/id';
@@ -22,6 +22,9 @@ function PatientsTableView({ patients }: IProps): JSX.Element {
             </td>
             <td>{patient.city}</td>
             <td>{patient.email}</td>
+            <td>
+                <Button variant="light">NOT IMPLEMENTED</Button>
+            </td>
         </tr>
     ));
 
@@ -36,6 +39,7 @@ function PatientsTableView({ patients }: IProps): JSX.Element {
                     <th>Sex</th>
                     <th>City</th>
                     <th>Email</th>
+                    <th>View</th>
                 </tr>
             </thead>
             <tbody>{rows}</tbody>

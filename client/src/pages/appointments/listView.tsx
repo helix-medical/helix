@@ -1,10 +1,10 @@
-import React from "react";
-import { Button, Table } from "@mantine/core";
-import KindAppointment from "../../components/kindAppointment";
-import StateAppointment from "../../components/stateAppointment";
-import dateToReadable from "../../tools/date";
-import { IAppointmentExtended } from "../../interfaces";
-import SexBadge from "../../components/sexBadge";
+import React from 'react';
+import { Button, Table } from '@mantine/core';
+import KindAppointment from '../../components/kindAppointment';
+import StateAppointment from '../../components/stateAppointment';
+import dateToReadable from '../../tools/date';
+import { IAppointmentExtended } from '../../interfaces';
+import SexBadge from '../../components/sexBadge';
 
 interface IProps {
     appointments: IAppointmentExtended[];
@@ -16,8 +16,7 @@ function AppTableView({ appointments }: IProps) {
             <td>{appointment.id}</td>
             <td>{dateToReadable(appointment.date)}</td>
             <td>
-                <SexBadge sex={appointment.sex} /> {appointment.name}{" "}
-                {appointment.lastName}
+                <SexBadge sex={appointment.sex} /> {appointment.name} {appointment.lastName}
             </td>
             <td>
                 <KindAppointment kind={appointment.reasons} />
@@ -32,12 +31,7 @@ function AppTableView({ appointments }: IProps) {
     ));
 
     return (
-        <Table
-            horizontalSpacing="md"
-            verticalSpacing="md"
-            highlightOnHover
-            withColumnBorders
-        >
+        <Table horizontalSpacing="md" verticalSpacing="md" highlightOnHover withColumnBorders>
             <thead>
                 <tr>
                     <th>ID</th>

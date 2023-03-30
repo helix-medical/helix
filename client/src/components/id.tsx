@@ -7,7 +7,7 @@ interface IProps {
 
 function Id({ id }: IProps): JSX.Element {
     return (
-        <Badge color="gray" variant="outline">
+        <Badge color="gray" variant="dot" size='md'>
             {id}
         </Badge>
     );
