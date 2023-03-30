@@ -1,15 +1,6 @@
 import React from 'react';
 
-import {
-    createStyles,
-    Header,
-    Container,
-    Group,
-    Burger,
-    rem,
-    Title,
-    ActionIcon,
-} from '@mantine/core';
+import { createStyles, Header, Container, Group, Burger, rem, Title, ActionIcon } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch, IconPower } from '@tabler/icons-react';
 import ToggleTheme from './toggleTheme';
@@ -40,18 +31,12 @@ const useStyles = createStyles((theme) => ({
         padding: `${rem(8)} ${rem(12)}`,
         borderRadius: theme.radius.sm,
         textDecoration: 'none',
-        color:
-            theme.colorScheme === 'dark'
-                ? theme.colors.dark[0]
-                : theme.colors.gray[7],
+        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
         // fontSize: theme.fontSizes.sm,
         fontWeight: 500,
 
         '&:hover': {
-            backgroundColor:
-                theme.colorScheme === 'dark'
-                    ? theme.colors.dark[6]
-                    : theme.colors.gray[0],
+            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
         },
     },
 
@@ -84,12 +69,7 @@ const HeaderApp = ({ links }: HeaderAppProps) => {
         <Header height={rem(60)} sx={{ borderBottom: 0 }} mb={10}>
             <Container className={classes.inner} fluid>
                 <Group>
-                    <Burger
-                        opened={opened}
-                        onClick={toggle}
-                        className={classes.burger}
-                        size="sm"
-                    />
+                    <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
                     <a href="/" className={classes.link}>
                         <Title order={1}>Helix</Title>
                     </a>

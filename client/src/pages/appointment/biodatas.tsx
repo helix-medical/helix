@@ -7,34 +7,36 @@ import { UseFormReturnType } from '@mantine/form/lib/types';
 
 interface IProps {
     patient: IAppointmentData;
-    form: UseFormReturnType<
-        {
-            name: string;
-            lastName: string;
-            birthDate: string;
-            sex: string;
-            email: string;
-            city: string;
-            medicalIssues: any;
-        },
-        (values: {
-            name: string;
-            lastName: string;
-            birthDate: string;
-            sex: string;
-            email: string;
-            city: string;
-            medicalIssues: any;
-        }) => {
-            name: string;
-            lastName: string;
-            birthDate: string;
-            sex: string;
-            email: string;
-            city: string;
-            medicalIssues: any;
-        }
-    > | any;
+    form:
+        | UseFormReturnType<
+              {
+                  name: string;
+                  lastName: string;
+                  birthDate: string;
+                  sex: string;
+                  email: string;
+                  city: string;
+                  medicalIssues: any;
+              },
+              (values: {
+                  name: string;
+                  lastName: string;
+                  birthDate: string;
+                  sex: string;
+                  email: string;
+                  city: string;
+                  medicalIssues: any;
+              }) => {
+                  name: string;
+                  lastName: string;
+                  birthDate: string;
+                  sex: string;
+                  email: string;
+                  city: string;
+                  medicalIssues: any;
+              }
+          >
+        | any;
     view?: boolean;
     passif?: IPassif;
 }

@@ -1,11 +1,11 @@
-import React from 'react'
-import { Table } from '@mantine/core'
-import { IPatient } from '../../interfaces'
-import SexBadge from '../../components/sexBadge'
-import Id from '../../components/id'
+import React from 'react';
+import { Table } from '@mantine/core';
+import { IPatient } from '../../interfaces';
+import SexBadge from '../../components/sexBadge';
+import Id from '../../components/id';
 
 interface IProps {
-    patients: IPatient[]
+    patients: IPatient[];
 }
 
 function PatientsTableView({ patients }: IProps): JSX.Element {
@@ -23,16 +23,10 @@ function PatientsTableView({ patients }: IProps): JSX.Element {
             <td>{patient.city}</td>
             <td>{patient.email}</td>
         </tr>
-    ))
+    ));
 
     return (
-        <Table
-            horizontalSpacing="md"
-            verticalSpacing="md"
-            className="debug"
-            highlightOnHover
-            withColumnBorders
-        >
+        <Table horizontalSpacing="md" verticalSpacing="md" className="debug" highlightOnHover withColumnBorders>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -46,7 +40,7 @@ function PatientsTableView({ patients }: IProps): JSX.Element {
             </thead>
             <tbody>{rows}</tbody>
         </Table>
-    )
+    );
 }
 
-export default PatientsTableView
+export default PatientsTableView;

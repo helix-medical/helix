@@ -1,14 +1,14 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import { IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
+import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
 
-import AppItemGrid from "./itemGrid";
-import AppTableView from "./listView";
-import ModalCreateApp from "./create";
-import { IAppointmentExtended } from "../../interfaces";
-import { Button, Badge, Group, Grid, Title } from "@mantine/core";
+import AppItemGrid from './itemGrid';
+import AppTableView from './listView';
+import ModalCreateApp from './create';
+import { IAppointmentExtended } from '../../interfaces';
+import { Button, Badge, Group, Grid, Title, ActionIcon } from '@mantine/core';
 
 const Patients = () => {
     // fetch all appointments
@@ -17,7 +17,7 @@ const Patients = () => {
     useEffect(() => {
         const fetchAllAppointments = async () => {
             try {
-                const res = await axios.get("/api/appointments");
+                const res = await axios.get('/api/appointments');
                 setAppointments(res.data);
             } catch (error) {
                 console.log(error);
@@ -29,8 +29,8 @@ const Patients = () => {
 
     const changeView = () => {
         setViewType((currentState) => {
-            if (currentState === "grid") return "table";
-            else return "grid";
+            if (currentState === 'grid') return 'table';
+            else return 'grid';
         });
     };
 
@@ -39,42 +39,32 @@ const Patients = () => {
     const toggleModal = () => setShow(!show);
 
     // View Type
-    const [viewType, setViewType] = useState("grid");
-    const isGrid = viewType === "grid";
+    const [viewType, setViewType] = useState('grid');
+    const isGrid = viewType === 'grid';
 
     return (
         <>
             <Grid justify="space-between" align="center" p="md">
                 <Group>
                     <Title order={2}>
-                        Appointments{" "}
+                        Appointments{' '}
                         <Badge size="lg" radius="lg" variant="filled">
                             {nbAppointments}
                         </Badge>
                     </Title>
                 </Group>
                 <Group>
-                    <Button variant="outline" onClick={changeView}>
+                    <ActionIcon color="blue" variant="outline" size="lg" onClick={changeView}>
                         {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
-                    </Button>
+                    </ActionIcon>
                     <Button onClick={toggleModal}>New Appointment</Button>
                 </Group>
             </Grid>
             {isGrid ? (
                 <Grid columns={12}>
                     {appointments.map((appointment: IAppointmentExtended) => (
-                        <Grid.Col
-                            xs={6}
-                            sm={4}
-                            md={3}
-                            lg={3}
-                            xl={2}
-                            key={appointment.id}
-                        >
-                            <AppItemGrid
-                                key={appointment.id}
-                                appointment={appointment}
-                            />
+                        <Grid.Col xs={6} sm={4} md={3} lg={3} xl={2} key={appointment.id}>
+                            <AppItemGrid key={appointment.id} appointment={appointment} />
                         </Grid.Col>
                     ))}
                 </Grid>

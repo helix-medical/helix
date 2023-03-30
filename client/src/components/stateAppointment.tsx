@@ -6,11 +6,7 @@ interface IProps {
 }
 
 function StateAppointment({ state }: IProps): JSX.Element {
-    return (
-        <Badge color={state === 'pending' ? 'blue' : 'green'}>
-            {state === 'pending' ? 'Pending' : 'Finished'}
-        </Badge>
-    );
+    return <Badge color={state === 'pending' ? 'blue' : 'green'}>{state === 'pending' ? 'Pending' : 'Finished'}</Badge>;
 }
 
 export default StateAppointment;

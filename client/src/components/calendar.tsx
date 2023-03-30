@@ -12,8 +12,7 @@ const Calendar = () => {
             </Title>
             <div className="calendar">
                 <Alert color="red" title="Calendar Not Implemented">
-                    This feature is not implemented yet. Please check back
-                    later.
+                    This feature is not implemented yet. Please check back later.
                 </Alert>
             </div>
         </div>
