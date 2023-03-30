@@ -1,9 +1,11 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express, Request, Response } from 'express';
 
-import cors from "cors";
-require("dotenv").config();
-import patients from "./routers/patients";
-import appointments from "./routers/appointments";
+import cors from 'cors';
+require('dotenv').config();
+import patients from './routers/patients';
+import appointments from './routers/appointments';
+
+import logger from './logger';
 
 const app: Express = express();
 const port = process.env.PORT_API;
@@ -11,13 +13,13 @@ const port = process.env.PORT_API;
 app.use(express.json());
 app.use(cors());
 
-app.get("/api", (req: Request, res: Response) => {
-    res.json("Helix: A System for Patient Management [[API]]");
+app.get('/api', (req: Request, res: Response) => {
+    res.json('Helix: A System for Patient Management [[API]]');
 });
 
-app.use("/api/patients", patients);
-app.use("/api/appointments", appointments);
+app.use('/api/patients', patients);
+app.use('/api/appointments', appointments);
 
 app.listen(port, () => {
-    console.log(`Server listening on port ${port} at ${Date.now()}`);
+    logger.info(`Server listening on port ${port}`);
 });

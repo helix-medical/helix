@@ -21,6 +21,7 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
     const handleClose = () => toggleModal();
 
     const handleClick = async () => {
+        form.validate();
         console.log(form.values);
         //     try {
         //         await axios.post(`/api/patients/add`, patient);
@@ -157,7 +158,11 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
                             >
                                 Cancel
                             </Button>
-                            <Button color="green" type="submit">
+                            <Button
+                                color="green"
+                                // type="submit"
+                                onClick={handleClick}
+                            >
                                 Add
                             </Button>
                         </Group>
