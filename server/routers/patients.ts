@@ -5,14 +5,14 @@ import validate from '../validation/validator';
 import logger from '../logger';
 
 router.get('/', (req: Request, res: Response) => {
-    logger.get(req.originalUrl);
+    logger.get(req.originalUrl, 'REQ');
     const sqlQuery = `
     SELECT *
     FROM patients
     `;
     db.query(sqlQuery, (err: any, data: any) => {
         if (!err) {
-            logger.success('Patients found');
+            logger.get(req.originalUrl, 'OK', 'Return all patients');
             return res.json(data);
         }
 
@@ -28,7 +28,7 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 router.get('/:id/read', (req: Request, res: Response) => {
-    logger.get(req.originalUrl);
+    logger.get(req.originalUrl, 'REQ');
     const patientId = req.params.id;
     const sqlQuery = `
     SELECT *
@@ -42,7 +42,7 @@ router.get('/:id/read', (req: Request, res: Response) => {
                 return res.status(404).json(`Patient ${patientId} not found`);
             }
 
-            logger.success(`Patient ${patientId} found`);
+            logger.get(req.originalUrl, 'OK', `Patient ${patientId} found`);
             return res.json(data);
         }
 
@@ -52,18 +52,18 @@ router.get('/:id/read', (req: Request, res: Response) => {
 });
 
 router.use('/add', (req: Request, res: Response, next: NextFunction) => {
-    logger.use(req.originalUrl);
+    logger.use(req.originalUrl, 'REQ');
     const isValid = validate.patientCreate(req.body);
     if (!isValid) {
-        // LOG HERE
+        logger.use(req.originalUrl, 'ERR', 'Invalid request body');
         return res.json(validate.patientCreate.errors);
     }
-    logger.use('VERIFIED');
+    logger.use(req.originalUrl, 'OK', 'Valid request body');
     next();
 });
 
 router.post('/add', (req: Request, res: Response) => {
-    logger.post(req.originalUrl);
+    logger.post(req.originalUrl, 'REQ');
     const sqlQuery =
         'INSERT ' +
         'INTO patients ' +
@@ -84,12 +84,13 @@ router.post('/add', (req: Request, res: Response) => {
             logger.err(err);
             return res.json(err);
         }
-        logger.success(`Patient ${data.insertId} added`);
+        logger.post(req.originalUrl, 'OK', `Patient ${data.insertId} added`);
         return res.json(`Patient ${data.insertId} added`);
     });
 });
 
 router.delete('/:id/delete', (req: Request, res: Response) => {
+    logger.del(req.originalUrl, 'REQ');
     const patientId = req.params.id;
     const sqlQuery = `DELETE 
     FROM patients
@@ -101,23 +102,24 @@ router.delete('/:id/delete', (req: Request, res: Response) => {
             logger.err(err);
             return res.json(err);
         }
-        logger.success(`Patient ${patientId} deleted`);
+        logger.get(req.originalUrl, 'OK', `Patient ${patientId} deleted`);
         return res.json(`Patient ${patientId} deleted`);
     });
 });
 
 router.use('/:id/update', (req: Request, res: Response, next: NextFunction) => {
-    logger.use(req.originalUrl);
+    logger.use(req.originalUrl, 'REQ');
     const isValid = validate.patientUpdate(req.body);
     if (!isValid) {
+        logger.use(req.originalUrl, 'ERR', 'Invalid request body');
         return res.json(validate.patientUpdate.errors);
     }
-    logger.use('VERIFIED');
+    logger.use(req.originalUrl, 'OK', 'Valid request body');
     next();
 });
 
 router.put('/:id/update', (req: Request, res: Response) => {
-    logger.put(req.originalUrl);
+    logger.put(req.originalUrl, 'REQ');
     const patientId = req.params.id;
     const sqlQuery =
         'UPDATE patients ' +
@@ -138,13 +140,13 @@ router.put('/:id/update', (req: Request, res: Response) => {
             logger.err(err);
             return res.json(err);
         }
-        logger.success(`Patient ${patientId} updated`);
+        logger.put(req.originalUrl, 'OK', `Patient ${patientId} updated`);
         return res.json(`Patient ${patientId} updated`);
     });
 });
 
 router.put('/:id/add_appointment/', (req: Request, res: Response) => {
-    logger.put(req.originalUrl);
+    logger.put(req.originalUrl, 'REQ');
     const patientId = req.params.id;
     const sqlQuery =
         'UPDATE patients ' +
@@ -157,7 +159,11 @@ router.put('/:id/add_appointment/', (req: Request, res: Response) => {
             logger.err(err);
             return res.json(err);
         }
-        logger.success(`Appointment ${req.body.id} added to patient ${patientId}`);
+        logger.put(
+            req.originalUrl,
+            'OK',
+            `Appointment ${req.body.id} added to patient ${patientId}`
+        );
         return res.json(data);
     });
 });

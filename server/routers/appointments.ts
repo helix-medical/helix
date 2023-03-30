@@ -5,7 +5,7 @@ import validate from '../validation/validator';
 import logger from '../logger';
 
 router.get('/', (req: Request, res: Response) => {
-    logger.get(req.originalUrl);
+    logger.get(req.originalUrl, 'REQ');
     const sqlQuery = `
     SELECT appointments.id, appointments.date, appointments.reasons, appointments.status, patients.name, patients.lastName, patients.sex 
     FROM appointments INNER JOIN patients ON appointments.patientId = patients.id
@@ -15,13 +15,13 @@ router.get('/', (req: Request, res: Response) => {
             logger.err(err);
             return res.json(err);
         }
-        logger.success('Appointments found');
+        logger.get(req.originalUrl, 'OK', 'Return all appointments');
         return res.json(data);
     });
 });
 
 router.get('/:id/read', (req: Request, res: Response) => {
-    logger.get(req.originalUrl);
+    logger.get(req.originalUrl, 'REQ');
     const appointmentId = req.params.id;
     const sqlQuery = `
     SELECT *
@@ -33,13 +33,17 @@ router.get('/:id/read', (req: Request, res: Response) => {
             logger.err(err);
             return res.json(err);
         }
-        logger.success('Appointment found');
+        logger.get(
+            req.originalUrl,
+            'OK',
+            `Return appointment ${appointmentId}`
+        );
         return res.json(data);
     });
 });
 
 router.get('/:id/appointment', (req: Request, res: Response) => {
-    logger.get(req.originalUrl);
+    logger.get(req.originalUrl, 'REQ');
     const appointmentId = req.params.id;
     const sqlQuery = `
     SELECT appointments.id, appointments.date, appointments.reasons, appointments.anamnesis, appointments.conclusion, appointments.patientId, appointments.status, patients.name, patients.lastName, patients.email, patients.birthDate, patients.city, patients.sex, patients.passif 
@@ -51,24 +55,28 @@ router.get('/:id/appointment', (req: Request, res: Response) => {
             logger.err(err);
             return res.json(err);
         }
-        logger.success('Appointment found');
+        logger.get(
+            req.originalUrl,
+            'OK',
+            `Return appointment ${appointmentId}`
+        );
         return res.json(data);
     });
 });
 
 router.use('/new', (req: Request, res: Response, next: NextFunction) => {
-    logger.use(req.originalUrl);
+    logger.use(req.originalUrl, 'REQ');
     const isValid = validate.appointmentCreate(req.body);
     if (!isValid) {
-        // LOG HERE
+        logger.use(req.originalUrl, 'ERR', 'Invalid request body');
         return res.json(validate.appointmentCreate.errors);
     }
-    logger.use('VERIFIED');
+    logger.use(req.originalUrl, 'OK', 'Valid request body');
     next();
 });
 
 router.post('/new', (req: Request, res: Response) => {
-    logger.post(req.originalUrl);
+    logger.post(req.originalUrl, 'REQ');
     const sqlQuery =
         'INSERT INTO appointments ' +
         '(`patientId`, `date`, `reasons`, `anamnesis`, `conclusion`, `status`) VALUES (?)';
@@ -86,24 +94,28 @@ router.post('/new', (req: Request, res: Response) => {
             logger.err(err);
             return res.json(err);
         }
-        logger.success('Appointment created');
+        logger.post(
+            req.originalUrl,
+            'OK',
+            `Appointment ${data.insertId} created`
+        );
         return res.json(data.insertId);
     });
 });
 
 router.use('/:id/update', (req: Request, res: Response, next: NextFunction) => {
-    logger.use(req.originalUrl);
+    logger.use(req.originalUrl, 'REQ');
     const isValid = validate.appointmentUpdate(req.body);
     if (!isValid) {
-        // LOG HERE
+        logger.use(req.originalUrl, 'ERR', 'Invalid request body');
         return res.json(validate.appointmentUpdate.errors);
     }
-    logger.use('VERIFIED');
+    logger.use(req.originalUrl, 'OK', 'Valid request body');
     next();
 });
 
 router.put('/:id/update', (req: Request, res: Response) => {
-    logger.put(req.originalUrl);
+    logger.put(req.originalUrl, 'REQ');
     const appointmentId = req.params.id;
     const sqlQuery =
         'UPDATE appointments ' +
@@ -116,7 +128,11 @@ router.put('/:id/update', (req: Request, res: Response) => {
             logger.err(err);
             return res.json(err);
         }
-        logger.success(`Appointment ${appointmentId} updated`)
+        logger.put(
+            req.originalUrl,
+            'OK',
+            `Appointment ${appointmentId} updated`
+        );
         return res.json(`Appointment ${appointmentId} updated`);
     });
 });
