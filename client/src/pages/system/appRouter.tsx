@@ -2,14 +2,14 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Patients from '../../pages/patients/patients';
-import Home from '../../pages/home';
+import Home from './home';
 import Calendar from '../../components/calendar';
 import EditAppointment from '../../pages/appointment/edit';
 import Appointments from '../../pages/appointments/appointments';
 import ViewAppointment from '../../pages/appointment/view';
 import NotFound from '../../pages/system/404';
-import Account from '../../pages/account';
-import Admin from './admin';
+import Account from './account';
+import Admin from '../admin/admin';
 import Login from './login';
 
 const AppRouter = () => {
@@ -20,15 +20,9 @@ const AppRouter = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/patients" element={<Patients />} />
                 <Route path="/calendar" element={<Calendar />} />
-                <Route
-                    path="/appointments/:appointmentID/edit"
-                    element={<EditAppointment />}
-                />
+                <Route path="/appointments/:appointmentID/edit" element={<EditAppointment />} />
                 <Route path="/appointments" element={<Appointments />} />
-                <Route
-                    path="/appointments/:appointmentID/view"
-                    element={<ViewAppointment />}
-                />
+                <Route path="/appointments/:appointmentID/view" element={<ViewAppointment />} />
                 <Route path="/account" element={<Account />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="*" element={<NotFound />} />

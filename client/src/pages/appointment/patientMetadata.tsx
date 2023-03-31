@@ -85,14 +85,11 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
         },
     });
 
-    console.log(patientInput);
-    console.log(form.values);
-
     return (
         <div className="debug">
             <h2>Patient Data</h2>
             <Tabs defaultValue="data" radius="md">
-                <Tabs.List grow>
+                <Tabs.List>
                     <Tabs.Tab value="data">BioData</Tabs.Tab>
                     <Tabs.Tab value="medical">Previous Medical Issues</Tabs.Tab>
                     <Tabs.Tab value="appointments">Previous Appointments</Tabs.Tab>
@@ -115,7 +112,7 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                     </Tabs.Panel>
                 </form>
             </Tabs>
-            <Button variant="light" onClick={handleClick}>
+            <Button variant="light" onClick={handleClick} m="lg">
                 Update Patient Data
             </Button>
         </div>

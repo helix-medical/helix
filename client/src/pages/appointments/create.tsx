@@ -105,13 +105,7 @@ function ModalCreateApp({ show, toggleModal }: IProps): JSX.Element {
                                     label="Kind"
                                     placeholder="Kind"
                                     withAsterisk
-                                    data={[
-                                        'first-visit',
-                                        'follow-up',
-                                        'pediatrics',
-                                        'maternity',
-                                        'emergency',
-                                    ]}
+                                    data={['first-visit', 'follow-up', 'pediatrics', 'maternity', 'emergency']}
                                     searchable
                                     dropdownPosition="bottom"
                                     {...form.getInputProps('reasons')}
@@ -119,11 +113,7 @@ function ModalCreateApp({ show, toggleModal }: IProps): JSX.Element {
                             </Grid.Col>
                         </Grid>
                         <Group position="right" p="md">
-                            <Button
-                                variant="light"
-                                color="red"
-                                onClick={handleClose}
-                            >
+                            <Button variant="light" color="red" onClick={handleClose}>
                                 Cancel
                             </Button>
                             <Button

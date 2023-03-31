@@ -48,16 +48,16 @@ const Biodatas = ({ patient, form, view, passif }: IProps): JSX.Element => {
         // <form>
         <Grid columns={12}>
             <Grid.Col span={4}>
-                <TextInput label="Name" readOnly={view} {...form.getInputProps('name')} />
+                <TextInput label="Name" readOnly={view} />
             </Grid.Col>
             <Grid.Col span={4}>
-                <TextInput label="Last Name" readOnly={view} {...form.getInputProps('lastName')} />
+                <TextInput label="Last Name" readOnly={view} />
             </Grid.Col>
             <Grid.Col span={4}>
                 {view ? (
                     <TextInput label="Sex" readOnly defaultValue={patient.sex} />
                 ) : (
-                    <Select label="Sex" placeholder={patient.sex} data={['F', 'M']} {...form.getInputProps('sex')} />
+                    <Select label="Sex" placeholder={patient.sex} data={['F', 'M']} />
                 )}
             </Grid.Col>
             <Grid.Col span={4}>

@@ -12,7 +12,7 @@ const Home = () => {
                 color="yellow"
                 radius="lg"
             >
-                <Title order={2}>Je t'aime Maivy 💛</Title>
+                <Title order={2}>WORK IN PROGRESS</Title>
             </Alert>
         </>
     );

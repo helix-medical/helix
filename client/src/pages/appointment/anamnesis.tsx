@@ -1,27 +1,20 @@
-import React from "react";
-import { Textarea, Title, Grid } from "@mantine/core";
-import getNbLines from "../../tools/getLines";
-import { IAppointmentData } from "../../interfaces";
+import React from 'react';
+import { Textarea, Title, Grid } from '@mantine/core';
+import getNbLines from '../../tools/getLines';
+import { IAppointmentData } from '../../interfaces';
 
 interface IProps {
     appointment: IAppointmentData;
-    handler?: (arg0: any) => void;
+    // handler?: (arg0: any) => void;
     view?: boolean;
+    form: any;
 }
 
-const Anamnesis = ({ appointment, handler, view }: IProps): JSX.Element => {
-    const handleChange = (e: { target: { name: any; value: any } }) => {
-        if (handler)
-            handler((prev: any) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-            }));
-    };
-
+const Anamnesis = ({ appointment, view, form }: IProps): JSX.Element => {
     const anamnesis = JSON.parse(appointment.anamnesis);
+    const nbLines = (text: string, base: number) => (view ? getNbLines(text) : base);
 
-    const nbLines = (text: string, base: number) =>
-        view ? getNbLines(text) : base;
+    // console.log(form.values);
 
     return (
         <div className="debug">
@@ -31,9 +24,10 @@ const Anamnesis = ({ appointment, handler, view }: IProps): JSX.Element => {
                     <Textarea
                         label="Reasons for the consultation"
                         maxRows={nbLines(anamnesis.reasons, 1)}
-                        name="reasons"
-                        onChange={handleChange}
-                        defaultValue={anamnesis.reasons}
+                        // name="reasons"
+                        // onChange={handleChange}
+                        // defaultValue={form.values.anamnesis.reasons}
+                        {...form.getInputProps('anamnesis.reasons')}
                         readOnly={view}
                     />
                 </Grid.Col>
@@ -41,9 +35,10 @@ const Anamnesis = ({ appointment, handler, view }: IProps): JSX.Element => {
                     <Textarea
                         label="Symptoms"
                         maxRows={nbLines(anamnesis.symptoms, 3)}
-                        name="symptoms"
-                        onChange={handleChange}
-                        defaultValue={anamnesis.symptoms}
+                        // name="symptoms"
+                        // onChange={handleChange}
+                        // defaultValue={anamnesis.symptoms}
+                        {...form.getInputProps('anamnesis.symptoms')}
                         readOnly={view}
                     />
                 </Grid.Col>
@@ -51,9 +46,10 @@ const Anamnesis = ({ appointment, handler, view }: IProps): JSX.Element => {
                     <Textarea
                         label="Known diseases"
                         maxRows={nbLines(anamnesis.knownDiseases, 3)}
-                        name="knownDiseases"
-                        onChange={handleChange}
-                        defaultValue={anamnesis.knownDiseases}
+                        // name="knownDiseases"
+                        // onChange={handleChange}
+                        // defaultValue={anamnesis.knownDiseases}
+                        {...form.getInputProps('anamnesis.knownDiseases')}
                         readOnly={view}
                     />
                 </Grid.Col>
@@ -61,9 +57,10 @@ const Anamnesis = ({ appointment, handler, view }: IProps): JSX.Element => {
                     <Textarea
                         label="Medications"
                         maxRows={nbLines(anamnesis.knownMedications, 3)}
-                        name="knownMedications"
-                        onChange={handleChange}
-                        defaultValue={anamnesis.knownMedications}
+                        // name="knownMedications"
+                        // onChange={handleChange}
+                        // defaultValue={anamnesis.knownMedications}
+                        {...form.getInputProps('anamnesis.knownMedications')}
                         readOnly={view}
                     />
                 </Grid.Col>
