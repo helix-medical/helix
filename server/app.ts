@@ -4,7 +4,7 @@ import cors from 'cors';
 require('dotenv').config();
 import patients from './routers/patients';
 import appointments from './routers/appointments';
-import logger from './logger';
+import logger from './system/logger';
 
 const app: Express = express();
 const port = process.env.PORT_API;
