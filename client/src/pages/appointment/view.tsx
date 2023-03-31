@@ -8,6 +8,7 @@ import Metadata from './metadata';
 import NavBarAppointment from './navbar';
 import { Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useAppForm, AppFormProvider } from './formContext';
 
 const ViewAppointment = () => {
     const id = window.location.href.split('/').slice(-2)[0];
@@ -54,16 +55,24 @@ const ViewAppointment = () => {
 
     const anamnesis = JSON.parse(data.anamnesis);
     const conclusion = JSON.parse(data.conclusion);
+    console.log(data);
 
-    const form = useForm({
+    interface IFormValues {
+        anamnesis: {
+            reasons: string;
+            symptoms: string;
+            knownDiseases: string;
+            knownMedications: string;
+        };
+        conclusion: {
+            diagnosis: string;
+            treatment: string;
+            observations: string;
+        };
+    }
+
+    const form = useAppForm({
         initialValues: {
-            name: data.name,
-            lastName: data.lastName,
-            email: data.email,
-            birthDate: data.birthDate,
-            sex: data.sex,
-            city: data.city,
-            // passif: JSON.parse(data.passif),
             anamnesis: {
                 reasons: anamnesis.reasons,
                 symptoms: anamnesis.symptoms,
@@ -78,16 +87,20 @@ const ViewAppointment = () => {
         },
     });
 
+    console.log(form.values);
+
     return (
         <>
             <NavBarAppointment view={true} />
             <Metadata appointment={data} />
             <Title order={2}>Patient Data</Title>
-            <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} form={form} />
-            <form>
-                <Anamnesis appointment={data} view={true} form={form} />
-                <Conclusion appointment={data} view={true} form={form} />
-            </form>
+            <AppFormProvider form={form}>
+                <form>
+                    {/* <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} form={undefined} /> */}
+                    <Anamnesis appointment={data} view={true} form={form} />
+                    <Conclusion appointment={data} view={true} form={form} />
+                </form>
+            </AppFormProvider>
         </>
     );
 };

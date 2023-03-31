@@ -8,6 +8,7 @@ import Conclusion from './conclusion';
 import Metadata from './metadata';
 import NavBarAppointment from './navbar';
 import { isNotEmpty, useForm } from '@mantine/form';
+import { useAppForm, AppFormProvider } from './formContext';
 
 const EditAppointment = (): JSX.Element => {
     const id = window.location.href.split('/').slice(-2)[0];
@@ -60,7 +61,21 @@ const EditAppointment = (): JSX.Element => {
         // window.location.href = '/appointments';
     };
 
-    const form = useForm({
+    // interface IFormValues {
+    //     anamnesis: {
+    //         reasons: string;
+    //         symptoms: string;
+    //         knownDiseases: string;
+    //         knownMedications: string;
+    //     };
+    //     conclusion: {
+    //         diagnosis: string;
+    //         treatment: string;
+    //         observations: string;
+    //     };
+    // }
+
+    const form = useAppForm({
         initialValues: {
             anamnesis: {
                 reasons: '',
@@ -95,13 +110,15 @@ const EditAppointment = (): JSX.Element => {
             <NavBarAppointment view={false} />
             <Metadata appointment={data} />
             <PatientMetadata patientInput={data} />
-            <form>
-                <Anamnesis appointment={data} view={false} form={form} />
-                <Conclusion appointment={data} view={false} form={form} />
-                <Button onClick={handleClick} m="lg">
-                    Valid Appointment
-                </Button>
-            </form>
+            <AppFormProvider form={form}>
+                <form>
+                    <Anamnesis appointment={data} view={false} form={form} />
+                    <Conclusion appointment={data} view={false} form={form} />
+                    <Button onClick={handleClick} m="lg">
+                        Valid Appointment
+                    </Button>
+                </form>
+            </AppFormProvider>
         </>
     );
 };
