@@ -27,6 +27,7 @@ app.use('/api/patients', patients);
 app.use('/api/appointments', appointments);
 app.use('/api/users', users);
 
+// 404
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
     logger.get(req.originalUrl, 'REQ');
     res.status(sc.NOT_FOUND).json({ error: 'Not found' });
