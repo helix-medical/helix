@@ -16,8 +16,9 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route index element={<Home />} />
                 <Route path="/login" element={<Login />} />
+                {/* After this, the pages are protected */}
+                <Route index element={<Home />} />
                 <Route path="/patients" element={<Patients />} />
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/appointments">

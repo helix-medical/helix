@@ -5,6 +5,7 @@ import schemaPatientCreate from "./schemas/create-patient.json";
 import schemaPatientUpdate from "./schemas/update-patient.json";
 import schemaAppointmentCreate from "./schemas/create-appointment.json";
 import schemaAppointmentUpdate from "./schemas/update-appointment.json";
+import schemaPatientAddAppointment from "./schemas/add-appointment.json";
 
 // Add formats for specific data types
 
@@ -13,4 +14,5 @@ export default module.exports = {
     patientUpdate: ajv.compile(schemaPatientUpdate),
     appointmentCreate: ajv.compile(schemaAppointmentCreate),
     appointmentUpdate: ajv.compile(schemaAppointmentUpdate),
+    patientAddAppointment: ajv.compile(schemaPatientAddAppointment),
 };
