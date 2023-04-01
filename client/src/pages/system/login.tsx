@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { TextInput, PasswordInput, Anchor, Paper, Title, Container, Group, Button } from '@mantine/core';
 import { IconLock, IconUserSearch } from '@tabler/icons-react';
+import WrongAuth from './errors/wrongAuth';
 
 const Login = () => {
     const form = useForm({
@@ -11,7 +12,7 @@ const Login = () => {
         },
         validate: {
             account: isNotEmpty('Account is required'),
-            password: isNotEmpty('Password is required'),
+            password: isNotEmpty('Password is required'), // define regex for password validation
         },
     });
 
@@ -24,7 +25,7 @@ const Login = () => {
 
     return (
         <Container size={420} my={40}>
-            <Title align="center">Log in to Helix</Title>
+            <Title align="center">Welcome to Helix</Title>
             {/* <Text color="dimmed" size="sm" align="center" mt={5}>
                 Do not have an account yet?{' '}
                 <Anchor size="sm" component="button">
@@ -54,11 +55,12 @@ const Login = () => {
                             Contact administrator
                         </Anchor>
                     </Group>
-                    <Button fullWidth mt="xl" type="submit" loading={loading}>
+                    <Button fullWidth mt="xl" type="submit" loading={loading} loaderPosition="center">
                         Sign in
                     </Button>
                 </form>
             </Paper>
+            <WrongAuth />
         </Container>
     );
 };
