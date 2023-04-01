@@ -24,7 +24,10 @@ const Patients = (): JSX.Element => {
                 setPatients(res.data);
                 // console.log(res);
             } catch (error: any) {
-                console.log(error);
+                if (!error?.response) 
+                    console.log('Network error');
+                else
+                    console.log(error.response.data);
                 // setError(error.response.data);
             }
         };

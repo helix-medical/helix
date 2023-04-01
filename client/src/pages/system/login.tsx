@@ -11,12 +11,12 @@ const Login = () => {
             password: '',
         },
         validate: {
-            account: isNotEmpty('Account is required'),
+            account: isNotEmpty('Account is required'), // validate onBlur
             password: isNotEmpty('Password is required'), // define regex for password validation
         },
     });
 
-    const handleSubmit = () => {
+    const handleSubmit = () => { // activate the button only when the form is valid
         console.log(form.values);
         setLoading(true);
     };

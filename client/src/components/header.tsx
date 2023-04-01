@@ -83,7 +83,7 @@ const HeaderApp = ({ links }: HeaderAppProps) => {
                         <IconSearch size="1.2rem" />
                     </ActionIcon>
                     <ToggleTheme />
-                    <ActionIcon color="red" variant="light" size="lg">
+                    <ActionIcon color="red" variant="light" size="lg" component="a" href="login">
                         <IconPower size="1.2rem" />
                     </ActionIcon>
                 </Group>

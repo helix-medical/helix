@@ -36,7 +36,7 @@ function App() {
             <MantineProvider
                 withGlobalStyles
                 withNormalizeCSS
-                theme={{ colorScheme: colorScheme }}
+                theme={{ colorScheme: colorScheme, loader: 'dots' }}
             >
                 <HeaderApp links={links} />
                 <div className="body">
