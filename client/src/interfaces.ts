@@ -80,3 +80,10 @@ export interface IAppointmentDataEdit {
     city: string;
     passif: string;
 }
+
+export interface IUsers {
+    id?: number;
+    username: string;
+    password: string;
+    role: string;
+}
