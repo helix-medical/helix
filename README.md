@@ -19,5 +19,5 @@ To install, when the project will be finished, we will use Docker and MySQL to d
 ```bash
 git clone https://github.com/Xavier2p/helix.git
 cd helix
-docker compose up -d
+docker compose up -d # not yet implemented
 ```
