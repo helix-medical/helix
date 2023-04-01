@@ -1,6 +1,5 @@
 import React from 'react';
 // import axios from 'axios';
-
 import { Button, Modal, Select, Group, Text, Grid } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
@@ -10,7 +9,7 @@ interface IProps {
     toggleModal: () => void;
 }
 
-function ModalCreateApp({ show, toggleModal }: IProps): JSX.Element {
+const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
     const handleClose = () => toggleModal();
 
     const handleClick = async (e: { preventDefault: () => void }) => {
@@ -19,10 +18,12 @@ function ModalCreateApp({ show, toggleModal }: IProps): JSX.Element {
         console.log(form.values);
         // e.preventDefault();
         // try {
-        //     index = await axios.post(`/api/appointments/new`, finalData);
-        //     await axios.put(`/api/patients/${data.patientId}/add_appointment`, {
+        //     index = await axios.post(`/api/appointments/new`, form.values);
+        //     console.log(index);
+        //     const res = await axios.put(`/api/patients/${form.values.patientId}/add_appointment`, {
         //         id: index.data,
         //     });
+        //     console.log(res);
         // } catch (error) {
         //     console.log(error);
         // }
@@ -67,7 +68,7 @@ function ModalCreateApp({ show, toggleModal }: IProps): JSX.Element {
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
-                    <form onSubmit={handleClick}>
+                    <form>
                         <Grid columns={12}>
                             <Grid.Col span={12}>
                                 <DateTimePicker
@@ -119,7 +120,6 @@ function ModalCreateApp({ show, toggleModal }: IProps): JSX.Element {
                             <Button
                                 color="green"
                                 onClick={handleClick}
-                                // type="submit"
                             >
                                 Submit
                             </Button>
@@ -129,6 +129,6 @@ function ModalCreateApp({ show, toggleModal }: IProps): JSX.Element {
             </Modal.Content>
         </Modal.Root>
     );
-}
+};
 
 export default ModalCreateApp;

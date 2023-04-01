@@ -10,7 +10,7 @@ interface IProps {
     appointments: IAppointmentExtended[];
 }
 
-function AppTableView({ appointments }: IProps) {
+const AppTableView = ({ appointments }: IProps): JSX.Element => {
     const rows = appointments.map((appointment: IAppointmentExtended) => (
         <tr key={appointment.id}>
             <td>{appointment.id}</td>
@@ -25,7 +25,9 @@ function AppTableView({ appointments }: IProps) {
                 <StateAppointment state={appointment.status} />
             </td>
             <td>
-                <Button variant="light">NOT IMPLEMENTED</Button>
+                <Button variant="light" component="a" href={`/appointments/${appointment.id}/view`}>
+                    View
+                </Button>
             </td>
         </tr>
     ));
@@ -45,6 +47,6 @@ function AppTableView({ appointments }: IProps) {
             <tbody>{rows}</tbody>
         </Table>
     );
-}
+};
 
 export default AppTableView;

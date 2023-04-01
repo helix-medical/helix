@@ -10,7 +10,7 @@ import ModalCreateApp from './create';
 import { IAppointmentExtended } from '../../interfaces';
 import { Button, Badge, Group, Grid, Title, ActionIcon } from '@mantine/core';
 
-const Patients = () => {
+const Patients = (): JSX.Element => {
     // fetch all appointments
     const [appointments, setAppointments] = useState([]);
 
