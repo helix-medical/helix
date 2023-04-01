@@ -49,7 +49,7 @@ const EditAppointment = (): JSX.Element => {
         };
 
         try {
-            await axios.put(`/api/appointments/${id}/update`, appointmentFinal);
+            await axios.put(`/api/appointments/${id}`, appointmentFinal);
         } catch (error) {
             console.log(error);
         }

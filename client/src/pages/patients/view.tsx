@@ -45,7 +45,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                 }),
             };
             try {
-                await axios.put(`/api/patients/${patientInput.id}/update`, finalPatient);
+                await axios.put(`/api/patients/${patientInput.id}`, finalPatient);
             } catch (err) {
                 console.log(err);
             }

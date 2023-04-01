@@ -14,7 +14,7 @@ router.get('/:id/edit', controller.getForEdit);
 router.use('/new', middleware.create);
 router.post('/new', controller.create);
 
-router.use('/:id/update', middleware.update);
-router.put('/:id/update', controller.update);
+router.use('/:id', middleware.update);
+router.put('/:id', controller.update);
 
 export default router;

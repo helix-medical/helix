@@ -39,7 +39,7 @@ const Patients = (): JSX.Element => {
     const handleDelete = async (id: number | undefined) => {
         if (!id) return console.error('No id');
         try {
-            await axios.delete(`/api/patients/${id}/delete`);
+            await axios.delete(`/api/patients/${id}`);
             window.location.reload();
         } catch (error) {
             console.error(error);

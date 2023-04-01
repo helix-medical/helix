@@ -16,7 +16,8 @@ const Login = () => {
         },
     });
 
-    const handleSubmit = () => { // activate the button only when the form is valid
+    const handleSubmit = () => {
+        // activate the button only when the form is valid
         console.log(form.values);
         setLoading(true);
     };
