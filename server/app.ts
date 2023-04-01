@@ -1,6 +1,6 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express, NextFunction, Request, Response } from 'express';
 
-import cors from 'cors';
+import cors from './config/cors';
 require('dotenv').config();
 import patients from './routers/patients';
 import appointments from './routers/appointments';
