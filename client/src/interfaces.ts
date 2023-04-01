@@ -37,7 +37,7 @@ export interface IConclusion {
     observations: string;
 }
 
-export interface IAppointmentData {
+export interface IAppointmentDataView {
     id?: string;
     date: string;
     reasons: string;
@@ -65,4 +65,18 @@ export interface IAppointmentExtended {
     name: string;
     lastName: string;
     sex: string;
+}
+
+export interface IAppointmentDataEdit {
+    id?: string;
+    date: string;
+    reasons: string;
+    patientId: string;
+    name: string;
+    lastName: string;
+    email: string;
+    birthDate: string;
+    sex: string;
+    city: string;
+    passif: string;
 }

@@ -27,12 +27,5 @@
     "@types/node": "^18.15.10",
     "concurrently": "^7.6.0",
     "typescript": "^5.0.2"
-  },
-  "prettier": {
-    "trailingComma": "es5",
-    "tabWidth": 4,
-    "semi": true,
-    "singleQuote": true,
-    "printWidth": 120
   }
 }

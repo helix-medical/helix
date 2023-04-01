@@ -1,16 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import {
-    Button,
-    Modal,
-    TextInput,
-    Group,
-    Grid,
-    Textarea,
-    Text,
-    Badge,
-} from '@mantine/core';
+import { Button, Modal, TextInput, Group, Grid, Textarea, Text, Badge } from '@mantine/core';
 import { useForm, isEmail } from '@mantine/form';
 import { IPatient } from '../../interfaces';
 import dateToReadable from '../../tools/date';
@@ -22,12 +13,7 @@ interface IProps {
     handleDelete: (id: number | undefined) => void;
 }
 
-function ModalViewPatient({
-    show,
-    toggleModal,
-    patientInput,
-    handleDelete,
-}: IProps): JSX.Element {
+function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IProps): JSX.Element {
     const handleClose = () => toggleModal();
     const passif = JSON.parse(patientInput.passif);
 
@@ -59,10 +45,7 @@ function ModalViewPatient({
                 }),
             };
             try {
-                await axios.put(
-                    `/api/patients/${patientInput.id}/update`,
-                    finalPatient
-                );
+                await axios.put(`/api/patients/${patientInput.id}/update`, finalPatient);
             } catch (err) {
                 console.log(err);
             }
@@ -82,21 +65,12 @@ function ModalViewPatient({
         },
 
         validate: {
-            name: (value) =>
-                value.length < 2 ? 'Name must be at least 2 chars' : null,
-            lastName: (value) =>
-                value.length < 2 ? 'Last name must be at least 2 chars' : null,
-            birthDate: (value) =>
-                value.length !== 10
-                    ? 'Birth date must be at `DD/MM/YYYY` format'
-                    : null,
-            sex: (value) =>
-                value !== 'F' && value !== 'M'
-                    ? 'Sex must be at `M` or `F`'
-                    : null,
+            name: (value) => (value.length < 2 ? 'Name must be at least 2 chars' : null),
+            lastName: (value) => (value.length < 2 ? 'Last name must be at least 2 chars' : null),
+            birthDate: (value) => (value.length !== 10 ? 'Birth date must be at `DD/MM/YYYY` format' : null),
+            sex: (value) => (value !== 'F' && value !== 'M' ? 'Sex must be at `M` or `F`' : null),
             email: isEmail('Email must be valid'),
-            city: (value) =>
-                value.length < 2 ? 'City must be at least 2 chars' : null,
+            city: (value) => (value.length < 2 ? 'City must be at least 2 chars' : null),
         },
     });
 
@@ -133,12 +107,7 @@ function ModalViewPatient({
                                 />
                             </Grid.Col>
                             <Grid.Col span={6}>
-                                <TextInput
-                                    label="ID"
-                                    placeholder="ID"
-                                    value={patientInput.id}
-                                    readOnly
-                                />
+                                <TextInput label="ID" placeholder="ID" value={patientInput.id} readOnly />
                             </Grid.Col>
                             <Grid.Col span={6}>
                                 <TextInput
@@ -178,7 +147,7 @@ function ModalViewPatient({
                             </Grid.Col>
                             <Grid.Col span={6}>
                                 <Text>Last Appointments</Text>
-                                <Badge color="green" variant="dot">
+                                <Badge color="green" variant="dot" size='lg'>
                                     {passif.lastAppointments.length}
                                 </Badge>
                             </Grid.Col>
@@ -186,9 +155,7 @@ function ModalViewPatient({
                                 <TextInput
                                     label="Next Appointment"
                                     placeholder="Next Appointment"
-                                    defaultValue={dateToReadable(
-                                        patientInput.nextApp
-                                    )}
+                                    defaultValue={dateToReadable(patientInput.nextApp)}
                                     readOnly
                                 />
                             </Grid.Col>
@@ -204,11 +171,7 @@ function ModalViewPatient({
                         </Grid>
                     </Modal.Body>
                     <Group position="right" p="md">
-                        <Button
-                            variant="light"
-                            color="red"
-                            onClick={() => handleDelete(patientInput.id)}
-                        >
+                        <Button variant="light" color="red" onClick={() => handleDelete(patientInput.id)}>
                             Delete
                         </Button>
                         <Button variant="light" onClick={handleUpdate}>

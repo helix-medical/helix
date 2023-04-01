@@ -7,7 +7,7 @@ import Anamnesis from './anamnesis';
 import Conclusion from './conclusion';
 import Metadata from './metadata';
 import NavBarAppointment from './navbar';
-import { isNotEmpty, useForm } from '@mantine/form';
+import { isNotEmpty } from '@mantine/form';
 import { useAppForm, AppFormProvider } from './formContext';
 
 const EditAppointment = (): JSX.Element => {
@@ -17,10 +17,7 @@ const EditAppointment = (): JSX.Element => {
         id: id,
         date: '',
         reasons: '',
-        anamnesis: '{}',
-        conclusion: '{}',
         patientId: '',
-        status: '',
         name: '',
         lastName: '',
         email: '',
@@ -35,7 +32,7 @@ const EditAppointment = (): JSX.Element => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`/api/appointments/${id}/appointment`);
+                const res = await axios.get(`/api/appointments/${id}/edit`);
                 setData(res.data[0]);
             } catch (error) {
                 console.log(error);
@@ -45,35 +42,19 @@ const EditAppointment = (): JSX.Element => {
     }, [id]);
 
     const handleClick = async (e: { preventDefault: () => void }) => {
-        console.log(form.values);
-        console.log(form.validate());
-        // e.preventDefault();
-        // const appointmentFinal = {
-        //     anamnesis: JSON.stringify(anamnesis),
-        //     conclusion: JSON.stringify(conclusion),
-        // };
+        e.preventDefault();
+        const appointmentFinal = {
+            anamnesis: JSON.stringify(form.values.anamnesis),
+            conclusion: JSON.stringify(form.values.conclusion),
+        };
 
-        // try {
-        //     await axios.put(`/api/appointments/${id}/update`, appointmentFinal);
-        // } catch (error) {
-        //     console.log(error);
-        // }
-        // window.location.href = '/appointments';
+        try {
+            await axios.put(`/api/appointments/${id}/update`, appointmentFinal);
+        } catch (error) {
+            console.log(error);
+        }
+        window.location.href = '/appointments';
     };
-
-    // interface IFormValues {
-    //     anamnesis: {
-    //         reasons: string;
-    //         symptoms: string;
-    //         knownDiseases: string;
-    //         knownMedications: string;
-    //     };
-    //     conclusion: {
-    //         diagnosis: string;
-    //         treatment: string;
-    //         observations: string;
-    //     };
-    // }
 
     const form = useAppForm({
         initialValues: {
@@ -112,8 +93,8 @@ const EditAppointment = (): JSX.Element => {
             <PatientMetadata patientInput={data} />
             <AppFormProvider form={form}>
                 <form>
-                    <Anamnesis appointment={data} view={false} form={form} />
-                    <Conclusion appointment={data} view={false} form={form} />
+                    <Anamnesis anamnesis={form.values.anamnesis} />
+                    <Conclusion conclusion={form.values.conclusion} />
                     <Button onClick={handleClick} m="lg">
                         Valid Appointment
                     </Button>

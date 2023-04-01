@@ -7,11 +7,11 @@ import Conclusion from './conclusion';
 import Metadata from './metadata';
 import NavBarAppointment from './navbar';
 import { Title } from '@mantine/core';
-import { useForm } from '@mantine/form';
 import { useAppForm, AppFormProvider } from './formContext';
 
 const ViewAppointment = () => {
     const id = window.location.href.split('/').slice(-2)[0];
+    const form = useAppForm();
 
     const [data, setData] = useState({
         id: id,
@@ -44,7 +44,7 @@ const ViewAppointment = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`/api/appointments/${id}/appointment`);
+                const res = await axios.get(`/api/appointments/${id}/view`);
                 setData(res.data[0]);
             } catch (error) {
                 console.log(error);
@@ -55,39 +55,6 @@ const ViewAppointment = () => {
 
     const anamnesis = JSON.parse(data.anamnesis);
     const conclusion = JSON.parse(data.conclusion);
-    console.log(data);
-
-    interface IFormValues {
-        anamnesis: {
-            reasons: string;
-            symptoms: string;
-            knownDiseases: string;
-            knownMedications: string;
-        };
-        conclusion: {
-            diagnosis: string;
-            treatment: string;
-            observations: string;
-        };
-    }
-
-    const form = useAppForm({
-        initialValues: {
-            anamnesis: {
-                reasons: anamnesis.reasons,
-                symptoms: anamnesis.symptoms,
-                knownDiseases: anamnesis.knownDiseases,
-                knownMedications: anamnesis.knownMedications,
-            },
-            conclusion: {
-                diagnosis: conclusion.diagnosis,
-                treatment: conclusion.treatment,
-                observations: conclusion.observations,
-            },
-        },
-    });
-
-    console.log(form.values);
 
     return (
         <>
@@ -95,11 +62,9 @@ const ViewAppointment = () => {
             <Metadata appointment={data} />
             <Title order={2}>Patient Data</Title>
             <AppFormProvider form={form}>
-                <form>
-                    {/* <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} form={undefined} /> */}
-                    <Anamnesis appointment={data} view={true} form={form} />
-                    <Conclusion appointment={data} view={true} form={form} />
-                </form>
+                <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} />
+                <Anamnesis anamnesis={anamnesis} view={true} />
+                <Conclusion conclusion={conclusion} view={true} />
             </AppFormProvider>
         </>
     );

@@ -1,19 +1,16 @@
 import React from 'react';
 import { Textarea, Title, Grid, TextInput } from '@mantine/core';
 import getNbLines from '../../tools/getLines';
-import { IAppointmentData } from '../../interfaces';
+import { IConclusion } from '../../interfaces';
 import { useAppFormContext } from './formContext';
 
 interface IProps {
-    appointment: IAppointmentData;
+    conclusion: IConclusion;
     view?: boolean;
-    form: any;
 }
 
-function Conclusion({ appointment, view, form }: IProps): JSX.Element {
-    const conclusion = JSON.parse(appointment.conclusion);
+function Conclusion({ conclusion, view }: IProps): JSX.Element {
     const nbLines = (text: string, base: number) => (view ? getNbLines(text) : base);
-
     const formContext = useAppFormContext();
 
     return (
@@ -21,13 +18,19 @@ function Conclusion({ appointment, view, form }: IProps): JSX.Element {
             <Title order={2}>Conclusion</Title>
             <Grid columns={12}>
                 <Grid.Col span={12}>
-                    <TextInput label="Diagnosis" {...formContext.getInputProps('conclusion.diagnosis')} readOnly={view} />
+                    <TextInput
+                        label="Diagnosis"
+                        defaultValue={view ? conclusion.diagnosis : undefined}
+                        {...(view ? null : formContext.getInputProps('conclusion.diagnosis'))}
+                        readOnly={view}
+                    />
                 </Grid.Col>
                 <Grid.Col span={12}>
                     <Textarea
                         label="Treatment"
                         maxRows={nbLines(conclusion.treatment, 3)}
-                        {...formContext.getInputProps('conclusion.treatment')}
+                        defaultValue={view ? conclusion.treatment : undefined}
+                        {...(view ? null : formContext.getInputProps('conclusion.treatment'))}
                         readOnly={view}
                     />
                 </Grid.Col>
@@ -35,7 +38,8 @@ function Conclusion({ appointment, view, form }: IProps): JSX.Element {
                     <Textarea
                         label="Observations"
                         maxRows={nbLines(conclusion.observations, 3)}
-                        {...formContext.getInputProps('conclusion.observations')}
+                        defaultValue={view ? conclusion.observations : undefined}
+                        {...(view ? null : formContext.getInputProps('conclusion.observations'))}
                         readOnly={view}
                     />
                 </Grid.Col>

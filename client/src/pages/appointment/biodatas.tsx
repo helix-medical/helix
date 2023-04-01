@@ -1,42 +1,47 @@
 import React from 'react';
-import { TextInput, Textarea, Grid, Select } from '@mantine/core';
+import { TextInput, Textarea, Grid } from '@mantine/core';
 import getNbLines from '../../tools/getLines';
-import { IPassif, IAppointmentData } from '../../interfaces';
-// import { useForm } from '@mantine/form';
+import { IPassif, IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
 
 interface IProps {
-    patient: IAppointmentData;
-    form: any;
+    patient: IAppointmentDataView | IAppointmentDataEdit;
     view?: boolean;
     passif?: IPassif;
+    handler?: (e: { target: { name: any; value: any } }) => void;
 }
 
-const Biodatas = ({ patient, form, view, passif }: IProps): JSX.Element => {
-    // console.log(form.values);
-
+const Biodatas = ({ patient, view, passif, handler }: IProps): JSX.Element => {
     return (
         <Grid columns={12}>
             <Grid.Col span={4}>
-                <TextInput label="Name" readOnly={view} {...form.getInputProps('name')} />
+                <TextInput label="Name" readOnly={view} defaultValue={patient.name} onChange={handler} name="name" />
             </Grid.Col>
             <Grid.Col span={4}>
-                <TextInput label="Last Name" readOnly={view} {...form.getInputProps('lastName')} />
+                <TextInput
+                    label="Last Name"
+                    readOnly={view}
+                    defaultValue={patient.lastName}
+                    onChange={handler}
+                    name="lastName"
+                />
             </Grid.Col>
             <Grid.Col span={4}>
-                {view ? (
-                    <TextInput label="Sex" readOnly defaultValue={patient.sex} />
-                ) : (
-                    <Select label="Sex" placeholder={patient.sex} data={['F', 'M']} {...form.getInputProps('sex')} />
-                )}
+                <TextInput label="Sex" readOnly defaultValue={patient.sex} />
             </Grid.Col>
             <Grid.Col span={4}>
-                <TextInput label="Birth Date" defaultValue={patient.birthDate} readOnly={view} />
+                <TextInput
+                    label="Birth Date"
+                    defaultValue={patient.birthDate}
+                    readOnly={view}
+                    onChange={handler}
+                    name="birthDate"
+                />
             </Grid.Col>
             <Grid.Col span={4}>
-                <TextInput label="Email" defaultValue={patient.email} readOnly={view} />
+                <TextInput label="Email" defaultValue={patient.email} readOnly={view} onChange={handler} name="email" />
             </Grid.Col>
             <Grid.Col span={4}>
-                <TextInput label="City" defaultValue={patient.city} readOnly={view} />
+                <TextInput label="City" defaultValue={patient.city} readOnly={view} onChange={handler} name="city" />
             </Grid.Col>
             {view && passif && (
                 <Grid.Col span={12}>

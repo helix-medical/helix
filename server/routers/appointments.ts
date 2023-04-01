@@ -39,11 +39,30 @@ router.get('/:id/read', (req: Request, res: Response) => {
     });
 });
 
-router.get('/:id/appointment', (req: Request, res: Response) => {
+// Add an endpoint to edit the appointment (less data)
+router.get('/:id/view', (req: Request, res: Response) => {
     logger.get(req.originalUrl, 'REQ');
     const appointmentId = req.params.id;
     const sqlQuery = `
     SELECT appointments.id, appointments.date, appointments.reasons, appointments.anamnesis, appointments.conclusion, appointments.patientId, appointments.status, patients.name, patients.lastName, patients.email, patients.birthDate, patients.city, patients.sex, patients.passif 
+    FROM appointments INNER JOIN patients ON appointments.patientId = patients.id
+    WHERE appointments.id = ?
+    `;
+    db.query(sqlQuery, appointmentId, (err: any, data: any) => {
+        if (err) {
+            logger.get(req.originalUrl, 'ERR', err);
+            return res.status(sc.BAD_REQUEST).json(err);
+        }
+        logger.get(req.originalUrl, 'OK', `Return appointment ${appointmentId}`);
+        return res.status(sc.OK).json(data);
+    });
+});
+
+router.get('/:id/edit', (req: Request, res: Response) => {
+    logger.get(req.originalUrl, 'REQ');
+    const appointmentId = req.params.id;
+    const sqlQuery = `
+    SELECT appointments.id, appointments.date, appointments.reasons, appointments.patientId, patients.name, patients.lastName, patients.email, patients.birthDate, patients.city, patients.sex, patients.passif 
     FROM appointments INNER JOIN patients ON appointments.patientId = patients.id
     WHERE appointments.id = ?
     `;

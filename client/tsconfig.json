@@ -5,12 +5,12 @@
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": true,
         "jsx": "react",
+        "lib": ["dom", "es2017"],
         "module": "commonjs",
         "noEmit": true,
         "skipLibCheck": true,
         "strict": true,
-        "target": "es6",
-        "lib": ["dom", "es2017"]
+        "target": "es6"
     },
     "exclude": ["node_modules"],
     "include": ["src/**/*"]

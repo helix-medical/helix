@@ -1,11 +1,11 @@
-import React from "react";
-import { useState } from "react";
-import dateToReadable from "../../tools/date";
-import ModalViewPatient from "./view";
-import { IPatient } from "../../interfaces";
-import { Card, Text, Button, Group, List } from "@mantine/core";
-import SexBadge from "../../components/sexBadge";
-import Id from "../../components/id";
+import React from 'react';
+import { useState } from 'react';
+import dateToReadable from '../../tools/date';
+import ModalViewPatient from './view';
+import { IPatient } from '../../interfaces';
+import { Card, Text, Button, Group, List } from '@mantine/core';
+import SexBadge from '../../components/sexBadge';
+import Id from '../../components/id';
 
 interface IProps {
     patient: IPatient;
@@ -18,12 +18,7 @@ function PatientItemGrid({ patient, handleDelete }: IProps): JSX.Element {
 
     return (
         <div key={patient.id}>
-            <Card
-                radius="md"
-                withBorder
-                shadow="sm"
-                padding="lg" /*border='primary' style={{ width: '18rem' }}*/
-            >
+            <Card radius="md" withBorder shadow="sm" padding="lg">
                 <Group position="center" mt="md" mb="xs">
                     <Text size="xl" weight={500}>
                         {patient.name} {patient.lastName}
@@ -35,13 +30,7 @@ function PatientItemGrid({ patient, handleDelete }: IProps): JSX.Element {
                         ID: <Id id={patient.id ?? 0} />
                     </List.Item>
                 </List>
-                <Button
-                    variant="light"
-                    radius="md"
-                    mt="md"
-                    fullWidth
-                    onClick={toggleModal}
-                >
+                <Button variant="light" radius="md" mt="md" fullWidth onClick={toggleModal}>
                     View
                 </Button>
                 <Text color="dimmed" size="sm">
