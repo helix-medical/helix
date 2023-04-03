@@ -5,6 +5,7 @@ import sc from '../tools/statusCodes';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { IUser } from '../tools/interfaces';
+import role from '../config/roles';
 require('dotenv').config();
 
 const queryAuth = async (query: string, values: any, req: Request): Promise<IUser> => {
@@ -40,7 +41,18 @@ const login = async (req: Request, res: Response) => {
         return res.status(sc.UNAUTHORIZED).json({ message: 'Invalid password' });
     }
 
-    const accessToken = jwt.sign({ id: user.uid }, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: '30s' });
+    const roleCode = role.getCode(user.role);
+
+    const accessToken = jwt.sign(
+        {
+            userData: {
+                id: user.uid,
+                role: roleCode,
+            },
+        },
+        process.env.ACCESS_TOKEN_SECRET as string,
+        { expiresIn: '30s' }
+    );
     const refreshToken = jwt.sign({ id: user.uid }, process.env.REFRESH_TOKEN_SECRET as string, { expiresIn: '12h' });
 
     const sqlQuery = 'UPDATE users SET refreshToken = ? WHERE uid = ?';
@@ -55,7 +67,9 @@ const login = async (req: Request, res: Response) => {
     });
     logger.post(req.originalUrl, 'OK', `User ${id} logged in`);
     res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 12 * 60 * 60 * 1000, sameSite: 'none', secure: true });
-    return res.status(sc.ACCEPTED).json({ id: id, message: `User successfully logged in`, token: accessToken });
+    return res
+        .status(sc.ACCEPTED)
+        .json({ id: id, message: `User successfully logged in`, roles: user.role, token: accessToken });
 };
 
 const refreshToken = async (req: Request, res: Response) => {
@@ -81,9 +95,16 @@ const refreshToken = async (req: Request, res: Response) => {
             logger.get(req.originalUrl, 'ERR', err);
             return res.status(sc.FORBIDDEN).json({ message: err });
         } else {
-            const accessToken = jwt.sign({ id: decoded.id }, process.env.ACCESS_TOKEN_SECRET as string, {
-                expiresIn: '30s',
-            });
+            const accessToken = jwt.sign(
+                {
+                    userData: {
+                        id: decoded.id,
+                        role: role.getCode(user.role),
+                    },
+                },
+                process.env.ACCESS_TOKEN_SECRET as string,
+                { expiresIn: '30s' }
+            );
             logger.get(req.originalUrl, 'OK', `User ${user.uid} refreshed token`);
             return res
                 .status(sc.ACCEPTED)

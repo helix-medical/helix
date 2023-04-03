@@ -3,12 +3,12 @@ import cors from './config/cors';
 require('dotenv').config();
 import patients from './routers/patients';
 import appointments from './routers/appointments';
-import auth from './routers/auth';
+import authORoute from './routers/auth';
 import users from './routers/users';
 import logger from './system/logger';
 import errorHandler from './system/errors';
 import sc from './tools/statusCodes';
-// import verifAuth from './middleware/auth';
+import auth from './middleware/auth';
 import cookieParser from 'cookie-parser';
 import credentials from './middleware/credentials';
 
@@ -29,10 +29,10 @@ app.get('/api', (req: Request, res: Response) => {
 });
 
 // Routers
-app.use('/api/auth', auth);
+app.use('/api/auth', authORoute);
 
 // Protected routes
-// app.use(verifAuth.verifyToken);
+app.use(auth.verifyToken);
 app.use('/api/patients', patients);
 app.use('/api/appointments', appointments);
 app.use('/api/users', users);

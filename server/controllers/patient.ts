@@ -116,7 +116,12 @@ const delete_ = async (req: Request, res: Response) => {
             logger.del(req.originalUrl, 'ERR', err);
             return res.status(sc.METHOD_FAILURE).json(err);
         }
-        logger.get(req.originalUrl, 'OK', `Patient ${patientId} deleted`);
+        if (data.affectedRows === 0) {
+            logger.del(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
+            return res.status(sc.NOT_FOUND).json(`Patient ${patientId} not found`);
+        }
+
+        logger.del(req.originalUrl, 'OK', `Patient ${patientId} deleted`);
         return res.status(sc.OK).json(`Patient ${patientId} deleted`);
     });
 };
