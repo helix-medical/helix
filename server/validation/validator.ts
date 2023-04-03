@@ -7,6 +7,7 @@ import schemaAppointmentCreate from "./schemas/create-appointment.json";
 import schemaAppointmentUpdate from "./schemas/update-appointment.json";
 import schemaPatientAddAppointment from "./schemas/add-appointment.json";
 import schemaUserCreate from "./schemas/create-user.json";
+import schemaLogin from "./schemas/login.json";
 
 // Add formats for specific data types
 
@@ -17,4 +18,5 @@ export default module.exports = {
     appointmentUpdate: ajv.compile(schemaAppointmentUpdate),
     patientAddAppointment: ajv.compile(schemaPatientAddAppointment),
     userCreate: ajv.compile(schemaUserCreate),
+    login: ajv.compile(schemaLogin),
 };

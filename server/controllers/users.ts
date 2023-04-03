@@ -4,6 +4,7 @@ import logger from '../system/logger';
 import sc from '../tools/statusCodes';
 import uuid from '../tools/uuid';
 import queries from '../database/queries';
+import bcrypt from 'bcrypt';
 
 const readAll = async (req: Request, res: Response) => {
     logger.get(req.originalUrl, 'REQ');
@@ -26,18 +27,19 @@ const create = async (req: Request, res: Response) => {
     let id = uuid();
     while (await queries.checkId(id, 'users')) id = uuid();
     const sqlQuery = `
-    INSERT INTO users (uid, username, password, role)
+    INSERT INTO users (uid, name, lastName, role,  password, clearPassword)
     VALUES (?)
     `;
-    const values = [id, req.body.username, req.body.password, req.body.role];
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const values = [id, req.body.name, req.body.lastName, req.body.role, hashedPassword, req.body.password];
 
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
         if (!err) {
             logger.post(req.originalUrl, 'OK', `User ${id} created`);
-            return res.status(sc.CREATED).json({ id, username: req.body.username, role: req.body.role });
+            return res.status(sc.CREATED).json({ id: id, message: 'User created' });
         }
         logger.post(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json(err);
+        return res.status(sc.BAD_REQUEST).json({ message: err.message });
     });
 };
 

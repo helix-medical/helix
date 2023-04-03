@@ -3,6 +3,7 @@ import cors from './config/cors';
 require('dotenv').config();
 import patients from './routers/patients';
 import appointments from './routers/appointments';
+import auth from './routers/auth';
 import users from './routers/users';
 import logger from './system/logger';
 import errorHandler from './system/errors';
@@ -26,6 +27,7 @@ app.get('/api', (req: Request, res: Response) => {
 app.use('/api/patients', patients);
 app.use('/api/appointments', appointments);
 app.use('/api/users', users);
+app.use('/api/auth', auth);
 
 // 404
 app.all('*', (req: Request, res: Response, next: NextFunction) => {

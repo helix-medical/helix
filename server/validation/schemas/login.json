@@ -1,24 +1,16 @@
 {
     "type": "object",
     "properties": {
-        "name": {
-            "type": "string"
-        },
-        "lastName": {
+        "id": {
             "type": "string"
         },
         "password": {
             "type": "string"
-        },
-        "role": {
-            "type": "string"
         }
     },
     "required": [
-        "name",
-        "lastName",
-        "password",
-        "role"
+        "id",
+        "password"
     ],
     "additionalProperties": false
 }
