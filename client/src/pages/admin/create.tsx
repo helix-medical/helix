@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { Modal, Button, Grid, TextInput, Select, Text, PasswordInput, Group, useMantineTheme } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
 
@@ -27,9 +28,17 @@ const ModalAddUser = ({ show, toggleModal }: IProps): JSX.Element => {
         },
     });
 
-    const handleClick = () => {
+    const handleClick = async () => {
         if (form.validate().hasErrors) return;
         console.log(form.values);
+        try {
+            const res = await axios.post(`/api/users/add`, form.values);
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
+        toggleModal();
+        window.location.reload();
     };
 
     return (
