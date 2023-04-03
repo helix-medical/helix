@@ -10,7 +10,7 @@ interface IProps {
     show: boolean;
     toggleModal: () => void;
     patientInput: IPatient;
-    handleDelete: (id: number | undefined) => void;
+    handleDelete: (id: string | undefined) => void;
 }
 
 function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IProps): JSX.Element {

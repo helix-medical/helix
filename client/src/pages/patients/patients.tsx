@@ -36,7 +36,7 @@ const Patients = (): JSX.Element => {
     const nbPatients = patients.length;
 
     // Delete a patient
-    const handleDelete = async (id: number | undefined) => {
+    const handleDelete = async (id: string | undefined) => {
         if (!id) return console.error('No id');
         try {
             await axios.delete(`/api/patients/${id}`);

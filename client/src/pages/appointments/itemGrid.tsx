@@ -5,6 +5,7 @@ import StateAppointment from '../../components/stateAppointment';
 import dateToReadable from '../../tools/date';
 import { IAppointmentExtended } from '../../interfaces';
 import SexBadge from '../../components/sexBadge';
+import IdBadge from '../../components/id';
 
 interface IProps {
     appointment: IAppointmentExtended;
@@ -32,7 +33,9 @@ const AppItemGrid = ({ appointment }: IProps): JSX.Element => {
                     <List.Item>
                         Status: <StateAppointment state={appointment.status} />
                     </List.Item>
-                    <List.Item>ID: {appointment.id}</List.Item>
+                    <List.Item>
+                        ID: <IdBadge id={appointment.id ?? ''} />
+                    </List.Item>
                 </List>
                 <Button variant="light" radius="md" mt="md" fullWidth onClick={handleClick}>
                     View

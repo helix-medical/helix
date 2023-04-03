@@ -2,13 +2,18 @@ import { Response, Request } from 'express';
 import db from '../database/config';
 import logger from '../system/logger';
 import sc from '../tools/statusCodes';
+import uuid from '../tools/uuid';
+import queries from '../database/queries';
 
 const create = async (req: Request, res: Response) => {
     logger.post(req.originalUrl, 'REQ');
+    let id = uuid();
+    while (await queries.checkId(id, 'users')) id = uuid();
     const sqlQuery =
         'INSERT INTO appointments ' +
-        '(`patientId`, `date`, `reasons`, `anamnesis`, `conclusion`, `status`) VALUES (?)';
+        '(`id`, `patientId`, `date`, `reasons`, `anamnesis`, `conclusion`, `status`) VALUES (?)';
     const values = [
+        id,
         req.body.patientId,
         req.body.date,
         req.body.reasons,
@@ -22,8 +27,8 @@ const create = async (req: Request, res: Response) => {
             logger.post(req.originalUrl, 'ERR', err);
             return res.status(sc.METHOD_FAILURE).json(err);
         }
-        logger.post(req.originalUrl, 'OK', `Appointment ${data.insertId} created`);
-        return res.status(sc.OK).json(data.insertId);
+        logger.post(req.originalUrl, 'OK', `Appointment ${id} created`);
+        return res.status(sc.OK).json(id);
     });
 };
 

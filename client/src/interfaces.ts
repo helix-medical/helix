@@ -1,5 +1,5 @@
 export interface IPatient {
-    id?: number;
+    id?: string;
     name: string;
     lastName: string;
     birthDate: string;
@@ -11,7 +11,7 @@ export interface IPatient {
 }
 
 export interface IAppointment {
-    id?: number;
+    id?: string;
     patientId: string;
     date: string;
     reasons: string;

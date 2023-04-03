@@ -2,14 +2,19 @@ import { Response, Request } from 'express';
 import db from '../database/config';
 import logger from '../system/logger';
 import sc from '../tools/statusCodes';
+import uuid from '../tools/uuid';
+import queries from '../database/queries';
 
 const create = async (req: Request, res: Response) => {
     logger.post(req.originalUrl, 'REQ');
+    let id = uuid();
+    while (await queries.checkId(id, 'users')) id = uuid();
     const sqlQuery =
         'INSERT ' +
         'INTO patients ' +
-        '(`name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `nextApp`, `passif`) VALUES (?)';
+        '(`id`, `name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `nextApp`, `passif`) VALUES (?)';
     const values = [
+        id,
         req.body.name,
         req.body.lastName,
         req.body.birthDate,
@@ -20,13 +25,13 @@ const create = async (req: Request, res: Response) => {
         req.body.passif,
     ];
 
-    db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
+    db.query(sqlQuery, [values], (err: any, data: any) => {
         if (err) {
             logger.post(req.originalUrl, 'ERR', err);
             return res.status(sc.METHOD_FAILURE).json(err);
         }
-        logger.post(req.originalUrl, 'OK', `Patient ${data.insertId} added`);
-        return res.status(sc.OK).json(`Patient ${data.insertId} added`);
+        logger.post(req.originalUrl, 'OK', `Patient ${id} added`);
+        return res.status(sc.OK).json(`Patient ${id} added`);
     });
 };
 

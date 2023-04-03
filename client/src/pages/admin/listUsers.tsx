@@ -3,6 +3,7 @@ import { Table, ActionIcon, Flex, Title, Grid, Badge, Group, Button } from '@man
 import { IUsers } from '../../interfaces';
 import RoleBadge from '../../components/userBadge';
 import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
+import IdBadge from '../../components/id';
 
 const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
     return (
@@ -23,7 +24,7 @@ const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
             <Table horizontalSpacing="md" verticalSpacing="md" highlightOnHover withColumnBorders>
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>UID</th>
                         <th>Name</th>
                         <th>Password</th>
                         <th>Clear PWD</th>
@@ -34,7 +35,9 @@ const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
                 <tbody>
                     {users.map((user) => (
                         <tr key={user.uid}>
-                            <td>{user.uid}</td>
+                            <td>
+                                <IdBadge id={user.uid ?? ''} />
+                            </td>
                             <td>
                                 {user.name} {user.lastName}
                             </td>

@@ -5,11 +5,11 @@ import ModalViewPatient from './view';
 import { IPatient } from '../../interfaces';
 import { Card, Text, Button, Group, List } from '@mantine/core';
 import SexBadge from '../../components/sexBadge';
-import Id from '../../components/id';
+import IdBadge from '../../components/id';
 
 interface IProps {
     patient: IPatient;
-    handleDelete: (id: number | undefined) => void;
+    handleDelete: (id: string | undefined) => void;
 }
 
 function PatientItemGrid({ patient, handleDelete }: IProps): JSX.Element {
@@ -27,7 +27,7 @@ function PatientItemGrid({ patient, handleDelete }: IProps): JSX.Element {
                 </Group>
                 <List>
                     <List.Item>
-                        ID: <Id id={patient.id ?? 0} />
+                        ID: <IdBadge id={patient.id ?? ''} />
                     </List.Item>
                 </List>
                 <Button variant="light" radius="md" mt="md" fullWidth onClick={toggleModal}>

@@ -51,6 +51,7 @@ const Login = () => {
                         nothingFound="No Account found, contact administrator"
                         rightSection={<IconSelector size="1rem" />}
                         styles={{ rightSection: { pointerEvents: 'none' } }}
+                        allowDeselect
                     />
                     <PasswordInput
                         label="Password"

@@ -86,15 +86,15 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                                     {...form.getInputProps('patientId')}
                                     data={[
                                         {
-                                            value: '11',
+                                            value: '3bbd5bf6',
                                             label: 'Marie Delbreuve',
                                         },
                                         {
-                                            value: '21',
+                                            value: '16fdf706',
                                             label: 'Xavier de Place',
                                         },
                                         {
-                                            value: '24',
+                                            value: 'dfd77c71',
                                             label: 'Marie de Place',
                                         },
                                     ]}

@@ -5,6 +5,7 @@ import StateAppointment from '../../components/stateAppointment';
 import dateToReadable from '../../tools/date';
 import { IAppointmentExtended } from '../../interfaces';
 import SexBadge from '../../components/sexBadge';
+import IdBadge from '../../components/id';
 
 interface IProps {
     appointments: IAppointmentExtended[];
@@ -13,7 +14,9 @@ interface IProps {
 const AppTableView = ({ appointments }: IProps): JSX.Element => {
     const rows = appointments.map((appointment: IAppointmentExtended) => (
         <tr key={appointment.id}>
-            <td>{appointment.id}</td>
+            <td>
+                <IdBadge id={appointment.id ?? ''} />
+            </td>
             <td>{dateToReadable(appointment.date)}</td>
             <td>
                 <SexBadge sex={appointment.sex} /> {appointment.name} {appointment.lastName}

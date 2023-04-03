@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Table } from '@mantine/core';
 import { IPatient } from '../../interfaces';
 import SexBadge from '../../components/sexBadge';
-import Id from '../../components/id';
+import IdBadge from '../../components/id';
 
 interface IProps {
     patients: IPatient[];
@@ -12,7 +12,7 @@ function PatientsTableView({ patients }: IProps): JSX.Element {
     const rows = patients.map((patient: IPatient) => (
         <tr key={patient.id}>
             <td>
-                <Id id={patient.id ?? 0} />
+                <IdBadge id={patient.id ?? ''} />
             </td>
             <td>{patient.name}</td>
             <td>{patient.lastName}</td>
