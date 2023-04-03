@@ -6,7 +6,7 @@
         "isolatedModules": true,
         "jsx": "react",
         "lib": ["dom", "DOM.Iterable", "es2017", "esnext"],
-        "module": "ESNext",
+        "module": "commonjs",
         "noEmit": true,
         "skipLibCheck": true,
         "strict": true,

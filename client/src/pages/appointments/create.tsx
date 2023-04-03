@@ -117,10 +117,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                             <Button variant="light" color="red" onClick={handleClose}>
                                 Cancel
                             </Button>
-                            <Button
-                                color="green"
-                                onClick={handleClick}
-                            >
+                            <Button color="green" onClick={handleClick}>
                                 Submit
                             </Button>
                         </Group>

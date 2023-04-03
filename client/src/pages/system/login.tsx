@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { isNotEmpty, useForm } from '@mantine/form';
-import { TextInput, PasswordInput, Anchor, Paper, Title, Container, Group, Button } from '@mantine/core';
-import { IconLock, IconUserSearch } from '@tabler/icons-react';
+import { PasswordInput, Anchor, Paper, Title, Container, Group, Button, Select } from '@mantine/core';
+import { IconLock, IconUserSearch, IconSelector } from '@tabler/icons-react';
 import WrongAuth from './errors/wrongAuth';
 
 const Login = () => {
     const form = useForm({
         initialValues: {
-            account: '',
+            id: '',
             password: '',
         },
         validate: {
-            account: isNotEmpty('Account is required'), // validate onBlur
+            id: isNotEmpty('Account is required'), // validate onBlur
             password: isNotEmpty('Password is required'), // define regex for password validation
         },
     });
@@ -36,12 +36,21 @@ const Login = () => {
 
             <Paper withBorder shadow="md" p={30} mt={30} radius="md">
                 <form onSubmit={form.onSubmit(handleSubmit)}>
-                    <TextInput
-                        label="Account"
+                    <Select
+                        label="Select your Account"
                         placeholder="Maivy"
                         withAsterisk
-                        {...form.getInputProps('account')}
+                        {...form.getInputProps('id')}
                         icon={<IconUserSearch size="1rem" />}
+                        data={[
+                            { label: 'Maivy Ostéo', value: '4678019b' },
+                            { label: 'Pichou Admin', value: 'b2abc37b' },
+                            { label: 'Rachel Compta', value: 'fbf0141a' },
+                        ]}
+                        searchable
+                        nothingFound="No Account found, contact administrator"
+                        rightSection={<IconSelector size="1rem" />}
+                        styles={{ rightSection: { pointerEvents: 'none' } }}
                     />
                     <PasswordInput
                         label="Password"
@@ -57,7 +66,7 @@ const Login = () => {
                         </Anchor>
                     </Group>
                     <Button fullWidth mt="xl" type="submit" loading={loading} loaderPosition="center">
-                        Sign in
+                        {loading ? '' : 'Sign in'}
                     </Button>
                 </form>
             </Paper>

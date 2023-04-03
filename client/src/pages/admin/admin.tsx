@@ -1,20 +1,22 @@
-import React from "react";
-import { Title } from "@mantine/core";
-import GetUsers from "./getUsers";
-import ListUsers from "./listUsers";
+import React from 'react';
+import { Badge, Divider, Title } from '@mantine/core';
+import GetUsers from './getUsers';
+import ListUsers from './listUsers';
 
 const Admin = (): JSX.Element => {
     const users = GetUsers();
 
     return (
         <>
-            <Title order={1}>Admin</Title>
-            <Title order={2}>Coming soon...</Title>
-            <Title order={3}>+ Table view of the users</Title>
+            <Title order={1}>
+                Administrator Panel&nbsp;
+                <Badge variant="filled" color="red" radius="sm" size="xl">
+                    WORK IN PROGRESS
+                </Badge>
+            </Title>
+            <Divider my="lg" />
             <ListUsers users={users} />
-            <Title order={3}>+ Add new user</Title>
-            <Title order={3}>+ Edit user</Title>
-            <Title order={3}>+ Delete user</Title>
+            <Divider my="lg" />
         </>
     );
 };
