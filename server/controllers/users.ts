@@ -8,10 +8,7 @@ import bcrypt from 'bcrypt';
 
 const readAll = async (req: Request, res: Response) => {
     logger.get(req.originalUrl, 'REQ');
-    const sqlQuery = `
-    SELECT *
-    FROM users
-    `;
+    const sqlQuery = `SELECT * FROM users`;
     db.query(sqlQuery, (err: any, data: any) => {
         if (!err) {
             logger.get(req.originalUrl, 'OK', 'Return all users');
@@ -27,11 +24,19 @@ const create = async (req: Request, res: Response) => {
     let id = uuid();
     while (await queries.checkId(id, 'users')) id = uuid();
     const sqlQuery = `
-    INSERT INTO users (uid, name, lastName, role,  password, clearPassword)
+    INSERT INTO users (uid, name, lastName, role, state, password, clearPassword)
     VALUES (?)
     `;
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const values = [id, req.body.name, req.body.lastName, req.body.role, hashedPassword, req.body.password];
+    const values = [
+        id,
+        req.body.name,
+        req.body.lastName,
+        req.body.role,
+        'first-time',
+        hashedPassword,
+        req.body.password,
+    ];
 
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
         if (!err) {

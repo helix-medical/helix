@@ -86,6 +86,7 @@ export interface IUsers {
     name: string;
     lastName: string;
     role: string;
+    state: string;
     password: string;
     clearPassword: string;
 }

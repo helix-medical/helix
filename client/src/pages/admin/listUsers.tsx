@@ -33,6 +33,7 @@ const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
                         <th>Password</th>
                         <th>Clear PWD</th>
                         <th>Role</th>
+                        <th>State</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -50,6 +51,7 @@ const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
                             <td>
                                 <RoleBadge role={user.role} />
                             </td>
+                            <td>{user.state}</td>
                             <td>
                                 <Flex>
                                     <ActionIcon color="blue" variant="light" mx="xs" size="lg">
