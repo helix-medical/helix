@@ -11,10 +11,8 @@ router.get('/', controllerAll.readAll);
 router.get('/:id/view', controller.getForView);
 router.get('/:id/edit', controller.getForEdit);
 
-router.use('/new', middleware.create);
-router.post('/new', controller.create);
+router.post('/new', middleware.create, controller.create);
 
-router.use('/:id', middleware.update);
-router.put('/:id', controller.update);
+router.put('/:id', middleware.update, controller.update);
 
 export default router;

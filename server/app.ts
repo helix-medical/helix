@@ -8,6 +8,7 @@ import users from './routers/users';
 import logger from './system/logger';
 import errorHandler from './system/errors';
 import sc from './tools/statusCodes';
+import verifAuth from './middleware/auth';
 
 // Config
 const app: Express = express();
@@ -24,10 +25,13 @@ app.get('/api', (req: Request, res: Response) => {
 });
 
 // Routers
+app.use('/api/auth', auth);
+
+// Protected routes
+// app.use(verifAuth.verifyToken);
 app.use('/api/patients', patients);
 app.use('/api/appointments', appointments);
 app.use('/api/users', users);
-app.use('/api/auth', auth);
 
 // 404
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
