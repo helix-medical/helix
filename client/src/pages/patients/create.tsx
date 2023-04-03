@@ -139,11 +139,7 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
                             <Button variant="light" color="red" onClick={handleClose}>
                                 Cancel
                             </Button>
-                            <Button
-                                color="green"
-                                // type="submit"
-                                onClick={handleClick}
-                            >
+                            <Button color="green" type="submit">
                                 Add
                             </Button>
                         </Group>

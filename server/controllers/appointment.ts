@@ -28,7 +28,7 @@ const create = async (req: Request, res: Response) => {
             return res.status(sc.METHOD_FAILURE).json(err);
         }
         logger.post(req.originalUrl, 'OK', `Appointment ${id} created`);
-        return res.status(sc.OK).json(id);
+        return res.status(sc.OK).json({ id, message: `Appointment ${id} created` });
     });
 };
 

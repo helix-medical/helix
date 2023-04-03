@@ -1,8 +1,9 @@
 import React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import { Button, Modal, Select, Group, Text, Grid } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
+import dayjs from 'dayjs';
 
 interface IProps {
     show: boolean;
@@ -13,22 +14,23 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
     const handleClose = () => toggleModal();
 
     const handleClick = async (e: { preventDefault: () => void }) => {
-        // let index;
-        console.log(form.validate());
+        if (form.validate().hasErrors) return;
+        let index;
+        const appointment = {
+            ...form.values,
+            date: dayjs(form.values.date).format('YYYY-MM-DD HH:mm'),
+        };
         console.log(form.values);
-        // e.preventDefault();
-        // try {
-        //     index = await axios.post(`/api/appointments/new`, form.values);
-        //     console.log(index);
-        //     const res = await axios.put(`/api/patients/${form.values.patientId}/add_appointment`, {
-        //         id: index.data,
-        //     });
-        //     console.log(res);
-        // } catch (error) {
-        //     console.log(error);
-        // }
-        // toggleModal();
-        // if (index) window.location.href = `/appointments/${index.data}/edit`;
+        try {
+            index = await axios.post(`/api/appointments/new`, appointment);
+            await axios.put(`/api/patients/${appointment.patientId}/add_appointment`, {
+                id: index.data.id,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        toggleModal();
+        if (index) window.location.href = `/appointments/${index.data.id}/edit`;
     };
 
     const form = useForm({
