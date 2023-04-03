@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import db from '../db';
+import db from '../database/config';
 import logger from '../system/logger';
 import sc from '../tools/statusCodes';
 
