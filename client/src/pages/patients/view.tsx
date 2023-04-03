@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import { Button, Modal, TextInput, Group, Grid, Textarea, Text, Badge } from '@mantine/core';
+import { Button, Modal, TextInput, Group, Grid, Textarea, Text, Badge, useMantineTheme } from '@mantine/core';
 import { useForm, isEmail } from '@mantine/form';
 import { IPatient } from '../../interfaces';
 import dateToReadable from '../../tools/date';
@@ -16,6 +16,7 @@ interface IProps {
 function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IProps): JSX.Element {
     const handleClose = () => toggleModal();
     const passif = JSON.parse(patientInput.passif);
+    const theme = useMantineTheme();
 
     const [update, setUpdate] = useState(false);
 
@@ -76,6 +77,11 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
 
     return (
         <Modal.Root opened={show} onClose={handleClose}>
+            <Modal.Overlay
+                color={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
+                opacity={0.55}
+                blur={3}
+            />
             <Modal.Content>
                 <Modal.Header>
                     <Modal.Title>
@@ -147,7 +153,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                             </Grid.Col>
                             <Grid.Col span={6}>
                                 <Text>Last Appointments</Text>
-                                <Badge color="green" variant="dot" size='lg'>
+                                <Badge color="green" variant="dot" size="lg">
                                     {passif.lastAppointments.length}
                                 </Badge>
                             </Grid.Col>

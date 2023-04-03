@@ -24,10 +24,8 @@ const Patients = (): JSX.Element => {
                 setPatients(res.data);
                 // console.log(res);
             } catch (error: any) {
-                if (!error?.response) 
-                    console.log('Network error');
-                else
-                    console.log(error.response.data);
+                if (!error?.response) console.log('Network error');
+                else console.log(error.response.data);
                 // setError(error.response.data);
             }
         };
@@ -91,7 +89,7 @@ const Patients = (): JSX.Element => {
             ) : (
                 <PatientsTableView patients={patients} />
             )}
-            {show && <ModalAddPatient show={show} toggleModal={toggleModal} />}
+            <ModalAddPatient show={show} toggleModal={toggleModal} />
         </>
     );
 };

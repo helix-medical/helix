@@ -8,7 +8,7 @@ import users from './routers/users';
 import logger from './system/logger';
 import errorHandler from './system/errors';
 import sc from './tools/statusCodes';
-import auth from './middleware/auth';
+// import auth from './middleware/auth';
 import cookieParser from 'cookie-parser';
 import credentials from './middleware/credentials';
 
@@ -32,7 +32,7 @@ app.get('/api', (req: Request, res: Response) => {
 app.use('/api/auth', authORoute);
 
 // Protected routes
-app.use(auth.verifyToken);
+// app.use(auth.verifyToken);
 app.use('/api/patients', patients);
 app.use('/api/appointments', appointments);
 app.use('/api/users', users);

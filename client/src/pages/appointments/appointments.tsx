@@ -71,7 +71,7 @@ const Patients = (): JSX.Element => {
             ) : (
                 <AppTableView appointments={appointments} />
             )}
-            {show && <ModalCreateApp show={show} toggleModal={toggleModal} />}
+            <ModalCreateApp show={show} toggleModal={toggleModal} />
         </>
     );
 };

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, ActionIcon, Flex, Title, Grid, Badge, Group, Button } from '@mantine/core';
 import { IUsers } from '../../interfaces';
 import RoleBadge from '../../components/userBadge';
 import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
 import IdBadge from '../../components/id';
+import ModalAddUser from './create';
 
 const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
+    const [show, setShow] = useState(false);
+    const toggleModal = () => setShow(!show);
+
     return (
         <>
             <Grid justify="space-between" align="center" p="md">
@@ -18,7 +22,7 @@ const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
                     </Title>
                 </Group>
                 <Group>
-                    <Button /* onClick={toggleModal} */>New User</Button>
+                    <Button onClick={toggleModal}>New User</Button>
                 </Group>
             </Grid>
             <Table horizontalSpacing="md" verticalSpacing="md" highlightOnHover withColumnBorders>
@@ -63,6 +67,7 @@ const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
                     ))}
                 </tbody>
             </Table>
+            <ModalAddUser show={show} toggleModal={toggleModal} />
         </>
     );
 };

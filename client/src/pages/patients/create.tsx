@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useForm, isEmail, isNotEmpty } from '@mantine/form';
-import { Button, Modal, TextInput, Select, Group, Grid, Text } from '@mantine/core';
+import { Button, Modal, TextInput, Select, Group, Grid, Text, useMantineTheme } from '@mantine/core';
 import { DateInput, DateTimePicker } from '@mantine/dates';
 import dayjs from 'dayjs';
 
@@ -10,8 +10,9 @@ interface IProps {
     toggleModal: () => void;
 }
 
-function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
+const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
     const handleClose = () => toggleModal();
+    const theme = useMantineTheme();
 
     const form = useForm({
         initialValues: {
@@ -58,6 +59,11 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
 
     return (
         <Modal.Root opened={show} onClose={handleClose} size="lg" padding={12}>
+            <Modal.Overlay
+                color={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
+                opacity={0.55}
+                blur={3}
+            />
             <Modal.Content>
                 <Modal.Header>
                     <Modal.Title>
@@ -148,6 +154,6 @@ function ModalAddPatient({ show, toggleModal }: IProps): JSX.Element {
             </Modal.Content>
         </Modal.Root>
     );
-}
+};
 
 export default ModalAddPatient;

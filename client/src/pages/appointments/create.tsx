@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Button, Modal, Select, Group, Text, Grid } from '@mantine/core';
+import { Button, Modal, Select, Group, Text, Grid, useMantineTheme } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import dayjs from 'dayjs';
@@ -12,6 +12,7 @@ interface IProps {
 
 const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
     const handleClose = () => toggleModal();
+    const theme = useMantineTheme();
 
     const handleClick = async (e: { preventDefault: () => void }) => {
         if (form.validate().hasErrors) return;
@@ -60,6 +61,11 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
 
     return (
         <Modal.Root opened={show} onClose={handleClose}>
+            <Modal.Overlay
+                color={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
+                opacity={0.55}
+                blur={3}
+            />
             <Modal.Content>
                 <Modal.Header>
                     <Modal.Title>
