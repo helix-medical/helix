@@ -8,14 +8,18 @@ import users from './routers/users';
 import logger from './system/logger';
 import errorHandler from './system/errors';
 import sc from './tools/statusCodes';
-import verifAuth from './middleware/auth';
+// import verifAuth from './middleware/auth';
+import cookieParser from 'cookie-parser';
+import credentials from './middleware/credentials';
 
 // Config
 const app: Express = express();
 const port = process.env.PORT_API;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(credentials);
 app.use(cors());
+app.use(cookieParser());
 
 // Main
 app.get('/api', (req: Request, res: Response) => {
