@@ -25,7 +25,7 @@ const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
                 <thead>
                     <tr>
                         <th>UID</th>
-                        <th>Name</th>
+                        <th>Account</th>
                         <th>Password</th>
                         <th>Clear PWD</th>
                         <th>Role</th>
