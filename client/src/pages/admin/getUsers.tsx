@@ -1,8 +1,9 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const GetUsers = () => {
     const [users, setUsers] = useState([]);
+    const axios = useAxiosPrivate();
 
     useEffect(() => {
         let isMounted = true;
@@ -22,7 +23,7 @@ const GetUsers = () => {
             isMounted = false;
             controller.abort();
         };
-    }, []);
+    });
 
     return users;
 };
