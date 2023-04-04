@@ -3,8 +3,20 @@ import { isNotEmpty, useForm } from '@mantine/form';
 import { PasswordInput, Anchor, Paper, Title, Container, Group, Button, Select } from '@mantine/core';
 import { IconLock, IconUserSearch, IconSelector } from '@tabler/icons-react';
 import WrongAuth from './errors/wrongAuth';
+import useAuth from '../../hooks/useAuth';
+import axios from 'axios';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Login = () => {
+    const { setAuth } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname ?? '/';
+
+    const [hasError, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [errMessage, setErrorMessage] = useState('');
+
     const form = useForm({
         initialValues: {
             id: '',
@@ -16,26 +28,36 @@ const Login = () => {
         },
     });
 
-    const handleSubmit = () => {
-        // activate the button only when the form is valid
-        console.log(form.values);
+    const handleSubmit = async (e: { preventDefault: () => void }) => {
+        e.preventDefault();
         setLoading(true);
+        try {
+            const response = await axios.post('/api/auth/login', form.values, {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true,
+            });
+            const accessToken = response?.data?.token;
+            const role = response?.data?.roles;
+            const name = response?.data?.name;
+            const { id, password } = form.values;
+            setAuth({ id, name, password, role, accessToken });
+            form.reset();
+            setLoading(false);
+            navigate(from, { replace: true });
+        } catch (error: any) {
+            console.log(error);
+            setError(true);
+            setErrorMessage(error.response.data.message ?? 'Unknown error');
+            setLoading(false);
+        }
     };
-
-    const [loading, setLoading] = useState(false);
 
     return (
         <Container size={420} my={40}>
             <Title align="center">Welcome to Helix</Title>
-            {/* <Text color="dimmed" size="sm" align="center" mt={5}>
-                Do not have an account yet?{' '}
-                <Anchor size="sm" component="button">
-                    Create account
-                </Anchor>
-            </Text> */}
 
             <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-                <form onSubmit={form.onSubmit(handleSubmit)}>
+                <form onSubmit={handleSubmit}>
                     <Select
                         label="Select your Account"
                         placeholder="Maivy"
@@ -61,17 +83,17 @@ const Login = () => {
                         icon={<IconLock size="1rem" />}
                         {...form.getInputProps('password')}
                     />
-                    <Group position="center" mt="lg">
-                        <Anchor component="a" size="sm" href="mailto:admin@helix.dev">
-                            Contact administrator
-                        </Anchor>
-                    </Group>
                     <Button fullWidth mt="xl" type="submit" loading={loading} loaderPosition="center">
                         {loading ? '' : 'Sign in'}
                     </Button>
+                    <Group position="center" mt="lg">
+                        <Anchor component="a" size="sm" href="mailto:contact.helix@skiff.com">
+                            Contact administrator
+                        </Anchor>
+                    </Group>
                 </form>
             </Paper>
-            <WrongAuth />
+            <WrongAuth show={hasError} message={errMessage} />
         </Container>
     );
 };

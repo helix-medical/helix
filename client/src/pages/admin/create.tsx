@@ -6,9 +6,10 @@ import { useForm, isNotEmpty } from '@mantine/form';
 interface IProps {
     show: boolean;
     toggleModal: () => void;
+    handler: any;
 }
 
-const ModalAddUser = ({ show, toggleModal }: IProps): JSX.Element => {
+const ModalAddUser = ({ show, toggleModal, handler }: IProps): JSX.Element => {
     const handleClose = () => toggleModal();
     const theme = useMantineTheme();
 
@@ -28,17 +29,28 @@ const ModalAddUser = ({ show, toggleModal }: IProps): JSX.Element => {
         },
     });
 
-    const handleClick = async () => {
+    const handleClick = async (e: { preventDefault: () => void }) => {
+        e.preventDefault();
         if (form.validate().hasErrors) return;
         console.log(form.values);
         try {
-            const res = await axios.post(`/api/users/add`, form.values);
-            console.log(res);
-        } catch (error) {
+            const res = await axios.post(`/api/users/add`, form.values, {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true,
+            });
+            handler({
+                fail: false,
+                message: res.data.message,
+            });
+        } catch (error: any) {
             console.log(error);
+            handler({
+                fail: true,
+                message: error.response.data.message,
+            });
         }
         toggleModal();
-        window.location.reload();
+        // window.location.reload();
     };
 
     return (

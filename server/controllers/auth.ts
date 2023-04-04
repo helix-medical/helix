@@ -69,7 +69,13 @@ const login = async (req: Request, res: Response) => {
     res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 12 * 60 * 60 * 1000, sameSite: 'none', secure: true });
     return res
         .status(sc.ACCEPTED)
-        .json({ id: id, message: `User successfully logged in`, roles: user.role, token: accessToken });
+        .json({
+            id: id,
+            name: user.name,
+            message: `User ${id} successfully logged in`,
+            roles: [role.getCode(user.role)],
+            token: accessToken,
+        });
 };
 
 const refreshToken = async (req: Request, res: Response) => {

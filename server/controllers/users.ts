@@ -41,7 +41,7 @@ const create = async (req: Request, res: Response) => {
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
         if (!err) {
             logger.post(req.originalUrl, 'OK', `User ${id} created`);
-            return res.status(sc.CREATED).json({ id: id, message: 'User created' });
+            return res.status(sc.CREATED).json({ id: id, message: `User ${id} created` });
         }
         logger.post(req.originalUrl, 'ERR', err);
         return res.status(sc.BAD_REQUEST).json({ message: err.message });

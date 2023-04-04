@@ -10,7 +10,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
     const isValid = validate.login(req.body);
     if (!isValid) {
         logger.use(req.originalUrl, 'ERR', 'Invalid request body');
-        return res.status(sc.NOT_ACCEPTABLE).json(validate.login.errors);
+        return res.status(sc.NOT_ACCEPTABLE).json({ message: 'Invalid request body' });
     }
 
     logger.use(req.originalUrl, 'OK', 'Valid request body');

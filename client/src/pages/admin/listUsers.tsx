@@ -1,17 +1,60 @@
 import React, { useState } from 'react';
-import { Table, ActionIcon, Flex, Title, Grid, Badge, Group, Button } from '@mantine/core';
+import { Table, ActionIcon, Flex, Title, Grid, Badge, Group, Button, Alert } from '@mantine/core';
 import { IUsers } from '../../interfaces';
 import RoleBadge from '../../components/userBadge';
-import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
+import { IconCheck, IconEdit, IconEye, IconTrash, IconX } from '@tabler/icons-react';
 import IdBadge from '../../components/id';
 import ModalAddUser from './create';
 
+const AlertCallBack = ({
+    message,
+    fail,
+    show,
+    handleClose,
+}: {
+    message: string;
+    fail: boolean;
+    show: boolean;
+    handleClose: any;
+}): JSX.Element => {
+    const icon = fail ? <IconX size="1.1rem" /> : <IconCheck size="1.1rem" />;
+    return (
+        <>
+            {show ? (
+                <Alert
+                    icon={icon}
+                    color={fail ? 'red' : 'green'}
+                    onClose={handleClose}
+                    title={fail ? 'Error' : 'Success'}
+                    withCloseButton
+                >
+                    {message}
+                </Alert>
+            ) : null}
+        </>
+    );
+};
+
 const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
     const [show, setShow] = useState(false);
-    const toggleModal = () => setShow(!show);
+    const [showNotif, setShowNotif] = useState(false);
+    const toggleModal = () => {
+        setShow(!show);
+        if (show) {
+            setShowNotif(true);
+        }
+    };
+
+    const handleClose = () => setShowNotif(false);
+
+    const [newUser, setNewUser] = useState({
+        fail: true,
+        message: 'No data',
+    });
 
     return (
         <>
+            <AlertCallBack message={newUser.message} fail={newUser.fail} show={showNotif} handleClose={handleClose} />
             <Grid justify="space-between" align="center" p="md">
                 <Group>
                     <Title order={2}>
@@ -69,7 +112,7 @@ const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
                     ))}
                 </tbody>
             </Table>
-            <ModalAddUser show={show} toggleModal={toggleModal} />
+            <ModalAddUser show={show} toggleModal={toggleModal} handler={setNewUser} />
         </>
     );
 };

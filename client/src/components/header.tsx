@@ -45,14 +45,14 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-interface HeaderAppProps {
-    links: {
-        link: string;
-        label: string;
-    }[];
-}
+const links = [
+    { label: 'Patients', link: '/patients' },
+    { label: 'Appointments', link: '/appointments' },
+    { label: 'Calendar', link: '/calendar' },
+    { label: 'Admin', link: '/admin' },
+];
 
-const HeaderApp = ({ links }: HeaderAppProps) => {
+const HeaderApp = () => {
     const [opened, { toggle }] = useDisclosure(false);
     const { classes } = useStyles();
     const items = links.map((link) => {
