@@ -10,6 +10,12 @@ import { AuthProvider } from './components/auth/authProvider';
 import './styles/main.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+// disable console.log in production
+if (process.env.NODE_ENV === 'production') {
+    console.log = () => {};
+    // disable react dev tools
+}
+
 function App() {
     const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
     const toggleColorScheme = (value?: ColorScheme) =>

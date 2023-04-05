@@ -42,10 +42,9 @@ const Login = () => {
             });
             console.log(response);
             const accessToken = response?.data?.token;
-            const role = response?.data?.roles;
             const name = response?.data?.name;
             const { id } = form.values;
-            setAuth({ id, name, role, accessToken });
+            setAuth({ id, name, accessToken });
             form.reset();
             setLoading(false);
             navigate(from, { replace: true });
