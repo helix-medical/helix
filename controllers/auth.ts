@@ -110,9 +110,13 @@ const refreshToken = async (req: Request, res: Response) => {
                 { expiresIn: '30s' }
             );
             logger.get(req.originalUrl, 'OK', `User ${user.uid} refreshed token`);
-            return res
-                .status(sc.ACCEPTED)
-                .json({ id: user.uid, message: `User successfully logged in`, token: accessToken });
+            return res.status(sc.ACCEPTED).json({
+                id: user.uid,
+                name: user.name,
+                message: `User successfully logged in`,
+                role: [role.getCode(user.role)],
+                token: accessToken,
+            });
         }
     });
 };
