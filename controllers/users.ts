@@ -8,10 +8,36 @@ import bcrypt from 'bcrypt';
 
 const readAll = async (req: Request, res: Response) => {
     logger.get(req.originalUrl, 'REQ');
-    const sqlQuery = `SELECT * FROM users`;
+    const sqlQuery = `SELECT uid, name, lastName, clearPassword, lastActive, state, role FROM users`;
     db.query(sqlQuery, (err: any, data: any) => {
         if (!err) {
             logger.get(req.originalUrl, 'OK', 'Return all users');
+            return res.status(sc.OK).json(data);
+        }
+        logger.get(req.originalUrl, 'ERR', err);
+        return res.status(sc.BAD_REQUEST).json(err);
+    });
+};
+
+const getForConnection = async (req: Request, res: Response) => {
+    logger.get(req.originalUrl, 'REQ');
+    const sqlQuery = 'SELECT `name`, `lastName`, `uid` FROM users WHERE state != "disabled"';
+    db.query(sqlQuery, (err: any, data: any) => {
+        if (!err) {
+            logger.get(req.originalUrl, 'OK', 'Return all users');
+            return res.status(sc.OK).json(data);
+        }
+        logger.get(req.originalUrl, 'ERR', err);
+        return res.status(sc.BAD_REQUEST).json(err);
+    });
+};
+
+const readOne = async (req: Request, res: Response) => {
+    logger.get(req.originalUrl, 'REQ');
+    const sqlQuery = `SELECT uid, name, lastName, lastActive, state, role FROM users WHERE uid = ?`;
+    db.query(sqlQuery, [req.params.id], (err: any, data: any) => {
+        if (!err) {
+            logger.get(req.originalUrl, 'OK', `Return user ${req.params.id}`);
             return res.status(sc.OK).json(data);
         }
         logger.get(req.originalUrl, 'ERR', err);
@@ -51,4 +77,6 @@ const create = async (req: Request, res: Response) => {
 export default module.exports = {
     readAll,
     create,
+    getForConnection,
+    readOne,
 };

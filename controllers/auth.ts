@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { IUser } from '../tools/interfaces';
 import role from '../config/roles';
+import moment from 'moment';
 require('dotenv').config();
 
 const queryAuth = async (query: string, values: any, req: Request): Promise<IUser> => {
@@ -42,7 +43,6 @@ const login = async (req: Request, res: Response) => {
     }
 
     const roleCode = role.getCode(user.role);
-
     const accessToken = jwt.sign(
         {
             userData: {
@@ -55,8 +55,8 @@ const login = async (req: Request, res: Response) => {
     );
     const refreshToken = jwt.sign({ id: user.uid }, process.env.REFRESH_TOKEN_SECRET as string, { expiresIn: '12h' });
 
-    const sqlQuery = 'UPDATE users SET refreshToken = ? WHERE uid = ?';
-    const values = [refreshToken, user.uid];
+    const sqlQuery = 'UPDATE users SET refreshToken = ?, `lastActive` = ? WHERE uid = ?';
+    const values = [refreshToken, moment().format('YYYY-MM-DD HH:mm:ss'), user.uid];
 
     db.query(sqlQuery, values, (err: any, data: any) => {
         if (err) {
