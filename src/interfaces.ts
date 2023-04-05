@@ -89,4 +89,5 @@ export interface IUsers {
     state: string;
     password: string;
     clearPassword: string;
+    lastActive: string;
 }

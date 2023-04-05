@@ -74,9 +74,9 @@ const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
                         <th>UID</th>
                         <th>Account</th>
                         <th>Password</th>
-                        <th>Clear PWD</th>
-                        <th>Role</th>
                         <th>State</th>
+                        <th>Last Active</th>
+                        <th>Role</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -89,12 +89,13 @@ const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
                             <td>
                                 {user.name} {user.lastName}
                             </td>
-                            <td>{user.password}</td>
                             <td>{user.clearPassword}</td>
+
+                            <td>{user.state}</td>
+                            <td>{user.lastActive}</td>
                             <td>
                                 <RoleBadge role={user.role} />
                             </td>
-                            <td>{user.state}</td>
                             <td>
                                 <Flex>
                                     <ActionIcon color="blue" variant="light" mx="xs" size="lg">

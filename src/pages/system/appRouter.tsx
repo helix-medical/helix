@@ -6,7 +6,6 @@ import EditAppointment from '../../pages/appointment/edit';
 import Appointments from '../../pages/appointments/appointments';
 import ViewAppointment from '../../pages/appointment/view';
 import NotFound from '../../pages/system/404';
-import Account from './account';
 import Admin from '../admin/admin';
 import Login from './login';
 import Layout from './layout';
@@ -33,7 +32,6 @@ const AppRouter = () => {
                 <Route element={<PersistentLogin />}>
                     <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER, ROLES.SECRETARY]} />}>
                         <Route path="/" element={<Home />} />
-                        <Route path="accounting" element={<Account />} />
                     </Route>
                     <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER]} />}>
                         <Route path="patients" element={<Patients />} />
