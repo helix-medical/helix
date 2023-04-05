@@ -51,7 +51,7 @@ const login = async (req: Request, res: Response) => {
             },
         },
         process.env.ACCESS_TOKEN_SECRET as string,
-        { expiresIn: '60s' }
+        { expiresIn: '10m' }
     );
     const refreshToken = jwt.sign({ id: user.uid }, process.env.REFRESH_TOKEN_SECRET as string, { expiresIn: '12h' });
 
@@ -71,7 +71,6 @@ const login = async (req: Request, res: Response) => {
         id: id,
         name: user.name,
         message: `User ${id} successfully logged in`,
-        roles: [role.getCode(user.role)],
         token: accessToken,
     });
 };
@@ -114,7 +113,6 @@ const refreshToken = async (req: Request, res: Response) => {
                 id: user.uid,
                 name: user.name,
                 message: `User successfully logged in`,
-                role: [role.getCode(user.role)],
                 token: accessToken,
             });
         }
