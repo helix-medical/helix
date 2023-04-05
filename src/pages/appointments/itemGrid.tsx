@@ -6,14 +6,16 @@ import dateToReadable from '../../tools/date';
 import { IAppointmentExtended } from '../../interfaces';
 import SexBadge from '../../components/sexBadge';
 import IdBadge from '../../components/id';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
     appointment: IAppointmentExtended;
 }
 
 const AppItemGrid = ({ appointment }: IProps): JSX.Element => {
+    const navigate = useNavigate();
     const handleClick = () => {
-        window.location.href = `/appointments/${appointment.id}/view`;
+         navigate(`/appointments/${appointment.id}/view`);
     };
 
     return (

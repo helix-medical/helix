@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-
 import Patients from '../../pages/patients/patients';
 import Home from './home';
 import Calendar from '../../components/calendar';
@@ -13,6 +12,7 @@ import Login from './login';
 import Layout from './layout';
 import RequireAuth from '../../components/auth/requireAuth';
 import Unauthorized from './errors/unauthorized';
+import PersistentLogin from '../../components/auth/persistentLogin';
 
 const ROLES = {
     ADMIN: 2003,
@@ -30,22 +30,24 @@ const AppRouter = () => {
                 {/* Add pages for errors */}
 
                 {/* Protected */}
-                <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER, ROLES.SECRETARY]} />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="account" element={<Account />} />
-                </Route>
-                <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER]} />}>
-                    <Route path="patients" element={<Patients />} />
-                    <Route path="calendar" element={<Calendar />} />
-                    <Route path="appointments">
-                        <Route index element={<Appointments />} />
-                        <Route path=":appointmentID/edit" element={<EditAppointment />} />
-                        <Route path=":appointmentID/view" element={<ViewAppointment />} />
-                        <Route path="*" element={<NotFound />} /> {/* ?? */}
+                <Route element={<PersistentLogin />}>
+                    <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER, ROLES.SECRETARY]} />}>
+                        <Route path="/" element={<Home />} />
+                        <Route path="accounting" element={<Account />} />
                     </Route>
-                </Route>
-                <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
-                    <Route path="admin" element={<Admin />} />
+                    <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER]} />}>
+                        <Route path="patients" element={<Patients />} />
+                        <Route path="calendar" element={<Calendar />} />
+                        <Route path="appointments">
+                            <Route index element={<Appointments />} />
+                            <Route path=":appointmentID/edit" element={<EditAppointment />} />
+                            <Route path=":appointmentID/view" element={<ViewAppointment />} />
+                            <Route path="*" element={<NotFound />} /> {/* ?? */}
+                        </Route>
+                    </Route>
+                    <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
+                        <Route path="admin" element={<Admin />} />
+                    </Route>
                 </Route>
 
                 {/* 404 */}

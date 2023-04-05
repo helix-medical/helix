@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { isNotEmpty, useForm } from '@mantine/form';
-import { PasswordInput, Anchor, Paper, Title, Container, Group, Button, Select } from '@mantine/core';
+import { PasswordInput, Anchor, Paper, Title, Container, Group, Button, Select, Checkbox } from '@mantine/core';
 import { IconLock, IconUserSearch, IconSelector } from '@tabler/icons-react';
 import WrongAuth from './errors/wrongAuth';
 import useAuth from '../../hooks/useAuth';
@@ -8,10 +8,14 @@ import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Login = () => {
-    const { setAuth } = useAuth();
+    const { setAuth, persist, setPersist } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname ?? '/';
+
+    useEffect(() => {
+        localStorage.setItem('persist', persist);
+    }, [persist]);
 
     const [hasError, setError] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -24,7 +28,7 @@ const Login = () => {
         },
         validate: {
             id: isNotEmpty('Account is required'), // validate onBlur
-            password: isNotEmpty('Password is required'), // define regex for password validation
+            password: isNotEmpty('Password is required'),
         },
     });
 
@@ -36,11 +40,12 @@ const Login = () => {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
             });
+            console.log(response);
             const accessToken = response?.data?.token;
             const role = response?.data?.roles;
             const name = response?.data?.name;
-            const { id, password } = form.values;
-            setAuth({ id, name, password, role, accessToken });
+            const { id } = form.values;
+            setAuth({ id, name, role, accessToken });
             form.reset();
             setLoading(false);
             navigate(from, { replace: true });
@@ -83,10 +88,18 @@ const Login = () => {
                         icon={<IconLock size="1rem" />}
                         {...form.getInputProps('password')}
                     />
+                    <Group position="left" mt="md">
+                        <Checkbox
+                            label="Stay logged in"
+                            onChange={(e) => {
+                                setPersist(e.currentTarget.checked);
+                            }}
+                        />
+                    </Group>
                     <Button fullWidth mt="xl" type="submit" loading={loading} loaderPosition="center">
                         {loading ? '' : 'Sign in'}
                     </Button>
-                    <Group position="center" mt="lg">
+                    <Group position="apart" mt="lg">
                         <Anchor component="a" size="sm" href="mailto:contact.helix@skiff.com">
                             Contact administrator
                         </Anchor>

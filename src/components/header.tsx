@@ -1,9 +1,8 @@
-import React from 'react';
-
 import { createStyles, Header, Container, Group, Burger, rem, Title, ActionIcon } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch, IconPower } from '@tabler/icons-react';
 import ToggleTheme from './toggleTheme';
+import useLogout from '../hooks/useLogout';
 
 const useStyles = createStyles((theme) => ({
     inner: {
@@ -50,10 +49,12 @@ const links = [
     { label: 'Appointments', link: '/appointments' },
     { label: 'Calendar', link: '/calendar' },
     { label: 'Admin', link: '/admin' },
+    // { label: 'Accounting', link: '/accounting' },
 ];
 
 const HeaderApp = () => {
     const [opened, { toggle }] = useDisclosure(false);
+    const logout = useLogout();
     const { classes } = useStyles();
     const items = links.map((link) => {
         return (
@@ -83,7 +84,7 @@ const HeaderApp = () => {
                         <IconSearch size="1.2rem" />
                     </ActionIcon>
                     <ToggleTheme />
-                    <ActionIcon color="red" variant="light" size="lg" component="a" href="login">
+                    <ActionIcon color="red" variant="light" size="lg" component="button" onClick={logout}>
                         <IconPower size="1.2rem" />
                     </ActionIcon>
                 </Group>
