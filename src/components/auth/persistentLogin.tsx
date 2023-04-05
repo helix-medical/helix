@@ -25,6 +25,7 @@ const PersistentLogin = () => {
         return () => {
             isMounted = false;
         };
+        // eslint-disable-next-line
     }, []);
 
     return <>{!persist ? <Outlet /> : isLoading ? <p>loading...</p> : <Outlet />}</>;
