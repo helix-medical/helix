@@ -51,7 +51,7 @@ const login = async (req: Request, res: Response) => {
             },
         },
         process.env.ACCESS_TOKEN_SECRET as string,
-        { expiresIn: '30s' }
+        { expiresIn: '60s' }
     );
     const refreshToken = jwt.sign({ id: user.uid }, process.env.REFRESH_TOKEN_SECRET as string, { expiresIn: '12h' });
 
@@ -67,15 +67,13 @@ const login = async (req: Request, res: Response) => {
     });
     logger.post(req.originalUrl, 'OK', `User ${id} logged in`);
     res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 12 * 60 * 60 * 1000, sameSite: 'none', secure: true });
-    return res
-        .status(sc.ACCEPTED)
-        .json({
-            id: id,
-            name: user.name,
-            message: `User ${id} successfully logged in`,
-            roles: [role.getCode(user.role)],
-            token: accessToken,
-        });
+    return res.status(sc.ACCEPTED).json({
+        id: id,
+        name: user.name,
+        message: `User ${id} successfully logged in`,
+        roles: [role.getCode(user.role)],
+        token: accessToken,
+    });
 };
 
 const refreshToken = async (req: Request, res: Response) => {
