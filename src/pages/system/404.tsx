@@ -1,12 +1,17 @@
-import React from "react";
-// import style from "./404.module.css";
+import style from './404.module.css';
+import { Title, Text } from '@mantine/core';
 
 const NotFound = () => {
     return (
-        <div /*className={style.notFound}*/>
-            <h1 /*className={style.title}*/>404</h1>
-            <p>Page not found</p>
-            <p>Please verify the URL, or go to Home.</p>
+        <div className={style.notFound}>
+            <Title order={1} className={style.title}>
+                404
+            </Title>
+            <Text className={style.text}>
+                Page not found
+                <br />
+                Please verify the URL, or go to Home.
+            </Text>
         </div>
     );
 };
