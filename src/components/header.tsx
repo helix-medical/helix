@@ -3,6 +3,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconSearch, IconPower } from '@tabler/icons-react';
 import ToggleTheme from './toggleTheme';
 import useLogout from '../hooks/useLogout';
+import DrawerApp from './navbarLinks';
 
 const useStyles = createStyles((theme) => ({
     inner: {
@@ -67,33 +68,36 @@ const HeaderApp = () => {
     });
 
     return (
-        <Header height={rem(60)} sx={{ borderBottom: 0 }} mb={10}>
-            <Container className={classes.inner} fluid>
-                <Group>
-                    <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
-                    <a href="/" className={classes.link}>
-                        <Title order={1}>Helix</Title>
-                    </a>
-                </Group>
-                <Group spacing={5} className={classes.links}>
-                    {items}
-                </Group>
-                <Group>
-                    {/* <TextInput placeholder="Search" /> */}
-                    <Tooltip label="Open Spotlight" color="green" withArrow>
-                        <ActionIcon color="green" variant="light" size="lg">
-                            <IconSearch size="1.2rem" />
-                        </ActionIcon>
-                    </Tooltip>
-                    <ToggleTheme />
-                    <Tooltip label="Logout" color="red" withArrow>
-                        <ActionIcon color="red" variant="light" size="lg" component="button" onClick={logout}>
-                            <IconPower size="1.2rem" />
-                        </ActionIcon>
-                    </Tooltip>
-                </Group>
-            </Container>
-        </Header>
+        <>
+            <Header height={rem(60)} sx={{ borderBottom: 0 }} mb={10}>
+                <Container className={classes.inner} fluid>
+                    <Group>
+                        <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
+                        <a href="/" className={classes.link}>
+                            <Title order={1}>Helix</Title>
+                        </a>
+                    </Group>
+                    <Group spacing={5} className={classes.links}>
+                        {items}
+                    </Group>
+                    <Group>
+                        {/* <TextInput placeholder="Search" /> */}
+                        <Tooltip label="Open Spotlight" color="green" withArrow>
+                            <ActionIcon color="green" variant="light" size="lg">
+                                <IconSearch size="1.2rem" />
+                            </ActionIcon>
+                        </Tooltip>
+                        <ToggleTheme />
+                        <Tooltip label="Logout" color="red" withArrow>
+                            <ActionIcon color="red" variant="light" size="lg" component="button" onClick={logout}>
+                                <IconPower size="1.2rem" />
+                            </ActionIcon>
+                        </Tooltip>
+                    </Group>
+                </Container>
+            </Header>
+            <DrawerApp open={opened} toggle={toggle} items={items} />
+        </>
     );
 };
 

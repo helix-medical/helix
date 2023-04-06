@@ -1,21 +1,34 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
-
-import { Button, Badge, Group, Grid, Title, ActionIcon } from '@mantine/core';
-
+import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles, Burger } from '@mantine/core';
 import PatientItemGrid from './itemGrid';
 import ModalAddPatient from './create';
 import PatientsTableView from './listView';
 import { IPatient } from '../../interfaces';
+import { useDisclosure } from '@mantine/hooks';
 // import NoPatients from "../system/errors/noPatients";
+
+const useStyles = createStyles((theme) => ({
+    button: {
+        [theme.fn.smallerThan('xs')]: {
+            display: 'none',
+        },
+    },
+
+    burger: {
+        [theme.fn.largerThan('xs')]: {
+            display: 'none',
+        },
+    },
+}));
 
 const Patients = (): JSX.Element => {
     // Fetch all patients
     const [patients, setPatients] = useState<IPatient[]>([]);
     // const [error, setError] = useState<string | null>(null);
+    const { classes } = useStyles();
+    const [opened, { toggle }] = useDisclosure(false);
 
     useEffect(() => {
         const fetchAllPatients = async () => {
@@ -42,6 +55,10 @@ const Patients = (): JSX.Element => {
         } catch (error) {
             console.error(error);
         }
+    };
+
+    const handleBurger = () => {
+        toggle();
     };
 
     const changeView = () => {
@@ -71,10 +88,27 @@ const Patients = (): JSX.Element => {
                     </Title>
                 </Group>
                 <Group position="right">
-                    <ActionIcon color="blue" variant="outline" size="lg" onClick={changeView}>
+                    <ActionIcon
+                        color="blue"
+                        variant="outline"
+                        size="lg"
+                        onClick={changeView}
+                        className={classes.button}
+                    >
                         {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
                     </ActionIcon>
-                    <Button onClick={toggleModal}>New Patient</Button>
+                    <Button onClick={toggleModal} className={classes.button}>
+                        New Patient
+                    </Button>
+                    <Burger opened={opened} className={classes.burger} onClick={handleBurger} />
+                    {opened && (
+                        <Group position="left" my="md">
+                            <ActionIcon color="blue" variant="outline" size="lg" onClick={changeView}>
+                                {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
+                            </ActionIcon>
+                            <Button onClick={toggleModal}>New Patient</Button>
+                        </Group>
+                    )}
                 </Group>
             </Grid>
             {/* { error && <NoPatients error={error} />} */}

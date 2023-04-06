@@ -89,6 +89,14 @@ const Patients = (): JSX.Element => {
                         New Appointment
                     </Button>
                     <Burger opened={opened} className={classes.burger} onClick={handleBurger} />
+                    {opened && (
+                        <Group position="left" my="md">
+                            <ActionIcon color="blue" variant="outline" size="lg" onClick={changeView}>
+                                {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
+                            </ActionIcon>
+                            <Button onClick={toggleModal}>New Appointment</Button>
+                        </Group>
+                    )}
                 </Group>
             </Grid>
             {isGrid ? (
