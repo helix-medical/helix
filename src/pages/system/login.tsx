@@ -54,7 +54,6 @@ const Login = () => {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
             });
-            console.log(response);
             const accessToken = response?.data?.token;
             const name = response?.data?.name;
             const { id } = form.values;
