@@ -70,6 +70,7 @@ const login = async (req: Request, res: Response) => {
     return res.status(sc.ACCEPTED).json({
         id: id,
         name: user.name,
+        role: roleCode,
         message: `User ${id} successfully logged in`,
         token: accessToken,
     });
@@ -112,6 +113,7 @@ const refreshToken = async (req: Request, res: Response) => {
             return res.status(sc.ACCEPTED).json({
                 id: user.uid,
                 name: user.name,
+                role: role.getCode(user.role),
                 message: `User successfully logged in`,
                 token: accessToken,
             });
