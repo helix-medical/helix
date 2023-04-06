@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Title, TextInput, Card, Center } from '@mantine/core';
-import ChangePassword from '../../components/changePassword';
+import ChangePassword from './changePassword';
 import axios from 'axios';
 import { IUsers } from '../../interfaces';
 

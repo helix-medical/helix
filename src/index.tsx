@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { useState } from 'react';
-// import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-// import reportWebVitals from './reportWebVitals';
+// import * as serviceWorkerRegistration from './config/serviceWorkerRegistration';
+// import reportWebVitals from './config/reportWebVitals';
 
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 

@@ -1,21 +1,25 @@
-import React from 'react';
-import { Alert, Badge, Title } from '@mantine/core';
+import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { Badge, Title } from '@mantine/core';
+
+const events = [
+    {
+        start: moment('2023-04-05 12:34').toDate(),
+        end: moment().toDate(),
+        title: 'Some title',
+    },
+];
 
 const Calendar = () => {
+    const localizer = momentLocalizer(moment);
     return (
-        <div>
-            <Title order={2}>
-                ## Calendar{' '}
-                <Badge color="red" radius="md" variant="outline">
-                    12
-                </Badge>
+        <>
+            <Title order={1} mb="xl">
+                Calendar <Badge color="teal">Beta</Badge>
             </Title>
-            <div className="calendar">
-                <Alert color="red" title="Calendar Not Implemented">
-                    This feature is not implemented yet. Please check back later.
-                </Alert>
-            </div>
-        </div>
+            <BigCalendar localizer={localizer} events={events} toolbar={false} defaultView="week" />
+        </>
     );
 };
 

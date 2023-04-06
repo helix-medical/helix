@@ -1,4 +1,4 @@
-import { createStyles, Header, Container, Group, Burger, rem, Title, ActionIcon } from '@mantine/core';
+import { createStyles, Header, Container, Group, Burger, rem, Title, ActionIcon, Tooltip } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch, IconPower } from '@tabler/icons-react';
 import ToggleTheme from './toggleTheme';
@@ -80,13 +80,17 @@ const HeaderApp = () => {
                 </Group>
                 <Group>
                     {/* <TextInput placeholder="Search" /> */}
-                    <ActionIcon color="green" variant="light" size="lg">
-                        <IconSearch size="1.2rem" />
-                    </ActionIcon>
+                    <Tooltip label="Open Spotlight" color="green" withArrow>
+                        <ActionIcon color="green" variant="light" size="lg">
+                            <IconSearch size="1.2rem" />
+                        </ActionIcon>
+                    </Tooltip>
                     <ToggleTheme />
-                    <ActionIcon color="red" variant="light" size="lg" component="button" onClick={logout}>
-                        <IconPower size="1.2rem" />
-                    </ActionIcon>
+                    <Tooltip label="Logout" color="red" withArrow>
+                        <ActionIcon color="red" variant="light" size="lg" component="button" onClick={logout}>
+                            <IconPower size="1.2rem" />
+                        </ActionIcon>
+                    </Tooltip>
                 </Group>
             </Container>
         </Header>

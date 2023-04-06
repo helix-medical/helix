@@ -8,9 +8,27 @@ import AppItemGrid from './itemGrid';
 import AppTableView from './listView';
 import ModalCreateApp from './create';
 import { IAppointmentExtended } from '../../interfaces';
-import { Button, Badge, Group, Grid, Title, ActionIcon } from '@mantine/core';
+import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles, Burger } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+
+const useStyles = createStyles((theme) => ({
+    button: {
+        [theme.fn.smallerThan('xs')]: {
+            display: 'none',
+        },
+    },
+
+    burger: {
+        [theme.fn.largerThan('xs')]: {
+            display: 'none',
+        },
+    },
+}));
 
 const Patients = (): JSX.Element => {
+    const { classes } = useStyles();
+    const [opened, { toggle }] = useDisclosure(false);
+
     // fetch all appointments
     const [appointments, setAppointments] = useState([]);
 
@@ -34,6 +52,10 @@ const Patients = (): JSX.Element => {
         });
     };
 
+    const handleBurger = () => {
+        toggle();
+    };
+
     // Modal
     const [show, setShow] = useState(false);
     const toggleModal = () => setShow(!show);
@@ -54,10 +76,19 @@ const Patients = (): JSX.Element => {
                     </Title>
                 </Group>
                 <Group>
-                    <ActionIcon color="blue" variant="outline" size="lg" onClick={changeView}>
+                    <ActionIcon
+                        color="blue"
+                        variant="outline"
+                        size="lg"
+                        onClick={changeView}
+                        className={classes.button}
+                    >
                         {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
                     </ActionIcon>
-                    <Button onClick={toggleModal}>New Appointment</Button>
+                    <Button onClick={toggleModal} className={classes.button}>
+                        New Appointment
+                    </Button>
+                    <Burger opened={opened} className={classes.burger} onClick={handleBurger} />
                 </Group>
             </Grid>
             {isGrid ? (
