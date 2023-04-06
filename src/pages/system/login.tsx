@@ -12,6 +12,20 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname ?? '/';
+    const [users, setUsers] = useState([]);
+
+    const getUsers = async () => {
+        try {
+            const response = await axios.get('/api/users/connexion');
+            setUsers(response.data.map((user: any) => ({ label: `${user.name} ${user.lastName}`, value: user.uid })));
+        } catch (error: any) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getUsers();
+    }, []);
 
     useEffect(() => {
         localStorage.setItem('persist', persist);
@@ -68,11 +82,7 @@ const Login = () => {
                         withAsterisk
                         {...form.getInputProps('id')}
                         icon={<IconUserSearch size="1rem" />}
-                        data={[
-                            { label: 'Maivy Ostéo', value: '4678019b' },
-                            { label: 'Pichou Admin', value: 'b2abc37b' },
-                            { label: 'Rachel Compta', value: 'fbf0141a' },
-                        ]}
+                        data={users}
                         searchable
                         nothingFound="No Account found, contact administrator"
                         rightSection={<IconSelector size="1rem" />}
