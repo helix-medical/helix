@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useRefreshToken from '../../hooks/useRefreshToken';
 import useAuth from '../../hooks/useAuth';
+import { LoadingOverlay } from '@mantine/core';
 
 const PersistentLogin = () => {
     const [isLoading, setLoading] = useState(true);
@@ -28,7 +29,9 @@ const PersistentLogin = () => {
         // eslint-disable-next-line
     }, []);
 
-    return <>{!persist ? <Outlet /> : isLoading ? <p>loading...</p> : <Outlet />}</>;
+    return (
+        <>{!persist ? <Outlet /> : isLoading ? <LoadingOverlay visible={isLoading} overlayBlur={2} /> : <Outlet />}</>
+    );
 };
 
 export default PersistentLogin;
