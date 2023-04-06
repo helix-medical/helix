@@ -32,9 +32,9 @@ const AppRouter = () => {
                 <Route element={<PersistentLogin />}>
                     <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER, ROLES.SECRETARY]} />}>
                         <Route path="/" element={<Home />} />
+                        <Route path="patients" element={<Patients />} />
                     </Route>
                     <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER]} />}>
-                        <Route path="patients" element={<Patients />} />
                         <Route path="calendar" element={<Calendar />} />
                         <Route path="appointments">
                             <Route index element={<Appointments />} />

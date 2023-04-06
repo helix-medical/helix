@@ -5,6 +5,7 @@ import { Button, Modal, TextInput, Group, Grid, Textarea, Text, Badge, useMantin
 import { useForm, isEmail } from '@mantine/form';
 import { IPatient } from '../../interfaces';
 import dateToReadable from '../../tools/date';
+import useAuth from '../../hooks/useAuth';
 
 interface IProps {
     show: boolean;
@@ -17,21 +18,15 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
     const handleClose = () => toggleModal();
     const passif = JSON.parse(patientInput.passif);
     const theme = useMantineTheme();
+    const { auth } = useAuth();
+    const isRestricted = auth.role === 1515;
 
     const [update, setUpdate] = useState(false);
 
-    const handleUpdate = async () => {
+    const handleUpdate = async (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
         if (update) {
             if (form.validate().hasErrors) return;
-
-            // if (form.values.birthDate === '')
-            //     form.values.birthDate = patientInput.birthDate;
-            // if (form.values.sex === '') form.values.sex = patientInput.sex;
-            // if (form.values.email === '')
-            //     form.values.email = patientInput.email;
-            // if (form.values.city === '') form.values.city = patientInput.city;
-            // if (form.values.medicalIssues === '')
-            //     form.values.medicalIssues = passif.medicalIssues;
 
             const finalPatient = {
                 name: form.values.name,
@@ -91,7 +86,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                     </Modal.Title>
                     <Modal.CloseButton />
                 </Modal.Header>
-                <form>
+                <form onSubmit={handleClose}>
                     <Modal.Body>
                         <Grid columns={12}>
                             <Grid.Col span={6}>
@@ -165,25 +160,31 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                                     readOnly
                                 />
                             </Grid.Col>
-                            <Grid.Col span={12}>
-                                <Textarea
-                                    label="Passif"
-                                    maxRows={4}
-                                    placeholder="Passif"
-                                    {...form.getInputProps('medicalIssues')}
-                                    readOnly={!update}
-                                />
-                            </Grid.Col>
+                            {!isRestricted && (
+                                <Grid.Col span={12}>
+                                    <Textarea
+                                        label="Passif"
+                                        maxRows={4}
+                                        placeholder="Passif"
+                                        {...form.getInputProps('medicalIssues')}
+                                        readOnly={!update}
+                                    />
+                                </Grid.Col>
+                            )}
                         </Grid>
                     </Modal.Body>
                     <Group position="right" p="md">
-                        <Button variant="light" color="red" onClick={() => handleDelete(patientInput.id)}>
-                            Delete
-                        </Button>
-                        <Button variant="light" onClick={handleUpdate}>
-                            {update ? 'Save' : 'Edit'}
-                        </Button>
-                        <Button color="gray" onClick={handleClose}>
+                        {!isRestricted && (
+                            <>
+                                <Button variant="light" color="red" onClick={() => handleDelete(patientInput.id)}>
+                                    Delete
+                                </Button>
+                                <Button variant="light" onClick={handleUpdate}>
+                                    {update ? 'Save' : 'Edit'}
+                                </Button>
+                            </>
+                        )}
+                        <Button color="gray" type='submit'>
                             Close
                         </Button>
                     </Group>

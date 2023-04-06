@@ -56,8 +56,9 @@ const Login = () => {
             });
             const accessToken = response?.data?.token;
             const name = response?.data?.name;
+            const role = response?.data?.role;
             const { id } = form.values;
-            setAuth({ id, name, accessToken });
+            setAuth({ id, name, role, accessToken });
             form.reset();
             setLoading(false);
             navigate(from, { replace: true });
