@@ -9,6 +9,7 @@ import AppRouter from './pages/system/appRouter';
 import { AuthProvider } from './components/auth/authProvider';
 import './styles/main.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Spotlight from './config/spotlight';
 
 // disable console.log in production
 if (process.env.NODE_ENV === 'production') {
@@ -26,9 +27,11 @@ function App() {
             <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: colorScheme, loader: 'dots' }}>
                 <BrowserRouter>
                     <AuthProvider>
-                        <Routes>
-                            <Route path="/*" element={<AppRouter />} />
-                        </Routes>
+                        <Spotlight>
+                            <Routes>
+                                <Route path="/*" element={<AppRouter />} />
+                            </Routes>
+                        </Spotlight>
                     </AuthProvider>
                 </BrowserRouter>
             </MantineProvider>

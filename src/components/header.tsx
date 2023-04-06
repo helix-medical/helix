@@ -4,6 +4,7 @@ import { IconSearch, IconPower } from '@tabler/icons-react';
 import ToggleTheme from './toggleTheme';
 import useLogout from '../hooks/useLogout';
 import DrawerApp from './navbarLinks';
+import { spotlight } from '@mantine/spotlight';
 
 const useStyles = createStyles((theme) => ({
     inner: {
@@ -83,7 +84,7 @@ const HeaderApp = () => {
                     <Group>
                         {/* <TextInput placeholder="Search" /> */}
                         <Tooltip label="Open Spotlight" color="green" withArrow>
-                            <ActionIcon color="green" variant="light" size="lg">
+                            <ActionIcon color="green" variant="light" size="lg" onClick={spotlight.open as any}>
                                 <IconSearch size="1.2rem" />
                             </ActionIcon>
                         </Tooltip>

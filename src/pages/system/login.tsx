@@ -48,6 +48,7 @@ const Login = () => {
 
     const handleSubmit = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
+        if (form.validate().hasErrors) return;
         setLoading(true);
         try {
             const response = await axios.post('/api/auth/login', form.values, {
