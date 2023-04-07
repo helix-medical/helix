@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Modal, Select, Group, Text, Grid, useMantineTheme } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
@@ -16,6 +16,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
     const handleClose = () => toggleModal();
     const theme = useMantineTheme();
     const navigate = useNavigate();
+    const [patients, setPatients] = useState([]);
 
     const handleClick = async (e: { preventDefault: () => void }) => {
         if (form.validate().hasErrors) return;
@@ -24,7 +25,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
             ...form.values,
             date: dayjs(form.values.date).format('YYYY-MM-DD HH:mm'),
         };
-        console.log(form.values);
+        // console.log(form.values);
         try {
             index = await axios.post(`/api/appointments/new`, appointment);
             setNotification(false, index.data.message);
@@ -39,6 +40,20 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
             else setNotification(true, `${error.message}: ${error.response.data.message}`);
         }
     };
+
+    const getPatients = async () => {
+        try {
+            const response = await axios.get('/api/patients/appointments');
+            setPatients(response.data.map((patient: any) => ({ label: `${patient.name} ${patient.lastName}`, value: patient.uid })));
+        } catch (error: any) {
+            if (!error?.response) setNotification(true, 'Network error');
+            else setNotification(true, `${error.message}: ${error.response.data.message}`);
+        }
+    };
+
+    useEffect(() => {
+        getPatients();
+    }, []);
 
     const form = useForm({
         initialValues: {
@@ -98,20 +113,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                                     placeholder="Patient"
                                     withAsterisk
                                     {...form.getInputProps('patientId')}
-                                    data={[
-                                        {
-                                            value: '3bbd5bf6',
-                                            label: 'Marie Delbreuve',
-                                        },
-                                        {
-                                            value: '16fdf706',
-                                            label: 'Xavier de Place',
-                                        },
-                                        {
-                                            value: 'dfd77c71',
-                                            label: 'Marie de Place',
-                                        },
-                                    ]}
+                                    data={patients}
                                     searchable
                                 />
                             </Grid.Col>
