@@ -32,12 +32,14 @@ const AppRouter = () => {
                 <Route element={<PersistentLogin />}>
                     <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER, ROLES.SECRETARY]} />}>
                         <Route path="/" element={<Home />} />
-                        <Route path="patients" element={<Patients />} />
+                        <Route path="patients" element={<Patients add={false} />} />
+                        <Route path="patients/add" element={<Patients add={true} />} />
                     </Route>
                     <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER]} />}>
                         <Route path="calendar" element={<Calendar />} />
                         <Route path="appointments">
-                            <Route index element={<Appointments />} />
+                            <Route index element={<Appointments add={false} />} />
+                            <Route path="add" element={<Appointments add={true} />} />
                             <Route path=":appointmentID/edit" element={<EditAppointment />} />
                             <Route path=":appointmentID/view" element={<ViewAppointment />} />
                             <Route path="*" element={<NotFound />} /> {/* ?? */}
