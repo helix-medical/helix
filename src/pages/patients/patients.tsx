@@ -7,7 +7,7 @@ import ModalAddPatient from './create';
 import PatientsTableView from './listView';
 import { IPatient } from '../../interfaces';
 import { useDisclosure } from '@mantine/hooks';
-// import NoPatients from "../system/errors/noPatients";
+import setNotification from '../system/errors/feedbackNotif';
 
 const useStyles = createStyles((theme) => ({
     button: {
@@ -26,7 +26,6 @@ const useStyles = createStyles((theme) => ({
 const Patients = ({ add }: { add: boolean }): JSX.Element => {
     // Fetch all patients
     const [patients, setPatients] = useState<IPatient[]>([]);
-    // const [error, setError] = useState<string | null>(null);
     const { classes } = useStyles();
     const [opened, { toggle }] = useDisclosure(false);
 
@@ -39,7 +38,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
             } catch (error: any) {
                 if (!error?.response) console.log('Network error');
                 else console.log(error.response.data);
-                // setError(error.response.data);
+                setNotification(true, error.response.data);
             }
         };
         fetchAllPatients();
@@ -50,10 +49,12 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     const handleDelete = async (id: string | undefined) => {
         if (!id) return console.error('No id');
         try {
-            await axios.delete(`/api/patients/${id}`);
-            window.location.reload();
-        } catch (error) {
-            console.error(error);
+            const res = await axios.delete(`/api/patients/${id}`);
+            setNotification(false, res.data.message);
+            // window.location.reload();
+        } catch (error: any) {
+            console.log(error.message);
+            setNotification(true, error.message);
         }
     };
 
@@ -111,7 +112,6 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                     )}
                 </Group>
             </Grid>
-            {/* { error && <NoPatients error={error} />} */}
             {isGrid ? (
                 <Grid columns={12}>
                     {patients.map((patient: IPatient) => (

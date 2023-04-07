@@ -9,6 +9,7 @@ import Metadata from './metadata';
 import NavBarAppointment from './navbar';
 import { isNotEmpty } from '@mantine/form';
 import { useAppForm, AppFormProvider } from './formContext';
+import setNotification from '../system/errors/feedbackNotif';
 
 const EditAppointment = (): JSX.Element => {
     const id = window.location.href.split('/').slice(-2)[0];
@@ -43,15 +44,18 @@ const EditAppointment = (): JSX.Element => {
 
     const handleClick = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
+        if (form.validate().hasErrors) return;
         const appointmentFinal = {
             anamnesis: JSON.stringify(form.values.anamnesis),
             conclusion: JSON.stringify(form.values.conclusion),
         };
 
         try {
-            await axios.put(`/api/appointments/${id}`, appointmentFinal);
-        } catch (error) {
+            const res = await axios.put(`/api/appointments/${id}`, appointmentFinal);
+            setNotification(false, res.data.message);
+        } catch (error: any) {
             console.log(error);
+            setNotification(true, error.response.data.message);
         }
         window.location.href = '/appointments';
     };
@@ -92,10 +96,10 @@ const EditAppointment = (): JSX.Element => {
             <Metadata appointment={data} />
             <PatientMetadata patientInput={data} />
             <AppFormProvider form={form}>
-                <form>
+                <form onSubmit={handleClick}>
                     <Anamnesis anamnesis={form.values.anamnesis} />
                     <Conclusion conclusion={form.values.conclusion} />
-                    <Button onClick={handleClick} m="lg">
+                    <Button type="submit" m="lg">
                         Valid Appointment
                     </Button>
                 </form>

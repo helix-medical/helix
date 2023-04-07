@@ -4,6 +4,7 @@ import { Button, Modal, Select, Group, Text, Grid, useMantineTheme } from '@mant
 import { DateTimePicker } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import dayjs from 'dayjs';
+import setNotification from '../system/errors/feedbackNotif';
 
 interface IProps {
     show: boolean;
@@ -24,9 +25,11 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
         console.log(form.values);
         try {
             index = await axios.post(`/api/appointments/new`, appointment);
-            await axios.put(`/api/patients/${appointment.patientId}/add_appointment`, {
+            setNotification(false, index.data.message);
+            const res = await axios.put(`/api/patients/${appointment.patientId}/add_appointment`, {
                 id: index.data.id,
             });
+            setNotification(false, res.data.message);
         } catch (error) {
             console.log(error);
         }

@@ -6,6 +6,7 @@ import PreviousAppointments from './previousAppointments';
 import Biodatas from './biodatas';
 import { IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
 import { IconCalendarCheck, IconDna, IconAlertTriangle } from '@tabler/icons-react';
+import setNotification from '../system/errors/feedbackNotif';
 
 interface IProps {
     patientInput: IAppointmentDataView | IAppointmentDataEdit;
@@ -64,8 +65,10 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
         try {
             const res = await axios.put(`/api/patients/${id}/update`, finalPatient);
             console.log(res);
-        } catch (error) {
+            setNotification(false, res.data.message)
+        } catch (error: any) {
             console.log(error);
+            setNotification(true, error.response.data.message)
         }
     };
 

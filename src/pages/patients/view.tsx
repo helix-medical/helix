@@ -6,6 +6,7 @@ import { useForm, isEmail } from '@mantine/form';
 import { IPatient } from '../../interfaces';
 import dateToReadable from '../../tools/date';
 import useAuth from '../../hooks/useAuth';
+import setNotification from '../system/errors/feedbackNotif';
 
 interface IProps {
     show: boolean;
@@ -41,9 +42,11 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                 }),
             };
             try {
-                await axios.put(`/api/patients/${patientInput.id}`, finalPatient);
-            } catch (err) {
+                const res = await axios.put(`/api/patients/${patientInput.id}`, finalPatient);
+                setNotification(false, res.data.message);
+            } catch (err: any) {
                 console.log(err);
+                setNotification(true, err.response.data.message);
             }
         }
         setUpdate(!update);

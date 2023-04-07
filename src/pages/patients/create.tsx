@@ -4,6 +4,7 @@ import { useForm, isEmail, isNotEmpty } from '@mantine/form';
 import { Button, Modal, TextInput, Select, Group, Grid, Text, useMantineTheme } from '@mantine/core';
 import { DateInput, DateTimePicker } from '@mantine/dates';
 import dayjs from 'dayjs';
+import setNotification from '../system/errors/feedbackNotif';
 
 interface IProps {
     show: boolean;
@@ -32,7 +33,6 @@ const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
         validate: {
             name: (value) => (value.length < 2 ? 'Name must be at least 2 chars' : null),
             lastName: (value) => (value.length < 2 ? 'Last name must be at least 2 chars' : null),
-            // birthDate: (value) => (value.length !== 10 ? 'Birth date must be at `DD/MM/YYYY` format' : null),
             sex: (value) => (value !== 'F' && value !== 'M' ? 'Sex must be at `M` or `F`' : null),
             email: isEmail('Invalid email'),
             city: (value) => (value.length < 2 ? 'City must be at least 2 chars' : null),
@@ -40,21 +40,25 @@ const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
         },
     });
 
-    const handleClick = async () => {
+    const handleClick = async (e: { preventDefault: () => void }) => {
+        e.preventDefault();
         if (form.validate().hasErrors) return;
         const patient = {
             ...form.values,
             birthDate: dayjs(form.values.birthDate).format('DD/MM/YYYY'),
             nextApp: dayjs(form.values.nextApp).format('YYYY-MM-DD HH:mm'),
         };
-        console.log(patient);
+        // console.log(patient);
         try {
-            await axios.post(`/api/patients/add`, patient);
-        } catch (error) {
+            const res = await axios.post(`/api/patients/add`, patient);
+            setNotification(false, res.data.message);
+            form.reset();
+            toggleModal();
+        } catch (error: any) {
             console.log(error);
+            setNotification(true, error.response.message);
         }
-        toggleModal();
-        window.location.reload();
+        // window.location.reload();
     };
 
     return (

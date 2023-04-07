@@ -2,14 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import { Modal, Button, Grid, TextInput, Select, Text, PasswordInput, Group, useMantineTheme } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
+import setNotification from '../system/errors/feedbackNotif';
 
 interface IProps {
     show: boolean;
     toggleModal: () => void;
-    handler: any;
 }
 
-const ModalAddUser = ({ show, toggleModal, handler }: IProps): JSX.Element => {
+const ModalAddUser = ({ show, toggleModal }: IProps): JSX.Element => {
     const handleClose = () => toggleModal();
     const theme = useMantineTheme();
 
@@ -37,19 +37,12 @@ const ModalAddUser = ({ show, toggleModal, handler }: IProps): JSX.Element => {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
             });
-            console.log(res.data.message);
-            handler({
-                fail: false,
-                message: res.data.message,
-            });
+            setNotification(false, res.data.message);
             form.reset();
             toggleModal();
         } catch (error: any) {
             console.log(error);
-            handler({
-                fail: true,
-                message: error.response.message,
-            });
+            setNotification(true, error.response.message);
         }
         // window.location.reload();
     };
