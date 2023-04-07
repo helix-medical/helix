@@ -12,7 +12,7 @@ const readAll = async (req: Request, res: Response) => {
     db.query(sqlQuery, (err: any, data: any) => {
         if (err) {
             logger.get(req.originalUrl, 'ERR', err);
-            return res.status(sc.BAD_REQUEST).json(err);
+            return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
         }
         logger.get(req.originalUrl, 'OK', 'Return all appointments');
         return res.status(sc.OK).json(data);

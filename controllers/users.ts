@@ -15,7 +15,7 @@ const readAll = async (req: Request, res: Response) => {
             return res.status(sc.OK).json(data);
         }
         logger.get(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json(err);
+        return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
     });
 };
 
@@ -28,7 +28,7 @@ const getForConnection = async (req: Request, res: Response) => {
             return res.status(sc.OK).json(data);
         }
         logger.get(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json(err);
+        return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
     });
 };
 
@@ -41,7 +41,7 @@ const readOne = async (req: Request, res: Response) => {
             return res.status(sc.OK).json(data);
         }
         logger.get(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json(err);
+        return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
     });
 };
 
@@ -62,7 +62,7 @@ const create = async (req: Request, res: Response) => {
         'first-time',
         hashedPassword,
         req.body.password,
-        '0000-00-00 00:00:00'
+        '0000-00-00 00:00:00',
     ];
 
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
@@ -71,7 +71,7 @@ const create = async (req: Request, res: Response) => {
             return res.status(sc.CREATED).json({ id: id, message: `User ${id} created` });
         }
         logger.post(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json({ message: err.message });
+        return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
     });
 };
 

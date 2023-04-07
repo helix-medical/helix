@@ -114,7 +114,7 @@ const refreshToken = async (req: Request, res: Response) => {
                 id: user.uid,
                 name: user.name,
                 role: role.getCode(user.role),
-                message: `User successfully logged in`,
+                message: `User ${user.uid} successfully refreshed token`,
                 token: accessToken,
             });
         }
@@ -153,7 +153,7 @@ const logout = async (req: Request, res: Response) => {
     });
     res.clearCookie('jwt', { httpOnly: true, maxAge: 12 * 60 * 60 * 1000, sameSite: 'none', secure: true });
     logger.get(req.originalUrl, 'OK', `User ${user.uid} logged out`);
-    return res.status(sc.ACCEPTED).json({ id: user.uid, message: `User successfully logged out` });
+    return res.status(sc.ACCEPTED).json({ id: user.uid, message: `User ${user.uid} successfully logged out` });
 };
 
 export default module.exports = {

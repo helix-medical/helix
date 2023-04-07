@@ -25,7 +25,7 @@ const create = async (req: Request, res: Response) => {
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
         if (err) {
             logger.post(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json(err);
+            return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
         }
         logger.post(req.originalUrl, 'OK', `Appointment ${id} created`);
         return res.status(sc.OK).json({ id, message: `Appointment ${id} created` });
@@ -41,10 +41,10 @@ const update = async (req: Request, res: Response) => {
     db.query(sqlQuery, [...values, appointmentId], (err: any, data: any) => {
         if (err) {
             logger.put(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json(err);
+            return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
         }
         logger.put(req.originalUrl, 'OK', `Appointment ${appointmentId} updated`);
-        return res.status(sc.OK).json(`Appointment ${appointmentId} updated`);
+        return res.status(sc.OK).json({ message: `Appointment ${appointmentId} updated` });
     });
 };
 
@@ -59,7 +59,7 @@ const getForView = async (req: Request, res: Response) => {
     db.query(sqlQuery, appointmentId, (err: any, data: any) => {
         if (err) {
             logger.get(req.originalUrl, 'ERR', err);
-            return res.status(sc.BAD_REQUEST).json(err);
+            return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
         }
         logger.get(req.originalUrl, 'OK', `Return appointment ${appointmentId}`);
         return res.status(sc.OK).json(data);
@@ -77,7 +77,7 @@ const getForEdit = async (req: Request, res: Response) => {
     db.query(sqlQuery, appointmentId, (err: any, data: any) => {
         if (err) {
             logger.get(req.originalUrl, 'ERR', err);
-            return res.status(sc.BAD_REQUEST).json(err);
+            return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
         }
         logger.get(req.originalUrl, 'OK', `Return appointment ${appointmentId}`);
         return res.status(sc.OK).json(data);

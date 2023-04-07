@@ -15,13 +15,8 @@ const readAll = async (req: Request, res: Response) => {
             return res.status(sc.OK).json(data);
         }
 
-        if (err.code === 'ER_NO_SUCH_TABLE') {
-            err.sqlState = 'No patients table in database. Please contact your administrator.';
-            err.sql = 'Error while getting patients list';
-        }
-
         logger.get(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json(err);
+        return res.status(sc.BAD_REQUEST).json({ message: 'Error while getting patients list', data: [] });
     });
 };
 

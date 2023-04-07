@@ -28,7 +28,7 @@ const create = async (req: Request, res: Response) => {
     db.query(sqlQuery, [values], (err: any, data: any) => {
         if (err) {
             logger.post(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json(err);
+            return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
         }
         logger.post(req.originalUrl, 'OK', `Patient ${id} added`);
         return res.status(sc.OK).json({ message: `Patient ${id} added` });
@@ -47,7 +47,7 @@ const read = async (req: Request, res: Response) => {
         if (!err) {
             if (data.length === 0) {
                 logger.get(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
-                return res.status(sc.NOT_FOUND).json(`Patient ${patientId} not found`);
+                return res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
             }
 
             logger.get(req.originalUrl, 'OK', `Patient ${patientId} found`);
@@ -55,7 +55,7 @@ const read = async (req: Request, res: Response) => {
         }
 
         logger.get(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json(err);
+        return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
     });
 };
 
@@ -79,7 +79,7 @@ const update = async (req: Request, res: Response) => {
     db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
         if (err) {
             logger.put(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json(err);
+            return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
         }
         logger.put(req.originalUrl, 'OK', `Patient ${patientId} updated`);
         return res.status(sc.OK).json({ message: `Patient ${patientId} updated` });
@@ -96,7 +96,7 @@ const addAppointment = async (req: Request, res: Response) => {
     db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
         if (err) {
             logger.put(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json(err);
+            return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
         }
         logger.put(req.originalUrl, 'OK', `Appointment ${req.body.id} added to patient ${patientId}`);
         return res.status(sc.OK).json({ message: `Appointment ${req.body.id} added to patient ${patientId}` });
@@ -114,7 +114,7 @@ const delete_ = async (req: Request, res: Response) => {
     db.query(sqlQuery, patientId, (err: any, data: any) => {
         if (err) {
             logger.del(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json(err);
+            return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
         }
         if (data.affectedRows === 0) {
             logger.del(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
