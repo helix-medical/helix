@@ -30,6 +30,7 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
     };
 
     const handleClick = async (e: { preventDefault: () => void }) => {
+        e.preventDefault();
         if (patient.name === '') {
             patient.name = patientInput.name;
         }
@@ -60,15 +61,12 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                 lastAppointments: passif.lastAppointments,
             }),
         };
-        console.log(finalPatient);
-        e.preventDefault();
         try {
-            const res = await axios.put(`/api/patients/${id}/update`, finalPatient);
-            console.log(res);
-            setNotification(false, res.data.message)
+            const res = await axios.put(`/api/patients/${id}`, finalPatient);
+            setNotification(false, res.data.message);
         } catch (error: any) {
-            console.log(error);
-            setNotification(true, error.response.data.message)
+            if (!error?.response) setNotification(true, 'Network error');
+            else setNotification(true, `${error.message}: ${error.response.data.message}`);
         }
     };
 
@@ -96,7 +94,7 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                         Previous Appointments
                     </Tabs.Tab>
                 </Tabs.List>
-                <form>
+                <form onSubmit={handleClick}>
                     <Tabs.Panel value="data">
                         <Biodatas patient={patientInput} view={false} passif={passif} handler={handleChange} />
                     </Tabs.Panel>
@@ -114,7 +112,7 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                     </Tabs.Panel>
                 </form>
             </Tabs>
-            <Button variant="light" onClick={handleClick} m="lg">
+            <Button variant="light" type="submit" m="lg">
                 Update Patient Data
             </Button>
         </div>

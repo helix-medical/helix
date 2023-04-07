@@ -10,9 +10,11 @@ import NavBarAppointment from './navbar';
 import { isNotEmpty } from '@mantine/form';
 import { useAppForm, AppFormProvider } from './formContext';
 import setNotification from '../system/errors/feedbackNotif';
+import { useNavigate } from 'react-router-dom';
 
 const EditAppointment = (): JSX.Element => {
     const id = window.location.href.split('/').slice(-2)[0];
+    const navigate = useNavigate();
 
     const [data, setData] = useState({
         id: id,
@@ -35,8 +37,9 @@ const EditAppointment = (): JSX.Element => {
             try {
                 const res = await axios.get(`/api/appointments/${id}/edit`);
                 setData(res.data[0]);
-            } catch (error) {
-                console.log(error);
+            } catch (error: any) {
+                if (!error?.response) setNotification(true, 'Network error');
+                else setNotification(true, `${error.message}: ${error.response.data.message}`);
             }
         };
         fetchData();
@@ -53,11 +56,11 @@ const EditAppointment = (): JSX.Element => {
         try {
             const res = await axios.put(`/api/appointments/${id}`, appointmentFinal);
             setNotification(false, res.data.message);
+            navigate('/appointments');
         } catch (error: any) {
-            console.log(error);
-            setNotification(true, error.response.data.message);
+            if (!error?.response) setNotification(true, 'Network error');
+            else setNotification(true, `${error.message}: ${error.response.data.message}`);
         }
-        window.location.href = '/appointments';
     };
 
     const form = useAppForm({

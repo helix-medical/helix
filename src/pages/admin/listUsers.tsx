@@ -1,14 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Table, ActionIcon, Flex, Title, Grid, Badge, Group, Button } from '@mantine/core';
-import { IUsers } from '../../interfaces';
 import RoleBadge from '../../components/userBadge';
 import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
 import IdBadge from '../../components/id';
 import ModalAddUser from './create';
+import axios from 'axios';
+import { IUsers } from '../../interfaces';
+import setNotification from '../system/errors/feedbackNotif';
 
-const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
+const ListUsers = (): JSX.Element => {
     const [show, setShow] = useState(false);
     const toggleModal = () => setShow(!show);
+    const [users, setUsers] = useState<IUsers[]>([]);
+
+    useEffect(() => {
+        const fetchAllUsers = async () => {
+            try {
+                const res = await axios.get('/api/users');
+                setUsers(res.data);
+            } catch (error: any) {
+                if (!error?.response) setNotification(true, 'Network error');
+                else setNotification(true, `${error.message}: ${error.response.data.message}`);
+            }
+        };
+        fetchAllUsers();
+    }, [show]);
 
     return (
         <>

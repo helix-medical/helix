@@ -24,7 +24,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
 
     const [update, setUpdate] = useState(false);
 
-    const handleUpdate = async (e: { preventDefault: () => void; }) => {
+    const handleUpdate = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         if (update) {
             if (form.validate().hasErrors) return;
@@ -45,8 +45,8 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                 const res = await axios.put(`/api/patients/${patientInput.id}`, finalPatient);
                 setNotification(false, res.data.message);
             } catch (err: any) {
-                console.log(err);
-                setNotification(true, err.response.data.message);
+                if (!err?.response) setNotification(true, 'Network error');
+                else setNotification(true, `${err.message}: ${err.response.data.message}`);
             }
         }
         setUpdate(!update);
@@ -187,7 +187,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                                 </Button>
                             </>
                         )}
-                        <Button color="gray" type='submit'>
+                        <Button color="gray" type="submit">
                             Close
                         </Button>
                     </Group>

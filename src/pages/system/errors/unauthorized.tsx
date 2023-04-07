@@ -1,15 +1,17 @@
-import React from 'react';
-import { Alert, Title } from '@mantine/core';
+import style from '../../../styles/404.module.css';
+import { Title, Text } from '@mantine/core';
 
 const Unauthorized = (): JSX.Element => {
     return (
-        <>
-            <Title order={1}>Unauthorized</Title>
-            <Alert title="Error in authentication" color="red" my="xl">
+        <div className={style.notFound}>
+            <Title order={1} className={style.title}>
+                401
+            </Title>
+            <Text className={style.text}>
                 You are not authorized to access this page. <br />
                 Please contact the administrator.
-            </Alert>
-        </>
+            </Text>
+        </div>
     );
 };
 

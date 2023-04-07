@@ -6,6 +6,7 @@ import WrongAuth from './errors/wrongAuth';
 import useAuth from '../../hooks/useAuth';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
+import setNotification from './errors/feedbackNotif';
 
 const Login = () => {
     const { setAuth, persist, setPersist } = useAuth();
@@ -19,7 +20,8 @@ const Login = () => {
             const response = await axios.get('/api/users/connexion');
             setUsers(response.data.map((user: any) => ({ label: `${user.name} ${user.lastName}`, value: user.uid })));
         } catch (error: any) {
-            console.log(error);
+            if (!error?.response) setNotification(true, 'Network error');
+            else setNotification(true, `${error.message}: ${error.response.data.message}`);
         }
     };
 
@@ -62,6 +64,7 @@ const Login = () => {
             setAuth({ id, name, role, accessToken });
             form.reset();
             setLoading(false);
+            setNotification(false, response.data.message);
             navigate(from, { replace: true });
         } catch (error: any) {
             console.log(error);

@@ -5,6 +5,7 @@ import ToggleTheme from './toggleTheme';
 import useLogout from '../hooks/useLogout';
 import DrawerApp from './navbarLinks';
 import { spotlight } from '@mantine/spotlight';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
     inner: {
@@ -58,10 +59,12 @@ const HeaderApp = () => {
     const [opened, { toggle }] = useDisclosure(false);
     const logout = useLogout();
     const { classes } = useStyles();
+    const navigate = useNavigate();
     const items = links.map((link) => {
         return (
             <Title order={4} key={link.label}>
-                <a href={link.link} className={classes.link}>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a className={classes.link} onClick={() => navigate(link.link)}>
                     {link.label}
                 </a>
             </Title>
@@ -74,7 +77,8 @@ const HeaderApp = () => {
                 <Container className={classes.inner} fluid>
                     <Group>
                         <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
-                        <a href="/" className={classes.link}>
+                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                        <a onClick={() => navigate('/')} className={classes.link}>
                             <Title order={1}>Helix</Title>
                         </a>
                     </Group>

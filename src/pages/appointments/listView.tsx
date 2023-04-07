@@ -6,12 +6,14 @@ import dateToReadable from '../../tools/date';
 import { IAppointmentExtended } from '../../interfaces';
 import SexBadge from '../../components/sexBadge';
 import IdBadge from '../../components/id';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
     appointments: IAppointmentExtended[];
 }
 
 const AppTableView = ({ appointments }: IProps): JSX.Element => {
+    const navigate = useNavigate();
     const rows = appointments.map((appointment: IAppointmentExtended) => (
         <tr key={appointment.id}>
             <td>
@@ -28,7 +30,7 @@ const AppTableView = ({ appointments }: IProps): JSX.Element => {
                 <StateAppointment state={appointment.status} />
             </td>
             <td>
-                <Button variant="light" component="a" href={`/appointments/${appointment.id}/view`}>
+                <Button variant="light" onClick={() => navigate(`/appointments/${appointment.id}/view`)}>
                     View
                 </Button>
             </td>

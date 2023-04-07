@@ -5,6 +5,7 @@ import { DateTimePicker } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import dayjs from 'dayjs';
 import setNotification from '../system/errors/feedbackNotif';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
     show: boolean;
@@ -14,6 +15,7 @@ interface IProps {
 const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
     const handleClose = () => toggleModal();
     const theme = useMantineTheme();
+    const navigate = useNavigate();
 
     const handleClick = async (e: { preventDefault: () => void }) => {
         if (form.validate().hasErrors) return;
@@ -30,11 +32,12 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                 id: index.data.id,
             });
             setNotification(false, res.data.message);
-        } catch (error) {
-            console.log(error);
+            toggleModal();
+            navigate(`/appointments/${index.data.id}/edit`);
+        } catch (error: any) {
+            if (!error?.response) setNotification(true, 'Network error');
+            else setNotification(true, `${error.message}: ${error.response.data.message}`);
         }
-        toggleModal();
-        if (index) window.location.href = `/appointments/${index.data.id}/edit`;
     };
 
     const form = useForm({

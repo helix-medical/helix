@@ -14,9 +14,6 @@ interface IProps {
 
 const AppItemGrid = ({ appointment }: IProps): JSX.Element => {
     const navigate = useNavigate();
-    const handleClick = () => {
-         navigate(`/appointments/${appointment.id}/view`);
-    };
 
     return (
         <div key={appointment.id}>
@@ -39,7 +36,13 @@ const AppItemGrid = ({ appointment }: IProps): JSX.Element => {
                         ID: <IdBadge id={appointment.id ?? ''} />
                     </List.Item>
                 </List>
-                <Button variant="light" radius="md" mt="md" fullWidth onClick={handleClick}>
+                <Button
+                    variant="light"
+                    radius="md"
+                    mt="md"
+                    fullWidth
+                    onClick={() => navigate(`/appointments/${appointment.id}/view`)}
+                >
                     View
                 </Button>
                 {/* <Text ta='right' color="dimmed" size='sm'>ID: {appointment.id}</Text> */}

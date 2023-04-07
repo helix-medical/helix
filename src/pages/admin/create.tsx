@@ -41,10 +41,9 @@ const ModalAddUser = ({ show, toggleModal }: IProps): JSX.Element => {
             form.reset();
             toggleModal();
         } catch (error: any) {
-            console.log(error);
-            setNotification(true, error.response.message);
+            if (!error?.response) setNotification(true, 'Network error');
+            else setNotification(true, `${error.message}: ${error.response.data.message}`);
         }
-        // window.location.reload();
     };
 
     return (

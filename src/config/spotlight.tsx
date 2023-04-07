@@ -10,12 +10,10 @@ import {
     IconUsersPlus,
 } from '@tabler/icons-react';
 import { useState } from 'react';
-
-const handleNavigate = (path: string) => {
-    window.location.href = path;
-};
+import { useNavigate } from 'react-router-dom';
 
 const Spotlight = ({ children }: { children: JSX.Element }) => {
+    const navigate = useNavigate();
     const [query, setQuery] = useState<string>('');
     const actions: SpotlightAction[] =
         query === 'patients'
@@ -23,14 +21,14 @@ const Spotlight = ({ children }: { children: JSX.Element }) => {
                   {
                       title: 'View Patients',
                       description: 'Get full information about patients',
-                      onTrigger: () => handleNavigate('/patients'),
+                      onTrigger: () => navigate('/patients'),
                       keywords: ['patients', 'patient', 'view'],
                       icon: <IconUsers size="1.2rem" />,
                   },
                   {
                       title: 'Add Patient',
                       description: 'Add new patient',
-                      onTrigger: () => handleNavigate('/patients/add'),
+                      onTrigger: () => navigate('/patients/add'),
                       keywords: ['patients', 'patient', 'add'],
                       icon: <IconUsersPlus size="1.2rem" />,
                   },
@@ -40,14 +38,14 @@ const Spotlight = ({ children }: { children: JSX.Element }) => {
                   {
                       title: 'View Appointments',
                       description: 'Get full information about appointments',
-                      onTrigger: () => handleNavigate('/appointments'),
+                      onTrigger: () => navigate('/appointments'),
                       keywords: ['appointments', 'appointment', 'view'],
                       icon: <IconUsers size="1.2rem" />,
                   },
                   {
                       title: 'Add Appointment',
                       description: 'Add new appointment',
-                      onTrigger: () => handleNavigate('/appointments/add'),
+                      onTrigger: () => navigate('/appointments/add'),
                       keywords: ['appointments', 'appointment', 'add'],
                       icon: <IconCalendarPlus size="1.2rem" />,
                   },
@@ -56,7 +54,7 @@ const Spotlight = ({ children }: { children: JSX.Element }) => {
                   {
                       title: 'Home',
                       description: 'Get to home page',
-                      onTrigger: () => handleNavigate('/'),
+                      onTrigger: () => navigate('/'),
                       icon: <IconHome size="1.2rem" />,
                   },
                   {
@@ -76,7 +74,7 @@ const Spotlight = ({ children }: { children: JSX.Element }) => {
                   {
                       title: 'Calendar',
                       description: 'Get full information about calendar',
-                      onTrigger: () => handleNavigate('/calendar'),
+                      onTrigger: () => navigate('/calendar'),
                       icon: <IconCalendar size="1.2rem" />,
                   },
               ];
