@@ -50,7 +50,7 @@ const create = async (req: Request, res: Response) => {
     let id = uuid();
     while (await queries.checkId(id, 'users')) id = uuid();
     const sqlQuery = `
-    INSERT INTO users (uid, name, lastName, role, state, password, clearPassword)
+    INSERT INTO users (uid, name, lastName, role, state, password, clearPassword, lastActive)
     VALUES (?)
     `;
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -62,6 +62,7 @@ const create = async (req: Request, res: Response) => {
         'first-time',
         hashedPassword,
         req.body.password,
+        '0000-00-00 00:00:00'
     ];
 
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {

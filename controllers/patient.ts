@@ -31,7 +31,7 @@ const create = async (req: Request, res: Response) => {
             return res.status(sc.METHOD_FAILURE).json(err);
         }
         logger.post(req.originalUrl, 'OK', `Patient ${id} added`);
-        return res.status(sc.OK).json(`Patient ${id} added`);
+        return res.status(sc.OK).json({ message: `Patient ${id} added` });
     });
 };
 
@@ -82,7 +82,7 @@ const update = async (req: Request, res: Response) => {
             return res.status(sc.METHOD_FAILURE).json(err);
         }
         logger.put(req.originalUrl, 'OK', `Patient ${patientId} updated`);
-        return res.status(sc.OK).json(`Patient ${patientId} updated`);
+        return res.status(sc.OK).json({ message: `Patient ${patientId} updated` });
     });
 };
 
@@ -99,7 +99,7 @@ const addAppointment = async (req: Request, res: Response) => {
             return res.status(sc.METHOD_FAILURE).json(err);
         }
         logger.put(req.originalUrl, 'OK', `Appointment ${req.body.id} added to patient ${patientId}`);
-        return res.status(sc.OK).json(data);
+        return res.status(sc.OK).json({ message: `Appointment ${req.body.id} added to patient ${patientId}` });
     });
 };
 
@@ -118,11 +118,11 @@ const delete_ = async (req: Request, res: Response) => {
         }
         if (data.affectedRows === 0) {
             logger.del(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
-            return res.status(sc.NOT_FOUND).json(`Patient ${patientId} not found`);
+            return res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
         }
 
         logger.del(req.originalUrl, 'OK', `Patient ${patientId} deleted`);
-        return res.status(sc.OK).json(`Patient ${patientId} deleted`);
+        return res.status(sc.OK).json({ message: `Patient ${patientId} deleted` });
     });
 };
 
