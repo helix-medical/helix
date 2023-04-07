@@ -32,24 +32,25 @@ const ModalAddUser = ({ show, toggleModal, handler }: IProps): JSX.Element => {
     const handleClick = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         if (form.validate().hasErrors) return;
-        console.log(form.values);
         try {
             const res = await axios.post(`/api/users/add`, form.values, {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
             });
+            console.log(res.data.message);
             handler({
                 fail: false,
                 message: res.data.message,
             });
+            form.reset();
+            toggleModal();
         } catch (error: any) {
             console.log(error);
             handler({
                 fail: true,
-                message: error.response.data.message,
+                message: error.response.message,
             });
         }
-        toggleModal();
         // window.location.reload();
     };
 

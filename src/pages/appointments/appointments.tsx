@@ -1,14 +1,12 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { useState, useEffect } from 'react';
+import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles, Burger } from '@mantine/core';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
-
 import AppItemGrid from './itemGrid';
 import AppTableView from './listView';
 import ModalCreateApp from './create';
 import { IAppointmentExtended } from '../../interfaces';
-import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles, Burger } from '@mantine/core';
+
 import { useDisclosure } from '@mantine/hooks';
 
 const useStyles = createStyles((theme) => ({
@@ -25,7 +23,7 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-const Patients = (): JSX.Element => {
+const Patients = ({ add }: { add: boolean }): JSX.Element => {
     const { classes } = useStyles();
     const [opened, { toggle }] = useDisclosure(false);
 
@@ -57,7 +55,7 @@ const Patients = (): JSX.Element => {
     };
 
     // Modal
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(add);
     const toggleModal = () => setShow(!show);
 
     // View Type

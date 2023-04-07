@@ -23,7 +23,7 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-const Patients = (): JSX.Element => {
+const Patients = ({ add }: { add: boolean }): JSX.Element => {
     // Fetch all patients
     const [patients, setPatients] = useState<IPatient[]>([]);
     // const [error, setError] = useState<string | null>(null);
@@ -69,7 +69,7 @@ const Patients = (): JSX.Element => {
     };
 
     // Modal for create a patient
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(add);
     const toggleModal = () => setShow(!show);
 
     // View Type

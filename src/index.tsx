@@ -4,7 +4,7 @@ import { useState } from 'react';
 // import reportWebVitals from './config/reportWebVitals';
 
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
-
+import { Notifications } from '@mantine/notifications';
 import AppRouter from './pages/system/appRouter';
 import { AuthProvider } from './components/auth/authProvider';
 import './styles/main.css';
@@ -25,6 +25,7 @@ function App() {
     return (
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
             <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme: colorScheme, loader: 'dots' }}>
+                <Notifications />
                 <BrowserRouter>
                     <AuthProvider>
                         <Spotlight>

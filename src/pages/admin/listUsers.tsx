@@ -3,6 +3,7 @@ import { Table, ActionIcon, Flex, Title, Grid, Badge, Group, Button, Alert } fro
 import { IUsers } from '../../interfaces';
 import RoleBadge from '../../components/userBadge';
 import { IconCheck, IconEdit, IconEye, IconTrash, IconX } from '@tabler/icons-react';
+import { notifications } from '@mantine/notifications';
 import IdBadge from '../../components/id';
 import ModalAddUser from './create';
 
@@ -40,8 +41,15 @@ const ListUsers = ({ users }: { users: IUsers[] }): JSX.Element => {
     const [showNotif, setShowNotif] = useState(false);
     const toggleModal = () => {
         setShow(!show);
-        if (show) {
-            setShowNotif(true);
+        console.log(newUser, show);
+        if (show && newUser.message !== 'No data') {
+            notifications.show({
+                title: newUser.fail ? 'Error' : 'Success',
+                message: newUser.message,
+                icon: newUser.fail ? <IconX size="1.1rem" /> : <IconCheck size="1.1rem" />,
+                autoClose: 5000,
+                color: newUser.fail ? 'red' : 'green',
+            });
         }
     };
 
