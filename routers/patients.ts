@@ -8,6 +8,8 @@ import role from '../config/roles';
 
 router.get('/', controllerAll.readAll);
 
+router.get('/appointments', controllerAll.readAllConnexion);
+
 router.put('/:id/add_appointment/', middleware.addAppointment, controller.addAppointment);
 
 router.get('/:id', controller.read);

@@ -20,6 +20,21 @@ const readAll = async (req: Request, res: Response) => {
     });
 };
 
+const readAllConnexion = async (req: Request, res: Response) => {
+    logger.get(req.originalUrl, 'REQ');
+    const sqlQuery = `SELECT id, name, lastName FROM patients`;
+    db.query(sqlQuery, (err: any, data: any) => {
+        if (!err) {
+            logger.get(req.originalUrl, 'OK', 'Return all patients for Appointments');
+            return res.status(sc.OK).json(data);
+        }
+
+        logger.get(req.originalUrl, 'ERR', err);
+        return res.status(sc.BAD_REQUEST).json({ message: 'Error while getting patients list', data: [] });
+    });
+};
+
 export default module.exports = {
     readAll,
+    readAllConnexion,
 };
