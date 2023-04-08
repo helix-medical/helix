@@ -20,9 +20,10 @@ CREATE TABLE
         `patientId` VARCHAR(8) NOT NULL,
         `date` TEXT NOT NULL,
         `reasons` TEXT NOT NULL,
-        `anamnesis` TEXT NOT NULL,
-        `conclusion` TEXT NOT NULL,
+        `anamnesis` JSON NOT NULL,
+        `conclusion` JSON NOT NULL,
         `status` TEXT NOT NULL,
+        `payment` JSON NOT NULL,
         PRIMARY KEY (`id`)
     );
 
