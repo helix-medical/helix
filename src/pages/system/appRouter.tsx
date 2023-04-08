@@ -11,7 +11,6 @@ import Calendar from '../../components/calendar';
 import EditAppointment from '../appointment/edit';
 import Appointments from '../appointments/appointments';
 import ViewAppointment from '../appointment/view';
-import Admin from '../admin/admin';
 import Accounting from '../accounting/accounting';
 // Errors
 import NotFound from './errors/404';
@@ -49,9 +48,6 @@ const AppRouter = () => {
                             <Route path=":appointmentID/view" element={<ViewAppointment />} />
                             <Route path="*" element={<NotFound />} /> {/* ?? */}
                         </Route>
-                    </Route>
-                    <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
-                        <Route path="admin" element={<Admin />} />
                     </Route>
                 </Route>
 

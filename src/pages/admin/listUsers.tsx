@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Table, ActionIcon, Flex, Title, Grid, Badge, Group, Button } from '@mantine/core';
+import { Table, ActionIcon, Flex, Title, Badge, Group, Button, Divider } from '@mantine/core';
 import RoleBadge from '../../components/customBadges/userBadge';
 import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';
@@ -7,6 +7,7 @@ import ModalAddUser from './create';
 import axios from 'axios';
 import { IUsers } from '../../interfaces';
 import setNotification from '../system/errors/feedbackNotif';
+import UserStatus from '../../components/customBadges/userStatus';
 
 const ListUsers = (): JSX.Element => {
     const [show, setShow] = useState(false);
@@ -28,25 +29,21 @@ const ListUsers = (): JSX.Element => {
 
     return (
         <>
-            <Grid justify="space-between" align="center" p="md">
-                <Group>
-                    <Title order={2}>
-                        Users{' '}
-                        <Badge size="lg" radius="lg" variant="filled">
-                            {users.length}
-                        </Badge>
-                    </Title>
-                </Group>
-                <Group>
-                    <Button onClick={toggleModal}>New User</Button>
-                </Group>
-            </Grid>
+            <Group position="apart">
+                <Title order={2}>
+                    Users{' '}
+                    <Badge size="lg" radius="lg" variant="filled">
+                        {users.length}
+                    </Badge>
+                </Title>
+                <Button onClick={toggleModal}>New User</Button>
+            </Group>
+            <Divider my="lg" />
             <Table horizontalSpacing="md" verticalSpacing="md" highlightOnHover withColumnBorders>
                 <thead>
                     <tr>
                         <th>UID</th>
                         <th>Account</th>
-                        <th>Password</th>
                         <th>State</th>
                         <th>Last Active</th>
                         <th>Role</th>
@@ -62,9 +59,9 @@ const ListUsers = (): JSX.Element => {
                             <td>
                                 {user.name} {user.lastName}
                             </td>
-                            <td>{user.clearPassword}</td>
-
-                            <td>{user.state}</td>
+                            <td>
+                                <UserStatus status={user.state} />
+                            </td>
                             <td>{user.lastActive}</td>
                             <td>
                                 <RoleBadge role={user.role} />

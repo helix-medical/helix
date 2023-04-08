@@ -1,16 +1,15 @@
-import { Button, Card, Center, Grid, Group, Title } from '@mantine/core';
+import { Card, Center, Grid, Group, Title } from '@mantine/core';
 import useAuth from '../../hooks/useAuth';
 import Account from './account';
-import { useNavigate } from 'react-router-dom';
+import Admin from '../admin/admin';
 
 const Home = () => {
     const { auth } = useAuth();
-    const navigate = useNavigate();
     return (
         <>
-            <Title order={1}>Welcome {auth.name}</Title>
-            <Button onClick={() => navigate('/admin')}>Go to Admin Panel</Button>
+            <Title order={1}>Welcome on Helix, {auth.name}!</Title>
             <Grid columns={12} p="xl">
+                {auth.role === 2003 && <Admin />}
                 <Grid.Col span={8}>
                     <Card shadow="sm" padding="lg" radius="md" withBorder>
                         <Center>

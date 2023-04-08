@@ -1,13 +1,17 @@
-import { Divider, Title } from '@mantine/core';
+import { Card, Center, Grid, Title } from '@mantine/core';
 import ListUsers from './listUsers';
 
 const Admin = (): JSX.Element => {
     return (
         <>
-            <Title order={1}>Administrator Panel</Title>
-            <Divider my="lg" />
-            <ListUsers />
-            <Divider my="lg" />
+            <Grid.Col span={12}>
+                <Card shadow="sm" padding="lg" radius="md" withBorder>
+                    <Center>
+                        <Title order={2}>Admin Panel</Title>
+                    </Center>
+                    <ListUsers />
+                </Card>
+            </Grid.Col>
         </>
     );
 };

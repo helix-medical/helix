@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Title, TextInput, Card, Center } from '@mantine/core';
+import { Button, Title, TextInput, Card, Center, Grid } from '@mantine/core';
 import ChangePassword from './changePassword';
 import axios from 'axios';
 import { IUsers } from '../../interfaces';
@@ -27,15 +27,29 @@ const Account = ({ id }: { id: string }): JSX.Element => {
                 <Center>
                     <Title order={2}>Account</Title>
                 </Center>
-                <TextInput label="Account ID" value={user?.uid} readOnly />
-                <TextInput label="Name" value={user?.name} readOnly />
-                <TextInput label="Last Name" value={user?.lastName} readOnly />
-                <TextInput label="Role" value={user?.role} readOnly />
-                <TextInput label="Status" value={user?.state} readOnly />
-                <TextInput label="Last Connection" value={user?.lastActive} readOnly />
-                <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={toggleModal}>
-                    Change Password
-                </Button>
+                <Grid columns={12} p="md">
+                    <Grid.Col span={6}>
+                        <TextInput label="Account ID" defaultValue={user?.uid} readOnly />
+                    </Grid.Col>
+                    <Grid.Col span={6}>
+                        <TextInput label="Role" defaultValue={user?.role} readOnly />
+                    </Grid.Col>
+                    <Grid.Col span={6}>
+                        <TextInput label="Name" defaultValue={user?.name} readOnly />
+                    </Grid.Col>
+                    <Grid.Col span={6}>
+                        <TextInput label="Last Name" defaultValue={user?.lastName} readOnly />
+                    </Grid.Col>
+                    <Grid.Col span={6}>
+                        <TextInput label="Status" defaultValue={user?.state} readOnly />
+                    </Grid.Col>
+                    <Grid.Col span={6}>
+                        <TextInput label="Last Connection" defaultValue={user?.lastActive} readOnly />
+                    </Grid.Col>
+                    <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={toggleModal}>
+                        Change Password
+                    </Button>
+                </Grid>
             </Card>
             <ChangePassword show={show} toggleModal={toggleModal} />
         </div>
