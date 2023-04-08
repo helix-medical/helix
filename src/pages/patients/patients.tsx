@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
-import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles, Burger } from '@mantine/core';
+import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles } from '@mantine/core';
 import PatientItemGrid from './itemGrid';
 import ModalAddPatient from './create';
 import PatientsTableView from './listView';
 import { IPatient } from '../../interfaces';
-import { useDisclosure } from '@mantine/hooks';
 import setNotification from '../system/errors/feedbackNotif';
 import NoContent from '../system/errors/noContent';
 
@@ -36,7 +35,6 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     // Fetch all patients
     const [patients, setPatients] = useState<IPatient[]>([]);
     const { classes } = useStyles();
-    const [opened, { toggle }] = useDisclosure(false);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -94,18 +92,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                     >
                         {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
                     </ActionIcon>
-                    <Button onClick={toggleModal} className={classes.button}>
-                        New Patient
-                    </Button>
-                    <Burger opened={opened} className={classes.burger} onClick={toggle} />
-                    {opened && (
-                        <Group position="left" my="md">
-                            <ActionIcon color="blue" variant="outline" size="lg" onClick={changeView}>
-                                {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
-                            </ActionIcon>
-                            <Button onClick={toggleModal}>New Patient</Button>
-                        </Group>
-                    )}
+                    <Button onClick={toggleModal}>New Patient</Button>
                 </Group>
             </Grid>
             {error ? (
