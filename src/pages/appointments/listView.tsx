@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, Table } from '@mantine/core';
-import KindAppointment from '../../components/kindAppointment';
-import StateAppointment from '../../components/stateAppointment';
+import KindAppointment from '../../components/customBadges/kindAppointment';
+import StateAppointment from '../../components/customBadges/stateAppointment';
 import dateToReadable from '../../tools/date';
 import { IAppointmentExtended } from '../../interfaces';
-import SexBadge from '../../components/sexBadge';
-import IdBadge from '../../components/id';
+import SexBadge from '../../components/customBadges/sexBadge';
+import IdBadge from '../../components/customBadges/id';
 import { useNavigate } from 'react-router-dom';
 
 interface IProps {

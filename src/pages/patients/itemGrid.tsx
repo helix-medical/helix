@@ -4,8 +4,8 @@ import dateToReadable from '../../tools/date';
 import ModalViewPatient from './view';
 import { IPatient } from '../../interfaces';
 import { Card, Text, Button, Group, List } from '@mantine/core';
-import SexBadge from '../../components/sexBadge';
-import IdBadge from '../../components/id';
+import SexBadge from '../../components/customBadges/sexBadge';
+import IdBadge from '../../components/customBadges/id';
 
 interface IProps {
     patient: IPatient;

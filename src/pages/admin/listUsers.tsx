@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Table, ActionIcon, Flex, Title, Grid, Badge, Group, Button } from '@mantine/core';
-import RoleBadge from '../../components/userBadge';
+import RoleBadge from '../../components/customBadges/userBadge';
 import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
-import IdBadge from '../../components/id';
+import IdBadge from '../../components/customBadges/id';
 import ModalAddUser from './create';
 import axios from 'axios';
 import { IUsers } from '../../interfaces';

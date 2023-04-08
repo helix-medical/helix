@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Table, Grid, Title, Badge, Button } from '@mantine/core';
 import { useState, useEffect } from 'react';
 import setNotification from '../system/errors/feedbackNotif';
-import IdBadge from '../../components/id';
+import IdBadge from '../../components/customBadges/id';
 import { ITransactions } from '../../interfaces';
 import PaymentMethod from '../../components/customBadges/paymentMethod';
 

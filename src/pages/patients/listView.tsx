@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Table } from '@mantine/core';
 import { IPatient } from '../../interfaces';
-import SexBadge from '../../components/sexBadge';
-import IdBadge from '../../components/id';
+import SexBadge from '../../components/customBadges/sexBadge';
+import IdBadge from '../../components/customBadges/id';
 
 interface IProps {
     patients: IPatient[];
