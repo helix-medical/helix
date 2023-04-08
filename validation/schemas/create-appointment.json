@@ -10,20 +10,12 @@
         },
         "reasons": {
             "type": "string"
-        },
-        "anamnesis": {
-            "type": "string"
-        },
-        "conclusion": {
-            "type": "string"
         }
     },
     "required": [
         "patientId",
         "date",
-        "reasons",
-        "anamnesis",
-        "conclusion"
+        "reasons"
     ],
     "additionalProperties": false
 }

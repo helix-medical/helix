@@ -11,15 +11,16 @@ const create = async (req: Request, res: Response) => {
     while (await queries.checkId(id, 'users')) id = uuid();
     const sqlQuery =
         'INSERT INTO appointments ' +
-        '(`id`, `patientId`, `date`, `reasons`, `anamnesis`, `conclusion`, `status`) VALUES (?)';
+        '(`id`, `patientId`, `date`, `reasons`, `anamnesis`, `conclusion`, `status`, `payment`) VALUES (?)';
     const values = [
         id,
         req.body.patientId,
         req.body.date,
         req.body.reasons,
-        req.body.anamnesis,
-        req.body.conclusion,
+        JSON.stringify({ reasons: '', symptoms: '', knownDiseases: '', knownMedications: '' }),
+        JSON.stringify({ diagnosis: '', treatment: '', observations: '' }),
         'pending',
+        JSON.stringify({ amount: 0, method: 'card' }),
     ];
 
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
@@ -35,8 +36,9 @@ const create = async (req: Request, res: Response) => {
 const update = async (req: Request, res: Response) => {
     logger.put(req.originalUrl, 'REQ');
     const appointmentId = req.params.id;
-    const sqlQuery = 'UPDATE appointments ' + 'SET `anamnesis` = ?, `conclusion` = ?, `status` = ? ' + 'WHERE id = ?';
-    const values = [req.body.anamnesis, req.body.conclusion, 'finished'];
+    const sqlQuery =
+        'UPDATE appointments ' + 'SET `anamnesis` = ?, `conclusion` = ?, `status` = ? , `payment` = ?' + 'WHERE id = ?';
+    const values = [req.body.anamnesis, req.body.conclusion, 'finished', req.body.payment];
 
     db.query(sqlQuery, [...values, appointmentId], (err: any, data: any) => {
         if (err) {
@@ -52,7 +54,7 @@ const getForView = async (req: Request, res: Response) => {
     logger.get(req.originalUrl, 'REQ');
     const appointmentId = req.params.id;
     const sqlQuery = `
-    SELECT appointments.id, appointments.date, appointments.reasons, appointments.anamnesis, appointments.conclusion, appointments.patientId, appointments.status, patients.name, patients.lastName, patients.email, patients.birthDate, patients.city, patients.sex, patients.passif 
+    SELECT appointments.id, appointments.date, appointments.reasons, appointments.anamnesis, appointments.conclusion, appointments.payment, appointments.patientId, appointments.status, patients.name, patients.lastName, patients.email, patients.birthDate, patients.city, patients.sex, patients.passif 
     FROM appointments INNER JOIN patients ON appointments.patientId = patients.id
     WHERE appointments.id = ?
     `;

@@ -6,11 +6,15 @@
         },
         "conclusion": {
             "type": "string"
+        },
+        "payment": {
+            "type": "string"
         }
     },
     "required": [
         "anamnesis",
-        "conclusion"
+        "conclusion",
+        "payment"
     ],
     "additionalProperties": false
 }
