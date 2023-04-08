@@ -48,5 +48,6 @@ CREATE TABLE
         `patientId` VARCHAR(8) NOT NULL,
         `method` TEXT NOT NULL,
         `date` TEXT NOT NULL,
+        `appId` VARCHAR(8) NOT NULL,
         PRIMARY KEY (`uid`)
     );

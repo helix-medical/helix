@@ -25,7 +25,7 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
     next();
 };
 
-export default module.exports = {
+export default {
     create,
     update,
 };

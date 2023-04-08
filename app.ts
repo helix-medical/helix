@@ -4,6 +4,7 @@ require('dotenv').config();
 import patients from './routers/patients';
 import appointments from './routers/appointments';
 import authORoute from './routers/auth';
+import accounting from './routers/accounting';
 import users from './routers/users';
 import logger from './system/logger';
 import errorHandler from './system/errors';
@@ -14,7 +15,7 @@ import credentials from './middleware/credentials';
 
 // Config
 const app: Express = express();
-const port = process.env.PORT_API;
+const port = process.env.PORT_API || 3001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(credentials);
@@ -36,6 +37,7 @@ app.use('/api/auth', authORoute);
 app.use('/api/patients', patients);
 app.use('/api/appointments', appointments);
 app.use('/api/users', users);
+app.use('/api/accounting', accounting)
 
 // 404
 app.all('*', (req: Request, res: Response, next: NextFunction) => {

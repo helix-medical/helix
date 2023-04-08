@@ -81,6 +81,12 @@ const update = async (req: Request, res: Response) => {
             logger.put(req.originalUrl, 'ERR', err);
             return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
         }
+
+        if (data.affectedRows === 0) {
+            logger.put(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
+            return res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
+        }
+
         logger.put(req.originalUrl, 'OK', `Patient ${patientId} updated`);
         return res.status(sc.OK).json({ message: `Patient ${patientId} updated` });
     });
@@ -98,6 +104,12 @@ const addAppointment = async (req: Request, res: Response) => {
             logger.put(req.originalUrl, 'ERR', err);
             return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
         }
+
+        if (data.affectedRows === 0) {
+            logger.put(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
+            return res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
+        }
+
         logger.put(req.originalUrl, 'OK', `Appointment ${req.body.id} added to patient ${patientId}`);
         return res.status(sc.OK).json({ message: `Appointment ${req.body.id} added to patient ${patientId}` });
     });
@@ -116,6 +128,7 @@ const delete_ = async (req: Request, res: Response) => {
             logger.del(req.originalUrl, 'ERR', err);
             return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
         }
+
         if (data.affectedRows === 0) {
             logger.del(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
             return res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
