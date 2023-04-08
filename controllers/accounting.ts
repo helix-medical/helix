@@ -9,8 +9,8 @@ const create = async (req: Request, res: Response) => {
     logger.post(req.originalUrl, 'REQ');
     let id = uuid();
     while (await queries.checkId(id, 'users')) id = uuid();
-    const sqlQuery = 'INSERT INTO accounting (`uid`, `amount`, `patientId`, `method`, `date`) VALUES (?)';
-    const values = [id, req.body.amount, req.body.patientId, req.body.method, req.body.date];
+    const sqlQuery = 'INSERT INTO accounting (`uid`, `amount`, `patientId`, `method`, `date`, `appId`) VALUES (?)';
+    const values = [id, req.body.amount, req.body.patientId, req.body.method, req.body.date, req.body.appId];
 
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
         if (err) {
