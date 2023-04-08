@@ -10,7 +10,7 @@ function NavBarAppointment({ view }: IProps): JSX.Element {
         <Grid justify="space-between" align="center" p="md">
             <Group>
                 <Title order={1}>
-                    Appointment&nbsp;
+                    Appointment{' '}
                     <Badge color={view ? 'red' : 'blue'} size="xl" radius="sm">
                         {view ? 'READONLY' : 'CAN EDIT'}
                     </Badge>
