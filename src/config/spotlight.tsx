@@ -8,6 +8,7 @@ import {
     IconCalendarCheck,
     IconCalendarPlus,
     IconUsersPlus,
+    IconCoins,
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -76,6 +77,12 @@ const Spotlight = ({ children }: { children: JSX.Element }) => {
                       description: 'Get full information about calendar',
                       onTrigger: () => navigate('/calendar'),
                       icon: <IconCalendar size="1.2rem" />,
+                  },
+                  {
+                      title: 'Accounting',
+                      description: 'Get full information about accounting',
+                      onTrigger: () => navigate('/accounting'),
+                      icon: <IconCoins size="1.2rem" />,
                   },
               ];
 
