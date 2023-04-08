@@ -1,4 +1,4 @@
-import { Textarea, Title, Grid, TextInput } from '@mantine/core';
+import { Textarea, Title, Grid, TextInput, Paper } from '@mantine/core';
 import getNbLines from '../../tools/getLines';
 import { IConclusion } from '../../interfaces';
 import { useAppFormContext } from './formContext';
@@ -13,7 +13,7 @@ function Conclusion({ conclusion, view }: IProps): JSX.Element {
     const formContext = useAppFormContext();
 
     return (
-        <>
+        <Paper shadow="sm" radius="md" p="lg" withBorder my='lg'>
             <Title order={2}>Conclusion</Title>
             <Grid columns={12}>
                 <Grid.Col span={12}>
@@ -43,7 +43,7 @@ function Conclusion({ conclusion, view }: IProps): JSX.Element {
                     />
                 </Grid.Col>
             </Grid>
-        </>
+        </Paper>
     );
 }
 

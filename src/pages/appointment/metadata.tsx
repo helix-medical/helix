@@ -1,4 +1,4 @@
-import { TextInput, Title, Grid, Divider } from '@mantine/core';
+import { TextInput, Title, Grid, Paper } from '@mantine/core';
 import { IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
 
 interface IProps {
@@ -7,8 +7,7 @@ interface IProps {
 
 function Metadata({ appointment }: IProps): JSX.Element {
     return (
-        <>
-            <Divider my="lg" />
+        <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
             <Title order={2}>Appointment Data</Title>
             <Grid>
                 <Grid.Col span={4}>
@@ -21,8 +20,7 @@ function Metadata({ appointment }: IProps): JSX.Element {
                     <TextInput label="Patient ID" readOnly defaultValue={appointment.patientId} />
                 </Grid.Col>
             </Grid>
-            <Divider my="lg" />
-        </>
+        </Paper>
     );
 }
 

@@ -1,4 +1,4 @@
-import { Textarea, Title, Grid, Divider } from '@mantine/core';
+import { Textarea, Title, Grid, Paper } from '@mantine/core';
 import getNbLines from '../../tools/getLines';
 import { IAnamnesis } from '../../interfaces';
 import { useAppFormContext } from './formContext';
@@ -13,8 +13,7 @@ const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
     const formContext = useAppFormContext();
 
     return (
-        <div className="debug">
-            <Divider my='lg' />
+        <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
             <Title order={2}>Anamnesis</Title>
             <Grid columns={12}>
                 <Grid.Col span={12}>
@@ -54,8 +53,7 @@ const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
                     />
                 </Grid.Col>
             </Grid>
-            <Divider my='lg' />
-        </div>
+        </Paper>
     );
 };
 

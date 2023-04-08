@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import { Textarea, Title, Tabs, Button, Badge, Center } from '@mantine/core';
+import { Textarea, Title, Tabs, Button, Badge, Center, Paper } from '@mantine/core';
 import PreviousAppointments from './previousAppointments';
 import Biodatas from './biodatas';
 import { IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
@@ -71,7 +71,7 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
     };
 
     return (
-        <div className="debug">
+        <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
             <Title order={2}>Patient Data</Title>
             <Tabs defaultValue="data" radius="md">
                 <Tabs.List>
@@ -113,11 +113,11 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                 </form>
             </Tabs>
             <Center>
-                <Button variant="light" onClick={handleClick} m="lg">
+                <Button variant="light" onClick={handleClick} mt='lg'>
                     Update Patient Data
                 </Button>
             </Center>
-        </div>
+        </Paper>
     );
 }
 

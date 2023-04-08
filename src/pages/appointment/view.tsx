@@ -6,7 +6,7 @@ import Anamnesis from './anamnesis';
 import Conclusion from './conclusion';
 import Metadata from './metadata';
 import NavBarAppointment from './navbar';
-import { Title } from '@mantine/core';
+import { Paper, Title } from '@mantine/core';
 import { useAppForm, AppFormProvider } from './formContext';
 import setNotification from '../system/errors/feedbackNotif';
 import Secretary from './secretary';
@@ -68,9 +68,11 @@ const ViewAppointment = () => {
         <>
             <NavBarAppointment view={true} />
             <Metadata appointment={data} />
-            <Title order={2}>Patient Data</Title>
             <AppFormProvider form={form}>
-                <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} />
+                <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
+                    <Title order={2}>Patient Data</Title>
+                    <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} />
+                </Paper>
                 <Anamnesis anamnesis={anamnesis} view={true} />
                 <Conclusion conclusion={conclusion} view={true} />
                 <Secretary secretary={payment} view={true} />

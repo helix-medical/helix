@@ -152,7 +152,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                             <Grid.Col span={6}>
                                 <Text>Last Appointments</Text>
                                 <Badge color="green" variant="dot" size="lg">
-                                    {passif.lastAppointments.length}
+                                    {passif.lastAppointments.length - 1}
                                 </Badge>
                             </Grid.Col>
                             <Grid.Col span={6}>

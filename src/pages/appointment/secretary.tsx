@@ -1,5 +1,5 @@
 // import { DateInput } from '@mantine/dates';
-import { Title, Grid, Select, NumberInput, Divider, TextInput } from '@mantine/core';
+import { Title, Grid, Select, NumberInput, TextInput, Paper } from '@mantine/core';
 import { useAppFormContext } from './formContext';
 import { IconCurrencyEuro } from '@tabler/icons-react';
 
@@ -15,8 +15,7 @@ const Secretary = ({ secretary, view }: IProps): JSX.Element => {
     const form = useAppFormContext();
 
     return (
-        <>
-            <Divider my="lg" />
+        <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
             <Title order={2}>Secretary Part</Title>
             <Grid columns={12}>
                 <Grid.Col span={6}>
@@ -50,7 +49,7 @@ const Secretary = ({ secretary, view }: IProps): JSX.Element => {
                     )}
                 </Grid.Col>
             </Grid>
-        </>
+        </Paper>
     );
 };
 

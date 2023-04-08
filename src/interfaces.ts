@@ -52,6 +52,7 @@ export interface IAppointmentDataView {
     sex: string;
     city: string;
     passif: string;
+    payment: string;
 }
 
 export interface IAppointmentExtended {
