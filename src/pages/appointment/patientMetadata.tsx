@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import { Textarea, Title, Tabs, Button, Badge } from '@mantine/core';
+import { Textarea, Title, Tabs, Button, Badge, Center } from '@mantine/core';
 import PreviousAppointments from './previousAppointments';
 import Biodatas from './biodatas';
 import { IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
@@ -87,7 +87,7 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                         disabled
                         rightSection={
                             <Badge w={16} h={16} sx={{ pointerEvents: 'none' }} variant="filled" size="xs" p={0}>
-                                {passif.lastAppointments.length}
+                                {passif.lastAppointments.length - 1}
                             </Badge>
                         }
                     >
@@ -112,9 +112,11 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                     </Tabs.Panel>
                 </form>
             </Tabs>
-            <Button variant="light" onClick={handleClick} m="lg">
-                Update Patient Data
-            </Button>
+            <Center>
+                <Button variant="light" onClick={handleClick} m="lg">
+                    Update Patient Data
+                </Button>
+            </Center>
         </div>
     );
 }

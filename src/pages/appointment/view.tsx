@@ -9,6 +9,7 @@ import NavBarAppointment from './navbar';
 import { Title } from '@mantine/core';
 import { useAppForm, AppFormProvider } from './formContext';
 import setNotification from '../system/errors/feedbackNotif';
+import Secretary from './secretary';
 
 const ViewAppointment = () => {
     const id = window.location.href.split('/').slice(-2)[0];
@@ -28,6 +29,10 @@ const ViewAppointment = () => {
             diagnosis: '',
             treatment: '',
             observations: '',
+        }),
+        payment: JSON.stringify({
+            amount: '',
+            method: '',
         }),
         patientId: '',
         status: '',
@@ -57,6 +62,7 @@ const ViewAppointment = () => {
 
     const anamnesis = JSON.parse(data.anamnesis);
     const conclusion = JSON.parse(data.conclusion);
+    const payment = JSON.parse(data.payment);
 
     return (
         <>
@@ -67,6 +73,7 @@ const ViewAppointment = () => {
                 <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} />
                 <Anamnesis anamnesis={anamnesis} view={true} />
                 <Conclusion conclusion={conclusion} view={true} />
+                <Secretary secretary={payment} view={true} />
             </AppFormProvider>
         </>
     );

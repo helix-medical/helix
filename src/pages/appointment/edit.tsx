@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button } from '@mantine/core';
+import { Button, Center } from '@mantine/core';
 import PatientMetadata from './patientMetadata';
 import Anamnesis from './anamnesis';
 import Conclusion from './conclusion';
@@ -11,6 +11,8 @@ import { isNotEmpty } from '@mantine/form';
 import { useAppForm, AppFormProvider } from './formContext';
 import setNotification from '../system/errors/feedbackNotif';
 import { useNavigate } from 'react-router-dom';
+import Secretary from './secretary';
+import moment from 'moment';
 
 const EditAppointment = (): JSX.Element => {
     const id = window.location.href.split('/').slice(-2)[0];
@@ -51,11 +53,25 @@ const EditAppointment = (): JSX.Element => {
         const appointmentFinal = {
             anamnesis: JSON.stringify(form.values.anamnesis),
             conclusion: JSON.stringify(form.values.conclusion),
+            payment: JSON.stringify(form.values.payment),
         };
 
         try {
-            const res = await axios.put(`/api/appointments/${id}`, appointmentFinal);
+            let res = await axios.put(`/api/appointments/${id}`, appointmentFinal);
             setNotification(false, res.data.message);
+            try {
+                res = await axios.post(`/api/accounting`, {
+                    amount: form.values.payment.amount,
+                    method: form.values.payment.method,
+                    appId: id,
+                    patientId: data.patientId,
+                    date: moment().format('YYYY-MM-DD'),
+                });
+                setNotification(false, res.data.message);
+            } catch (error: any) {
+                if (!error?.response) setNotification(true, 'Network error');
+                else setNotification(true, `${error.message}: ${error.response.data.message}`);
+            }
             navigate('/appointments');
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');
@@ -76,6 +92,10 @@ const EditAppointment = (): JSX.Element => {
                 treatment: '',
                 observations: '',
             },
+            payment: {
+                amount: 33,
+                method: '',
+            },
         },
 
         validate: {
@@ -90,6 +110,10 @@ const EditAppointment = (): JSX.Element => {
                 treatment: isNotEmpty('Treatment is required'),
                 observations: isNotEmpty('Observations are required'),
             },
+            payment: {
+                amount: isNotEmpty('Amount is required'),
+                method: isNotEmpty('Method is required'),
+            },
         },
     });
 
@@ -102,9 +126,12 @@ const EditAppointment = (): JSX.Element => {
                 <form onSubmit={handleClick}>
                     <Anamnesis anamnesis={form.values.anamnesis} />
                     <Conclusion conclusion={form.values.conclusion} />
-                    <Button type="submit" m="lg">
-                        Valid Appointment
-                    </Button>
+                    <Secretary secretary={form.values.payment} />
+                    <Center>
+                        <Button type="submit" m="lg">
+                            Valid Appointment
+                        </Button>
+                    </Center>
                 </form>
             </AppFormProvider>
         </>

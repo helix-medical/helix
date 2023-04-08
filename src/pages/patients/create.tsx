@@ -26,7 +26,7 @@ const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
             nextApp: '',
             passif: JSON.stringify({
                 medicalIssues: '',
-                lastAppointments: [0],
+                lastAppointments: ['0'],
             }),
         },
 

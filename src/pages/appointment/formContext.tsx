@@ -12,6 +12,10 @@ interface IFormValues {
         treatment: string;
         observations: string;
     };
+    payment: {
+        amount: number;
+        method: string;
+    };
 }
 
 export const [AppFormProvider, useAppFormContext, useAppForm] = createFormContext<IFormValues>();

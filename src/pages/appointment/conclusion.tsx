@@ -1,4 +1,3 @@
-import React from 'react';
 import { Textarea, Title, Grid, TextInput } from '@mantine/core';
 import getNbLines from '../../tools/getLines';
 import { IConclusion } from '../../interfaces';
@@ -34,7 +33,7 @@ function Conclusion({ conclusion, view }: IProps): JSX.Element {
                         readOnly={view}
                     />
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col span={12}>
                     <Textarea
                         label="Observations"
                         maxRows={nbLines(conclusion.observations, 3)}

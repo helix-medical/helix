@@ -45,7 +45,8 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
         const fetchAllAppointments = async () => {
             try {
                 const res = await axios.get('/api/appointments');
-                setAppointments(res.data);
+                if (res.data.length === 0) setError('No Appointments Found');
+                else setAppointments(res.data);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');
                 else setNotification(true, `${error.message}: ${error.response.data.message}`);
