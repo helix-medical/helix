@@ -51,8 +51,7 @@ const links = [
     { label: 'Patients', link: '/patients' },
     { label: 'Appointments', link: '/appointments' },
     { label: 'Calendar', link: '/calendar' },
-    { label: 'Admin', link: '/admin' },
-    // { label: 'Accounting', link: '/accounting' },
+    { label: 'Accounting', link: '/accounting' },
 ];
 
 const HeaderApp = () => {

@@ -91,3 +91,12 @@ export interface IUsers {
     clearPassword: string;
     lastActive: string;
 }
+
+export interface ITransactions {
+    uid?: string;
+    date: string;
+    method: string;
+    amount: number;
+    patientId: string;
+    appId: string;
+}

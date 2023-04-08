@@ -12,6 +12,7 @@ import Layout from './layout';
 import RequireAuth from '../../components/auth/requireAuth';
 import Unauthorized from './errors/unauthorized';
 import PersistentLogin from '../../components/auth/persistentLogin';
+import Accounting from '../accounting/accounting';
 
 const ROLES = {
     ADMIN: 2003,
@@ -34,6 +35,7 @@ const AppRouter = () => {
                         <Route path="/" element={<Home />} />
                         <Route path="patients" element={<Patients add={false} />} />
                         <Route path="patients/add" element={<Patients add={true} />} />
+                        <Route path="accounting" element={<Accounting />} />
                     </Route>
                     <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER]} />}>
                         <Route path="calendar" element={<Calendar />} />
