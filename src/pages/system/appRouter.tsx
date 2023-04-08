@@ -1,18 +1,21 @@
 import { Routes, Route } from 'react-router-dom';
-import Patients from '../../pages/patients/patients';
-import Home from '../home/home';
-import Calendar from '../../components/calendar';
-import EditAppointment from '../../pages/appointment/edit';
-import Appointments from '../../pages/appointments/appointments';
-import ViewAppointment from '../../pages/appointment/view';
-import NotFound from '../../pages/system/404';
-import Admin from '../admin/admin';
+// System
 import Login from './login';
 import Layout from './layout';
 import RequireAuth from '../../components/auth/requireAuth';
-import Unauthorized from './errors/unauthorized';
 import PersistentLogin from '../../components/auth/persistentLogin';
+// Pages
+import Patients from '../patients/patients';
+import Home from '../home/home';
+import Calendar from '../../components/calendar';
+import EditAppointment from '../appointment/edit';
+import Appointments from '../appointments/appointments';
+import ViewAppointment from '../appointment/view';
+import Admin from '../admin/admin';
 import Accounting from '../accounting/accounting';
+// Errors
+import NotFound from './errors/404';
+import Unauthorized from './errors/unauthorized';
 
 const ROLES = {
     ADMIN: 2003,
