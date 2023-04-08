@@ -44,7 +44,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
     const getPatients = async () => {
         try {
             const response = await axios.get('/api/patients/appointments');
-            setPatients(response.data.map((patient: any) => ({ label: `${patient.name} ${patient.lastName}`, value: patient.uid })));
+            setPatients(response.data.map((patient: any) => ({ label: `${patient.name} ${patient.lastName}`, value: patient.id })));
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');
             else setNotification(true, `${error.message}: ${error.response.data.message}`);

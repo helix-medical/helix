@@ -34,6 +34,7 @@ const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
             name: (value) => (value.length < 2 ? 'Name must be at least 2 chars' : null),
             lastName: (value) => (value.length < 2 ? 'Last name must be at least 2 chars' : null),
             sex: (value) => (value !== 'F' && value !== 'M' ? 'Sex must be at `M` or `F`' : null),
+            birthDate: isNotEmpty('Birth date is required'),
             email: isEmail('Invalid email'),
             city: (value) => (value.length < 2 ? 'City must be at least 2 chars' : null),
             nextApp: isNotEmpty('Next appointment is required'),

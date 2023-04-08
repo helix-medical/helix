@@ -94,7 +94,7 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                         Previous Appointments
                     </Tabs.Tab>
                 </Tabs.List>
-                <form onSubmit={handleClick}>
+                <form>
                     <Tabs.Panel value="data">
                         <Biodatas patient={patientInput} view={false} passif={passif} handler={handleChange} />
                     </Tabs.Panel>
@@ -112,7 +112,7 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                     </Tabs.Panel>
                 </form>
             </Tabs>
-            <Button variant="light" type="submit" m="lg">
+            <Button variant="light" onClick={handleClick} m="lg">
                 Update Patient Data
             </Button>
         </div>
