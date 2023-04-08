@@ -77,9 +77,9 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
         <>
             <Grid justify="space-between" align="center" p="md">
                 <Group position="left">
-                    <Title order={2}>
+                    <Title order={1}>
                         Patients{' '}
-                        <Badge size="lg" radius="lg" variant="filled">
+                        <Badge size="xl" radius="lg" variant="filled">
                             {nbPatients}
                         </Badge>
                     </Title>
