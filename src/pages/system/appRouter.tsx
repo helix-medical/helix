@@ -4,6 +4,7 @@ import Login from './login';
 import Layout from './layout';
 import RequireAuth from '../../components/auth/requireAuth';
 import PersistentLogin from '../../components/auth/persistentLogin';
+import cnf from '../../config/config';
 // Pages
 import Patients from '../patients/patients';
 import Home from '../home/home';
@@ -16,13 +17,8 @@ import Accounting from '../accounting/accounting';
 import NotFound from './errors/404';
 import Unauthorized from './errors/unauthorized';
 
-const ROLES = {
-    ADMIN: 2003,
-    PRACTITIONER: 1998,
-    SECRETARY: 1515,
-};
-
 const AppRouter = () => {
+    const ROLES = cnf.roles;
     return (
         <Routes>
             <Route path="/" element={<Layout />}>

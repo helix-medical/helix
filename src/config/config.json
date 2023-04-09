@@ -1,0 +1,11 @@
+{
+    "defaultAmount": 33,
+    "defaultPaymentMethod": "card",
+    "durationAppointment": 50,
+    "durationBreak": 10,
+    "roles": {
+        "ADMIN": 2003,
+        "PRACTITIONER": 1998,
+        "SECRETARY": 1515
+    }
+}

@@ -2,6 +2,7 @@
 import { Title, Grid, Select, NumberInput, TextInput, Paper } from '@mantine/core';
 import { useAppFormContext } from './formContext';
 import { IconCurrencyEuro } from '@tabler/icons-react';
+import cnf from '../../config/config';
 
 interface IProps {
     view?: boolean;
@@ -30,7 +31,7 @@ const Secretary = ({ secretary, view }: IProps): JSX.Element => {
                         <NumberInput
                             icon={<IconCurrencyEuro size="1rem" />}
                             label="Amount"
-                            defaultValue={view ? secretary.amount : 33}
+                            defaultValue={view ? secretary.amount : cnf.defaultAmount}
                             {...(view ? null : form.getInputProps('payment.amount'))}
                             readOnly={view}
                         />
@@ -42,7 +43,7 @@ const Secretary = ({ secretary, view }: IProps): JSX.Element => {
                     ) : (
                         <Select
                             label="Method"
-                            defaultValue={'card'}
+                            defaultValue={cnf.defaultPaymentMethod}
                             data={['cash', 'card', 'transfer']}
                             {...form.getInputProps('payment.method')}
                         />
