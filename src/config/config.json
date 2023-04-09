@@ -3,6 +3,8 @@
     "defaultPaymentMethod": "card",
     "durationAppointment": 50,
     "durationBreak": 10,
+    "formatDate": "YYYY-MM-DD",
+    "formatDatePretty": "DD MMMM YYYY",
     "roles": {
         "ADMIN": 2003,
         "PRACTITIONER": 1998,

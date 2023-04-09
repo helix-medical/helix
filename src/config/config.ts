@@ -5,6 +5,8 @@ interface IConfig {
     defaultPaymentMethod: string;
     durationAppointment: number;
     durationBreak: number;
+    formatDate: string;
+    formatDatePretty: string;
     roles: {
         ADMIN: number;
         PRACTITIONER: number;
