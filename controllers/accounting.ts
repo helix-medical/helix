@@ -4,6 +4,7 @@ import logger from '../system/logger';
 import sc from '../tools/statusCodes';
 import uuid from '../tools/uuid';
 import queries from '../database/queries';
+import moment from 'moment';
 
 const create = async (req: Request, res: Response) => {
     logger.post(req.originalUrl, 'REQ');
@@ -22,21 +23,45 @@ const create = async (req: Request, res: Response) => {
     });
 };
 
-const readAll = async (req: Request, res: Response) => {
+const getTransactions = async (req: Request, res: Response) => {
     logger.get(req.originalUrl, 'REQ');
-    const sqlQuery = 'SELECT * FROM accounting';
+    const sqlQuery = 'SELECT * FROM accounting WHERE date BETWEEN ? AND ?';
+    const values = [req.params.start, req.params.end];
 
-    db.query(sqlQuery, (err: any, data: any) => {
+    db.query(sqlQuery, values, (err: any, data: any) => {
         if (err) {
             logger.get(req.originalUrl, 'ERR', err);
             return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
         }
-        logger.get(req.originalUrl, 'OK', 'Return all transactions');
+        logger.get(req.originalUrl, 'OK', 'Return all period transactions');
         return res.status(sc.OK).json(data);
+    });
+};
+
+const getSum = async (req: Request, res: Response) => {
+    logger.get(req.originalUrl, 'REQ');
+    const sqlQuery = `SELECT 
+        SUM(CASE WHEN COALESCE(method, '') = 'check' THEN amount ELSE 0 END) AS checks,
+        SUM(CASE WHEN COALESCE(method, '') = 'card' THEN amount ELSE 0 END) AS cards,
+        SUM(CASE WHEN COALESCE(method, '') = 'cash' THEN amount ELSE 0 END) AS cashs
+    FROM accounting
+    WHERE date BETWEEN ? AND ?`;
+    const values = [req.params.start, req.params.end];
+
+    db.query(sqlQuery, values, (err: any, data: any) => {
+        if (err) {
+            logger.get(req.originalUrl, 'ERR', err);
+            return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
+        }
+
+        const sum = data[0].checks + data[0].cards + data[0].cashs;
+        logger.get(req.originalUrl, 'OK', 'Return period sum');
+        return res.status(sc.OK).json({ ...data[0], sum });
     });
 };
 
 export default {
     create,
-    readAll,
+    getTransactions,
+    getSum,
 };
