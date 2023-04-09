@@ -1,7 +1,7 @@
 import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { Badge, Title } from '@mantine/core';
+import { Badge, Paper, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import cnf from '../config/config';
@@ -35,7 +35,9 @@ const Calendar = () => {
             <Title order={1} mb="xl">
                 Calendar <Badge color="teal">Beta</Badge>
             </Title>
-            <BigCalendar localizer={localizer} events={events} defaultView="week" />
+            <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
+                <BigCalendar localizer={localizer} events={events} defaultView="week" />
+            </Paper>
         </>
     );
 };

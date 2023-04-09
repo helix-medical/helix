@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
-import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles } from '@mantine/core';
+import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles, Paper } from '@mantine/core';
 import PatientItemGrid from './itemGrid';
 import ModalAddPatient from './create';
 import PatientsTableView from './listView';
@@ -98,7 +98,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
             {error ? (
                 <NoContent message={error} title="No Patients Found" />
             ) : (
-                <>
+                <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
                     {isGrid ? (
                         <Grid columns={12}>
                             {patients.map((patient: IPatient) => (
@@ -110,7 +110,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                     ) : (
                         <PatientsTableView patients={patients} />
                     )}
-                </>
+                </Paper>
             )}
             <ModalAddPatient show={show} toggleModal={toggleModal} />
         </>

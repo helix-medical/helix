@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Table, Grid, Title, Badge, Paper, SegmentedControl, Button } from '@mantine/core';
+import { Table, Grid, Title, Badge, Paper, SegmentedControl, Button, Text } from '@mantine/core';
 import { useState, useEffect } from 'react';
 import setNotification from '../system/errors/feedbackNotif';
 import IdBadge from '../../components/customBadges/id';
@@ -63,7 +63,7 @@ const ListTransactions = (): JSX.Element => {
                 <thead>
                     <tr>
                         <th>UID</th>
-                        <th>Amount (€)</th>
+                        <th>Amount</th>
                         <th>Patient</th>
                         <th>Method</th>
                         <th>Date</th>
@@ -76,7 +76,9 @@ const ListTransactions = (): JSX.Element => {
                             <td>
                                 <IdBadge id={transaction.uid ?? ''} />
                             </td>
-                            <td>{transaction.amount}</td>
+                            <td>
+                                <Text fw={700}>€{transaction.amount}</Text>
+                            </td>
                             <td>
                                 <IdBadge id={transaction.patientId} />
                             </td>

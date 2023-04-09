@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles, Burger } from '@mantine/core';
+import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles, Burger, Paper } from '@mantine/core';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
 import AppItemGrid from './itemGrid';
 import AppTableView from './listView';
@@ -95,7 +95,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
             {error ? (
                 <NoContent message={error} title="No Appointments Found" />
             ) : (
-                <>
+                <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
                     {isGrid ? (
                         <Grid columns={12}>
                             {appointments.map((appointment: IAppointmentExtended) => (
@@ -107,7 +107,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                     ) : (
                         <AppTableView appointments={appointments} />
                     )}
-                </>
+                </Paper>
             )}
             <ModalCreateApp show={show} toggleModal={toggleModal} />
         </>
