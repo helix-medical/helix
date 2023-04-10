@@ -10,17 +10,17 @@ interface IProps {
 
 function Conclusion({ conclusion, view }: IProps): JSX.Element {
     const nbLines = (text: string, base: number) => (view ? getNbLines(text) : base);
-    const formContext = useAppFormContext();
+    const form = useAppFormContext();
 
     return (
-        <Paper shadow="sm" radius="md" p="lg" withBorder my='lg'>
+        <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
             <Title order={2}>Conclusion</Title>
             <Grid columns={12}>
                 <Grid.Col span={12}>
                     <TextInput
                         label="Diagnosis"
                         defaultValue={view ? conclusion.diagnosis : undefined}
-                        {...(view ? null : formContext.getInputProps('conclusion.diagnosis'))}
+                        {...(view ? null : form.getInputProps('conclusion.diagnosis'))}
                         readOnly={view}
                     />
                 </Grid.Col>
@@ -29,7 +29,7 @@ function Conclusion({ conclusion, view }: IProps): JSX.Element {
                         label="Treatment"
                         maxRows={nbLines(conclusion.treatment, 3)}
                         defaultValue={view ? conclusion.treatment : undefined}
-                        {...(view ? null : formContext.getInputProps('conclusion.treatment'))}
+                        {...(view ? null : form.getInputProps('conclusion.treatment'))}
                         readOnly={view}
                     />
                 </Grid.Col>
@@ -38,7 +38,7 @@ function Conclusion({ conclusion, view }: IProps): JSX.Element {
                         label="Observations"
                         maxRows={nbLines(conclusion.observations, 3)}
                         defaultValue={view ? conclusion.observations : undefined}
-                        {...(view ? null : formContext.getInputProps('conclusion.observations'))}
+                        {...(view ? null : form.getInputProps('conclusion.observations'))}
                         readOnly={view}
                     />
                 </Grid.Col>

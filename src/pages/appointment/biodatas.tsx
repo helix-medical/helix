@@ -1,4 +1,3 @@
-import React from 'react';
 import { TextInput, Textarea, Grid } from '@mantine/core';
 import getNbLines from '../../tools/getLines';
 import { IPassif, IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
@@ -14,13 +13,13 @@ const Biodatas = ({ patient, view, passif, handler }: IProps): JSX.Element => {
     return (
         <Grid columns={12}>
             <Grid.Col span={4}>
-                <TextInput label="Name" readOnly={view} defaultValue={patient.name} onChange={handler} name="name" />
+                <TextInput label="Name" readOnly={view} defaultValue={patient.pName} onChange={handler} name="name" />
             </Grid.Col>
             <Grid.Col span={4}>
                 <TextInput
                     label="Last Name"
                     readOnly={view}
-                    defaultValue={patient.lastName}
+                    defaultValue={patient.pLastName}
                     onChange={handler}
                     name="lastName"
                 />

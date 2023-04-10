@@ -80,7 +80,7 @@ const ListTransactions = (): JSX.Element => {
                                 <Text fw={700}>€{transaction.amount}</Text>
                             </td>
                             <td>
-                                <IdBadge id={transaction.patientId} />
+                                {transaction.patientName} {transaction.patientLastName}
                             </td>
                             <td>
                                 <PaymentMethod method={transaction.method} />

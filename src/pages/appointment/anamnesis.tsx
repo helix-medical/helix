@@ -10,7 +10,7 @@ interface IProps {
 
 const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
     const nbLines = (text: string, base: number) => (view ? getNbLines(text) : base);
-    const formContext = useAppFormContext();
+    const form = useAppFormContext();
 
     return (
         <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
@@ -21,7 +21,7 @@ const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
                         label="Reasons for the consultation"
                         maxRows={nbLines(anamnesis.reasons, 1)}
                         defaultValue={view ? anamnesis.reasons : undefined}
-                        {...(view ? null : formContext.getInputProps('anamnesis.reasons'))}
+                        {...(view ? null : form.getInputProps('anamnesis.reasons'))}
                         readOnly={view}
                     />
                 </Grid.Col>
@@ -30,7 +30,7 @@ const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
                         label="Symptoms"
                         maxRows={nbLines(anamnesis.symptoms, 3)}
                         defaultValue={view ? anamnesis.symptoms : undefined}
-                        {...(view ? null : formContext.getInputProps('anamnesis.symptoms'))}
+                        {...(view ? null : form.getInputProps('anamnesis.symptoms'))}
                         readOnly={view}
                     />
                 </Grid.Col>
@@ -39,7 +39,7 @@ const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
                         label="Known diseases"
                         maxRows={nbLines(anamnesis.knownDiseases, 3)}
                         defaultValue={view ? anamnesis.knownDiseases : undefined}
-                        {...(view ? null : formContext.getInputProps('anamnesis.knownDiseases'))}
+                        {...(view ? null : form.getInputProps('anamnesis.knownDiseases'))}
                         readOnly={view}
                     />
                 </Grid.Col>
@@ -48,7 +48,7 @@ const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
                         label="Medications"
                         maxRows={nbLines(anamnesis.knownMedications, 3)}
                         defaultValue={view ? anamnesis.knownMedications : undefined}
-                        {...(view ? null : formContext.getInputProps('anamnesis.knownMedications'))}
+                        {...(view ? null : form.getInputProps('anamnesis.knownMedications'))}
                         readOnly={view}
                     />
                 </Grid.Col>

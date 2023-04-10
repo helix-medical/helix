@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { Textarea, Title, Tabs, Button, Badge, Center, Paper } from '@mantine/core';
@@ -17,8 +16,8 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
     const id = patientInput.patientId;
 
     const [patient, setPatient] = useState({
-        name: patientInput.name,
-        lastName: patientInput.lastName,
+        name: patientInput.pName,
+        lastName: patientInput.pLastName,
         birthDate: patientInput.birthDate,
         email: patientInput.email,
         city: patientInput.city,
@@ -32,10 +31,10 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
     const handleClick = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         if (patient.name === '') {
-            patient.name = patientInput.name;
+            patient.name = patientInput.pName;
         }
         if (patient.lastName === '') {
-            patient.lastName = patientInput.lastName;
+            patient.lastName = patientInput.pLastName;
         }
         if (patient.birthDate === '') {
             patient.birthDate = patientInput.birthDate;
@@ -61,6 +60,7 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                 lastAppointments: passif.lastAppointments,
             }),
         };
+
         try {
             const res = await axios.put(`/api/patients/${id}`, finalPatient);
             setNotification(false, res.data.message);
@@ -113,7 +113,7 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                 </form>
             </Tabs>
             <Center>
-                <Button variant="light" onClick={handleClick} mt='lg'>
+                <Button variant="light" onClick={handleClick} mt="lg">
                     Update Patient Data
                 </Button>
             </Center>

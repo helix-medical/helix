@@ -27,7 +27,7 @@ const AppItemGrid = ({ appointment }: IProps): JSX.Element => {
                 <List>
                     <List.Item>Date: {dateToReadable(appointment.date)}</List.Item>
                     <List.Item>
-                        Kind: <KindAppointment kind={appointment.reasons} />
+                        Kind: <KindAppointment kind={appointment.kind} />
                     </List.Item>
                     <List.Item>
                         Status: <StateAppointment state={appointment.status} />

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, Center } from '@mantine/core';
@@ -19,16 +18,18 @@ const EditAppointment = (): JSX.Element => {
     const navigate = useNavigate();
 
     const [data, setData] = useState({
-        id: id,
+        appID: id,
         date: '',
-        reasons: '',
+        kind: '',
         patientId: '',
-        name: '',
-        lastName: '',
+        pName: '',
+        pLastName: '',
         email: '',
         birthDate: '',
         sex: '',
         city: '',
+        name: '',
+        lastName: '',
         passif: JSON.stringify({
             medicalIssues: '',
             lastAppointments: [],
@@ -50,29 +51,30 @@ const EditAppointment = (): JSX.Element => {
     const handleClick = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         if (form.validate().hasErrors) return;
-        const appointmentFinal = {
-            anamnesis: JSON.stringify(form.values.anamnesis),
-            conclusion: JSON.stringify(form.values.conclusion),
-            payment: JSON.stringify(form.values.payment),
-        };
 
         try {
-            let res = await axios.put(`/api/appointments/${id}`, appointmentFinal);
+            let res = await axios.post(`/api/accounting`, {
+                amount: form.values.payment.amount,
+                method: form.values.payment.method,
+                appointment: id,
+                date: moment().format('YYYY-MM-DD'),
+            });
             setNotification(false, res.data.message);
+            const appointmentFinal = {
+                content: JSON.stringify({
+                    ...form.values.anamnesis,
+                    ...form.values.conclusion,
+                }),
+                payment: res.data.id,
+            };
             try {
-                res = await axios.post(`/api/accounting`, {
-                    amount: form.values.payment.amount,
-                    method: form.values.payment.method,
-                    appId: id,
-                    patientId: data.patientId,
-                    date: moment().format('YYYY-MM-DD'),
-                });
+                res = await axios.put(`/api/appointments/${id}`, appointmentFinal);
                 setNotification(false, res.data.message);
+                navigate('/appointments');
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');
                 else setNotification(true, `${error.message}: ${error.response.data.message}`);
             }
-            navigate('/appointments');
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');
             else setNotification(true, `${error.message}: ${error.response.data.message}`);

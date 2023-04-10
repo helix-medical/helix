@@ -24,7 +24,7 @@ const AppTableView = ({ appointments }: IProps): JSX.Element => {
                 <SexBadge sex={appointment.sex} /> {appointment.name} {appointment.lastName}
             </td>
             <td>
-                <KindAppointment kind={appointment.reasons} />
+                <KindAppointment kind={appointment.kind} />
             </td>
             <td>
                 <StateAppointment state={appointment.status} />

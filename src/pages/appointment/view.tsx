@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Biodatas from './biodatas';
@@ -16,28 +15,24 @@ const ViewAppointment = () => {
     const form = useAppForm();
 
     const [data, setData] = useState({
-        id: id,
+        appID: id,
         date: '',
-        reasons: '',
-        anamnesis: JSON.stringify({
+        kind: '',
+        content: JSON.stringify({
             reasons: '',
             symptoms: '',
             knownDiseases: '',
             knownMedications: '',
-        }),
-        conclusion: JSON.stringify({
             diagnosis: '',
             treatment: '',
             observations: '',
         }),
-        payment: JSON.stringify({
-            amount: '',
-            method: '',
-        }),
+        amount: '',
+        method: '',
         patientId: '',
         status: '',
-        name: '',
-        lastName: '',
+        pName: '',
+        pLastName: '',
         email: '',
         birthDate: '',
         sex: '',
@@ -46,7 +41,10 @@ const ViewAppointment = () => {
             medicalIssues: '',
             lastAppointments: [],
         }),
+        name: '',
+        lastName: '',
     });
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -60,9 +58,11 @@ const ViewAppointment = () => {
         fetchData();
     }, [id]);
 
-    const anamnesis = JSON.parse(data.anamnesis);
-    const conclusion = JSON.parse(data.conclusion);
-    const payment = JSON.parse(data.payment);
+    const content = JSON.parse(data.content);
+    const payment = {
+        amount: data.amount as any,
+        method: data.method,
+    };
 
     return (
         <>
@@ -73,8 +73,8 @@ const ViewAppointment = () => {
                     <Title order={2}>Patient Data</Title>
                     <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} />
                 </Paper>
-                <Anamnesis anamnesis={anamnesis} view={true} />
-                <Conclusion conclusion={conclusion} view={true} />
+                <Anamnesis anamnesis={content} view={true} />
+                <Conclusion conclusion={content} view={true} />
                 <Secretary secretary={payment} view={true} />
             </AppFormProvider>
         </>

@@ -14,9 +14,8 @@ export interface IAppointment {
     id?: string;
     patientId: string;
     date: string;
-    reasons: string;
-    anamnesis: string;
-    conclusion: string;
+    kind: string;
+    content: string;
 }
 
 export interface IPassif {
@@ -38,9 +37,9 @@ export interface IConclusion {
 }
 
 export interface IAppointmentDataView {
-    id?: string;
+    appID?: string;
     date: string;
-    reasons: string;
+    kind: string;
     anamnesis: string;
     conclusion: string;
     patientId: string;
@@ -52,15 +51,17 @@ export interface IAppointmentDataView {
     sex: string;
     city: string;
     passif: string;
-    payment: string;
+    amount: string;
+    method: string;
+    pName: string;
+    pLastName: string;
 }
 
 export interface IAppointmentExtended {
     id?: string;
     date: string;
-    reasons: string;
-    anamnesis: string;
-    conclusion: string;
+    kind: string;
+    content: string;
     patientId: string;
     status: string;
     name: string;
@@ -69,9 +70,9 @@ export interface IAppointmentExtended {
 }
 
 export interface IAppointmentDataEdit {
-    id?: string;
+    appID?: string;
     date: string;
-    reasons: string;
+    kind: string;
     patientId: string;
     name: string;
     lastName: string;
@@ -80,6 +81,8 @@ export interface IAppointmentDataEdit {
     sex: string;
     city: string;
     passif: string;
+    pName: string;
+    pLastName: string;
 }
 
 export interface IUsers {
@@ -98,6 +101,7 @@ export interface ITransactions {
     date: string;
     method: string;
     amount: number;
-    patientId: string;
+    patientName: string;
+    patientLastName: string;
     appId: string;
 }
