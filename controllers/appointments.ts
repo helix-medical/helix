@@ -6,9 +6,9 @@ import sc from '../tools/statusCodes';
 const readAll = async (req: Request, res: Response) => {
     logger.get(req.originalUrl, 'REQ');
     const sqlQuery = `
-    SELECT appointments.id, appointments.date, appointments.reasons, appointments.status, patients.name, patients.lastName, patients.sex 
-    FROM appointments INNER JOIN patients ON appointments.patientId = patients.id
-    `;
+        SELECT app.id, app.date, app.kind, app.status, p.name, p.lastName, p.sex
+        FROM appointments app
+        INNER JOIN patients p ON app.patientId = p.id`;
     db.query(sqlQuery, (err: any, data: any) => {
         if (err) {
             logger.get(req.originalUrl, 'ERR', err);

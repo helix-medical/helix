@@ -1,10 +1,6 @@
 {
     "type": "object",
     "properties": {
-        "patientId": {
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}$"
-        },
         "amount": {
             "type": "number"
         },
@@ -14,16 +10,16 @@
         "date": {
             "type": "string"
         },
-        "appId": {
+        "appointment": {
             "type": "string",
             "pattern": "^[0-9a-fA-F]{8}$"
         }
     },
     "required": [
-        "patientId",
         "amount",
         "method",
-        "date"
+        "date",
+        "appointment"
     ],
     "additionalProperties": false
 }

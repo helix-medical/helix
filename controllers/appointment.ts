@@ -11,16 +11,23 @@ const create = async (req: Request, res: Response) => {
     while (await queries.checkId(id, 'users')) id = uuid();
     const sqlQuery =
         'INSERT INTO appointments ' +
-        '(`id`, `patientId`, `date`, `reasons`, `anamnesis`, `conclusion`, `status`, `payment`) VALUES (?)';
+        '(`id`, `patientId`, `date`, `kind`, `content`, `status`, `practitioner`) VALUES (?)';
     const values = [
         id,
         req.body.patientId,
         req.body.date,
-        req.body.reasons,
-        JSON.stringify({ reasons: '', symptoms: '', knownDiseases: '', knownMedications: '' }),
-        JSON.stringify({ diagnosis: '', treatment: '', observations: '' }),
+        req.body.kind,
+        JSON.stringify({
+            reasons: '',
+            symptoms: '',
+            knownDiseases: '',
+            knownMedications: '',
+            diagnosis: '',
+            treatment: '',
+            observations: '',
+        }),
         'pending',
-        JSON.stringify({ amount: 0, method: 'card' }),
+        req.body.practitioner,
     ];
 
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
@@ -36,9 +43,8 @@ const create = async (req: Request, res: Response) => {
 const update = async (req: Request, res: Response) => {
     logger.put(req.originalUrl, 'REQ');
     const appointmentId = req.params.id;
-    const sqlQuery =
-        'UPDATE appointments ' + 'SET `anamnesis` = ?, `conclusion` = ?, `status` = ? , `payment` = ?' + 'WHERE id = ?';
-    const values = [req.body.anamnesis, req.body.conclusion, 'finished', req.body.payment];
+    const sqlQuery = 'UPDATE appointments SET `content` = ?, `status` = ? , `payment` = ? WHERE id = ?';
+    const values = [req.body.content, 'finished', req.body.payment];
 
     db.query(sqlQuery, [...values, appointmentId], (err: any, data: any) => {
         if (err) {
@@ -53,11 +59,13 @@ const update = async (req: Request, res: Response) => {
 const getForView = async (req: Request, res: Response) => {
     logger.get(req.originalUrl, 'REQ');
     const appointmentId = req.params.id;
-    const sqlQuery = `
-    SELECT appointments.id, appointments.date, appointments.reasons, appointments.anamnesis, appointments.conclusion, appointments.payment, appointments.patientId, appointments.status, patients.name, patients.lastName, patients.email, patients.birthDate, patients.city, patients.sex, patients.passif 
-    FROM appointments INNER JOIN patients ON appointments.patientId = patients.id
-    WHERE appointments.id = ?
-    `;
+    const sqlQuery =
+        'SELECT app.id AS appID, app.date, app.kind, app.content, a.amount, a.method, app.`patientId`, app.status, p.name AS pName, p.`lastName` AS pLastName, p.email, p.`birthDate`, p.city, p.sex, p.passif, u.name, u.`lastName` ' +
+        'FROM appointments app ' +
+        'INNER JOIN patients p  ON app.`patientId` = p.id ' +
+        'INNER JOIN accounting a ON app.payment = a.uid ' +
+        'INNER JOIN users u ON app.practitioner = u.uid ' +
+        'WHERE app.id = ?';
     db.query(sqlQuery, appointmentId, (err: any, data: any) => {
         if (err) {
             logger.get(req.originalUrl, 'ERR', err);
@@ -71,11 +79,12 @@ const getForView = async (req: Request, res: Response) => {
 const getForEdit = async (req: Request, res: Response) => {
     logger.get(req.originalUrl, 'REQ');
     const appointmentId = req.params.id;
-    const sqlQuery = `
-    SELECT appointments.id, appointments.date, appointments.reasons, appointments.patientId, patients.name, patients.lastName, patients.email, patients.birthDate, patients.city, patients.sex, patients.passif 
-    FROM appointments INNER JOIN patients ON appointments.patientId = patients.id
-    WHERE appointments.id = ?
-    `;
+    const sqlQuery =
+        'SELECT app.id AS appID, app.date, app.kind, app.`patientId`, app.status, p.name AS pName, p.`lastName` AS pLastName, p.email, p.`birthDate`, p.city, p.sex, p.passif, u.name, u.`lastName` ' +
+        'FROM appointments app ' +
+        'INNER JOIN patients p ON app.`patientId` = p.id ' +
+        'INNER JOIN users u ON app.practitioner = u.uid ' +
+        'WHERE app.`id` = ?';
     db.query(sqlQuery, appointmentId, (err: any, data: any) => {
         if (err) {
             logger.get(req.originalUrl, 'ERR', err);

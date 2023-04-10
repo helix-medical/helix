@@ -10,8 +10,8 @@ const create = async (req: Request, res: Response) => {
     logger.post(req.originalUrl, 'REQ');
     let id = uuid();
     while (await queries.checkId(id, 'users')) id = uuid();
-    const sqlQuery = 'INSERT INTO accounting (`uid`, `amount`, `patientId`, `method`, `date`, `appId`) VALUES (?)';
-    const values = [id, req.body.amount, req.body.patientId, req.body.method, req.body.date, req.body.appId];
+    const sqlQuery = 'INSERT INTO accounting (`uid`, `amount`, `method`, `date`, `appointment`) VALUES (?)';
+    const values = [id, req.body.amount, req.body.method, req.body.date, req.body.appointment];
 
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
         if (err) {
@@ -25,7 +25,12 @@ const create = async (req: Request, res: Response) => {
 
 const getTransactions = async (req: Request, res: Response) => {
     logger.get(req.originalUrl, 'REQ');
-    const sqlQuery = 'SELECT * FROM accounting WHERE date BETWEEN ? AND ?';
+    const sqlQuery =
+        'SELECT a.uid, a.amount, a.method, a.date, app.id, p.name AS patientName, p.`lastName` AS patientLastName ' +
+        'FROM accounting a ' +
+        'INNER JOIN appointments app ON a.appointment = app.id ' +
+        'INNER JOIN patients p ON app.`patientId` = p.id ' +
+        'WHERE a.date BETWEEN ? AND ?';
     const values = [req.params.start, req.params.end];
 
     db.query(sqlQuery, values, (err: any, data: any) => {

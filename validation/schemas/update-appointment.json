@@ -1,10 +1,7 @@
 {
     "type": "object",
     "properties": {
-        "anamnesis": {
-            "type": "string"
-        },
-        "conclusion": {
+        "content": {
             "type": "string"
         },
         "payment": {
@@ -12,8 +9,7 @@
         }
     },
     "required": [
-        "anamnesis",
-        "conclusion",
+        "content",
         "payment"
     ],
     "additionalProperties": false
