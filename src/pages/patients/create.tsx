@@ -5,6 +5,7 @@ import { Button, Modal, TextInput, Select, Group, Grid, Text, useMantineTheme } 
 import { DateInput, DateTimePicker } from '@mantine/dates';
 import dayjs from 'dayjs';
 import setNotification from '../system/errors/feedbackNotif';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
     show: boolean;
@@ -14,6 +15,7 @@ interface IProps {
 const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
     const handleClose = () => toggleModal();
     const theme = useMantineTheme();
+    const navigate = useNavigate();
 
     const form = useForm({
         initialValues: {
@@ -55,6 +57,7 @@ const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
             setNotification(false, res.data.message);
             form.reset();
             toggleModal();
+            navigate('/patients');
         } catch (error: any) {
             console.log(error);
             if (!error?.response) setNotification(true, 'Network error');

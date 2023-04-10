@@ -19,7 +19,7 @@ const ItemQuickView = ({ sum, name }: IProps) => {
             </Text>
             <Text fz="xl" fw={700}>
                 Total:{' '}
-                <Text span fz="xl" fw={700} color="teal">
+                <Text span fz="xl" fw={700} color="teal.6">
                     €{sum?.sum}
                 </Text>
             </Text>
