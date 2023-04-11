@@ -7,6 +7,7 @@ interface IConfig {
     durationBreak: number;
     formatDate: string;
     formatDatePretty: string;
+    formatDateTimePretty: string;
     roles: {
         ADMIN: number;
         PRACTITIONER: number;

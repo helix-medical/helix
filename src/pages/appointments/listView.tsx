@@ -2,11 +2,11 @@ import React from 'react';
 import { Button, Table } from '@mantine/core';
 import KindAppointment from '../../components/customBadges/kindAppointment';
 import StateAppointment from '../../components/customBadges/stateAppointment';
-import dateToReadable from '../../tools/date';
 import { IAppointmentExtended } from '../../interfaces';
-import SexBadge from '../../components/customBadges/sexBadge';
 import IdBadge from '../../components/customBadges/id';
 import { useNavigate } from 'react-router-dom';
+import cnf from '../../config/config';
+import moment from 'moment';
 
 interface IProps {
     appointments: IAppointmentExtended[];
@@ -19,9 +19,9 @@ const AppTableView = ({ appointments }: IProps): JSX.Element => {
             <td>
                 <IdBadge id={appointment.id ?? ''} />
             </td>
-            <td>{dateToReadable(appointment.date)}</td>
+            <td>{moment(appointment.date).format(cnf.formatDateTimePretty)}</td>
             <td>
-                <SexBadge sex={appointment.sex} /> {appointment.name} {appointment.lastName}
+                {appointment.name} {appointment.lastName}
             </td>
             <td>
                 <KindAppointment kind={appointment.kind} />
@@ -44,7 +44,7 @@ const AppTableView = ({ appointments }: IProps): JSX.Element => {
                     <th>ID</th>
                     <th>Date</th>
                     <th>Name</th>
-                    <th>Reasons</th>
+                    <th>Kind</th>
                     <th>Status</th>
                     <th>View</th>
                 </tr>

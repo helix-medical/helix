@@ -103,5 +103,5 @@ export interface ITransactions {
     amount: number;
     patientName: string;
     patientLastName: string;
-    appId: string;
+    appointment: string;
 }

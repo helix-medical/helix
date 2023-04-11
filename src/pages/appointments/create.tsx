@@ -5,7 +5,6 @@ import { DateTimePicker } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import dayjs from 'dayjs';
 import setNotification from '../system/errors/feedbackNotif';
-import { useNavigate } from 'react-router-dom';
 
 interface IProps {
     show: boolean;
@@ -18,18 +17,17 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
         toggleModal();
     };
     const theme = useMantineTheme();
-    const navigate = useNavigate();
     const [patients, setPatients] = useState([]);
     const [practitioners, setPractitioners] = useState([]);
 
     const handleClick = async (e: { preventDefault: () => void }) => {
+        e.preventDefault();
         if (form.validate().hasErrors) return;
         let index;
         const appointment = {
             ...form.values,
             date: dayjs(form.values.date).format('YYYY-MM-DD HH:mm'),
         };
-        // console.log(form.values);
         try {
             index = await axios.post(`/api/appointments/new`, appointment);
             setNotification(false, index.data.message);
@@ -37,7 +35,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                 id: index.data.id,
             });
             setNotification(false, res.data.message);
-            navigate(`/appointments/${index.data.id}/edit`);
+            handleClose();
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');
             else setNotification(true, `${error.message}: ${error.response.data.message}`);
@@ -84,14 +82,14 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
             patientId: '',
             date: '',
             practitioner: '',
-            reasons: '',
+            kind: '',
         },
 
         validate: {
             patientId: isNotEmpty('Patient is required'),
             date: isNotEmpty('Date is required'),
             practitioner: isNotEmpty('Practitioner is required'),
-            reasons: isNotEmpty('Kind is required'),
+            kind: isNotEmpty('Kind is required'),
         },
     });
 
@@ -112,7 +110,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
-                    <form>
+                    <form onSubmit={handleClick}>
                         <Grid columns={12}>
                             <Grid.Col span={12}>
                                 <DateTimePicker
@@ -140,7 +138,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                                     data={['first-visit', 'follow-up', 'pediatrics', 'maternity', 'emergency']}
                                     searchable
                                     dropdownPosition="bottom"
-                                    {...form.getInputProps('reasons')}
+                                    {...form.getInputProps('kind')}
                                 />
                             </Grid.Col>
                             <Grid.Col span={12}>
@@ -158,7 +156,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                             <Button variant="light" color="red" onClick={handleClose}>
                                 Cancel
                             </Button>
-                            <Button color="green" onClick={handleClick}>
+                            <Button color="green" type="submit">
                                 Submit
                             </Button>
                         </Group>

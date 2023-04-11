@@ -5,6 +5,7 @@
     "durationBreak": 10,
     "formatDate": "YYYY-MM-DD",
     "formatDatePretty": "DD MMMM YYYY",
+    "formatDateTimePretty": "DD MMMM YYYY [at] HH:mm",
     "roles": {
         "ADMIN": 2003,
         "PRACTITIONER": 1998,

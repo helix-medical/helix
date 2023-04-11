@@ -90,7 +90,7 @@ const ListTransactions = (): JSX.Element => {
                                 <Button
                                     color="teal"
                                     variant="light"
-                                    onClick={() => navigate(`/appointments/${transaction.appId}/view`)}
+                                    onClick={() => navigate(`/appointments/${transaction.appointment}/view`)}
                                 >
                                     View
                                 </Button>

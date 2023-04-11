@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles, Burger, Paper } from '@mantine/core';
+import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles, Burger, Paper, Tooltip } from '@mantine/core';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
 import AppItemGrid from './itemGrid';
 import AppTableView from './listView';
@@ -76,15 +76,17 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                     </Title>
                 </Group>
                 <Group>
-                    <ActionIcon
-                        color="blue"
-                        variant="outline"
-                        size="lg"
-                        onClick={changeView}
-                        className={classes.button}
-                    >
-                        {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
-                    </ActionIcon>
+                    <Tooltip label={isGrid ? 'Table' : 'Grid'} withArrow position="bottom" color="blue">
+                        <ActionIcon
+                            color="blue"
+                            variant="outline"
+                            size="lg"
+                            onClick={changeView}
+                            className={classes.button}
+                        >
+                            {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
+                        </ActionIcon>
+                    </Tooltip>
                     <Button onClick={toggleModal} className={classes.button}>
                         New Appointment
                     </Button>
