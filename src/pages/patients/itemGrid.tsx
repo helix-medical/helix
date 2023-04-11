@@ -18,7 +18,7 @@ function PatientItemGrid({ patient, handleDelete }: IProps): JSX.Element {
         <div key={patient.id}>
             <Card radius="md" withBorder shadow="sm" padding="lg">
                 <Group position="center" mb="md">
-                    <Text size="xl" weight={500}>
+                    <Text size="xl" weight={700}>
                         {patient.name} {patient.lastName}
                     </Text>
                 </Group>
