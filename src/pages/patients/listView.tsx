@@ -1,27 +1,174 @@
-import React from 'react';
-import { Button, Table } from '@mantine/core';
+// import { Button, Table } from '@mantine/core';
 import { IPatient } from '../../interfaces';
-import SexBadge from '../../components/customBadges/sexBadge';
+// import SexBadge from '../../components/customBadges/sexBadge';
+// import IdBadge from '../../components/customBadges/id';
+
+// interface IProps {
+//     patients: IPatient[];
+// }
+
+// function PatientsTableView({ patients }: IProps): JSX.Element {
+//     const rows = patients.map((patient: IPatient) => (
+//         <tr key={patient.id}>
+//             <td>
+//                 <IdBadge id={patient.id ?? ''} />
+//             </td>
+//             <td>{patient.name}</td>
+//             <td>{patient.lastName}</td>
+//             <td>{patient.birthDate}</td>
+//             <td>
+//                 <SexBadge sex={patient.sex} />
+//             </td>
+//             <td>{patient.city}</td>
+//             <td>{patient.email}</td>
+//             <td>
+//                 <Button variant="light">NOT IMPLEMENTED</Button>
+//             </td>
+//         </tr>
+//     ));
+
+//     return (
+//         <Table horizontalSpacing="md" verticalSpacing="md" className="debug" highlightOnHover withColumnBorders>
+//             <thead>
+//                 <tr>
+//                     <th>ID</th>
+//                     <th>Name</th>
+//                     <th>Last Name</th>
+//                     <th>Birth Date</th>
+//                     <th>Sex</th>
+//                     <th>City</th>
+//                     <th>Email</th>
+//                     <th>View</th>
+//                 </tr>
+//             </thead>
+//             <tbody>{rows}</tbody>
+//         </Table>
+//     );
+// }
+
+// export default PatientsTableView;
+
+import { useState } from 'react';
+import {
+    createStyles,
+    Table,
+    ScrollArea,
+    UnstyledButton,
+    Group,
+    Text,
+    Center,
+    TextInput,
+    rem,
+    Button,
+} from '@mantine/core';
+import { keys } from '@mantine/utils';
+import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';
 
-interface IProps {
+const useStyles = createStyles((theme) => ({
+    th: {
+        padding: '0 !important',
+    },
+
+    control: {
+        width: '100%',
+        padding: `${theme.spacing.xs} ${theme.spacing.md}`,
+
+        '&:hover': {
+            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+        },
+    },
+
+    icon: {
+        width: rem(21),
+        height: rem(21),
+        borderRadius: rem(21),
+    },
+}));
+
+interface TableSortProps {
     patients: IPatient[];
 }
 
-function PatientsTableView({ patients }: IProps): JSX.Element {
-    const rows = patients.map((patient: IPatient) => (
-        <tr key={patient.id}>
+interface ThProps {
+    children: React.ReactNode;
+    reversed: boolean;
+    sorted: boolean;
+    onSort(): void;
+}
+
+const Th = ({ children, reversed, sorted, onSort }: ThProps) => {
+    const { classes } = useStyles();
+    const Icon = sorted ? (reversed ? IconChevronUp : IconChevronDown) : IconSelector;
+    return (
+        <th className={classes.th}>
+            <UnstyledButton onClick={onSort} className={classes.control}>
+                <Group position="apart">
+                    <Text fw={700} fz="sm">
+                        {children}
+                    </Text>
+                    <Center className={classes.icon}>
+                        <Icon size="0.9rem" stroke={1.5} />
+                    </Center>
+                </Group>
+            </UnstyledButton>
+        </th>
+    );
+};
+
+const filterData = (data: IPatient[], search: string) => {
+    const query = search.toLowerCase().trim();
+    return data.filter((item) => keys(data[0]).some((key) => item[key].toLowerCase().includes(query)));
+};
+
+const sortData = (data: IPatient[], payload: { sortBy: keyof IPatient | null; reversed: boolean; search: string }) => {
+    const { sortBy } = payload;
+
+    if (!sortBy) {
+        return filterData(data, payload.search);
+    }
+
+    return filterData(
+        [...data].sort((a, b) => {
+            if (payload.reversed) {
+                return b[sortBy].localeCompare(a[sortBy]);
+            }
+
+            return a[sortBy].localeCompare(b[sortBy]);
+        }),
+        payload.search
+    );
+};
+
+const PatientsTableView = ({ patients }: TableSortProps) => {
+    const [search, setSearch] = useState<string>('');
+    const [sortedData, setSortedData] = useState(patients);
+    const [sortBy, setSortBy] = useState<keyof IPatient | null>(null);
+    const [reverseSortDirection, setReverseSortDirection] = useState(false);
+
+    const setSorting = (field: keyof IPatient) => {
+        const reversed = field === sortBy ? !reverseSortDirection : false;
+        setReverseSortDirection(reversed);
+        setSortBy(field);
+        setSortedData(sortData(patients, { sortBy: field, reversed, search }));
+    };
+
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.currentTarget;
+        setSearch(value);
+        setSortedData(sortData(patients, { sortBy, reversed: reverseSortDirection, search: value }));
+    };
+
+    const rows = sortedData.map((row) => (
+        <tr key={row.id}>
             <td>
-                <IdBadge id={patient.id ?? ''} />
+                <IdBadge id={row.id ?? ''} />
             </td>
-            <td>{patient.name}</td>
-            <td>{patient.lastName}</td>
-            <td>{patient.birthDate}</td>
-            <td>
-                <SexBadge sex={patient.sex} />
-            </td>
-            <td>{patient.city}</td>
-            <td>{patient.email}</td>
+            <td>{row.name}</td>
+            <td>{row.lastName}</td>
+            <td>{row.birthDate}</td>
+            <td>{row.email}</td>
+            <td>{row.city}</td>
             <td>
                 <Button variant="light">NOT IMPLEMENTED</Button>
             </td>
@@ -29,22 +176,79 @@ function PatientsTableView({ patients }: IProps): JSX.Element {
     ));
 
     return (
-        <Table horizontalSpacing="md" verticalSpacing="md" className="debug" highlightOnHover withColumnBorders>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Last Name</th>
-                    <th>Birth Date</th>
-                    <th>Sex</th>
-                    <th>City</th>
-                    <th>Email</th>
-                    <th>View</th>
-                </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-        </Table>
+        <ScrollArea>
+            <TextInput
+                placeholder="Search a patient"
+                mb="md"
+                icon={<IconSearch size="0.9rem" stroke={1.5} />}
+                value={search}
+                onChange={handleSearchChange}
+            />
+            <Table
+                horizontalSpacing="md"
+                verticalSpacing="md"
+                miw={700}
+                sx={{ tableLayout: 'fixed' }}
+                highlightOnHover
+                withColumnBorders
+            >
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <Th
+                            sorted={sortBy === 'name'}
+                            reversed={reverseSortDirection}
+                            onSort={() => setSorting('name')}
+                        >
+                            Name
+                        </Th>
+                        <Th
+                            sorted={sortBy === 'lastName'}
+                            reversed={reverseSortDirection}
+                            onSort={() => setSorting('lastName')}
+                        >
+                            Last Name
+                        </Th>
+                        <Th
+                            sorted={sortBy === 'birthDate'}
+                            reversed={reverseSortDirection}
+                            onSort={() => setSorting('birthDate')}
+                        >
+                            Birth Date
+                        </Th>
+                        <Th
+                            sorted={sortBy === 'email'}
+                            reversed={reverseSortDirection}
+                            onSort={() => setSorting('email')}
+                        >
+                            Email
+                        </Th>
+                        <Th
+                            sorted={sortBy === 'city'}
+                            reversed={reverseSortDirection}
+                            onSort={() => setSorting('city')}
+                        >
+                            City
+                        </Th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.length > 0 ? (
+                        rows
+                    ) : (
+                        <tr>
+                            <td colSpan={7}>
+                                <Text weight={500} align="center">
+                                    Not patients found
+                                </Text>
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </Table>
+        </ScrollArea>
     );
-}
+};
 
 export default PatientsTableView;
