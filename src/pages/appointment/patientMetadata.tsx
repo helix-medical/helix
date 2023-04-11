@@ -96,7 +96,13 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                 </Tabs.List>
                 <form>
                     <Tabs.Panel value="data">
-                        <Biodatas patient={patientInput} view={false} passif={passif} handler={handleChange} />
+                        <Biodatas
+                            patient={patientInput}
+                            view={false}
+                            passif={passif}
+                            handler={handleChange}
+                            restricted={false}
+                        />
                     </Tabs.Panel>
                     <Tabs.Panel value="medical">
                         <Title order={3}>Previous Medical Issues</Title>

@@ -34,16 +34,16 @@ const AppRouter = () => {
                         <Route path="patients" element={<Patients add={false} />} />
                         <Route path="patients/add" element={<Patients add={true} />} />
                         <Route path="accounting" element={<Accounting />} />
-                    </Route>
-                    <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER]} />}>
                         <Route path="calendar" element={<Calendar />} />
                         <Route path="appointments">
                             <Route index element={<Appointments add={false} />} />
                             <Route path="add" element={<Appointments add={true} />} />
-                            <Route path=":appointmentID/edit" element={<EditAppointment />} />
                             <Route path=":appointmentID/view" element={<ViewAppointment />} />
-                            <Route path="*" element={<NotFound />} /> {/* ?? */}
                         </Route>
+                    </Route>
+                    <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER]} />}>
+                        <Route path="appointments/:appointmentID/edit" element={<EditAppointment />} />
+                        <Route path="*" element={<NotFound />} /> {/* ?? */}
                     </Route>
                 </Route>
 

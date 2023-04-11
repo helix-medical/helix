@@ -9,10 +9,13 @@ import { Paper, Title } from '@mantine/core';
 import { useAppForm, AppFormProvider } from './formContext';
 import setNotification from '../system/errors/feedbackNotif';
 import Secretary from './secretary';
+import useAuth from '../../hooks/useAuth';
 
 const ViewAppointment = () => {
     const id = window.location.href.split('/').slice(-2)[0];
     const form = useAppForm();
+    const { auth } = useAuth();
+    const isRestricted = auth.role === 1515;
 
     const [data, setData] = useState({
         appID: id,
@@ -71,10 +74,14 @@ const ViewAppointment = () => {
             <AppFormProvider form={form}>
                 <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
                     <Title order={2}>Patient Data</Title>
-                    <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} />
+                    <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} restricted={isRestricted} />
                 </Paper>
-                <Anamnesis anamnesis={content} view={true} />
-                <Conclusion conclusion={content} view={true} />
+                {!isRestricted ? (
+                    <>
+                        <Anamnesis anamnesis={content} view={true} />
+                        <Conclusion conclusion={content} view={true} />
+                    </>
+                ) : null}
                 <Secretary secretary={payment} view={true} />
             </AppFormProvider>
         </>

@@ -7,9 +7,10 @@ interface IProps {
     view?: boolean;
     passif?: IPassif;
     handler?: (e: { target: { name: any; value: any } }) => void;
+    restricted: boolean;
 }
 
-const Biodatas = ({ patient, view, passif, handler }: IProps): JSX.Element => {
+const Biodatas = ({ patient, view, passif, handler, restricted }: IProps): JSX.Element => {
     return (
         <Grid columns={12}>
             <Grid.Col span={4}>
@@ -42,7 +43,7 @@ const Biodatas = ({ patient, view, passif, handler }: IProps): JSX.Element => {
             <Grid.Col span={4}>
                 <TextInput label="City" defaultValue={patient.city} readOnly={view} onChange={handler} name="city" />
             </Grid.Col>
-            {view && passif && (
+            {view && passif && !restricted && (
                 <Grid.Col span={12}>
                     <Textarea
                         label="Previous Medical Issues"
