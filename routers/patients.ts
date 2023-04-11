@@ -13,7 +13,7 @@ router.get('/appointments', controllerAll.readAllConnexion);
 router.put('/:id/add_appointment/', middleware.addAppointment, controller.addAppointment);
 
 router.get('/:id', controller.read);
-router.delete('/:id', auth.verifyRole(role.roles.practitioner), controller.delete);
+router.delete('/:id', controller.delete);
 
 router.post('/add', middleware.create, controller.create);
 

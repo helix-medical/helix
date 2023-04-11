@@ -23,7 +23,7 @@ const create = async (req: Request, res: Response) => {
 
 const getTransactions = async (req: Request, res: Response) => {
     const sqlQuery =
-        'SELECT a.uid, a.amount, a.method, a.date, app.id, p.name AS patientName, p.`lastName` AS patientLastName ' +
+        'SELECT a.uid, a.amount, a.method, a.date, app.id, p.name AS patientName, p.`lastName` AS patientLastName, a.appointment ' +
         'FROM accounting a ' +
         'INNER JOIN appointments app ON a.appointment = app.id ' +
         'INNER JOIN patients p ON app.`patientId` = p.id ' +
