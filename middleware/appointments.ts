@@ -4,25 +4,25 @@ import logger from '../system/logger';
 import sc from '../tools/statusCodes';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
-    logger.use(req.originalUrl, 'REQ');
     const isValid = validate.appointmentCreate(req.body);
     if (!isValid) {
-        logger.use(req.originalUrl, 'ERR', 'Invalid request body');
-        return res.status(sc.NOT_ACCEPTABLE).json(validate.appointmentCreate.errors);
+        res.status(sc.NOT_ACCEPTABLE).json(validate.appointmentCreate.errors);
+        logger.fail(req, res, 'Invalid request body');
+    } else {
+        logger.success(req, res, 'Valid request body');
+        next();
     }
-    logger.use(req.originalUrl, 'OK', 'Valid request body');
-    next();
 };
 
 const update = async (req: Request, res: Response, next: NextFunction) => {
-    logger.use(req.originalUrl, 'REQ');
     const isValid = validate.appointmentUpdate(req.body);
     if (!isValid) {
-        logger.use(req.originalUrl, 'ERR', 'Invalid request body');
-        return res.status(sc.NOT_ACCEPTABLE).json(validate.appointmentUpdate.errors);
+        res.status(sc.NOT_ACCEPTABLE).json(validate.appointmentUpdate.errors);
+        logger.fail(req, res, 'Invalid request body');
+    } else {
+        logger.success(req, res, 'Valid request body');
+        next();
     }
-    logger.use(req.originalUrl, 'OK', 'Valid request body');
-    next();
 };
 
 export default {

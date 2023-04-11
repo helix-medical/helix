@@ -1,37 +1,67 @@
+import { NextFunction, Request, Response } from 'express';
 import color from 'colors';
+import moment from 'moment';
+import path from 'path';
+import fs from 'fs';
 
-const log = (header: string, message: string) => {
-    color.enable();
-    const date = new Date().toLocaleString();
-    console.log(`[${date}] -- [${header}] -- ${message}`);
-    // Save on file
+const colorMethod = (method: string) => {
+    switch (method) {
+        case 'GET':
+            return 'GET'.green;
+        case 'POST':
+            return 'PST'.blue;
+        case 'PUT':
+            return 'PUT'.yellow;
+        case 'DELETE':
+            return 'DEL'.red;
+        case 'USE':
+            return 'USE'.magenta;
+        case 'INFO':
+            return 'INF'.cyan;
+        case 'ERROR':
+            return 'ERR'.red;
+        default:
+            return '???'.gray;
+    }
 };
 
-const get = (url: string, state: string, ...message: string[]) =>
-    log(`GET`.green, `[${state}] -- ${url}${message.length > 0 ? ` -- ${message}` : ''}`);
-const post = (url: string, state: string, ...message: string[]) =>
-    log(`POST`.blue, `[${state}] -- ${url}${message.length > 0 ? ` -- ${message}` : ''}`);
-const put = (url: string, state: string, ...message: string[]) =>
-    log(`PUT`.yellow, `[${state}] -- ${url}${message.length > 0 ? ` -- ${message}` : ''}`);
-const del = (url: string, state: string, ...message: string[]) =>
-    log(`DELETE`.red, `[${state}] -- ${url}${message.length > 0 ? ` -- ${message}` : ''}`);
-const use = (url: string, state: string, ...message: string[]) =>
-    log(`USE`.magenta, `[${state}] -- ${url}${message.length > 0 ? ` -- ${message}` : ''}`);
-const info = (...message: string[]) => log(`INFO`.cyan, `${message}`);
-const err = (message: string) => log(`ERROR`.red, `${message}`);
-const warn = (message: string) => log(`WARN`.yellow, `${message}`);
-const debug = (message: string) => log(`DEBUG`.gray, `${message}`);
-const success = (message: string) => log(`SUCCESS`.green, `${message}`);
+const log = (method: string, state: string, url: string, ...message: string[]) => {
+    color.enable();
+    const date = moment().format('YYYY-MM-DD HH:mm:ss');
+    const line = `[${date}] -- [${colorMethod(method)}] -- [${state}] -- ${url}${
+        message.length > 0 ? ` -- ${message}` : ''
+    }`;
+    console.log(line);
+    fs.appendFile(path.join(__dirname, '../../logs/log.txt'), `${line} \n`, (err) => {
+        if (err) console.log(err);
+    });
+};
 
-export default module.exports = {
-    get,
-    post,
-    put,
-    del,
-    use,
-    info,
-    err,
-    warn,
-    debug,
+const checkpoint = (req: Request, res: Response, next: NextFunction) => {
+    log(req.method, 'REQ'.gray, req.url);
+    next();
+};
+
+const fail = (req: Request, res: Response, ...message: string[]) => {
+    log(req.method, `${res.statusCode}`.red, req.originalUrl, ...message);
+};
+
+const success = (req: Request, res: Response, ...message: string[]) => {
+    log(req.method, `${res.statusCode}`.green, req.originalUrl, ...message);
+};
+
+const info = (message: string) => {
+    log('INFO', `200`.green, message);
+};
+
+const error = (message: string) => {
+    log('ERROR', `500`.red, message);
+};
+
+export default {
+    checkpoint,
+    fail,
     success,
+    info,
+    error,
 };

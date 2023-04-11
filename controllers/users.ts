@@ -7,46 +7,54 @@ import queries from '../database/queries';
 import bcrypt from 'bcrypt';
 
 const readAll = async (req: Request, res: Response) => {
-    logger.get(req.originalUrl, 'REQ');
     const sqlQuery = `SELECT uid, name, lastName, clearPassword, lastActive, state, role FROM users`;
     db.query(sqlQuery, (err: any, data: any) => {
-        if (!err) {
-            logger.get(req.originalUrl, 'OK', 'Return all users');
-            return res.status(sc.OK).json(data);
+        if (err) {
+            res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
+            logger.fail(req, res, err);
+        } else if (data.length === 0) {
+            res.status(sc.NOT_FOUND).json({ message: `Users not found` });
+            logger.fail(req, res, `Users not found`);
+        } else {
+            res.status(sc.OK).json(data);
+            logger.success(req, res, `Return all users`);
         }
-        logger.get(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
     });
 };
 
 const getForConnection = async (req: Request, res: Response) => {
-    logger.get(req.originalUrl, 'REQ');
     const sqlQuery = 'SELECT `name`, `lastName`, `uid` FROM users WHERE state != "disabled"';
     db.query(sqlQuery, (err: any, data: any) => {
-        if (!err) {
-            logger.get(req.originalUrl, 'OK', 'Return all users');
-            return res.status(sc.OK).json(data);
+        if (err) {
+            res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
+            logger.fail(req, res, err);
+        } else if (data.length === 0) {
+            res.status(sc.NOT_FOUND).json({ message: `Users not found` });
+            logger.fail(req, res, `Users not found`);
+        } else {
+            res.status(sc.OK).json(data);
+            logger.success(req, res, `Return all users for Connection`);
         }
-        logger.get(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
     });
 };
 
 const readOne = async (req: Request, res: Response) => {
-    logger.get(req.originalUrl, 'REQ');
     const sqlQuery = `SELECT uid, name, lastName, lastActive, state, role FROM users WHERE uid = ?`;
     db.query(sqlQuery, [req.params.id], (err: any, data: any) => {
-        if (!err) {
-            logger.get(req.originalUrl, 'OK', `Return user ${req.params.id}`);
-            return res.status(sc.OK).json(data);
+        if (err) {
+            res.status(sc.OK).json(data);
+            logger.fail(req, res, err);
+        } else if (data.length === 0) {
+            res.status(sc.NOT_FOUND).json({ message: `User ${req.params.id} not found` });
+            logger.fail(req, res, `User ${req.params.id} not found`);
+        } else {
+            res.status(sc.OK).json(data);
+            logger.success(req, res, `Return user ${req.params.id}`);
         }
-        logger.get(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
     });
 };
 
 const create = async (req: Request, res: Response) => {
-    logger.post(req.originalUrl, 'REQ');
     let id = uuid();
     while (await queries.checkId(id, 'users')) id = uuid();
     const sqlQuery = `
@@ -66,12 +74,13 @@ const create = async (req: Request, res: Response) => {
     ];
 
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
-        if (!err) {
-            logger.post(req.originalUrl, 'OK', `User ${id} created`);
-            return res.status(sc.CREATED).json({ id: id, message: `User ${id} created` });
+        if (err) {
+            res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
+            logger.fail(req, res, err);
+        } else {
+            res.status(sc.CREATED).json({ id: id, message: `User ${id} created` });
+            logger.success(req, res, `User ${id} created`);
         }
-        logger.post(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
     });
 };
 

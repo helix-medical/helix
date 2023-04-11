@@ -1,6 +1,5 @@
 import allowedOrigins from '../config/allowedOrigins';
 import { Request, Response, NextFunction } from 'express';
-import logger from '../system/logger';
 
 const credentials = (req: Request, res: Response, next: NextFunction) => {
     const origin = req.headers.origin;

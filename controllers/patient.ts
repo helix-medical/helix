@@ -6,7 +6,6 @@ import uuid from '../tools/uuid';
 import queries from '../database/queries';
 
 const create = async (req: Request, res: Response) => {
-    logger.post(req.originalUrl, 'REQ');
     let id = uuid();
     while (await queries.checkId(id, 'users')) id = uuid();
     const sqlQuery =
@@ -27,16 +26,16 @@ const create = async (req: Request, res: Response) => {
 
     db.query(sqlQuery, [values], (err: any, data: any) => {
         if (err) {
-            logger.post(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
+            res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
+            logger.fail(req, res, err);
+        } else {
+            res.status(sc.OK).json({ message: `Patient ${id} added` });
+            logger.success(req, res, `Patient ${id} added`);
         }
-        logger.post(req.originalUrl, 'OK', `Patient ${id} added`);
-        return res.status(sc.OK).json({ message: `Patient ${id} added` });
     });
 };
 
 const read = async (req: Request, res: Response) => {
-    logger.get(req.originalUrl, 'REQ');
     const patientId = req.params.id;
     const sqlQuery = `
     SELECT *
@@ -44,23 +43,20 @@ const read = async (req: Request, res: Response) => {
     WHERE id = ?
     `;
     db.query(sqlQuery, patientId, (err: any, data: any) => {
-        if (!err) {
-            if (data.length === 0) {
-                logger.get(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
-                return res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
-            }
-
-            logger.get(req.originalUrl, 'OK', `Patient ${patientId} found`);
-            return res.status(sc.OK).json(data);
+        if (err) {
+            res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
+            logger.fail(req, res, err);
+        } else if (data.length === 0) {
+            res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
+            logger.fail(req, res, `Patient ${patientId} not found`);
+        } else {
+            res.status(sc.OK).json(data);
+            logger.success(req, res, `Patient ${patientId} found`);
         }
-
-        logger.get(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
     });
 };
 
 const update = async (req: Request, res: Response) => {
-    logger.put(req.originalUrl, 'REQ');
     const patientId = req.params.id;
     const sqlQuery =
         'UPDATE patients ' +
@@ -78,22 +74,19 @@ const update = async (req: Request, res: Response) => {
 
     db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
         if (err) {
-            logger.put(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
+            res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
+            logger.fail(req, res, err);
+        } else if (data.affectedRows === 0) {
+            res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
+            logger.fail(req, res, `Patient ${patientId} not found`);
+        } else {
+            res.status(sc.OK).json({ message: `Patient ${patientId} updated` });
+            logger.success(req, res, `Patient ${patientId} updated`);
         }
-
-        if (data.affectedRows === 0) {
-            logger.put(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
-            return res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
-        }
-
-        logger.put(req.originalUrl, 'OK', `Patient ${patientId} updated`);
-        return res.status(sc.OK).json({ message: `Patient ${patientId} updated` });
     });
 };
 
 const addAppointment = async (req: Request, res: Response) => {
-    logger.put(req.originalUrl, 'REQ');
     const patientId = req.params.id;
     const sqlQuery =
         'UPDATE patients ' + 'SET `passif` = JSON_ARRAY_APPEND(`passif`, "$.lastAppointments", ?) ' + 'WHERE id = ?';
@@ -101,22 +94,19 @@ const addAppointment = async (req: Request, res: Response) => {
 
     db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
         if (err) {
-            logger.put(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
+            res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
+            logger.fail(req, res, err);
+        } else if (data.affectedRows === 0) {
+            res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
+            logger.fail(req, res, `Patient ${patientId} not found`);
+        } else {
+            res.status(sc.OK).json({ message: `Appointment ${req.body.id} added to patient ${patientId}` });
+            logger.success(req, res, `Appointment ${req.body.id} added to patient ${patientId}`);
         }
-
-        if (data.affectedRows === 0) {
-            logger.put(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
-            return res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
-        }
-
-        logger.put(req.originalUrl, 'OK', `Appointment ${req.body.id} added to patient ${patientId}`);
-        return res.status(sc.OK).json({ message: `Appointment ${req.body.id} added to patient ${patientId}` });
     });
 };
 
 const delete_ = async (req: Request, res: Response) => {
-    logger.del(req.originalUrl, 'REQ');
     const patientId = req.params.id;
     const sqlQuery = `DELETE 
     FROM patients
@@ -125,17 +115,15 @@ const delete_ = async (req: Request, res: Response) => {
 
     db.query(sqlQuery, patientId, (err: any, data: any) => {
         if (err) {
-            logger.del(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
+            res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
+            logger.fail(req, res, err);
+        } else if (data.affectedRows === 0) {
+            res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
+            logger.fail(req, res, `Patient ${patientId} not found`);
+        } else {
+            res.status(sc.OK).json({ message: `Patient ${patientId} deleted` });
+            logger.success(req, res, `Patient ${patientId} deleted`);
         }
-
-        if (data.affectedRows === 0) {
-            logger.del(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
-            return res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
-        }
-
-        logger.del(req.originalUrl, 'OK', `Patient ${patientId} deleted`);
-        return res.status(sc.OK).json({ message: `Patient ${patientId} deleted` });
     });
 };
 

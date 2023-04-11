@@ -3,7 +3,7 @@ import sc from '../tools/statusCodes';
 import logger from './logger';
 
 const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-    logger.err(err.message);
+    logger.error(err.message);
     res.status(sc.INTERNAL_SERVER_ERROR).json({ error: err.message });
 };
 

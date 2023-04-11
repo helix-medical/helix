@@ -6,12 +6,12 @@ import appointments from './routers/appointments';
 import authORoute from './routers/auth';
 import accounting from './routers/accounting';
 import users from './routers/users';
-import logger from './system/logger';
 import errorHandler from './system/errors';
 import sc from './tools/statusCodes';
 // import auth from './middleware/auth';
 import cookieParser from 'cookie-parser';
 import credentials from './middleware/credentials';
+import logger from './system/logger';
 
 // Config
 const app: Express = express();
@@ -22,11 +22,13 @@ app.use(credentials);
 app.use(cors());
 app.use(cookieParser());
 
+// Logger
+app.use(logger.checkpoint);
+
 // Main
 app.get('/api', (req: Request, res: Response) => {
-    logger.get(req.originalUrl, 'REQ');
-    res.status(sc.OK).json('Helix: A System for Patient Management [[API]]');
-    logger.get(req.originalUrl, 'OK', 'Return API');
+    res.status(sc.OK).json({ message: 'Helix: A System for Patient Management [[API]]' });
+    logger.success(req, res, 'Return API');
 });
 
 // Routers
@@ -37,13 +39,12 @@ app.use('/api/auth', authORoute);
 app.use('/api/patients', patients);
 app.use('/api/appointments', appointments);
 app.use('/api/users', users);
-app.use('/api/accounting', accounting)
+app.use('/api/accounting', accounting);
 
 // 404
-app.all('*', (req: Request, res: Response, next: NextFunction) => {
-    logger.get(req.originalUrl, 'REQ');
+app.all('*', (req: Request, res: Response) => {
     res.status(sc.NOT_FOUND).json({ error: 'Not found' });
-    logger.get(req.originalUrl, 'ERR', 'Not found');
+    logger.fail(req, res, 'Not found');
 });
 
 // Errors

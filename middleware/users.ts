@@ -4,14 +4,14 @@ import logger from '../system/logger';
 import sc from '../tools/statusCodes';
 
 const create = (req: Request, res: Response, next: NextFunction) => {
-    logger.use(req.originalUrl, 'REQ');
     const isValid = validate.userCreate(req.body);
     if (!isValid) {
-        logger.post(req.originalUrl, 'ERR', 'Invalid request body');
-        return res.status(sc.NOT_ACCEPTABLE).json(validate.userCreate.errors);
+        res.status(sc.NOT_ACCEPTABLE).json(validate.userCreate.errors);
+        logger.fail(req, res, 'Invalid request body');
+    } else {
+        logger.success(req, res, 'Valid request body');
+        next();
     }
-    logger.use(req.originalUrl, 'OK', 'Valid request body');
-    next();
 };
 
 export default module.exports = {

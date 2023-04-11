@@ -12,7 +12,7 @@ const checkId = async (id: string, table: string): Promise<boolean> => {
     return new Promise((resolve, reject) => {
         db.query(sqlQuery, values, (err: any, data: any) => {
             if (err) {
-                logger.err(err);
+                logger.error(err);
                 reject(err);
             } else {
                 resolve(data[0].count !== 0);
