@@ -13,10 +13,14 @@ interface IProps {
 }
 
 const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
-    const handleClose = () => toggleModal();
+    const handleClose = () => {
+        form.reset();
+        toggleModal();
+    };
     const theme = useMantineTheme();
     const navigate = useNavigate();
     const [patients, setPatients] = useState([]);
+    const [practitioners, setPractitioners] = useState([]);
 
     const handleClick = async (e: { preventDefault: () => void }) => {
         if (form.validate().hasErrors) return;
@@ -33,7 +37,6 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                 id: index.data.id,
             });
             setNotification(false, res.data.message);
-            toggleModal();
             navigate(`/appointments/${index.data.id}/edit`);
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');
@@ -56,20 +59,38 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
         }
     };
 
+    const getPractitioners = async () => {
+        try {
+            const response = await axios.get('/api/users/practitioners');
+            setPractitioners(
+                response.data.map((practitioner: any) => ({
+                    label: `${practitioner.name} ${practitioner.lastName}`,
+                    value: practitioner.uid,
+                }))
+            );
+        } catch (error: any) {
+            if (!error?.response) setNotification(true, 'Network error');
+            else setNotification(true, `${error.message}: ${error.response.data.message}`);
+        }
+    };
+
     useEffect(() => {
         getPatients();
+        getPractitioners();
     }, []);
 
     const form = useForm({
         initialValues: {
             patientId: '',
             date: '',
+            practitioner: '',
             reasons: '',
         },
 
         validate: {
             patientId: isNotEmpty('Patient is required'),
             date: isNotEmpty('Date is required'),
+            practitioner: isNotEmpty('Practitioner is required'),
             reasons: isNotEmpty('Kind is required'),
         },
     });
@@ -120,6 +141,16 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                                     searchable
                                     dropdownPosition="bottom"
                                     {...form.getInputProps('reasons')}
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={12}>
+                                <Select
+                                    label="Practitioner"
+                                    placeholder="Practitioner"
+                                    withAsterisk
+                                    {...form.getInputProps('practitioner')}
+                                    data={practitioners}
+                                    searchable
                                 />
                             </Grid.Col>
                         </Grid>

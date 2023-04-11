@@ -10,12 +10,13 @@ import { useAppForm, AppFormProvider } from './formContext';
 import setNotification from '../system/errors/feedbackNotif';
 import Secretary from './secretary';
 import useAuth from '../../hooks/useAuth';
+import cnf from '../../config/config';
 
 const ViewAppointment = () => {
     const id = window.location.href.split('/').slice(-2)[0];
     const form = useAppForm();
     const { auth } = useAuth();
-    const isRestricted = auth.role === 1515;
+    const isRestricted = auth.role === cnf.roles.SECRETARY;
 
     const [data, setData] = useState({
         appID: id,

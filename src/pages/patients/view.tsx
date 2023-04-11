@@ -7,6 +7,7 @@ import { IPatient } from '../../interfaces';
 import dateToReadable from '../../tools/date';
 import useAuth from '../../hooks/useAuth';
 import setNotification from '../system/errors/feedbackNotif';
+import cnf from '../../config/config';
 
 interface IProps {
     show: boolean;
@@ -20,7 +21,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
     const passif = JSON.parse(patientInput.passif);
     const theme = useMantineTheme();
     const { auth } = useAuth();
-    const isRestricted = auth.role === 1515;
+    const isRestricted = auth.role === cnf.roles.SECRETARY;
 
     const [update, setUpdate] = useState(false);
 
