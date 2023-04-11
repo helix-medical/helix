@@ -47,7 +47,7 @@ const fail = (req: Request, res: Response, ...message: string[]) => {
 };
 
 const success = (req: Request, res: Response, ...message: string[]) => {
-    log(req.method, `${res.statusCode}`.green, req.originalUrl, ...message);
+    log(req.method, `${res.statusCode === 304 ? 200 : res.statusCode}`.green, req.originalUrl, ...message);
 };
 
 const info = (message: string) => {
