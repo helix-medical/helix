@@ -38,6 +38,22 @@ const getForConnection = async (req: Request, res: Response) => {
     });
 };
 
+const getPractitioners = async (req: Request, res: Response) => {
+    const sqlQuery = 'SELECT `name`, `lastName`, `uid` FROM users WHERE role = "practitioner" AND state != "disabled"';
+    db.query(sqlQuery, (err: any, data: any) => {
+        if (err) {
+            res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
+            logger.fail(req, res, err);
+        } else if (data.length === 0) {
+            res.status(sc.NOT_FOUND).json({ message: `Users not found` });
+            logger.fail(req, res, `Users not found`);
+        } else {
+            res.status(sc.OK).json(data);
+            logger.success(req, res, `Return all users for Connection`);
+        }
+    });
+};
+
 const readOne = async (req: Request, res: Response) => {
     const sqlQuery = `SELECT uid, name, lastName, lastActive, state, role FROM users WHERE uid = ?`;
     db.query(sqlQuery, [req.params.id], (err: any, data: any) => {
@@ -84,9 +100,10 @@ const create = async (req: Request, res: Response) => {
     });
 };
 
-export default module.exports = {
+export default {
     readAll,
     create,
     getForConnection,
     readOne,
+    getPractitioners,
 };
