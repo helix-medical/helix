@@ -22,7 +22,7 @@ theme:
     favicon: assets/favicon.png
     logo: assets/favicon.png
     features:
-        - navigation.tabs.sticky
+        - navigation.tabs
         - navigation.instant
         - navigation.path
         - toc.integrate
@@ -30,6 +30,8 @@ theme:
         - navigation.expand
         - toc.follow
         - content.code.copy
+        - navigation.footer
+        - content.tooltip
     icon:
         repo: fontawesome/brands/github
 
