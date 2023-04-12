@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import color from 'colors';
 import moment from 'moment';
-import path from 'path';
-import fs from 'fs';
+// import path from 'path';
+// import fs from 'fs';
 
 const colorMethod = (method: string) => {
     switch (method) {
@@ -32,9 +32,9 @@ const log = (method: string, state: string, url: string, ...message: string[]) =
         message.length > 0 ? ` -- ${message}` : ''
     }`;
     console.log(line);
-    fs.appendFile(path.join(__dirname, '../../logs/log.txt'), `${line} \n`, (err) => {
-        if (err) console.log(err);
-    });
+    // fs.appendFile(path.join(__dirname, '../../logs/log.txt'), `${line} \n`, (err) => {
+    //     if (err) console.log(err);
+    // });
 };
 
 const checkpoint = (req: Request, res: Response, next: NextFunction) => {

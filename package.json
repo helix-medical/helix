@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node build/app.js",
+    "deploy": "npm run clean && npm run build && npm run start",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q build/app.js\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf build"
