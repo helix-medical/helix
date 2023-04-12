@@ -1,1 +1,9 @@
-site_name: My Docs
+site_name: Helix | Documentation
+
+theme:
+    name: material
+    icon:
+        repo: fontawesome/brands/github
+
+repo_name: helix
+repo_url: https://github.com/helix-medical/docs
