@@ -8,6 +8,8 @@ import axios from 'axios';
 import { IUsers } from '../../interfaces';
 import setNotification from '../system/errors/feedbackNotif';
 import UserStatus from '../../components/customBadges/userStatus';
+import cnf from '../../config/config';
+import moment from 'moment';
 
 const ListUsers = (): JSX.Element => {
     const [show, setShow] = useState(false);
@@ -62,7 +64,7 @@ const ListUsers = (): JSX.Element => {
                             <td>
                                 <UserStatus status={user.state} />
                             </td>
-                            <td>{user.lastActive}</td>
+                            <td>{moment(user.lastActive).format(cnf.formatDateTimePretty)}</td>
                             <td>
                                 <RoleBadge role={user.role} />
                             </td>

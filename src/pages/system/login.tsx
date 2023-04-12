@@ -82,7 +82,7 @@ const Login = () => {
                 <form onSubmit={handleSubmit}>
                     <Select
                         label="Select your Account"
-                        placeholder="Maivy"
+                        placeholder="Account"
                         withAsterisk
                         {...form.getInputProps('id')}
                         icon={<IconUserSearch size="1rem" />}
@@ -94,8 +94,8 @@ const Login = () => {
                         allowDeselect
                     />
                     <PasswordInput
-                        label="Password"
-                        placeholder="Je t'aime"
+                        label="Enter your Password"
+                        placeholder="Password"
                         withAsterisk
                         mt="md"
                         icon={<IconLock size="1rem" />}

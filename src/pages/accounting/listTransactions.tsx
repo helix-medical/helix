@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Table, Grid, Title, Badge, Paper, SegmentedControl, Button, Text } from '@mantine/core';
+import { Table, Grid, Title, Badge, Paper, SegmentedControl, Button, Text, Group } from '@mantine/core';
 import { useState, useEffect } from 'react';
 import setNotification from '../system/errors/feedbackNotif';
 import IdBadge from '../../components/customBadges/id';
@@ -47,17 +47,20 @@ const ListTransactions = (): JSX.Element => {
                         {transactions.length}
                     </Badge>
                 </Title>
-                <SegmentedControl
-                    value={view}
-                    color="teal"
-                    onChange={(value) => setView(value)}
-                    data={[
-                        { label: 'Weekly', value: 'week' },
-                        { label: 'Monthly', value: 'month' },
-                        { label: 'All', value: 'all' },
-                    ]}
-                    radius="md"
-                />
+                <Group>
+                    <SegmentedControl
+                        value={view}
+                        color="teal"
+                        onChange={(value) => setView(value)}
+                        data={[
+                            { label: 'Weekly', value: 'week' },
+                            { label: 'Monthly', value: 'month' },
+                            { label: 'All', value: 'all' },
+                        ]}
+                        radius="md"
+                    />
+                    <Button color="teal" radius='sm'>Export</Button>
+                </Group>
             </Grid>
             <Table horizontalSpacing="md" verticalSpacing="md" highlightOnHover withColumnBorders>
                 <thead>

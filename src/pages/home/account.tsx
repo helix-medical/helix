@@ -3,6 +3,8 @@ import { Button, Title, TextInput, Card, Center, Grid } from '@mantine/core';
 import ChangePassword from './changePassword';
 import axios from 'axios';
 import { IUsers } from '../../interfaces';
+import cnf from '../../config/config';
+import moment from 'moment';
 
 const Account = ({ id }: { id: string }): JSX.Element => {
     const [show, setShow] = useState(false);
@@ -44,7 +46,11 @@ const Account = ({ id }: { id: string }): JSX.Element => {
                         <TextInput label="Status" defaultValue={user?.state} readOnly />
                     </Grid.Col>
                     <Grid.Col span={6}>
-                        <TextInput label="Last Connection" defaultValue={user?.lastActive} readOnly />
+                        <TextInput
+                            label="Last Connection"
+                            defaultValue={moment(user?.lastActive).format(cnf.formatDateTimePretty)}
+                            readOnly
+                        />
                     </Grid.Col>
                     <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={toggleModal}>
                         Change Password

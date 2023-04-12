@@ -59,11 +59,17 @@ const HeaderApp = () => {
     const logout = useLogout();
     const { classes } = useStyles();
     const navigate = useNavigate();
+
+    const goToLink = (link: string) => {
+        navigate(link);
+        if (opened) toggle();
+    };
+
     const items = links.map((link) => {
         return (
             <Title order={4} key={link.label}>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a className={classes.link} onClick={() => navigate(link.link)}>
+                <a className={classes.link} onClick={() => goToLink(link.link)}>
                     {link.label}
                 </a>
             </Title>
