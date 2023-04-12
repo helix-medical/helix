@@ -2,6 +2,4 @@
 
 The official documentation of Helix.
 
-```text
-Not implemented yet, stay tuned
-```
+Please go to the official [website](https://helix-medical.github.io/docs) to see it in action.
