@@ -6,7 +6,7 @@ CREATE TABLE
         `name` VARCHAR(80) NOT NULL,
         `lastName` VARCHAR(80) NOT NULL,
         `birthDate` VARCHAR(16) NOT NULL,
-        `sex` TINYTEXT NOT NULL,
+        `sex` VARCHAR(1) NOT NULL,
         `email` VARCHAR(150) NOT NULL,
         `city` VARCHAR(80) NOT NULL,
         `passif` JSON NOT NULL,
@@ -51,28 +51,6 @@ CREATE TABLE
         PRIMARY KEY (`uid`),
         FOREIGN KEY (`appointment`) REFERENCES `helix`.`appointments`(`id`) ON DELETE
         SET NULL
-    );
-
-INSERT INTO
-    patients(
-        id,
-        `lastName`,
-        name,
-        `birthDate`,
-        sex,
-        email,
-        passif,
-        city
-    )
-VALUES (
-        '12345678',
-        'Michel',
-        'Jean',
-        '12/12/1212',
-        'F',
-        'jeanmichel@gmail,com',
-        '{"passif": "null"}',
-        'Rennes'
     );
 
 SELECT * FROM helix.patients;
