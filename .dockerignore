@@ -1,0 +1,7 @@
+node_modules/
+.gitignore
+.prettierrc*
+README.md
+logs/
+.env
+build/
