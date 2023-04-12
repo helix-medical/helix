@@ -7,6 +7,7 @@ const readAll = async (req: Request, res: Response) => {
     const sqlQuery = `
     SELECT *
     FROM patients
+    ORDER BY name ASC
     `;
     db.query(sqlQuery, (err: any, data: any) => {
         if (err) {

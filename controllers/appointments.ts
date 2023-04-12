@@ -7,7 +7,8 @@ const readAll = async (req: Request, res: Response) => {
     const sqlQuery = `
         SELECT app.id, app.date, app.kind, app.status, p.name, p.lastName, p.sex
         FROM appointments app
-        INNER JOIN patients p ON app.patientId = p.id`;
+        INNER JOIN patients p ON app.patientId = p.id
+        ORDER BY app.date ASC`;
     db.query(sqlQuery, (err: any, data: any) => {
         if (err) {
             res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });

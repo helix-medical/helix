@@ -11,7 +11,7 @@ const create = async (req: Request, res: Response) => {
     const sqlQuery =
         'INSERT ' +
         'INTO patients ' +
-        '(`id`, `name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `nextApp`, `passif`) VALUES (?)';
+        '(`id`, `name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `passif`) VALUES (?)';
     const values = [
         id,
         req.body.name,
@@ -20,7 +20,6 @@ const create = async (req: Request, res: Response) => {
         req.body.sex,
         req.body.email,
         req.body.city,
-        req.body.nextApp,
         req.body.passif,
     ];
 
