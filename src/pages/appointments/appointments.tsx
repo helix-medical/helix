@@ -1,6 +1,18 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles, Burger, Paper, Tooltip } from '@mantine/core';
+import {
+    Button,
+    Badge,
+    Group,
+    Grid,
+    Title,
+    ActionIcon,
+    createStyles,
+    Burger,
+    Paper,
+    Tooltip,
+    SegmentedControl,
+} from '@mantine/core';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
 import AppItemGrid from './itemGrid';
 import AppTableView from './listView';
@@ -38,13 +50,15 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     const [opened, { toggle }] = useDisclosure(false);
     const [error, setError] = useState<string | null>(null);
 
+    const [period, setPeriod] = useState('all');
+
     // fetch all appointments
     const [appointments, setAppointments] = useState([]);
 
     useEffect(() => {
         const fetchAllAppointments = async () => {
             try {
-                const res = await axios.get('/api/appointments');
+                const res = await axios.get(`/api/appointments/${period}`);
                 if (res.data.length === 0) setError('No Appointments Found');
                 else setAppointments(res.data);
             } catch (error: any) {
@@ -54,7 +68,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
             }
         };
         fetchAllAppointments();
-    }, [show]);
+    }, [period, show]);
     const nbAppointments = appointments.length;
 
     const changeView = () => {
@@ -76,6 +90,16 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                     </Title>
                 </Group>
                 <Group>
+                    <SegmentedControl
+                        value={period}
+                        onChange={(value) => setPeriod(value)}
+                        data={[
+                            { label: 'Upcoming', value: 'upcoming' },
+                            { label: 'Past', value: 'past' },
+                            { label: 'All', value: 'all' },
+                        ]}
+                    />
+
                     <Tooltip label={isGrid ? 'Table' : 'Grid'} withArrow position="bottom" color="blue">
                         <ActionIcon
                             color="blue"

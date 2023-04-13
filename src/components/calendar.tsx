@@ -10,7 +10,7 @@ const Calendar = () => {
     const [events, setEvents] = useState([]);
     useEffect(() => {
         const fetchEvents = async () => {
-            const res = await axios.get('api/appointments');
+            const res = await axios.get('api/appointments/all');
             const events = res.data.map((event: any) => ({
                 start: moment(event.date).toDate(),
                 end: moment(event.date).add(cnf.durationAppointment, 'minute').toDate(),
