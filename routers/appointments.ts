@@ -4,7 +4,7 @@ import controller from '../controllers/appointment';
 import controllerAll from '../controllers/appointments';
 import middleware from '../middleware/appointments';
 
-router.get('/', controllerAll.readAll);
+router.get('/:period', controllerAll.readAll);
 
 // router.get('/:id/read', controller.read);
 
