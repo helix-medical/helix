@@ -24,9 +24,13 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const Patients = ({ add }: { add: boolean }): JSX.Element => {
+    const [refresh, setRefresh] = useState<boolean>(false);
     // Modal for create a patient
     const [show, setShow] = useState(add);
-    const toggleModal = () => setShow(!show);
+    const toggleModal = () => {
+        setShow(!show);
+        setRefresh(!refresh);
+    };
 
     // View Type
     const [viewType, setViewType] = useState('grid');
@@ -49,7 +53,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
             }
         };
         fetchAllPatients();
-    }, [show]);
+    }, [refresh]);
     const nbPatients = patients.length;
 
     // Delete a patient
@@ -108,7 +112,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                             ))}
                         </Grid>
                     ) : (
-                        <PatientsTableView patients={patients} />
+                        <PatientsTableView patients={patients} handleDelete={handleDelete} />
                     )}
                 </Paper>
             )}

@@ -7,9 +7,11 @@ import IdBadge from '../../components/customBadges/id';
 import Th from '../../components/thSort';
 import cnf from '../../config/config';
 import moment from 'moment';
+import ModalViewPatient from './view';
 
 interface TableSortProps {
     patients: IPatient[];
+    handleDelete: (id: string | undefined) => void;
 }
 
 const filterData = (data: IPatient[], search: string) => {
@@ -36,11 +38,14 @@ const sortData = (data: IPatient[], payload: { sortBy: keyof IPatient | null; re
     );
 };
 
-const PatientsTableView = ({ patients }: TableSortProps) => {
+const PatientsTableView = ({ patients, handleDelete }: TableSortProps) => {
     const [search, setSearch] = useState<string>('');
     const [sortedData, setSortedData] = useState(patients);
     const [sortBy, setSortBy] = useState<keyof IPatient | null>(null);
     const [reverseSortDirection, setReverseSortDirection] = useState(false);
+    const [show, setShow] = useState(false);
+    const [patient, setPatient] = useState<IPatient>({} as IPatient);
+    const toggleModal = () => setShow(!show);
 
     const setSorting = (field: keyof IPatient) => {
         const reversed = field === sortBy ? !reverseSortDirection : false;
@@ -66,7 +71,15 @@ const PatientsTableView = ({ patients }: TableSortProps) => {
             <td>{row.email}</td>
             <td>{row.city}</td>
             <td>
-                <Button variant="light">NOT IMPLEMENTED</Button>
+                <Button
+                    variant="light"
+                    onClick={() => {
+                        setPatient(row);
+                        toggleModal();
+                    }}
+                >
+                    View
+                </Button>
             </td>
         </tr>
     ));
@@ -143,6 +156,14 @@ const PatientsTableView = ({ patients }: TableSortProps) => {
                     )}
                 </tbody>
             </Table>
+            {show && (
+                <ModalViewPatient
+                    patientInput={patient}
+                    show={show}
+                    toggleModal={toggleModal}
+                    handleDelete={handleDelete}
+                />
+            )}
         </ScrollArea>
     );
 };
