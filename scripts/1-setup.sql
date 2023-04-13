@@ -8,7 +8,11 @@ CREATE TABLE
         `birthDate` VARCHAR(16) NOT NULL,
         `sex` VARCHAR(1) NOT NULL,
         `email` VARCHAR(150) NOT NULL,
+        `phone` VARCHAR(20) NOT NULL,
+        `address` VARCHAR(160) NOT NULL,
         `city` VARCHAR(80) NOT NULL,
+        `job` VARCHAR(80) NOT NULL,
+        `doctor` VARCHAR(80),
         `passif` JSON NOT NULL,
         PRIMARY KEY (`id`)
     );
