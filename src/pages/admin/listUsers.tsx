@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Table, ActionIcon, Flex, Title, Badge, Group, Button, Divider } from '@mantine/core';
 import RoleBadge from '../../components/customBadges/userBadge';
-import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
+import { IconArchive, IconArchiveOff, IconEdit, IconEye } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';
 import ModalAddUser from './create';
 import axios from 'axios';
@@ -13,8 +13,12 @@ import moment from 'moment';
 
 const ListUsers = (): JSX.Element => {
     const [show, setShow] = useState(false);
-    const toggleModal = () => setShow(!show);
+    const toggleModal = () => {
+        setShow(!show);
+        setRefresh(!refresh);
+    };
     const [users, setUsers] = useState<IUsers[]>([]);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         const fetchAllUsers = async () => {
@@ -27,7 +31,29 @@ const ListUsers = (): JSX.Element => {
             }
         };
         fetchAllUsers();
-    }, [show]);
+    }, [refresh]);
+
+    const disableUser = async (uid: string) => {
+        try {
+            const res = await axios.delete(`/api/users/${uid}`);
+            setNotification(false, res.data.message);
+            setRefresh(!refresh);
+        } catch (error: any) {
+            if (!error?.response) setNotification(true, 'Network error');
+            else setNotification(true, `${error.message}: ${error.response.data.message}`);
+        }
+    };
+
+    const enableUser = async (uid: string) => {
+        try {
+            const res = await axios.put(`/api/users/${uid}/enable`);
+            setNotification(false, res.data.message);
+            setRefresh(!refresh);
+        } catch (error: any) {
+            if (!error?.response) setNotification(true, 'Network error');
+            else setNotification(true, `${error.message}: ${error.response.data.message}`);
+        }
+    };
 
     return (
         <>
@@ -76,8 +102,22 @@ const ListUsers = (): JSX.Element => {
                                     <ActionIcon color="green" variant="light" mx="xs" size="lg">
                                         <IconEdit size="1rem" />
                                     </ActionIcon>
-                                    <ActionIcon color="red" variant="light" mx="xs" size="lg">
-                                        <IconTrash size="1rem" />
+                                    <ActionIcon
+                                        color="red"
+                                        variant="light"
+                                        mx="xs"
+                                        size="lg"
+                                        onClick={() =>
+                                            user.state === 'disabled'
+                                                ? enableUser(user?.uid ?? '')
+                                                : disableUser(user?.uid ?? '')
+                                        }
+                                    >
+                                        {user.state === 'disabled' ? (
+                                            <IconArchiveOff size="1rem" />
+                                        ) : (
+                                            <IconArchive size="1rem" />
+                                        )}
                                     </ActionIcon>
                                 </Flex>
                             </td>
