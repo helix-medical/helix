@@ -5,6 +5,8 @@ import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
 import { useState } from 'react';
 import IdBadge from '../../components/customBadges/id';
 import Th from '../../components/thSort';
+import cnf from '../../config/config';
+import moment from 'moment';
 
 interface TableSortProps {
     patients: IPatient[];
@@ -60,7 +62,7 @@ const PatientsTableView = ({ patients }: TableSortProps) => {
             </td>
             <td>{row.name}</td>
             <td>{row.lastName}</td>
-            <td>{row.birthDate}</td>
+            <td>{moment(row.birthDate).format(cnf.formatDatePretty)}</td>
             <td>{row.email}</td>
             <td>{row.city}</td>
             <td>

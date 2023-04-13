@@ -6,7 +6,10 @@ export interface IPatient {
     sex: string;
     city: string;
     email: string;
-    nextApp: string;
+    phone: string;
+    address: string;
+    job: string;
+    doctor: string;
     passif: string;
 }
 

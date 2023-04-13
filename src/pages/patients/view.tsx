@@ -1,13 +1,24 @@
-import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import { Button, Modal, TextInput, Group, Grid, Textarea, Text, Badge, useMantineTheme } from '@mantine/core';
-import { useForm, isEmail } from '@mantine/form';
+import {
+    Button,
+    Modal,
+    TextInput,
+    Group,
+    Grid,
+    Textarea,
+    Text,
+    Badge,
+    useMantineTheme,
+    UnstyledButton,
+} from '@mantine/core';
+import { useForm, isEmail, isNotEmpty } from '@mantine/form';
 import { IPatient } from '../../interfaces';
-import dateToReadable from '../../tools/date';
 import useAuth from '../../hooks/useAuth';
 import setNotification from '../system/errors/feedbackNotif';
 import cnf from '../../config/config';
+import { IconPhone, IconSend } from '@tabler/icons-react';
+import IdBadge from '../../components/customBadges/id';
 
 interface IProps {
     show: boolean;
@@ -37,6 +48,10 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                 sex: form.values.sex,
                 email: form.values.email,
                 city: form.values.city,
+                address: form.values.address,
+                phone: form.values.phone,
+                doctor: form.values.doctor,
+                job: form.values.job,
                 passif: JSON.stringify({
                     medicalIssues: form.values.medicalIssues,
                     lastAppointments: passif.lastAppointments,
@@ -62,6 +77,10 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
             email: patientInput.email,
             city: patientInput.city,
             medicalIssues: passif.medicalIssues,
+            address: patientInput.address,
+            phone: patientInput.phone,
+            doctor: patientInput.doctor,
+            job: patientInput.job,
         },
 
         validate: {
@@ -71,6 +90,9 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
             sex: (value) => (value !== 'F' && value !== 'M' ? 'Sex must be at `M` or `F`' : null),
             email: isEmail('Email must be valid'),
             city: (value) => (value.length < 2 ? 'City must be at least 2 chars' : null),
+            address: isNotEmpty('Address is required'),
+            phone: (value) => (value.length < 10 ? 'Phone must be at least 10 chars' : null),
+            job: isNotEmpty('Job is required'),
         },
     });
 
@@ -84,9 +106,12 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
             <Modal.Content>
                 <Modal.Header>
                     <Modal.Title>
-                        <Text size="xl" weight={700}>
-                            Patient Details
-                        </Text>
+                        <Group position="apart">
+                            <Text size="xl" weight={700}>
+                                Patient Details
+                            </Text>
+                            <IdBadge id={patientInput.id} />
+                        </Group>
                     </Modal.Title>
                     <Modal.CloseButton />
                 </Modal.Header>
@@ -112,7 +137,13 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                                 />
                             </Grid.Col>
                             <Grid.Col span={6}>
-                                <TextInput label="ID" placeholder="ID" value={patientInput.id} readOnly />
+                                <TextInput
+                                    label="Birth Date"
+                                    placeholder="Birth Date"
+                                    {...form.getInputProps('birthDate')}
+                                    readOnly={!update}
+                                    withAsterisk={update}
+                                />
                             </Grid.Col>
                             <Grid.Col span={6}>
                                 <TextInput
@@ -123,11 +154,11 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                                     withAsterisk={update}
                                 />
                             </Grid.Col>
-                            <Grid.Col span={6}>
+                            <Grid.Col span={12}>
                                 <TextInput
-                                    label="Birth Date"
-                                    placeholder="Birth Date"
-                                    {...form.getInputProps('birthDate')}
+                                    label="Address"
+                                    placeholder="Address"
+                                    {...form.getInputProps('address')}
                                     readOnly={!update}
                                     withAsterisk={update}
                                 />
@@ -141,6 +172,27 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                                     withAsterisk={update}
                                 />
                             </Grid.Col>
+                            <Grid.Col span={6}>
+                                <TextInput
+                                    label="Phone"
+                                    placeholder="Phone"
+                                    {...form.getInputProps('phone')}
+                                    readOnly={!update}
+                                    withAsterisk={update}
+                                    rightSection={
+                                        <Button
+                                            component="a"
+                                            href={`tel:${patientInput.phone}`}
+                                            color="blue"
+                                            m="xs"
+                                            p="xs"
+                                            variant="subtle"
+                                        >
+                                            <IconPhone size="1rem" />
+                                        </Button>
+                                    }
+                                />
+                            </Grid.Col>
                             <Grid.Col span={12}>
                                 <TextInput
                                     label="Email"
@@ -148,28 +200,42 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                                     {...form.getInputProps('email')}
                                     readOnly={!update}
                                     withAsterisk={update}
+                                    rightSection={
+                                        <Button
+                                            component="a"
+                                            href={`mailto:${patientInput.email}`}
+                                            color="blue"
+                                            m="xs"
+                                            p="xs"
+                                            variant="subtle"
+                                        >
+                                            <IconSend size="1rem" />
+                                        </Button>
+                                    }
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <TextInput
+                                    label="Médecin traitant"
+                                    placeholder="Médecin traitant"
+                                    defaultValue={patientInput.doctor}
+                                    readOnly
                                 />
                             </Grid.Col>
                             <Grid.Col span={6}>
                                 <Text>Last Appointments</Text>
-                                <Badge color="green" variant="dot" size="lg">
-                                    {passif.lastAppointments.length - 1}
-                                </Badge>
-                            </Grid.Col>
-                            <Grid.Col span={6}>
-                                <TextInput
-                                    label="Next Appointment"
-                                    placeholder="Next Appointment"
-                                    defaultValue={dateToReadable(patientInput.nextApp)}
-                                    readOnly
-                                />
+                                <UnstyledButton mt='xs' ml='md'>
+                                    <Badge color="green" variant="dot" size="lg">
+                                        {passif.lastAppointments.length - 1}
+                                    </Badge>
+                                </UnstyledButton>
                             </Grid.Col>
                             {!isRestricted && (
                                 <Grid.Col span={12}>
                                     <Textarea
-                                        label="Passif"
+                                        label="Antécédents médicaux"
                                         maxRows={4}
-                                        placeholder="Passif"
+                                        placeholder="Antécédents"
                                         {...form.getInputProps('medicalIssues')}
                                         readOnly={!update}
                                     />

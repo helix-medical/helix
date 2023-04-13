@@ -1,11 +1,11 @@
 import axios from 'axios';
-import React from 'react';
 import { useForm, isEmail, isNotEmpty } from '@mantine/form';
-import { Button, Modal, TextInput, Select, Group, Grid, Text, useMantineTheme } from '@mantine/core';
-import { DateInput, DateTimePicker } from '@mantine/dates';
+import { Button, Modal, TextInput, Select, Group, Grid, Text, useMantineTheme, Textarea } from '@mantine/core';
+import { DateInput } from '@mantine/dates';
 import dayjs from 'dayjs';
 import setNotification from '../system/errors/feedbackNotif';
 import { useNavigate } from 'react-router-dom';
+import cnf from '../../config/config';
 
 interface IProps {
     show: boolean;
@@ -25,7 +25,10 @@ const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
             sex: '',
             email: '',
             city: '',
-            nextApp: '',
+            address: '',
+            phone: '',
+            doctor: '',
+            job: '',
             passif: JSON.stringify({
                 medicalIssues: '',
                 lastAppointments: ['0'],
@@ -39,7 +42,9 @@ const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
             birthDate: isNotEmpty('Birth date is required'),
             email: isEmail('Invalid email'),
             city: (value) => (value.length < 2 ? 'City must be at least 2 chars' : null),
-            nextApp: isNotEmpty('Next appointment is required'),
+            address: isNotEmpty('Address is required'),
+            phone: (value) => (value.length < 10 ? 'Phone must be at least 10 chars' : null),
+            job: isNotEmpty('Job is required'),
         },
     });
 
@@ -48,10 +53,9 @@ const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
         if (form.validate().hasErrors) return;
         const patient = {
             ...form.values,
-            birthDate: dayjs(form.values.birthDate).format('DD/MM/YYYY'),
-            nextApp: dayjs(form.values.nextApp).format('YYYY-MM-DD HH:mm'),
+            birthDate: dayjs(form.values.birthDate).format(cnf.formatDate),
         };
-        // console.log(patient);
+        console.log(patient);
         try {
             const res = await axios.post(`/api/patients/add`, patient);
             setNotification(false, res.data.message);
@@ -121,13 +125,12 @@ const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
                             </Grid.Col>
                             <Grid.Col span={6}>
                                 <TextInput
-                                    label="City"
-                                    placeholder="City"
-                                    withAsterisk
-                                    {...form.getInputProps('city')}
+                                    label="Médecin traitant"
+                                    placeholder="Médecin traitant"
+                                    {...form.getInputProps('doctor')}
                                 />
                             </Grid.Col>
-                            <Grid.Col span={6}>
+                            <Grid.Col span={8}>
                                 <TextInput
                                     placeholder="Email Address"
                                     label="Email Address"
@@ -135,17 +138,31 @@ const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
                                     {...form.getInputProps('email')}
                                 />
                             </Grid.Col>
+                            <Grid.Col span={4}>
+                                <TextInput
+                                    label="Phone Number"
+                                    placeholder="Phone Number"
+                                    withAsterisk
+                                    {...form.getInputProps('phone')}
+                                />
+                            </Grid.Col>
                             <Grid.Col span={6}>
-                                <TextInput label="Phone Number" placeholder="Phone Number" defaultValue="+33 (0)" />
+                                <TextInput label="Job" placeholder="Job" withAsterisk {...form.getInputProps('job')} />
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <TextInput
+                                    label="City"
+                                    placeholder="City"
+                                    withAsterisk
+                                    {...form.getInputProps('city')}
+                                />
                             </Grid.Col>
                             <Grid.Col span={12}>
-                                <DateTimePicker
-                                    label="Next Appointment"
-                                    placeholder="Choose"
+                                <Textarea
+                                    label="Address"
+                                    placeholder="Address"
                                     withAsterisk
-                                    {...form.getInputProps('nextApp')}
-                                    valueFormat="DD/MM/YYYY HH:mm"
-                                    firstDayOfWeek={0}
+                                    {...form.getInputProps('address')}
                                 />
                             </Grid.Col>
                         </Grid>
