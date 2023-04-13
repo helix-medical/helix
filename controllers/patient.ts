@@ -11,7 +11,7 @@ const create = async (req: Request, res: Response) => {
     const sqlQuery =
         'INSERT ' +
         'INTO patients ' +
-        '(`id`, `name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `passif`) VALUES (?)';
+        '(`id`, `name`, `lastName`, `birthDate`, `sex`, `email`, `phone`, `address`, `city`, `job`, `doctor`, `passif`) VALUES (?)';
     const values = [
         id,
         req.body.name,
@@ -19,7 +19,11 @@ const create = async (req: Request, res: Response) => {
         req.body.birthDate,
         req.body.sex,
         req.body.email,
+        req.body.phone,
+        req.body.address,
         req.body.city,
+        req.body.job,
+        req.body.doctor,
         req.body.passif,
     ];
 
@@ -59,7 +63,7 @@ const update = async (req: Request, res: Response) => {
     const patientId = req.params.id;
     const sqlQuery =
         'UPDATE patients ' +
-        'SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ?, `email` = ?, `city` = ?, `passif` = ? ' +
+        'SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ?, `email` = ?, `city` = ?, `passif` = ?, `address` = ?, `phone` = ?, `job` = ?, `doctor` = ? ' +
         'WHERE id = ?';
     const values = [
         req.body.name,
@@ -69,6 +73,10 @@ const update = async (req: Request, res: Response) => {
         req.body.email,
         req.body.city,
         req.body.passif,
+        req.body.address,
+        req.body.phone,
+        req.body.job,
+        req.body.doctor,
     ];
 
     db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
