@@ -1,120 +1,14 @@
-// import { Button, Table } from '@mantine/core';
+import { IconSearch } from '@tabler/icons-react';
 import { IPatient } from '../../interfaces';
-// import SexBadge from '../../components/customBadges/sexBadge';
-// import IdBadge from '../../components/customBadges/id';
-
-// interface IProps {
-//     patients: IPatient[];
-// }
-
-// function PatientsTableView({ patients }: IProps): JSX.Element {
-//     const rows = patients.map((patient: IPatient) => (
-//         <tr key={patient.id}>
-//             <td>
-//                 <IdBadge id={patient.id ?? ''} />
-//             </td>
-//             <td>{patient.name}</td>
-//             <td>{patient.lastName}</td>
-//             <td>{patient.birthDate}</td>
-//             <td>
-//                 <SexBadge sex={patient.sex} />
-//             </td>
-//             <td>{patient.city}</td>
-//             <td>{patient.email}</td>
-//             <td>
-//                 <Button variant="light">NOT IMPLEMENTED</Button>
-//             </td>
-//         </tr>
-//     ));
-
-//     return (
-//         <Table horizontalSpacing="md" verticalSpacing="md" className="debug" highlightOnHover withColumnBorders>
-//             <thead>
-//                 <tr>
-//                     <th>ID</th>
-//                     <th>Name</th>
-//                     <th>Last Name</th>
-//                     <th>Birth Date</th>
-//                     <th>Sex</th>
-//                     <th>City</th>
-//                     <th>Email</th>
-//                     <th>View</th>
-//                 </tr>
-//             </thead>
-//             <tbody>{rows}</tbody>
-//         </Table>
-//     );
-// }
-
-// export default PatientsTableView;
-
-import { useState } from 'react';
-import {
-    createStyles,
-    Table,
-    ScrollArea,
-    UnstyledButton,
-    Group,
-    Text,
-    Center,
-    TextInput,
-    rem,
-    Button,
-} from '@mantine/core';
 import { keys } from '@mantine/utils';
-import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@tabler/icons-react';
+import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
+import { useState } from 'react';
 import IdBadge from '../../components/customBadges/id';
-
-const useStyles = createStyles((theme) => ({
-    th: {
-        padding: '0 !important',
-    },
-
-    control: {
-        width: '100%',
-        padding: `${theme.spacing.xs} ${theme.spacing.md}`,
-
-        '&:hover': {
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-        },
-    },
-
-    icon: {
-        width: rem(21),
-        height: rem(21),
-        borderRadius: rem(21),
-    },
-}));
+import Th from '../../components/thSort';
 
 interface TableSortProps {
     patients: IPatient[];
 }
-
-interface ThProps {
-    children: React.ReactNode;
-    reversed: boolean;
-    sorted: boolean;
-    onSort(): void;
-}
-
-const Th = ({ children, reversed, sorted, onSort }: ThProps) => {
-    const { classes } = useStyles();
-    const Icon = sorted ? (reversed ? IconChevronUp : IconChevronDown) : IconSelector;
-    return (
-        <th className={classes.th}>
-            <UnstyledButton onClick={onSort} className={classes.control}>
-                <Group position="apart">
-                    <Text fw={700} fz="sm">
-                        {children}
-                    </Text>
-                    <Center className={classes.icon}>
-                        <Icon size="0.9rem" stroke={1.5} />
-                    </Center>
-                </Group>
-            </UnstyledButton>
-        </th>
-    );
-};
 
 const filterData = (data: IPatient[], search: string) => {
     const query = search.toLowerCase().trim();

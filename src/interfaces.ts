@@ -58,7 +58,7 @@ export interface IAppointmentDataView {
 }
 
 export interface IAppointmentExtended {
-    id?: string;
+    id: string;
     date: string;
     kind: string;
     content: string;
