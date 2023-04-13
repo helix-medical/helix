@@ -87,7 +87,7 @@ const create = async (req: Request, res: Response) => {
         'first-time',
         hashedPassword,
         req.body.password,
-        '0000-00-00 00:00:00',
+        '1970-01-01 00:00:00',
     ];
 
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {

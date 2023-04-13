@@ -62,7 +62,7 @@ const update = async (req: Request, res: Response) => {
 const getForView = async (req: Request, res: Response) => {
     const appointmentId = req.params.id;
     const sqlQuery =
-        'SELECT app.id AS appID, app.date, app.kind, app.content, a.amount, a.method, app.`patientId`, app.status, p.name AS pName, p.`lastName` AS pLastName, p.email, p.`birthDate`, p.city, p.sex, p.passif, u.name, u.`lastName` ' +
+        'SELECT app.id AS appID, app.date, app.kind, app.content, a.amount, a.method, app.`patientId`, app.status, p.name AS pName, p.`lastName` AS pLastName, p.email, p.`birthDate`, p.city, p.sex, p.passif, u.name, u.`lastName`, p.address, p.phone, p.doctor, p.job ' +
         'FROM appointments app ' +
         'INNER JOIN patients p  ON app.`patientId` = p.id ' +
         'INNER JOIN accounting a ON app.payment = a.uid ' +
@@ -85,7 +85,7 @@ const getForView = async (req: Request, res: Response) => {
 const getForEdit = async (req: Request, res: Response) => {
     const appointmentId = req.params.id;
     const sqlQuery =
-        'SELECT app.id AS appID, app.date, app.kind, app.`patientId`, app.status, p.name AS pName, p.`lastName` AS pLastName, p.email, p.`birthDate`, p.city, p.sex, p.passif, u.name, u.`lastName` ' +
+        'SELECT app.id AS appID, app.date, app.kind, app.`patientId`, app.status, p.name AS pName, p.`lastName` AS pLastName, p.email, p.`birthDate`, p.city, p.sex, p.passif, u.name, u.`lastName`, p.address, p.phone, p.doctor, p.job ' +
         'FROM appointments app ' +
         'INNER JOIN patients p ON app.`patientId` = p.id ' +
         'INNER JOIN users u ON app.practitioner = u.uid ' +
