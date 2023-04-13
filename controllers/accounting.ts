@@ -27,7 +27,8 @@ const getTransactions = async (req: Request, res: Response) => {
         'FROM accounting a ' +
         'INNER JOIN appointments app ON a.appointment = app.id ' +
         'INNER JOIN patients p ON app.`patientId` = p.id ' +
-        'WHERE a.date BETWEEN ? AND ?';
+        'WHERE a.date BETWEEN ? AND ? ' +
+        'ORDER BY a.date DESC';
     const values = [req.params.start, req.params.end];
 
     db.query(sqlQuery, values, (err: any, data: any) => {
