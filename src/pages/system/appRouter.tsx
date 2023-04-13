@@ -8,7 +8,7 @@ import cnf from '../../config/config';
 // Pages
 import Patients from '../patients/patients';
 import Home from '../home/home';
-import Calendar from '../../components/calendar';
+import Calendar from '../calendar/calendar';
 import EditAppointment from '../appointment/edit';
 import Appointments from '../appointments/appointments';
 import ViewAppointment from '../appointment/view';

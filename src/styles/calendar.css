@@ -1,0 +1,7 @@
+/* @import 'react-big-calendar/lib/sass/styles'; */
+
+.rbc-event {
+  background-color: #f0f0f0;
+  border: 1px solid #d9d9d9;
+  color: #000;
+}
