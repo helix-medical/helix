@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Textarea, Title, Tabs, Button, Badge, Center, Paper } from '@mantine/core';
+import { Textarea, Title, Tabs, Button, Badge, Center, Paper, TextInput } from '@mantine/core';
 import PreviousAppointments from './previousAppointments';
 import Biodatas from './biodatas';
 import { IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
@@ -22,6 +22,10 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
         email: patientInput.email,
         city: patientInput.city,
         medicalIssues: passif.medicalIssues,
+        doctor: patientInput.doctor,
+        job: patientInput.job,
+        address: patientInput.address,
+        phone: patientInput.phone,
     });
 
     const handleChange = (e: { target: { name: any; value: any } }) => {
@@ -42,11 +46,23 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
         if (patient.email === '') {
             patient.email = patientInput.email;
         }
-        if (patient.city === '' || patient.city === undefined) {
+        if (patient.city === '') {
             patient.city = patientInput.city;
         }
         if (patient.medicalIssues === '') {
             patient.medicalIssues = passif.medicalIssues;
+        }
+        if (patient.doctor === '') {
+            patient.doctor = patientInput.doctor;
+        }
+        if (patient.job === '') {
+            patient.job = patientInput.job;
+        }
+        if (patient.address === '') {
+            patient.address = patientInput.address;
+        }
+        if (patient.phone === '') {
+            patient.phone = patientInput.phone;
         }
         const finalPatient = {
             name: patient.name,
@@ -55,11 +71,17 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
             sex: patientInput.sex,
             email: patient.email,
             city: patient.city,
+            doctor: patient.doctor,
+            job: patient.job,
+            address: patient.address,
+            phone: patient.phone,
             passif: JSON.stringify({
                 medicalIssues: patient.medicalIssues,
                 lastAppointments: passif.lastAppointments,
             }),
         };
+
+        console.log(finalPatient);
 
         try {
             const res = await axios.put(`/api/patients/${id}`, finalPatient);
@@ -79,7 +101,7 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                         BioData
                     </Tabs.Tab>
                     <Tabs.Tab value="medical" icon={<IconAlertTriangle size="1rem" />}>
-                        Previous Medical Issues
+                        Antécédents
                     </Tabs.Tab>
                     <Tabs.Tab
                         value="appointments"
@@ -105,12 +127,19 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                         />
                     </Tabs.Panel>
                     <Tabs.Panel value="medical">
-                        <Title order={3}>Previous Medical Issues</Title>
+                        <Title order={3}>Antécédents Médicaux</Title>
                         <Textarea
                             maxRows={10}
                             defaultValue={passif.medicalIssues}
                             onChange={handleChange}
                             name="medicalIssues"
+                        />
+                        <TextInput
+                            label="Médecin traitant"
+                            name="doctor"
+                            value={patient.doctor}
+                            onChange={handleChange}
+                            placeholder="Médecin traitant"
                         />
                     </Tabs.Panel>
                     <Tabs.Panel value="appointments">

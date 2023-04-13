@@ -34,7 +34,7 @@ const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
                         readOnly={view}
                     />
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col sm={6}>
                     <Textarea
                         label="Known diseases"
                         maxRows={nbLines(anamnesis.knownDiseases, 3)}
@@ -43,7 +43,7 @@ const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
                         readOnly={view}
                     />
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col sm={6}>
                     <Textarea
                         label="Medications"
                         maxRows={nbLines(anamnesis.knownMedications, 3)}

@@ -41,6 +41,10 @@ const ViewAppointment = () => {
         birthDate: '',
         sex: '',
         city: '',
+        doctor: '',
+        job: '',
+        phone: '',
+        address: '',
         passif: JSON.stringify({
             medicalIssues: '',
             lastAppointments: [],

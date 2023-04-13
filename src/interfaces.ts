@@ -58,6 +58,10 @@ export interface IAppointmentDataView {
     method: string;
     pName: string;
     pLastName: string;
+    doctor: string;
+    job: string;
+    phone: string;
+    address: string;
 }
 
 export interface IAppointmentExtended {
@@ -86,6 +90,10 @@ export interface IAppointmentDataEdit {
     passif: string;
     pName: string;
     pLastName: string;
+    doctor: string;
+    job: string;
+    phone: string;
+    address: string;
 }
 
 export interface IUsers {

@@ -12,6 +12,7 @@ import setNotification from '../system/errors/feedbackNotif';
 import { useNavigate } from 'react-router-dom';
 import Secretary from './secretary';
 import moment from 'moment';
+import cnf from '../../config/config';
 
 const EditAppointment = (): JSX.Element => {
     const id = window.location.href.split('/').slice(-2)[0];
@@ -30,6 +31,10 @@ const EditAppointment = (): JSX.Element => {
         city: '',
         name: '',
         lastName: '',
+        doctor: '',
+        job: '',
+        phone: '',
+        address: '',
         passif: JSON.stringify({
             medicalIssues: '',
             lastAppointments: [],
@@ -57,7 +62,7 @@ const EditAppointment = (): JSX.Element => {
                 amount: form.values.payment.amount,
                 method: form.values.payment.method,
                 appointment: id,
-                date: moment().format('YYYY-MM-DD'),
+                date: moment().format(cnf.formatDate),
             });
             setNotification(false, res.data.message);
             const appointmentFinal = {
