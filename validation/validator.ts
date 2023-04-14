@@ -16,6 +16,7 @@ import schemaEventCreate from './schemas/create-event.json';
 export default module.exports = {
     patientCreate: ajv.compile(schemaPatientCreate),
     patientUpdate: ajv.compile(schemaPatientUpdate),
+    appointmentCreate: ajv.compile(schemaAppointmentCreate),
     eventCreate: ajv.compile(schemaEventCreate),
     appointmentUpdate: ajv.compile(schemaAppointmentUpdate),
     patientAddAppointment: ajv.compile(schemaPatientAddAppointment),
