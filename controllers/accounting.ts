@@ -8,7 +8,13 @@ import logger from '../system/logger';
 const create = async (req: Request, res: Response) => {
     let id = uuid();
     while (await queries.checkId(id, 'users', 'uid')) id = uuid();
-    const sqlQuery = 'INSERT INTO accounting (`uid`, `amount`, `method`, `date`, `appointment`) VALUES (?)';
+    const sqlQuery = `
+        INSERT INTO
+            accounting
+                (uid, amount, method, date, appointment)
+            VALUES
+                (?)
+    `;
     const values = [id, req.body.amount, req.body.method, req.body.date, req.body.appointment];
 
     db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
@@ -22,13 +28,29 @@ const create = async (req: Request, res: Response) => {
 };
 
 const getTransactions = async (req: Request, res: Response) => {
-    const sqlQuery =
-        'SELECT a.uid, a.amount, a.method, a.date, app.id, p.name AS patientName, p.`lastName` AS patientLastName, a.appointment ' +
-        'FROM accounting a ' +
-        'INNER JOIN appointments app ON a.appointment = app.id ' +
-        'INNER JOIN patients p ON app.`patientId` = p.id ' +
-        'WHERE a.date BETWEEN ? AND ? ' +
-        'ORDER BY a.date DESC';
+    const sqlQuery = `
+        SELECT
+            a.uid,
+            a.amount,
+            a.method,
+            a.date,
+            app.id,
+            p.name AS patientName,
+            p.lastName AS patientLastName,
+            a.appointment
+        FROM
+            accounting a
+            INNER JOIN
+                appointments app
+                    ON a.appointment = app.id
+            INNER JOIN
+                patients p
+                    ON app.patientId = p.id
+        WHERE
+            a.date BETWEEN ? AND ?
+        ORDER BY
+            a.date DESC
+    `;
     const values = [req.params.start, req.params.end];
 
     db.query(sqlQuery, values, (err: any, data: any) => {
@@ -42,12 +64,16 @@ const getTransactions = async (req: Request, res: Response) => {
 };
 
 const getSum = async (req: Request, res: Response) => {
-    const sqlQuery = `SELECT 
-        SUM(CASE WHEN COALESCE(method, '') = 'check' THEN amount ELSE 0 END) AS checks,
-        SUM(CASE WHEN COALESCE(method, '') = 'card' THEN amount ELSE 0 END) AS cards,
-        SUM(CASE WHEN COALESCE(method, '') = 'cash' THEN amount ELSE 0 END) AS cashs
-    FROM accounting
-    WHERE date BETWEEN ? AND ?`;
+    const sqlQuery = `
+        SELECT 
+            SUM(CASE WHEN COALESCE(method, '') = 'check' THEN amount ELSE 0 END) AS checks,
+            SUM(CASE WHEN COALESCE(method, '') = 'card' THEN amount ELSE 0 END) AS cards,
+            SUM(CASE WHEN COALESCE(method, '') = 'cash' THEN amount ELSE 0 END) AS cashs
+        FROM
+            accounting
+        WHERE
+            date BETWEEN ? AND ?
+    `;
     const values = [req.params.start, req.params.end];
 
     db.query(sqlQuery, values, (err: any, data: any) => {

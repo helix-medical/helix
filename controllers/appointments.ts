@@ -6,10 +6,20 @@ import moment from 'moment';
 
 const readAll = async (req: Request, res: Response) => {
     const sqlQuery = `
-        SELECT app.id, app.date, app.kind, app.status, p.name, p.lastName, p.sex
-        FROM appointments app
-        INNER JOIN patients p ON app.patientId = p.id `;
-
+        SELECT
+            app.id,
+            app.date,
+            app.kind,
+            app.status,
+            p.name,
+            p.lastName,
+            p.sex
+        FROM
+            appointments app
+            INNER JOIN
+                patients p
+                    ON app.patientId = p.id
+    `;
     let addOn = '';
     if (req.params.period === 'past') {
         addOn = `WHERE app.date < '${moment().format('YYYY-MM-DD HH:mm')}'`;

@@ -9,10 +9,11 @@ const create = async (req: Request, res: Response) => {
     let id = uuid();
     while (await queries.checkId(id, `events`, 'id')) id = uuid();
     const sqlQuery = `
-        INSERT INTO events 
-            (id, title, start, end, calendar, appID)
-        VALUES
-            (?)
+        INSERT INTO
+            events 
+                (id, title, start, end, calendar, appID)
+            VALUES
+                (?)
     `;
     const values = [id, req.body.title, req.body.start, req.body.end, req.body.calendar, req.body.appID ?? ''];
 

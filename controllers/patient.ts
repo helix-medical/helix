@@ -61,10 +61,24 @@ const read = async (req: Request, res: Response) => {
 
 const update = async (req: Request, res: Response) => {
     const patientId = req.params.id;
-    const sqlQuery =
-        'UPDATE patients ' +
-        'SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ?, `email` = ?, `city` = ?, `passif` = ?, `address` = ?, `phone` = ?, `job` = ?, `doctor` = ? ' +
-        'WHERE id = ?';
+    const sqlQuery = `
+        UPDATE
+            patients
+        SET
+            name = ?,
+            lastName = ?,
+            birthDate = ?,
+            sex = ?,
+            email = ?,
+            city = ?,
+            passif = ?,
+            address = ?,
+            phone = ?,
+            job = ?,
+            doctor = ?
+        WHERE
+            id = ?
+    `;
     const values = [
         req.body.name,
         req.body.lastName,
@@ -95,8 +109,14 @@ const update = async (req: Request, res: Response) => {
 
 const addAppointment = async (req: Request, res: Response) => {
     const patientId = req.params.id;
-    const sqlQuery =
-        'UPDATE patients ' + 'SET `passif` = JSON_ARRAY_APPEND(`passif`, "$.lastAppointments", ?) ' + 'WHERE id = ?';
+    const sqlQuery = `
+        UPDATE
+            patients
+        SET
+            passif = JSON_ARRAY_APPEND(passif, "$.lastAppointments", ?)
+        WHERE
+            id = ?
+    `;
     const values = [req.body.id];
 
     db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
@@ -115,9 +135,12 @@ const addAppointment = async (req: Request, res: Response) => {
 
 const delete_ = async (req: Request, res: Response) => {
     const patientId = req.params.id;
-    const sqlQuery = `DELETE 
-    FROM patients
-    WHERE id = ?
+    const sqlQuery = `
+        DELETE 
+        FROM
+            patients
+        WHERE
+            id = ?
     `;
 
     db.query(sqlQuery, patientId, (err: any, data: any) => {

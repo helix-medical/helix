@@ -13,6 +13,8 @@ router.get('/:id/edit', controller.getForEdit);
 
 router.post('/new', middleware.create, controller.create);
 
-router.put('/:id', middleware.update, controller.update);
+router.put('/:id/content', middleware.update, controller.updateContent);
+router.put('/:id/date', controller.updateDate);
+router.put('/:id/practitioner', controller.updatePractitioner);
 
 export default router;
