@@ -116,3 +116,11 @@ export interface ITransactions {
     patientLastName: string;
     appointment: string;
 }
+
+export interface IEvent {
+    id: string;
+    title: string;
+    start: Date;
+    end: Date;
+    kind: string;
+}

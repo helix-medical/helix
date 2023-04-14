@@ -1,20 +1,18 @@
-import { Button } from '@mantine/core';
+import { Center, Paper, Text } from '@mantine/core';
 import moment from 'moment';
 import { EventProps } from 'react-big-calendar';
-
-interface IEvent {
-    start: Date;
-    end: Date;
-    title: string;
-    id: string;
-}
+import { IEvent } from '../../interfaces';
 
 const Event = ({ event }: EventProps<IEvent>) => {
     return (
-        <>
-            <Button>{moment(event.start).format('HH:mm')}</Button>
-            <Button color="blue">{event.title}</Button>
-        </>
+        <Paper shadow="sm" radius="sm" withBorder>
+            <Text fz="xs" color="dimmed">
+                {moment(event.start).format('HH:mm')} - {moment(event.end).format('HH:mm')}
+            </Text>
+            <Center>
+                <Text>{event.title}</Text>
+            </Center>
+        </Paper>
     );
 };
 

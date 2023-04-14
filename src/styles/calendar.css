@@ -1,7 +1,27 @@
 /* @import 'react-big-calendar/lib/sass/styles'; */
 
 .rbc-event {
-  background-color: #f0f0f0;
-  border: 1px solid #d9d9d9;
-  color: #000;
+  background-color: rgba(0, 0, 0, 0);
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.rbc-event.rbc-selected {
+  background-color: rgba(0, 0, 0, 0);
+  margin: 0;
+  padding: 0;
+}
+
+
+.rbc-event-label {
+  display: none;
+}
+
+.rbc-time-view {
+  flex: none;
+}
+
+.rbc-events-container {
+  background-color: rgba(0, 0, 0, 0);
 }

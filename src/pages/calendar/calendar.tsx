@@ -1,4 +1,4 @@
-import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
+import { Calendar as BigCalendar, momentLocalizer, DateCellWrapperProps } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Badge, Paper, Title } from '@mantine/core';
@@ -8,13 +8,8 @@ import cnf from '../../config/config';
 import '../../styles/calendar.css';
 import Toolbar from './toolbar';
 import Event from './event';
-
-interface IEvent {
-    start: Date;
-    end: Date;
-    title: string;
-    id: string;
-}
+// import EventWrapper from './eventWrapper';
+import { IEvent } from '../../interfaces';
 
 const Calendar = () => {
     const [events, setEvents] = useState<IEvent[]>([]);
@@ -26,6 +21,7 @@ const Calendar = () => {
                 end: moment(event.date).add(cnf.durationAppointment, 'minute').toDate(),
                 title: `${event.name} ${event.lastName}`,
                 id: event.id,
+                kind: 'follow-up',
             }));
             setEvents(events);
         };
@@ -45,6 +41,31 @@ const Calendar = () => {
         console.log(event);
     }, []);
 
+    const dayPropGetter = useCallback(
+        (date: Date) => ({
+            ...(moment(date).format(cnf.formatDate) === moment().format(cnf.formatDate) && {
+                color: 'red',
+            }),
+        }),
+        []
+    );
+
+    const dateCellWrapper = ({ value, range, children }: DateCellWrapperProps) => {
+        const style = {
+            display: 'center',
+            flex: 1,
+            borderLeft: '1px solid #DDD',
+        };
+        return (
+            <div style={style}>
+                <Badge color="yellow" style={{ margin: 'auto' }}>
+                    {value.getDate()}
+                </Badge>
+                {children}
+            </div>
+        );
+    };
+
     const { formats, localizer, messages, components } = useMemo(
         () => ({
             formats: {
@@ -59,8 +80,7 @@ const Calendar = () => {
                 agendaTimeFormat: 'HH:mm',
                 agendaTimeRangeFormat: ({ start, end }: { start: Date; end: Date }) =>
                     `${localizer.format(start, 'HH:mm', 'fr')} - ${localizer.format(end, 'HH:mm', 'fr')}`,
-                eventTimeRangeFormat: ({ start, end }: { start: Date; end: Date }) =>
-                    `${localizer.format(start, 'HH:mm', 'fr')} - ${localizer.format(end, 'HH:mm', 'fr')}`,
+                eventTimeRangeFormat: ({ start, end }: { start: Date; end: Date }) => '',
                 timeGutterFormat: 'HH:mm',
                 agendaHeaderFormat: ({ start, end }: { start: Date; end: Date }) =>
                     `${localizer.format(start, 'ddd DD MMM', 'fr')} - ${localizer.format(end, 'ddd DD MMM', 'fr')}`,
@@ -86,7 +106,15 @@ const Calendar = () => {
             },
             components: {
                 toolbar: Toolbar,
-                event: Event,
+                week: {
+                    event: Event,
+                },
+                day: {
+                    event: Event,
+                },
+                dateCellWrapper,
+                // eventWrapper: EventWrapper,
+                // eventContainerWrapper: EventWrapper,
             },
         }),
         []
@@ -113,6 +141,7 @@ const Calendar = () => {
                     selectable
                     onSelectEvent={onSelectEvent}
                     components={components}
+                    dayPropGetter={dayPropGetter}
                 />
             </Paper>
         </>
