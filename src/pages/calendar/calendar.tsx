@@ -1,7 +1,7 @@
 import { Calendar as BigCalendar, momentLocalizer, DateCellWrapperProps } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { Badge, Modal, Paper, Title } from '@mantine/core';
+import { Badge, Paper, Title } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import cnf from '../../config/config';
@@ -16,13 +16,13 @@ const Calendar = () => {
     const [events, setEvents] = useState<IEvent[]>([]);
     useEffect(() => {
         const fetchEvents = async () => {
-            const res = await axios.get('api/appointments/all');
+            const res = await axios.get('api/events');
             const events = res.data.map((event: any) => ({
-                start: moment(event.date).toDate(),
-                end: moment(event.date).add(cnf.durationAppointment, 'minute').toDate(),
-                title: `${event.name} ${event.lastName}`,
+                start: moment(event.start).toDate(),
+                end: moment(event.end).toDate(),
+                title: `${event.title}`,
                 id: event.id,
-                kind: event.kind,
+                kind: event.appID !== '' ? 'app' : 'event',
             }));
             setEvents(events);
         };
@@ -38,9 +38,7 @@ const Calendar = () => {
         []
     );
 
-    const onSelectEvent = useCallback((event: IEvent) => {
-
-    }, []);
+    const onSelectEvent = useCallback((event: IEvent) => {}, []);
 
     const dayPropGetter = useCallback(
         (date: Date) => ({

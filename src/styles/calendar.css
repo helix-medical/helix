@@ -1,14 +1,14 @@
 /* @import 'react-big-calendar/lib/sass/styles'; */
 
 .rbc-event {
-  background-color: rgba(0, 0, 0, 0);
+  /* background-color: rgba(0, 0, 0, 0); */
   margin: 0;
   border: 0 rgba(0, 0, 0, 0);
   padding: 0;
 }
 
 .rbc-event.rbc-selected {
-  background-color: rgba(0, 0, 0, 0);
+  /* background-color: rgba(0, 0, 0, 0); */
   margin: 0;
   padding: 0;
 }

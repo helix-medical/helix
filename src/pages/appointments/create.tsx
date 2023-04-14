@@ -5,6 +5,8 @@ import { DateTimePicker } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import dayjs from 'dayjs';
 import setNotification from '../system/errors/feedbackNotif';
+import cnf from '../../config/config';
+import moment from 'moment';
 
 interface IProps {
     show: boolean;
@@ -26,14 +28,23 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
         let index;
         const appointment = {
             ...form.values,
-            date: dayjs(form.values.date).format('YYYY-MM-DD HH:mm'),
+            date: dayjs(form.values.date).format(cnf.formatDateTime),
         };
         try {
             index = await axios.post(`/api/appointments/new`, appointment);
             setNotification(false, index.data.message);
-            const res = await axios.put(`/api/patients/${appointment.patientId}/add_appointment`, {
+            let res = await axios.put(`/api/patients/${appointment.patientId}/add_appointment`, {
                 id: index.data.id,
             });
+            setNotification(false, res.data.message);
+            const event = {
+                title: `${appointment.patientId}`,
+                start: appointment.date,
+                end: moment(appointment.date).add(cnf.durationAppointment, 'minutes').format(cnf.formatDateTime),
+                calendar: appointment.practitioner,
+                appID: index.data.id,
+            };
+            res = await axios.post(`/api/events`, event);
             setNotification(false, res.data.message);
             handleClose();
         } catch (error: any) {
