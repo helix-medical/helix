@@ -1,7 +1,7 @@
 import { Calendar as BigCalendar, momentLocalizer, DateCellWrapperProps } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { Badge, Paper, Title } from '@mantine/core';
+import { Badge, Modal, Paper, Title } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import cnf from '../../config/config';
@@ -10,6 +10,7 @@ import Toolbar from './toolbar';
 import Event from './event';
 // import EventWrapper from './eventWrapper';
 import { IEvent } from '../../interfaces';
+import AgendaEvent from './agendaEvent';
 
 const Calendar = () => {
     const [events, setEvents] = useState<IEvent[]>([]);
@@ -21,7 +22,7 @@ const Calendar = () => {
                 end: moment(event.date).add(cnf.durationAppointment, 'minute').toDate(),
                 title: `${event.name} ${event.lastName}`,
                 id: event.id,
-                kind: 'follow-up',
+                kind: event.kind,
             }));
             setEvents(events);
         };
@@ -38,7 +39,7 @@ const Calendar = () => {
     );
 
     const onSelectEvent = useCallback((event: IEvent) => {
-        console.log(event);
+
     }, []);
 
     const dayPropGetter = useCallback(
@@ -113,6 +114,9 @@ const Calendar = () => {
                     event: Event,
                 },
                 dateCellWrapper,
+                agenda: {
+                    event: AgendaEvent,
+                },
                 // eventWrapper: EventWrapper,
                 // eventContainerWrapper: EventWrapper,
             },

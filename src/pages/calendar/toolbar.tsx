@@ -29,7 +29,7 @@ const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, vi
     return (
         <Paper shadow="sm" p="xs" radius="sm" mb="sm" withBorder>
             <Grid columns={3}>
-                <Grid.Col xs={3} md={1}>
+                <Grid.Col xs={3} sm={1}>
                     <Group position="center">
                         <ActionIcon onClick={() => onNavigate(Navigate.PREVIOUS)} variant="outline" color={color}>
                             <IconChevronLeft size="1.2rem" />
@@ -42,14 +42,14 @@ const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, vi
                         </ActionIcon>
                     </Group>
                 </Grid.Col>
-                <Grid.Col xs={3} md={1}>
+                <Grid.Col xs={3} sm={1}>
                     <Center>
                         <Text fz="md" fw={700}>
                             {label}
                         </Text>
                     </Center>
                 </Grid.Col>
-                <Grid.Col xs={3} md={1}>
+                <Grid.Col xs={3} sm={1}>
                     <Center>
                         <SelectView views={views} view={view} onView={onView} messages={messages} />
                     </Center>
