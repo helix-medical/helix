@@ -9,13 +9,14 @@ import schemaPatientAddAppointment from './schemas/add-appointment.json';
 import schemaUserCreate from './schemas/create-user.json';
 import schemaLogin from './schemas/login.json';
 import schemaAccountingCreate from './schemas/create-accounting.json';
+import schemaEventCreate from './schemas/create-event.json';
 
 // Add formats for specific data types
 
 export default module.exports = {
     patientCreate: ajv.compile(schemaPatientCreate),
     patientUpdate: ajv.compile(schemaPatientUpdate),
-    appointmentCreate: ajv.compile(schemaAppointmentCreate),
+    eventCreate: ajv.compile(schemaEventCreate),
     appointmentUpdate: ajv.compile(schemaAppointmentUpdate),
     patientAddAppointment: ajv.compile(schemaPatientAddAppointment),
     userCreate: ajv.compile(schemaUserCreate),

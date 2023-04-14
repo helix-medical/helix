@@ -73,7 +73,7 @@ const readOne = async (req: Request, res: Response) => {
 
 const create = async (req: Request, res: Response) => {
     let id = uuid();
-    while (await queries.checkId(id, 'users')) id = uuid();
+    while (await queries.checkId(id, 'users', 'uid')) id = uuid();
     const sqlQuery = `
     INSERT INTO users (uid, name, lastName, role, state, password, clearPassword, lastActive)
     VALUES (?)
@@ -90,7 +90,7 @@ const create = async (req: Request, res: Response) => {
         '1970-01-01 00:00:00',
     ];
 
-    db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
+    db.query(sqlQuery, [values], (err: any, data: any) => {
         if (err) {
             res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
             logger.fail(req, res, err);

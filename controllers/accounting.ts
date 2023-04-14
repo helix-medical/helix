@@ -7,7 +7,7 @@ import logger from '../system/logger';
 
 const create = async (req: Request, res: Response) => {
     let id = uuid();
-    while (await queries.checkId(id, 'users')) id = uuid();
+    while (await queries.checkId(id, 'users', 'uid')) id = uuid();
     const sqlQuery = 'INSERT INTO accounting (`uid`, `amount`, `method`, `date`, `appointment`) VALUES (?)';
     const values = [id, req.body.amount, req.body.method, req.body.date, req.body.appointment];
 

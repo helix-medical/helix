@@ -1,4 +1,4 @@
-import express, { Express, NextFunction, Request, Response } from 'express';
+import express, { Express, Request, Response } from 'express';
 import cors from './config/cors';
 require('dotenv').config();
 import patients from './routers/patients';
@@ -12,6 +12,7 @@ import sc from './tools/statusCodes';
 import cookieParser from 'cookie-parser';
 import credentials from './middleware/credentials';
 import logger from './system/logger';
+import events from './routers/events';
 
 // Config
 const app: Express = express();
@@ -40,10 +41,11 @@ app.use('/api/patients', patients);
 app.use('/api/appointments', appointments);
 app.use('/api/users', users);
 app.use('/api/accounting', accounting);
+app.use('/api/events', events);
 
 // 404
 app.all('*', (req: Request, res: Response) => {
-    res.status(sc.NOT_FOUND).json({ error: 'Not found' });
+    res.status(sc.NOT_FOUND).json({ error: 'Route not found' });
     logger.fail(req, res, 'Not found');
 });
 
