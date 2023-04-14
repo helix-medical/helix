@@ -57,8 +57,20 @@ CREATE TABLE
         SET NULL
     );
 
-SELECT * FROM helix.patients;
+CREATE TABLE
+    `helix`.`events` (
+        `id` VARCHAR(8) NOT NULL,
+        `calendar` VARCHAR(8) NOT NULL,
+        `title` VARCHAR(80) NOT NULL,
+        `start` VARCHAR(16) NOT NULL,
+        `end` VARCHAR(16) NOT NULL,
+        `appID` VARCHAR(8),
+        PRIMARY KEY (`id`),
+        FOREIGN KEY (`calendar`) REFERENCES `helix`.`users`(`uid`) ON DELETE CASCADE
+    );
 
-ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'root';
+ALTER USER 'root' IDENTIFIED
+WITH
+    mysql_native_password BY 'root';
 
 FLUSH PRIVILEGES;
