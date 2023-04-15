@@ -66,11 +66,18 @@ markdown_extensions:
           pygments_lang_class: true
     - pymdownx.inlinehilite
     - pymdownx.snippets
-    - pymdownx.superfences
+    - pymdownx.superfences:
+          custom_fences:
+              - name: mermaid
+                class: mermaid
+                # format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-    - Home: index.md
-    - Disclaimer: getting-started/disclaimer.md
-    - Installation: getting-started/install.md
-    - Configuration: getting-started/configuration.md
-    - Usage: getting-started/usage.md
+    - Getting Started:
+          - Home: index.md
+          - Disclaimer: getting-started/disclaimer.md
+          - Installation: getting-started/install.md
+          - Configuration: getting-started/configuration.md
+          - Usage: getting-started/usage.md
+    - API:
+          - API: api/api.md
