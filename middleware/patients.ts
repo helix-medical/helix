@@ -25,19 +25,7 @@ const update = (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-const addAppointment = (req: Request, res: Response, next: NextFunction) => {
-    const isValid = validate.patientAddAppointment(req.body);
-    if (!isValid) {
-        res.status(sc.NOT_ACCEPTABLE).json(validate.patientAddAppointment.errors);
-        logger.fail(req, res, 'Invalid request body');
-    } else {
-        logger.success(req, res, 'Valid request body');
-        next();
-    }
-};
-
 export default module.exports = {
     update,
     create,
-    addAppointment,
 };

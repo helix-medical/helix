@@ -1,7 +1,4 @@
 import { Response, Request } from 'express';
-import db from '../database/config';
-import logger from '../system/logger';
-import sc from '../tools/statusCodes';
 import uuid from '../tools/uuid';
 import queries from '../database/queries';
 
@@ -17,37 +14,63 @@ const create = async (req: Request, res: Response) => {
     `;
     const values = [id, req.body.title, req.body.start, req.body.end, req.body.calendar, req.body.appID ?? ''];
 
-    db.query(sqlQuery, [values], (err: any, data: any) => {
-        if (err) {
-            res.status(sc.BAD_REQUEST).json({ message: `Bad request` });
-            logger.fail(req, res, err);
-        } else if (data.affectedRows === 0) {
-            res.status(sc.INTERNAL_SERVER_ERROR).json({ message: `Fail on create event` });
-            logger.fail(req, res, `Fail on create event`);
-        } else {
-            res.status(sc.CREATED).json({ id: id, message: `Event ${id} created` });
-            logger.success(req, res, `Event ${id} created`);
-        }
-    });
+    await queries.push(req, res, sqlQuery, [values], { id, name: 'Event' });
 };
 
 const getEvents = async (req: Request, res: Response) => {
     const sqlQuery = `SELECT * FROM events`;
-    db.query(sqlQuery, (err: any, data: any) => {
-        if (err) {
-            res.status(sc.BAD_REQUEST).json({ message: `Bad request` });
-            logger.fail(req, res, err);
-        } else if (data.length === 0) {
-            res.status(sc.NOT_FOUND).json({ message: `Events not found` });
-            logger.fail(req, res, `Events not found`);
-        } else {
-            res.status(sc.OK).json(data);
-            logger.success(req, res, `Return events`);
-        }
-    });
+    await queries.pull(req, res, sqlQuery, [], { id: `all`, name: 'Events' });
+};
+
+const updateDate = async (req: Request, res: Response) => {
+    const event = req.params.id;
+    const sqlQuery = `
+        UPDATE
+            events
+        SET
+            date = ?
+        WHERE
+            id = ?
+    `;
+    const values = [req.body.date];
+
+    await queries.push(req, res, sqlQuery, [...values, event], { id: event, name: 'Event' });
+};
+
+const updateCalendar = async (req: Request, res: Response) => {
+    const event = req.params.id;
+    const sqlQuery = `
+        UPDATE
+            events
+        SET
+            calendar = ?
+        WHERE
+            id = ?
+    `;
+    const values = [req.body.calendar];
+
+    await queries.push(req, res, sqlQuery, [...values, event], { id: event, name: 'Event' });
+};
+
+const addAppointment = async (req: Request, res: Response) => {
+    const event = req.params.id;
+    const sqlQuery = `
+        UPDATE
+            events
+        SET
+            appID = ?
+        WHERE
+            id = ?
+    `;
+    const values = [req.body.appId];
+
+    await queries.push(req, res, sqlQuery, [...values, event], { id: event, name: 'Event' });
 };
 
 export default {
     create,
     getEvents,
+    updateDate,
+    updateCalendar,
+    addAppointment,
 };

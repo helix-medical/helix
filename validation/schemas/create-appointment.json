@@ -5,22 +5,18 @@
             "type": "string",
             "pattern": "^[0-9a-fA-F]{8}$"
         },
-        "date": {
-            "type": "string"
-        },
         "kind": {
             "type": "string"
         },
-        "practitioner": {
+        "event": {
             "type": "string",
             "pattern": "^[0-9a-fA-F]{8}$"
         }
     },
     "required": [
         "patientId",
-        "date",
-        "kind",
-        "practitioner"
+        "event",
+        "kind"
     ],
     "additionalProperties": false
 }

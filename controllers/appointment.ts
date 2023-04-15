@@ -1,24 +1,6 @@
 import { Response, Request } from 'express';
-import db from '../database/config';
-import sc from '../tools/statusCodes';
 import uuid from '../tools/uuid';
 import queries from '../database/queries';
-import logger from '../system/logger';
-
-const queryUpdate = async (req: Request, res: Response, sqlQuery: string, values: any[], id: string) => {
-    db.query(sqlQuery, values, (err: any, data: any) => {
-        if (err) {
-            res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
-            logger.fail(req, res, err);
-        } else if (data.affectedRows === 0) {
-            res.status(sc.NOT_FOUND).json({ message: 'Appointment not found' });
-            logger.fail(req, res, `Appointment ${id} not found`);
-        } else {
-            res.status(sc.OK).json({ message: `Appointment ${id} updated` });
-            logger.success(req, res, `Appointment ${id} updated`);
-        }
-    });
-};
 
 const create = async (req: Request, res: Response) => {
     let id = uuid();
@@ -26,14 +8,14 @@ const create = async (req: Request, res: Response) => {
     const sqlQuery = `
         INSERT INTO
             appointments
-                (id, patientId, date, kind, content, status, practitioner)
+                (id, patientId, event, kind, content, status)
             VALUES
                 (?)
     `;
     const values = [
         id,
         req.body.patientId,
-        req.body.date,
+        req.body.event,
         req.body.kind,
         JSON.stringify({
             reasons: '',
@@ -45,18 +27,56 @@ const create = async (req: Request, res: Response) => {
             observations: '',
         }),
         'pending',
-        req.body.practitioner,
     ];
 
-    db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
-        if (err) {
-            res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
-            logger.fail(req, res, err);
-        } else {
-            res.status(sc.OK).json({ id, message: `Appointment ${id} created` });
-            logger.success(req, res, `Appointment ${id} created`);
-        }
-    });
+    await queries.push(req, res, sqlQuery, [values], { id, name: 'Appointment' });
+};
+
+const read = async (req: Request, res: Response) => {
+    const { id, view } = req.params;
+    const sqlQuery = `
+        SELECT
+            app.id AS appID,
+            e.start AS date,
+            app.kind,
+            ${
+                view === 'view'
+                    ? `app.content,
+            a.amount,
+            a.method,`
+                    : ''
+            }
+            app.patientId,
+            app.status,
+            p.name AS pName,
+            p.lastName AS pLastName,
+            p.email,
+            p.birthDate,
+            p.city,
+            p.sex,
+            p.passif,
+            u.name,
+            u.lastName,
+            p.address,
+            p.phone,
+            p.doctor,
+            p.job
+        FROM
+            appointments app
+            INNER JOIN
+                patients p
+                    ON app.patientId = p.id
+            INNER JOIN
+                events e
+                    ON app.event = e.id
+            INNER JOIN
+                users u
+                    ON e.calendar = u.uid
+            ${view === 'view' ? `INNER JOIN accounting a ON app.payment = a.uid` : ''}
+        WHERE app.id = ?
+    `;
+
+    await queries.pull(req, res, sqlQuery, [id], { id, name: 'Appointment' });
 };
 
 const updateContent = async (req: Request, res: Response) => {
@@ -71,147 +91,11 @@ const updateContent = async (req: Request, res: Response) => {
     `;
     const values = [req.body.content, 'finished', req.body.payment];
 
-    await queryUpdate(req, res, sqlQuery, [...values, appointmentId], appointmentId);
-};
-
-const updateDate = async (req: Request, res: Response) => {
-    const appointmentId = req.params.id;
-    const sqlQuery = `
-        UPDATE
-            appointments
-        SET
-            date = ?
-        WHERE
-            id = ?
-    `;
-    const values = [req.body.date];
-
-    await queryUpdate(req, res, sqlQuery, [...values, appointmentId], appointmentId);
-};
-
-const updatePractitioner = async (req: Request, res: Response) => {
-    const appointmentId = req.params.id;
-    const sqlQuery = `
-        UPDATE
-            appointments
-        SET
-            practitioner = ?
-        WHERE
-            id = ?
-    `;
-    const values = [req.body.practitioner];
-
-    await queryUpdate(req, res, sqlQuery, [...values, appointmentId], appointmentId);
-};
-
-const getForView = async (req: Request, res: Response) => {
-    const appointmentId = req.params.id;
-    const sqlQuery = `
-        SELECT
-            app.id AS appID,
-            app.date,
-            app.kind,
-            app.content,
-            a.amount,
-            a.method,
-            app.patientId,
-            app.status,
-            p.name AS pName,
-            p.lastName AS pLastName,
-            p.email,
-            p.birthDate,
-            p.city,
-            p.sex,
-            p.passif,
-            u.name,
-            u.lastName,
-            p.address,
-            p.phone,
-            p.doctor,
-            p.job
-        FROM
-            appointments app
-            INNER JOIN
-                patients p
-                    ON app.patientId = p.id
-            INNER JOIN
-                accounting a
-                    ON app.payment = a.uid
-            INNER JOIN
-                users u
-                    ON app.practitioner = u.uid
-        WHERE app.id = ?
-    `;
-    db.query(sqlQuery, appointmentId, (err: any, data: any) => {
-        if (err) {
-            res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
-            logger.fail(req, res, err);
-        } else if (data.length === 0) {
-            res.status(sc.NOT_FOUND).json({ message: 'Appointment not found' });
-            logger.fail(req, res, `Appointment ${appointmentId} not found`);
-        } else {
-            res.status(sc.OK).json(data);
-            logger.success(req, res, `Return appointment ${appointmentId}`);
-        }
-    });
-};
-
-const getForEdit = async (req: Request, res: Response) => {
-    const appointmentId = req.params.id;
-    const sqlQuery = `
-        SELECT
-            app.id AS appID,
-            app.date,
-            app.kind,
-            a.amount,
-            a.method,
-            app.patientId,
-            app.status,
-            p.name AS pName,
-            p.lastName AS pLastName,
-            p.email,
-            p.birthDate,
-            p.city,
-            p.sex,
-            p.passif,
-            u.name,
-            u.lastName,
-            p.address,
-            p.phone,
-            p.doctor,
-            p.job
-        FROM
-            appointments app
-            INNER JOIN
-                patients p
-                    ON app.patientId = p.id
-            INNER JOIN
-                accounting a
-                    ON app.payment = a.uid
-            INNER JOIN
-                users u
-                    ON app.practitioner = u.uid
-        WHERE app.id = ?
-    `;
-    db.query(sqlQuery, appointmentId, (err: any, data: any) => {
-        if (err) {
-            res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
-            logger.fail(req, res, err);
-        } else if (data.length === 0) {
-            res.status(sc.NOT_FOUND).json({ message: 'Appointment not found' });
-            logger.fail(req, res, `Appointment ${appointmentId} not found`);
-        } else {
-            res.status(sc.OK).json(data);
-            logger.success(req, res, `Return appointment ${appointmentId}`);
-        }
-    });
+    await queries.push(req, res, sqlQuery, [...values, appointmentId], { id: appointmentId, name: 'Appointment' });
 };
 
 export default module.exports = {
     create,
     updateContent,
-    getForView,
-    getForEdit,
-    updateDate,
-    updatePractitioner,
+    read,
 };

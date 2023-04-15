@@ -5,7 +5,7 @@ import schemaPatientCreate from './schemas/create-patient.json';
 import schemaPatientUpdate from './schemas/update-patient.json';
 import schemaAppointmentCreate from './schemas/create-appointment.json';
 import schemaAppointmentUpdate from './schemas/update-appointment.json';
-import schemaPatientAddAppointment from './schemas/add-appointment.json';
+import schemaAddAppointment from './schemas/add-appointment.json';
 import schemaUserCreate from './schemas/create-user.json';
 import schemaLogin from './schemas/login.json';
 import schemaAccountingCreate from './schemas/create-accounting.json';
@@ -19,7 +19,7 @@ export default module.exports = {
     appointmentCreate: ajv.compile(schemaAppointmentCreate),
     eventCreate: ajv.compile(schemaEventCreate),
     appointmentUpdate: ajv.compile(schemaAppointmentUpdate),
-    patientAddAppointment: ajv.compile(schemaPatientAddAppointment),
+    addAppointment: ajv.compile(schemaAddAppointment),
     userCreate: ajv.compile(schemaUserCreate),
     login: ajv.compile(schemaLogin),
     accountingCreate: ajv.compile(schemaAccountingCreate),

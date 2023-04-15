@@ -1,13 +1,18 @@
 {
     "type": "object",
     "properties": {
-        "id": {
+        "appId": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}$"
+        },
+        "patientId": {
             "type": "string",
             "pattern": "^[0-9a-fA-F]{8}$"
         }
     },
     "required": [
-        "id"
+        "appId",
+        "patientId"
     ],
     "additionalProperties": false
 }

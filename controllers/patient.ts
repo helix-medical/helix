@@ -27,36 +27,42 @@ const create = async (req: Request, res: Response) => {
         req.body.passif,
     ];
 
-    db.query(sqlQuery, [values], (err: any, data: any) => {
-        if (err) {
-            res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
-            logger.fail(req, res, err);
-        } else {
-            res.status(sc.OK).json({ message: `Patient ${id} added` });
-            logger.success(req, res, `Patient ${id} added`);
-        }
-    });
+    await queries.push(req, res, sqlQuery, [values], { id, name: 'Patient' });
+    // db.query(sqlQuery, [values], (err: any, data: any) => {
+    //     if (err) {
+    //         res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
+    //         logger.fail(req, res, err);
+    //     } else {
+    //         res.status(sc.OK).json({ message: `Patient ${id} added` });
+    //         logger.success(req, res, `Patient ${id} added`);
+    //     }
+    // });
 };
 
 const read = async (req: Request, res: Response) => {
     const patientId = req.params.id;
     const sqlQuery = `
-    SELECT *
-    FROM patients
-    WHERE id = ?
+        SELECT
+            *
+        FROM
+            patients
+        WHERE
+            id = ?
     `;
-    db.query(sqlQuery, patientId, (err: any, data: any) => {
-        if (err) {
-            res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
-            logger.fail(req, res, err);
-        } else if (data.length === 0) {
-            res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
-            logger.fail(req, res, `Patient ${patientId} not found`);
-        } else {
-            res.status(sc.OK).json(data);
-            logger.success(req, res, `Patient ${patientId} found`);
-        }
-    });
+
+    await queries.pull(req, res, sqlQuery, [patientId], { id: patientId, name: 'Patient' });
+    // db.query(sqlQuery, patientId, (err: any, data: any) => {
+    //     if (err) {
+    //         res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
+    //         logger.fail(req, res, err);
+    //     } else if (data.length === 0) {
+    //         res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
+    //         logger.fail(req, res, `Patient ${patientId} not found`);
+    //     } else {
+    //         res.status(sc.OK).json(data);
+    //         logger.success(req, res, `Patient ${patientId} found`);
+    //     }
+    // });
 };
 
 const update = async (req: Request, res: Response) => {
@@ -93,44 +99,19 @@ const update = async (req: Request, res: Response) => {
         req.body.doctor,
     ];
 
-    db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
-        if (err) {
-            res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
-            logger.fail(req, res, err);
-        } else if (data.affectedRows === 0) {
-            res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
-            logger.fail(req, res, `Patient ${patientId} not found`);
-        } else {
-            res.status(sc.OK).json({ message: `Patient ${patientId} updated` });
-            logger.success(req, res, `Patient ${patientId} updated`);
-        }
-    });
-};
-
-const addAppointment = async (req: Request, res: Response) => {
-    const patientId = req.params.id;
-    const sqlQuery = `
-        UPDATE
-            patients
-        SET
-            passif = JSON_ARRAY_APPEND(passif, "$.lastAppointments", ?)
-        WHERE
-            id = ?
-    `;
-    const values = [req.body.id];
-
-    db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
-        if (err) {
-            res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
-            logger.fail(req, res, err);
-        } else if (data.affectedRows === 0) {
-            res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
-            logger.fail(req, res, `Patient ${patientId} not found`);
-        } else {
-            res.status(sc.OK).json({ message: `Appointment ${req.body.id} added to patient ${patientId}` });
-            logger.success(req, res, `Appointment ${req.body.id} added to patient ${patientId}`);
-        }
-    });
+    await queries.push(req, res, sqlQuery, [...values, patientId], { id: patientId, name: 'Patient' });
+    // db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
+    //     if (err) {
+    //         res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
+    //         logger.fail(req, res, err);
+    //     } else if (data.affectedRows === 0) {
+    //         res.status(sc.NOT_FOUND).json({ message: `Patient ${patientId} not found` });
+    //         logger.fail(req, res, `Patient ${patientId} not found`);
+    //     } else {
+    //         res.status(sc.OK).json({ message: `Patient ${patientId} updated` });
+    //         logger.success(req, res, `Patient ${patientId} updated`);
+    //     }
+    // });
 };
 
 const delete_ = async (req: Request, res: Response) => {
@@ -162,5 +143,4 @@ export default module.exports = {
     read,
     update,
     delete: delete_,
-    addAppointment,
 };
