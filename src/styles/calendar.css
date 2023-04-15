@@ -13,35 +13,49 @@
   padding: 0;
 }
 
-
 .rbc-event-label {
   display: none;
 }
 
 .rbc-time-view {
   flex: none;
+  border: 1px solid #373A40;
+  border-radius: 5px;
 }
 
 .rbc-events-container {
   background-color: rgba(0, 0, 0, 0);
+  border: #373A40;
 }
 
-.first-visit {
-  background-color: green;
+.rbc-today {
+  background-color: #373A40;
 }
 
-.follow-up {
-  background-color: blue;
+.rbc-now {
+  background-color: #373A40;
 }
 
-.emergency {
-  background-color: red;
+.rbc-time-header {
+  background-color: rgba(0, 0, 0, 0);
 }
 
-.pediatrics {
-  background-color: yellow;
+.rbc-timeslot-group {
+  border-bottom: 1px #373A40;
 }
 
-.maternity {
-  background-color: orange;
+.rbc-time-content {
+  border-left: 1px #373A40;
+  border-top: 2px #373A40;
+}
+
+.calendar {
+  /* background-color: rgba(0, 0, 0, 0); */
+  margin: 0;
+  padding: 0;
+  border: 1px, solid, #373A40;
+}
+
+.rbc-slot-selection {
+  background-color: rgba(0, 255, 0, 1);
 }

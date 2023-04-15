@@ -1,19 +1,37 @@
-import { Calendar as BigCalendar, momentLocalizer, DateCellWrapperProps } from 'react-big-calendar';
+import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { Badge, Paper, Title } from '@mantine/core';
+import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
+import { Badge, Paper, Title, useMantineTheme, Text } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
-import cnf from '../../config/config';
 import '../../styles/calendar.css';
 import Toolbar from './toolbar';
 import Event from './event';
-// import EventWrapper from './eventWrapper';
 import { IEvent } from '../../interfaces';
 import AgendaEvent from './agendaEvent';
+import ViewEvent from './view';
+import DateCellWrapper from './dateCellWrapper';
 
 const Calendar = () => {
+    const theme = useMantineTheme();
+    const borderColor = theme.colorScheme === 'dark' ? '#373A40' : '#dee2e6';
+    const HelixCalendar = withDragAndDrop(BigCalendar);
     const [events, setEvents] = useState<IEvent[]>([]);
+    const [event, setEvent] = useState<IEvent>({
+        start: new Date(),
+        end: new Date(),
+        title: '',
+        id: '',
+        kind: 'event',
+    });
+    const [opened, setOpened] = useState(false);
+
+    const handleClose = () => {
+        setOpened(false);
+    };
+
     useEffect(() => {
         const fetchEvents = async () => {
             const res = await axios.get('api/events');
@@ -38,34 +56,84 @@ const Calendar = () => {
         []
     );
 
-    const onSelectEvent = useCallback((event: IEvent) => {}, []);
+    const onSelectEvent = useCallback((event: IEvent, e: { preventDefault: () => void }) => {
+        e.preventDefault();
+        setEvent(event);
+        setOpened(true);
+    }, []);
 
     const dayPropGetter = useCallback(
         (date: Date) => ({
-            ...(moment(date).format(cnf.formatDate) === moment().format(cnf.formatDate) && {
+            ...(moment(date).day() === moment().day() && {
                 color: 'red',
             }),
         }),
         []
     );
 
-    const dateCellWrapper = ({ value, range, children }: DateCellWrapperProps) => {
-        const style = {
-            display: 'center',
-            flex: 1,
-            borderLeft: '1px solid #DDD',
-        };
-        return (
-            <div style={style}>
-                <Badge color="yellow" style={{ margin: 'auto' }}>
-                    {value.getDate()}
-                </Badge>
-                {children}
-            </div>
-        );
+    const customComponents = {
+        dateCellWrapper: DateCellWrapper,
+        dayPropGetter: (props: any) => {
+            const style = {
+                border: `1px solid`,
+                borderColor: borderColor,
+                backgroundColor: 'red',
+            };
+            return <div style={style}>{props.children}</div>;
+        },
+
+        timeSlotWrapper: (props: any) => {
+            const style = {
+                backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
+            };
+            return <div style={style}>{props.children}</div>;
+        },
+
+        eventContainerWrapper: (props: any) => {
+            const style = {
+                backgroundColor: 'red',
+            };
+            console.log(props);
+            console.log(props.slotMetrics.getCurrentTimePosition);
+            return <div style={style}>{props.children}</div>;
+        },
+        timeGutterWrapper: (props: any): any => {
+            const style = {
+                backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
+            };
+            return (
+                <Text tt="uppercase" fw={500} style={style}>
+                    {props.children}
+                </Text>
+            );
+        },
+        toolbar: Toolbar,
+        week: {
+            event: Event as any,
+            header: (props: any) => {
+                return (
+                    <Text tt="uppercase" fw={700}>
+                        {props.label}
+                    </Text>
+                );
+            },
+        },
+        day: {
+            event: Event as any,
+        },
+        agenda: {
+            event: AgendaEvent as any,
+            header: (props: any) => {
+                return (
+                    <Text tt="uppercase" fw={700}>
+                        {props.label}
+                    </Text>
+                );
+            },
+        },
     };
 
-    const { formats, localizer, messages, components } = useMemo(
+    const { formats, localizer, messages } = useMemo(
         () => ({
             formats: {
                 selectRangeFormat: ({ start, end }: { start: Date; end: Date }) =>
@@ -75,7 +143,7 @@ const Calendar = () => {
                 dayRangeHeaderFormat: ({ start, end }: { start: Date; end: Date }) =>
                     `${localizer.format(start, 'ddd DD MMM', 'fr')} - ${localizer.format(end, 'ddd DD MMM', 'fr')}`,
                 dayHeaderFormat: 'dddd DD MMMM',
-                agendaDateFormat: 'dddd DD',
+                agendaDateFormat: 'dddd DD MMM',
                 agendaTimeFormat: 'HH:mm',
                 agendaTimeRangeFormat: ({ start, end }: { start: Date; end: Date }) =>
                     `${localizer.format(start, 'HH:mm', 'fr')} - ${localizer.format(end, 'HH:mm', 'fr')}`,
@@ -103,21 +171,6 @@ const Calendar = () => {
                 noEventsInRange: 'There are no events in this range.',
                 showMore: (total: number) => `+${total} more`,
             },
-            components: {
-                toolbar: Toolbar,
-                week: {
-                    event: Event,
-                },
-                day: {
-                    event: Event,
-                },
-                dateCellWrapper,
-                agenda: {
-                    event: AgendaEvent,
-                },
-                // eventWrapper: EventWrapper,
-                // eventContainerWrapper: EventWrapper,
-            },
         }),
         []
     );
@@ -130,7 +183,7 @@ const Calendar = () => {
                 </Badge>
             </Title>
             <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
-                <BigCalendar
+                <HelixCalendar
                     localizer={localizer}
                     events={events}
                     defaultView="week"
@@ -141,10 +194,11 @@ const Calendar = () => {
                     views={['week', 'day', 'agenda']}
                     messages={messages}
                     selectable
-                    onSelectEvent={onSelectEvent}
-                    components={components}
+                    onSelectEvent={onSelectEvent as any}
+                    components={customComponents}
                     dayPropGetter={dayPropGetter}
                 />
+                <ViewEvent event={event} opened={opened} handleClose={handleClose} />
             </Paper>
         </>
     );
