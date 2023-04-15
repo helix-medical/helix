@@ -5,7 +5,6 @@ interface IFormValues {
         reasons: string;
         symptoms: string;
         knownDiseases: string;
-        knownMedications: string;
     };
     conclusion: {
         diagnosis: string;

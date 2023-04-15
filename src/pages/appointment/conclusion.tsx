@@ -35,7 +35,7 @@ function Conclusion({ conclusion, view }: IProps): JSX.Element {
                 </Grid.Col>
                 <Grid.Col span={12}>
                     <Textarea
-                        label="Observations"
+                        label="Conseils"
                         maxRows={nbLines(conclusion.observations, 3)}
                         defaultValue={view ? conclusion.observations : undefined}
                         {...(view ? null : form.getInputProps('conclusion.observations'))}

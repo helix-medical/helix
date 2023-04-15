@@ -26,7 +26,6 @@ const ViewAppointment = () => {
             reasons: '',
             symptoms: '',
             knownDiseases: '',
-            knownMedications: '',
             diagnosis: '',
             treatment: '',
             observations: '',

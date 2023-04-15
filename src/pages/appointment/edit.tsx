@@ -92,7 +92,6 @@ const EditAppointment = (): JSX.Element => {
                 reasons: '',
                 symptoms: '',
                 knownDiseases: '',
-                knownMedications: '',
             },
             conclusion: {
                 diagnosis: '',
@@ -110,7 +109,6 @@ const EditAppointment = (): JSX.Element => {
                 reasons: isNotEmpty('Reasons are required'),
                 symptoms: isNotEmpty('Symptoms are required'),
                 knownDiseases: isNotEmpty('Known diseases are required (if none, type `-`)'),
-                knownMedications: isNotEmpty('Known medications are required (if none, type `-`)'),
             },
             conclusion: {
                 diagnosis: isNotEmpty('Diagnosis is required'),

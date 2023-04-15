@@ -34,21 +34,12 @@ const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
                         readOnly={view}
                     />
                 </Grid.Col>
-                <Grid.Col sm={6}>
+                <Grid.Col span={6}>
                     <Textarea
-                        label="Known diseases"
+                        label="Antécédents sur la zone"
                         maxRows={nbLines(anamnesis.knownDiseases, 3)}
                         defaultValue={view ? anamnesis.knownDiseases : undefined}
                         {...(view ? null : form.getInputProps('anamnesis.knownDiseases'))}
-                        readOnly={view}
-                    />
-                </Grid.Col>
-                <Grid.Col sm={6}>
-                    <Textarea
-                        label="Medications"
-                        maxRows={nbLines(anamnesis.knownMedications, 3)}
-                        defaultValue={view ? anamnesis.knownMedications : undefined}
-                        {...(view ? null : form.getInputProps('anamnesis.knownMedications'))}
                         readOnly={view}
                     />
                 </Grid.Col>

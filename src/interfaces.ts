@@ -30,7 +30,6 @@ export interface IAnamnesis {
     reasons: string;
     symptoms: string;
     knownDiseases: string;
-    knownMedications: string;
 }
 
 export interface IConclusion {
