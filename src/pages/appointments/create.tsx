@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Button, Modal, Select, Group, Text, Grid, useMantineTheme } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
-import dayjs from 'dayjs';
 import setNotification from '../system/errors/feedbackNotif';
 import cnf from '../../config/config';
 import moment from 'moment';
@@ -25,26 +24,26 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
     const handleClick = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         if (form.validate().hasErrors) return;
-        let index;
-        const appointment = {
-            ...form.values,
-            date: dayjs(form.values.date).format(cnf.formatDateTime),
+        const patient = patients.find((patient: any) => patient.value === form.values.patientId) as any;
+        const event = {
+            title: `${patient?.label}`,
+            start: moment(form.values.date).format(cnf.formatDateTime),
+            end: moment(form.values.date).add(cnf.durationAppointment, 'minutes').format(cnf.formatDateTime),
+            calendar: form.values.practitioner,
         };
         try {
-            index = await axios.post(`/api/appointments/new`, appointment);
+            const index = await axios.post(`/api/events`, event);
             setNotification(false, index.data.message);
-            let res = await axios.put(`/api/patients/${appointment.patientId}/add_appointment`, {
-                id: index.data.id,
+            let res = await axios.post(`/api/appointments/new`, {
+                patientId: form.values.patientId,
+                kind: form.values.kind,
+                event: index.data.id,
             });
             setNotification(false, res.data.message);
-            const event = {
-                title: `${appointment.patientId}`,
-                start: appointment.date,
-                end: moment(appointment.date).add(cnf.durationAppointment, 'minutes').format(cnf.formatDateTime),
-                calendar: appointment.practitioner,
-                appID: index.data.id,
-            };
-            res = await axios.post(`/api/events`, event);
+            res = await axios.put(`/api/events/${index.data.id}/add_appointment`, {
+                appId: res.data.id,
+                patientId: form.values.patientId,
+            });
             setNotification(false, res.data.message);
             handleClose();
         } catch (error: any) {
