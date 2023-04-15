@@ -31,18 +31,29 @@ CREATE TABLE
     );
 
 CREATE TABLE
+    `helix`.`events` (
+        `id` VARCHAR(8) NOT NULL,
+        `calendar` VARCHAR(8) NOT NULL,
+        `title` VARCHAR(80) NOT NULL,
+        `start` VARCHAR(16) NOT NULL,
+        `end` VARCHAR(16) NOT NULL,
+        `appID` VARCHAR(8),
+        PRIMARY KEY (`id`),
+        FOREIGN KEY (`calendar`) REFERENCES `helix`.`users`(`uid`) ON DELETE CASCADE
+    );
+
+CREATE TABLE
     `helix`.`appointments` (
         `id` VARCHAR(8) NOT NULL,
         `patientId` VARCHAR(8) NOT NULL,
-        `date` VARCHAR(16) NOT NULL,
+        `event` VARCHAR(8) NOT NULL,
         `kind` VARCHAR(16) NOT NULL,
         `content` JSON NOT NULL,
         `status` VARCHAR(10) NOT NULL,
         `payment` VARCHAR(8),
-        `practitioner` VARCHAR(8) NOT NULL,
         PRIMARY KEY (`id`),
         FOREIGN KEY (`patientId`) REFERENCES `helix`.`patients`(`id`) ON DELETE CASCADE,
-        FOREIGN KEY (`practitioner`) REFERENCES `helix`.`users`(`uid`) ON DELETE RESTRICT
+        FOREIGN KEY (`event`) REFERENCES `helix`.`events`(`id`) ON DELETE CASCADE
     );
 
 CREATE TABLE
@@ -55,18 +66,6 @@ CREATE TABLE
         PRIMARY KEY (`uid`),
         FOREIGN KEY (`appointment`) REFERENCES `helix`.`appointments`(`id`) ON DELETE
         SET NULL
-    );
-
-CREATE TABLE
-    `helix`.`events` (
-        `id` VARCHAR(8) NOT NULL,
-        `calendar` VARCHAR(8) NOT NULL,
-        `title` VARCHAR(80) NOT NULL,
-        `start` VARCHAR(16) NOT NULL,
-        `end` VARCHAR(16) NOT NULL,
-        `appID` VARCHAR(8),
-        PRIMARY KEY (`id`),
-        FOREIGN KEY (`calendar`) REFERENCES `helix`.`users`(`uid`) ON DELETE CASCADE
     );
 
 ALTER USER 'root' IDENTIFIED
