@@ -27,11 +27,12 @@ const updateDate = async (req: Request, res: Response) => {
         UPDATE
             events
         SET
-            date = ?
+            start = ?,
+            end = ?
         WHERE
             id = ?
     `;
-    const values = [req.body.date];
+    const values = [req.body.start, req.body.end];
     await queries.push(req, res, sqlQuery, [...values, event], { id: event, name: 'Event', verb: 'updated date' });
 };
 
