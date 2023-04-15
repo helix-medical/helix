@@ -6,6 +6,7 @@ import logger from '../system/logger';
 interface IId {
     id: string;
     name: string;
+    verb?: string;
 }
 
 const checkId = async (id: string, table: string, parameter: string): Promise<boolean> => {
@@ -33,8 +34,8 @@ const push = async (req: Request, res: Response, sqlQuery: string, values: any[]
             res.status(sc.INTERNAL_SERVER_ERROR).json({ message: 'Data not pushed' });
             logger.fail(req, res, `${meta.name} ${meta.id} not pushed`);
         } else {
-            res.status(sc.OK).json({ id: meta.id, message: `${meta.name} ${meta.id} pushed` });
-            logger.success(req, res, `${meta.name} ${meta.id} pushed`);
+            res.status(sc.OK).json({ id: meta.id, message: `${meta.name} ${meta.id} ${meta.verb ?? 'pushed'}` });
+            logger.success(req, res, `${meta.name} ${meta.id} ${meta.verb ?? 'pushed'}}`);
         }
     });
 };
@@ -49,7 +50,7 @@ const pull = async (req: Request, res: Response, sqlQuery: string, values: any[]
             logger.fail(req, res, `${meta.name} ${meta.id} not found`);
         } else {
             res.status(sc.OK).json(data);
-            logger.success(req, res, `${meta.name} ${meta.id} pulled`);
+            logger.success(req, res, `${meta.name} ${meta.id} ${meta.verb ?? 'pulled'}`);
         }
     });
 };

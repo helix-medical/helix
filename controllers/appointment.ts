@@ -29,7 +29,7 @@ const create = async (req: Request, res: Response) => {
         'pending',
     ];
 
-    await queries.push(req, res, sqlQuery, [values], { id, name: 'Appointment' });
+    await queries.push(req, res, sqlQuery, [values], { id, name: 'Appointment', verb: 'created' });
 };
 
 const read = async (req: Request, res: Response) => {
@@ -76,7 +76,7 @@ const read = async (req: Request, res: Response) => {
         WHERE app.id = ?
     `;
 
-    await queries.pull(req, res, sqlQuery, [id], { id, name: 'Appointment' });
+    await queries.pull(req, res, sqlQuery, [id], { id, name: 'Appointment', verb: `returned for ${view}` });
 };
 
 const updateContent = async (req: Request, res: Response) => {
@@ -91,7 +91,11 @@ const updateContent = async (req: Request, res: Response) => {
     `;
     const values = [req.body.content, 'finished', req.body.payment];
 
-    await queries.push(req, res, sqlQuery, [...values, appointmentId], { id: appointmentId, name: 'Appointment' });
+    await queries.push(req, res, sqlQuery, [...values, appointmentId], {
+        id: appointmentId,
+        name: 'Appointment',
+        verb: 'updated',
+    });
 };
 
 export default module.exports = {

@@ -17,14 +17,7 @@ const create = async (req: Request, res: Response) => {
     `;
     const values = [id, req.body.amount, req.body.method, req.body.date, req.body.appointment];
 
-    db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
-        if (err) {
-            res.status(sc.METHOD_FAILURE).json({ message: 'Method fails' });
-            logger.fail(req, res, err);
-        }
-        res.status(sc.OK).json({ id, message: `Transaction ${id} added` });
-        logger.success(req, res, `Transaction ${id} added`);
-    });
+    await queries.push(req, res, sqlQuery, [values], { id, name: 'Transaction', verb: 'created' });
 };
 
 const getTransactions = async (req: Request, res: Response) => {
@@ -53,14 +46,7 @@ const getTransactions = async (req: Request, res: Response) => {
     `;
     const values = [req.params.start, req.params.end];
 
-    db.query(sqlQuery, values, (err: any, data: any) => {
-        if (err) {
-            res.status(sc.BAD_REQUEST).json({ message: 'Bad request' });
-            logger.fail(req, res, err);
-        }
-        res.status(sc.OK).json(data);
-        logger.success(req, res, 'Return period transactions');
-    });
+    await queries.pull(req, res, sqlQuery, values, { id: 'period', name: 'Transactions', verb: 'returned' });
 };
 
 const getSum = async (req: Request, res: Response) => {
@@ -93,3 +79,4 @@ export default {
     getTransactions,
     getSum,
 };
+//

@@ -31,6 +31,7 @@ const readAll = async (req: Request, res: Response) => {
     await queries.pull(req, res, sqlQuery + addOn + 'ORDER BY e.start ASC', [], {
         id: req.params.period,
         name: 'Appointments',
+        verb: 'returned',
     });
 };
 
