@@ -13,6 +13,8 @@ import { IEvent } from '../../interfaces';
 import AgendaEvent from './agendaEvent';
 import ViewEvent from './view';
 import DateCellWrapper from './dateCellWrapper';
+import cnf from '../../config/config';
+import setNotification from '../system/errors/feedbackNotif';
 
 const Calendar = () => {
     const theme = useMantineTheme();
@@ -93,8 +95,6 @@ const Calendar = () => {
             const style = {
                 backgroundColor: 'red',
             };
-            console.log(props);
-            console.log(props.slotMetrics.getCurrentTimePosition);
             return <div style={style}>{props.children}</div>;
         },
         timeGutterWrapper: (props: any): any => {
@@ -132,6 +132,32 @@ const Calendar = () => {
             },
         },
     };
+
+    const handleResizeEvent = useCallback(
+        async ({ event, start, end }: { event: IEvent; start: Date; end: Date }) => {
+            const { id } = event;
+            try {
+                const res = await axios.put(`api/events/${id}/date`, {
+                    start: moment(start).format(cnf.formatDateTime),
+                    end: moment(end).format(cnf.formatDateTime),
+                });
+                setNotification(false, res.data.message);
+                const index = events.findIndex((event2) => event2.id === event.id);
+                console.log(index);
+
+                const updatedEvents = [...events];
+                updatedEvents[index] = {
+                    ...event,
+                    start: moment(event.start).toDate(),
+                    end: moment(event.end).toDate(),
+                };
+                setEvents(updatedEvents);
+            } catch (err: any) {
+                setNotification(true, err.response.data.message);
+            }
+        },
+        [events]
+    );
 
     const { formats, localizer, messages } = useMemo(
         () => ({
@@ -197,6 +223,10 @@ const Calendar = () => {
                     onSelectEvent={onSelectEvent as any}
                     components={customComponents}
                     dayPropGetter={dayPropGetter}
+                    draggableAccessor={(event) => true}
+                    onDragStart={(event) => console.log(event)}
+                    onEventResize={handleResizeEvent as any}
+                    onEventDrop={handleResizeEvent as any}
                 />
                 <ViewEvent event={event} opened={opened} handleClose={handleClose} />
             </Paper>
