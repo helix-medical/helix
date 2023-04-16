@@ -9,6 +9,8 @@ interface IConfig {
     formatDatePretty: string;
     formatDateTime: string;
     formatDateTimePretty: string;
+    nbWorkDays: number;
+    nbWorkHours: number;
     roles: {
         ADMIN: number;
         PRACTITIONER: number;

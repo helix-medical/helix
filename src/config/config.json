@@ -1,5 +1,5 @@
 {
-    "defaultAmount": 33,
+    "defaultAmount": 50,
     "defaultPaymentMethod": "card",
     "durationAppointment": 50,
     "durationBreak": 10,
@@ -7,6 +7,8 @@
     "formatDatePretty": "DD MMMM YYYY",
     "formatDateTime": "YYYY-MM-DD HH:mm",
     "formatDateTimePretty": "DD MMMM YYYY [at] HH:mm",
+    "nbWorkDays": 5,
+    "nbWorkHours": 8,
     "roles": {
         "ADMIN": 2003,
         "PRACTITIONER": 1998,
