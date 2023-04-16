@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import { Badge, Paper, Title, useMantineTheme, Text } from '@mantine/core';
-import { useCallback, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import '../../styles/calendar.css';
 import Toolbar from './toolbar';
@@ -125,13 +124,6 @@ const Calendar = () => {
         },
         agenda: {
             event: AgendaEvent as any,
-            header: (props: any) => {
-                return (
-                    <Text tt="uppercase" fw={700}>
-                        {props.label}
-                    </Text>
-                );
-            },
         },
     };
 

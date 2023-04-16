@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 import {
     Button,
     Badge,
@@ -13,6 +12,7 @@ import {
     Paper,
     Tooltip,
     SegmentedControl,
+    useMantineTheme,
 } from '@mantine/core';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
 import AppItemGrid from './itemGrid';
@@ -42,6 +42,11 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     // Modal
     const [show, setShow] = useState(add);
     const toggleModal = () => setShow(!show);
+    const [mainColor, setMainColor] = useState('fr-yellow.4');
+    const theme = useMantineTheme();
+    useEffect(() => {
+        setMainColor(theme.colorScheme === 'dark' ? 'fr-orange.6' : 'fr-orange.4');
+    }, [theme.colorScheme]);
 
     // View Type
     const [viewType, setViewType] = useState('grid');
@@ -85,7 +90,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                 <Group>
                     <Title order={1}>
                         Appointments{' '}
-                        <Badge size="xl" radius="lg" variant="filled">
+                        <Badge size="xl" radius="lg" variant="filled" color={mainColor}>
                             {nbAppointments}
                         </Badge>
                     </Title>
@@ -95,15 +100,16 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                         value={period}
                         onChange={(value) => setPeriod(value)}
                         data={[
-                            { label: 'Upcoming', value: 'upcoming' },
                             { label: 'Past', value: 'past' },
                             { label: 'All', value: 'all' },
+                            { label: 'Upcoming', value: 'upcoming' },
                         ]}
+                        color={mainColor}
                     />
 
-                    <Tooltip label={isGrid ? 'Table' : 'Grid'} withArrow position="bottom" color="blue">
+                    <Tooltip label={isGrid ? 'Table' : 'Grid'} withArrow position="bottom" color={mainColor}>
                         <ActionIcon
-                            color="blue"
+                            color={mainColor}
                             variant="outline"
                             size="lg"
                             onClick={changeView}
@@ -112,11 +118,15 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                             {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
                         </ActionIcon>
                     </Tooltip>
-                    <Button onClick={toggleModal} className={classes.button}>
+                    <Button onClick={toggleModal} className={classes.button} color={mainColor}>
                         New Appointment
                     </Button>
                     <Burger opened={opened} className={classes.burger} onClick={toggle} />
-                    {opened && <Button onClick={toggleModal}>New Appointment</Button>}
+                    {opened && (
+                        <Button onClick={toggleModal} color={mainColor}>
+                            New Appointment
+                        </Button>
+                    )}
                 </Group>
             </Grid>
             {error ? (

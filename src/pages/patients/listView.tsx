@@ -74,6 +74,7 @@ const PatientsTableView = ({ patients, handleDelete }: TableSortProps) => {
             <td>
                 <Button
                     variant="light"
+                    color='fr-yellow.4'
                     onClick={() => {
                         setPatient(row);
                         toggleModal();

@@ -1,12 +1,11 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Biodatas from './biodatas';
 import Anamnesis from './anamnesis';
 import Conclusion from './conclusion';
 import Metadata from './metadata';
 import NavBarAppointment from './navbar';
-import { Paper, Title } from '@mantine/core';
+import { Paper, Title, useMantineTheme } from '@mantine/core';
 import { useAppForm, AppFormProvider } from './formContext';
 import setNotification from '../system/errors/feedbackNotif';
 import Secretary from './secretary';
@@ -18,6 +17,11 @@ const ViewAppointment = () => {
     const form = useAppForm();
     const { auth } = useAuth();
     const isRestricted = auth.role === cnf.roles.SECRETARY;
+    const [mainColor, setMainColor] = useState('fr-orange.4');
+    const theme = useMantineTheme();
+    useEffect(() => {
+        setMainColor(theme.colorScheme === 'dark' ? 'fr-orange.6' : 'fr-orange.4');
+    }, [theme.colorScheme]);
 
     const [data, setData] = useState({
         appID: id,
@@ -74,7 +78,7 @@ const ViewAppointment = () => {
 
     return (
         <>
-            <NavBarAppointment view={true} />
+            <NavBarAppointment view={true} color={mainColor} />
             <Metadata appointment={data} />
             <AppFormProvider form={form}>
                 <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">

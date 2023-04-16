@@ -3,6 +3,7 @@ import { Button, Badge, Title, Grid, Group, createStyles } from '@mantine/core';
 
 interface IProps {
     view?: boolean;
+    color: string;
 }
 
 const useStyles = createStyles((theme) => ({
@@ -13,19 +14,19 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-function NavBarAppointment({ view }: IProps): JSX.Element {
+function NavBarAppointment({ view, color }: IProps): JSX.Element {
     const { classes: style } = useStyles();
     return (
         <Grid justify="space-between" align="center" p="md">
             <Group>
                 <Title order={1}>
                     Appointment{' '}
-                    <Badge color={view ? 'red' : 'blue'} size="xl" radius="sm" className={style.useless}>
+                    <Badge color={view ? 'red' : 'green'} size="xl" radius="sm" className={style.useless}>
                         {view ? 'READONLY' : 'CAN EDIT'}
                     </Badge>
                 </Title>
             </Group>
-            <Group>{view && <Button>Export to PDF</Button>}</Group>
+            <Group>{view && <Button color={color}>Export to PDF</Button>}</Group>
         </Grid>
     );
 }

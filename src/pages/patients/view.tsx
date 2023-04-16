@@ -111,7 +111,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                             <Text size="xl" weight={700}>
                                 Patient Details
                             </Text>
-                            <IdBadge id={patientInput.id} />
+                            <IdBadge id={patientInput.id} color="fr-yellow.4" />
                         </Group>
                     </Modal.Title>
                     <Modal.CloseButton />
@@ -184,7 +184,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                                         <Button
                                             component="a"
                                             href={`tel:${patientInput.phone}`}
-                                            color="blue"
+                                            color="fr-yellow.3"
                                             m="xs"
                                             p="xs"
                                             variant="subtle"
@@ -205,7 +205,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                                         <Button
                                             component="a"
                                             href={`mailto:${patientInput.email}`}
-                                            color="blue"
+                                            color="fr-yellow.3"
                                             m="xs"
                                             p="xs"
                                             variant="subtle"
@@ -225,8 +225,8 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                             </Grid.Col>
                             <Grid.Col span={6}>
                                 <Text>Last Appointments</Text>
-                                <UnstyledButton mt='xs' ml='md'>
-                                    <Badge color="green" variant="dot" size="lg">
+                                <UnstyledButton mt="xs" ml="md">
+                                    <Badge color="fr-yellow.4" variant="dot" size="lg">
                                         {passif.lastAppointments.length - 1}
                                     </Badge>
                                 </UnstyledButton>

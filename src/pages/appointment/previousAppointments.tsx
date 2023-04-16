@@ -1,21 +1,21 @@
-import React from "react";
-import { Badge, Title } from "@mantine/core";
-import { IPassif } from "../../interfaces";
+import React from 'react';
+import { Badge, Title } from '@mantine/core';
+import { IPassif } from '../../interfaces';
 
 interface IProps {
     passif: IPassif;
+    color: string;
 }
 
-const PreviousAppointments = ({ passif }: IProps): JSX.Element => {
+const PreviousAppointments = ({ passif, color }: IProps): JSX.Element => {
     return (
         <>
             <Title order={3}>
                 Previous Appointments{' '}
-                <Badge color="gray" variant="filled" size="md">
+                <Badge color={color} variant="filled" size="md">
                     {passif.lastAppointments.length - 1}
-                </Badge>
-                {' '}
-                <Badge color="red" radius="sm" variant="filled" size="xl">
+                </Badge>{' '}
+                <Badge color={color} radius="sm" variant="filled" size="xl">
                     NOT IMPLEMENTED
                 </Badge>
             </Title>

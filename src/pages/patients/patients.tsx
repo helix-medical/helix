@@ -2,7 +2,18 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
-import { Button, Badge, Group, Grid, Title, ActionIcon, createStyles, Paper } from '@mantine/core';
+import {
+    Button,
+    Badge,
+    Group,
+    Grid,
+    Title,
+    ActionIcon,
+    createStyles,
+    Paper,
+    useMantineTheme,
+    Tooltip,
+} from '@mantine/core';
 import PatientItemGrid from './itemGrid';
 import ModalAddPatient from './create';
 import PatientsTableView from './listView';
@@ -25,6 +36,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const Patients = ({ add }: { add: boolean }): JSX.Element => {
+    const [mainColor, setMainColor] = useState('fr-yellow.4');
+    const theme = useMantineTheme();
     const [refresh, setRefresh] = useState<boolean>(false);
     // Modal for create a patient
     const [show, setShow] = useState(add);
@@ -57,6 +70,10 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     }, [refresh]);
     const nbPatients = patients.length;
 
+    useEffect(() => {
+        setMainColor(theme.colorScheme === 'dark' ? 'fr-yellow.6' : 'fr-yellow.4');
+    }, [theme.colorScheme]);
+
     // Delete a patient
     const handleDelete = async (id: string | undefined) => {
         if (!id) return console.error('No id');
@@ -82,22 +99,26 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                 <Group position="left">
                     <Title order={1}>
                         Patients{' '}
-                        <Badge size="xl" radius="lg" variant="filled">
+                        <Badge size="xl" radius="lg" variant="filled" color={mainColor}>
                             {nbPatients}
                         </Badge>
                     </Title>
                 </Group>
                 <Group position="right">
-                    <ActionIcon
-                        color="blue"
-                        variant="outline"
-                        size="lg"
-                        onClick={changeView}
-                        className={classes.button}
-                    >
-                        {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
-                    </ActionIcon>
-                    <Button onClick={toggleModal}>New Patient</Button>
+                    <Tooltip label={isGrid ? 'Table' : 'Grid'} withArrow position="bottom" color={mainColor}>
+                        <ActionIcon
+                            color={mainColor}
+                            variant="outline"
+                            size="lg"
+                            onClick={changeView}
+                            className={classes.button}
+                        >
+                            {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
+                        </ActionIcon>
+                    </Tooltip>
+                    <Button onClick={toggleModal} color={mainColor}>
+                        New Patient
+                    </Button>
                 </Group>
             </Grid>
             {error ? (

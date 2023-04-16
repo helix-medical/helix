@@ -27,7 +27,7 @@ function PatientItemGrid({ patient, handleDelete }: IProps): JSX.Element {
                     <IdBadge id={patient.id ?? ''} />
                     <SexBadge sex={patient.sex} />
                 </Group>
-                <Button variant="light" radius="md" mt="md" fullWidth onClick={toggleModal}>
+                <Button variant="light" radius="md" mt="md" fullWidth onClick={toggleModal} color='fr-yellow.4'>
                     View
                 </Button>
             </Card>

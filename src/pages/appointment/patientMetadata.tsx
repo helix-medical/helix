@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Textarea, Title, Tabs, Button, Badge, Center, Paper, TextInput } from '@mantine/core';
 import PreviousAppointments from './previousAppointments';
@@ -10,9 +9,10 @@ import setNotification from '../system/errors/feedbackNotif';
 
 interface IProps {
     patientInput: IAppointmentDataView | IAppointmentDataEdit;
+    color: string;
 }
 
-function PatientMetadata({ patientInput }: IProps): JSX.Element {
+function PatientMetadata({ patientInput, color }: IProps): JSX.Element {
     const passif = JSON.parse(patientInput.passif);
     const id = patientInput.patientId;
 
@@ -96,7 +96,7 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
     return (
         <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
             <Title order={2}>Patient Data</Title>
-            <Tabs defaultValue="data" radius="md">
+            <Tabs defaultValue="data" radius="md" color={color}>
                 <Tabs.List>
                     <Tabs.Tab value="data" icon={<IconDna size="1rem" />}>
                         BioData
@@ -109,7 +109,15 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                         icon={<IconCalendarCheck size="1rem" />}
                         disabled
                         rightSection={
-                            <Badge w={16} h={16} sx={{ pointerEvents: 'none' }} variant="filled" size="xs" p={0}>
+                            <Badge
+                                w={16}
+                                h={16}
+                                sx={{ pointerEvents: 'none' }}
+                                variant="filled"
+                                size="xs"
+                                p={0}
+                                color={color}
+                            >
                                 {passif.lastAppointments.length - 1}
                             </Badge>
                         }
@@ -144,12 +152,12 @@ function PatientMetadata({ patientInput }: IProps): JSX.Element {
                         />
                     </Tabs.Panel>
                     <Tabs.Panel value="appointments">
-                        <PreviousAppointments passif={passif} />
+                        <PreviousAppointments passif={passif} color={color} />
                     </Tabs.Panel>
                 </form>
             </Tabs>
             <Center>
-                <Button variant="light" onClick={handleClick} mt="lg">
+                <Button variant="light" onClick={handleClick} mt="lg" color="fr-orange.4">
                     Update Patient Data
                 </Button>
             </Center>

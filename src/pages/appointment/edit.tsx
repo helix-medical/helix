@@ -1,7 +1,6 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Center } from '@mantine/core';
+import { Button, Center, useMantineTheme } from '@mantine/core';
 import PatientMetadata from './patientMetadata';
 import Anamnesis from './anamnesis';
 import Conclusion from './conclusion';
@@ -18,6 +17,11 @@ import cnf from '../../config/config';
 const EditAppointment = (): JSX.Element => {
     const id = window.location.href.split('/').slice(-2)[0];
     const navigate = useNavigate();
+    const [mainColor, setMainColor] = useState('fr-orange.4');
+    const theme = useMantineTheme();
+    useEffect(() => {
+        setMainColor(theme.colorScheme === 'dark' ? 'fr-orange.6' : 'fr-orange.4');
+    }, [theme.colorScheme]);
 
     const [data, setData] = useState({
         appID: id,
@@ -125,16 +129,16 @@ const EditAppointment = (): JSX.Element => {
 
     return (
         <>
-            <NavBarAppointment view={false} />
+            <NavBarAppointment view={false} color={mainColor} />
             <Metadata appointment={data} />
-            <PatientMetadata patientInput={data} />
+            <PatientMetadata patientInput={data} color={mainColor} />
             <AppFormProvider form={form}>
                 <form onSubmit={handleClick}>
                     <Anamnesis anamnesis={form.values.anamnesis} />
                     <Conclusion conclusion={form.values.conclusion} />
                     <Secretary secretary={form.values.payment} />
                     <Center>
-                        <Button type="submit" m="lg">
+                        <Button type="submit" m="lg" color={mainColor}>
                             Valid Appointment
                         </Button>
                     </Center>

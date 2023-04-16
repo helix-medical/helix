@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Modal, Select, Group, Text, Grid, useMantineTheme } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
@@ -115,7 +114,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                 <Modal.Header>
                     <Modal.Title>
                         <Text size="xl" weight={700}>
-                            Add Patient
+                            Add Appointment
                         </Text>
                     </Modal.Title>
                     <Modal.CloseButton />

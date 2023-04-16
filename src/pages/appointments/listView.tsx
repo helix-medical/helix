@@ -76,6 +76,7 @@ const AppTableView = ({ appointments }: IProps): JSX.Element => {
             <td>
                 <Button
                     variant="light"
+                    color="fr-orange.4"
                     p={row.status !== 'pending' ? 'xs' : 'sm'}
                     onClick={() => navigate(`/appointments/${row.id}/${row.status === 'finished' ? 'view' : 'edit'}`)}
                 >
