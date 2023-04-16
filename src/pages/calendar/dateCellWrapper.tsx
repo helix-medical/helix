@@ -1,3 +1,4 @@
+import React from 'react';
 import { Badge, useMantineTheme } from '@mantine/core';
 import { DateCellWrapperProps } from 'react-big-calendar';
 

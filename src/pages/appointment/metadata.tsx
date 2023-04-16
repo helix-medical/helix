@@ -1,3 +1,4 @@
+import React from 'react';
 import { TextInput, Title, Grid, Paper } from '@mantine/core';
 import { IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
 import cnf from '../../config/config';

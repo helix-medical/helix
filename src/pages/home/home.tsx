@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card, Grid, Title } from '@mantine/core';
 import useAuth from '../../hooks/useAuth';
 import Account from './account';

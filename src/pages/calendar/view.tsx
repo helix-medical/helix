@@ -1,3 +1,4 @@
+import React from 'react';
 import { Modal, useMantineTheme, Text } from '@mantine/core';
 import { IEvent } from '../../interfaces';
 import moment from 'moment';

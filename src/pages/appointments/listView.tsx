@@ -1,3 +1,4 @@
+import React from 'react';
 import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
 import KindAppointment from '../../components/customBadges/kindAppointment';
 import { IAppointmentExtended } from '../../interfaces';

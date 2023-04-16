@@ -1,3 +1,4 @@
+import React from 'react';
 import { TextInput, Textarea, Grid } from '@mantine/core';
 import getNbLines from '../../tools/getLines';
 import { IPassif, IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';

@@ -1,3 +1,4 @@
+import React from 'react';
 import { EventProps } from 'react-big-calendar';
 // import moment from 'moment';
 import { Group, Text } from '@mantine/core';

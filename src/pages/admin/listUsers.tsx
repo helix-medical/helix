@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { Table, ActionIcon, Flex, Title, Badge, Group, Button, Divider } from '@mantine/core';
 import RoleBadge from '../../components/customBadges/userBadge';

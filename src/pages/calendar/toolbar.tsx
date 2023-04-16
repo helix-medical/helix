@@ -1,3 +1,4 @@
+import React from 'react';
 import { ToolbarProps, Navigate, View } from 'react-big-calendar';
 import { ActionIcon, Center, Grid, Group, Paper, SegmentedControl, Text } from '@mantine/core';
 import { IconCalendar, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';

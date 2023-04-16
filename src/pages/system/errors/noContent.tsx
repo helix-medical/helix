@@ -1,3 +1,4 @@
+import React from 'react';
 import { Title, Text } from '@mantine/core';
 import style from '../../../styles/404.module.css';
 

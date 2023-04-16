@@ -1,3 +1,4 @@
+import React from 'react';
 import { Center, Text /* Paper, createStyles */ } from '@mantine/core';
 import moment from 'moment';
 import { EventProps } from 'react-big-calendar';

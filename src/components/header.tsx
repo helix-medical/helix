@@ -1,3 +1,4 @@
+import React from 'react';
 import { createStyles, Header, Container, Group, Burger, rem, Title, ActionIcon, Tooltip } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch, IconPower } from '@tabler/icons-react';

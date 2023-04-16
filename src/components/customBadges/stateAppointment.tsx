@@ -1,3 +1,4 @@
+import React from 'react';
 import { Badge } from '@mantine/core';
 
 const StateAppointment = ({ state }: { state: string }): JSX.Element => {

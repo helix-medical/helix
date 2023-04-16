@@ -1,3 +1,4 @@
+import React from 'react';
 import { Title, Grid, Paper } from '@mantine/core';
 import moment from 'moment';
 import cnf from '../../config/config';

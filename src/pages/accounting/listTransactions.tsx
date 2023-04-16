@@ -1,3 +1,4 @@
+import React from 'react';
 import axios from 'axios';
 import { Table, Grid, Title, Badge, Paper, SegmentedControl, Button, Text, Group } from '@mantine/core';
 import { useState, useEffect } from 'react';

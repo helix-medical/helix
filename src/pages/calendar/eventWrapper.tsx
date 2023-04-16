@@ -1,3 +1,4 @@
+import React from 'react';
 import { EventWrapperProps, momentLocalizer } from 'react-big-calendar';
 import Event from './event';
 import moment from 'moment';

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Badge } from '@mantine/core';
 
 const IdBadge = ({ id }: { id: string }): JSX.Element => {

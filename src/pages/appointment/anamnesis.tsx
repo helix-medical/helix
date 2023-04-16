@@ -1,3 +1,4 @@
+import React from 'react';
 import { Textarea, Title, Grid, Paper } from '@mantine/core';
 import getNbLines from '../../tools/getLines';
 import { IAnamnesis } from '../../interfaces';

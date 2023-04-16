@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { Button, Title, TextInput, Card, Center, Grid } from '@mantine/core';
 import ChangePassword from './changePassword';

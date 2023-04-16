@@ -1,4 +1,5 @@
-import ReactDOM from 'react-dom/client';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import { useState } from 'react';
 // import * as serviceWorkerRegistration from './config/serviceWorkerRegistration';
 // import reportWebVitals from './config/reportWebVitals';
@@ -7,7 +8,7 @@ import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core
 import { Notifications } from '@mantine/notifications';
 import AppRouter from './pages/system/appRouter';
 import { AuthProvider } from './components/auth/authProvider';
-import './styles/main.css';
+// import './styles/main.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Spotlight from './config/spotlight';
 
@@ -40,7 +41,7 @@ function App() {
     );
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root') ?? document.body);
+const root = createRoot(document.getElementById('root') ?? document.body);
 root.render(<App />);
 
 // If you want your app to work offline and load faster, you can change

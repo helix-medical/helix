@@ -1,3 +1,4 @@
+import React from 'react';
 import { Paper, Text, ThemeIcon, Group, Grid } from '@mantine/core';
 import { IconCoins, IconCreditCard, IconFileHorizontal } from '@tabler/icons-react';
 

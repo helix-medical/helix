@@ -13,6 +13,7 @@
         "skipLibCheck": true,
         "strict": true,
         "target": "es6"
+        // "allowSyntheticDefaultImports": true
     },
     "exclude": ["node_modules"],
     "include": ["src"]

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Badge, Title, Grid, Group, createStyles } from '@mantine/core';
 
 interface IProps {
