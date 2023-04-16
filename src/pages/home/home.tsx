@@ -1,7 +1,8 @@
-import { Card, Center, Grid, Group, Title } from '@mantine/core';
+import { Card, Grid, Title } from '@mantine/core';
 import useAuth from '../../hooks/useAuth';
 import Account from './account';
 import Admin from '../admin/admin';
+import HomeCalendar from './calendar';
 
 const Home = () => {
     const { auth } = useAuth();
@@ -12,20 +13,7 @@ const Home = () => {
                 {auth.role === 2003 && <Admin />}
                 <Grid.Col span={8}>
                     <Card shadow="sm" padding="lg" radius="md" withBorder>
-                        <Center>
-                            <Title order={2}>Next Events</Title>
-                        </Center>
-                        <Group position="apart" my="lg">
-                            <Card withBorder mx="md">
-                                <Title order={3}>Event 1</Title>
-                            </Card>
-                            <Card withBorder mx="md">
-                                <Title order={3}>Event 2</Title>
-                            </Card>
-                            <Card withBorder mx="md">
-                                <Title order={3}>Event 3</Title>
-                            </Card>
-                        </Group>
+                        <HomeCalendar />
                     </Card>
                 </Grid.Col>
                 <Grid.Col span={4}>

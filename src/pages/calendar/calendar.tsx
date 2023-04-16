@@ -21,6 +21,7 @@ const Calendar = () => {
     const borderColor = theme.colorScheme === 'dark' ? '#373A40' : '#dee2e6';
     const HelixCalendar = withDragAndDrop(BigCalendar);
     const [events, setEvents] = useState<IEvent[]>([]);
+    const [refresh, setRefresh] = useState(false);
     const [event, setEvent] = useState<IEvent>({
         start: new Date(),
         end: new Date(),
@@ -47,7 +48,7 @@ const Calendar = () => {
             setEvents(events);
         };
         fetchEvents();
-    }, []);
+    }, [refresh]);
 
     const slotGroupPropGetter = useCallback(
         () => ({
@@ -142,21 +143,12 @@ const Calendar = () => {
                     end: moment(end).format(cnf.formatDateTime),
                 });
                 setNotification(false, res.data.message);
-                const index = events.findIndex((event2) => event2.id === event.id);
-                console.log(index);
-
-                const updatedEvents = [...events];
-                updatedEvents[index] = {
-                    ...event,
-                    start: moment(event.start).toDate(),
-                    end: moment(event.end).toDate(),
-                };
-                setEvents(updatedEvents);
+                setRefresh(!refresh);
             } catch (err: any) {
                 setNotification(true, err.response.data.message);
             }
         },
-        [events]
+        [refresh]
     );
 
     const { formats, localizer, messages } = useMemo(

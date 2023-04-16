@@ -73,7 +73,7 @@ const EditAppointment = (): JSX.Element => {
                 payment: res.data.id,
             };
             try {
-                res = await axios.put(`/api/appointments/${id}`, appointmentFinal);
+                res = await axios.put(`/api/appointments/${id}/content`, appointmentFinal);
                 setNotification(false, res.data.message);
                 navigate('/appointments');
             } catch (error: any) {
