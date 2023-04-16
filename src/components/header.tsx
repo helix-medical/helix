@@ -1,5 +1,17 @@
 import React from 'react';
-import { createStyles, Header, Container, Group, Burger, rem, Title, ActionIcon, Tooltip } from '@mantine/core';
+import {
+    createStyles,
+    Header,
+    Container,
+    Group,
+    Burger,
+    rem,
+    Title,
+    ActionIcon,
+    Tooltip,
+    UnstyledButton,
+    Text,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch, IconPower } from '@tabler/icons-react';
 import ToggleTheme from './toggleTheme';
@@ -34,7 +46,7 @@ const useStyles = createStyles((theme) => ({
         padding: `${rem(8)} ${rem(12)}`,
         borderRadius: theme.radius.sm,
         textDecoration: 'none',
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
+        // color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
         // fontSize: theme.fontSizes.sm,
         fontWeight: 500,
 
@@ -49,10 +61,10 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const links = [
-    { label: 'Patients', link: '/patients' },
-    { label: 'Appointments', link: '/appointments' },
+    { label: 'Patients', link: '/patients', color: 'fr-yellow.4' },
+    { label: 'Appointments', link: '/appointments', color: 'fr-pink' },
     { label: 'Calendar', link: '/calendar' },
-    { label: 'Accounting', link: '/accounting' },
+    { label: 'Accounting', link: '/accounting', color: 'teal' },
 ];
 
 const HeaderApp = () => {
@@ -68,12 +80,13 @@ const HeaderApp = () => {
 
     const items = links.map((link) => {
         return (
-            <Title order={4} key={link.label}>
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a className={classes.link} onClick={() => goToLink(link.link)}>
-                    {link.label}
-                </a>
-            </Title>
+            <>
+                <UnstyledButton onClick={() => goToLink(link.link)} className={classes.link} key={link.link}>
+                    <Text size="lg" weight={500}>
+                        {link.label}
+                    </Text>
+                </UnstyledButton>
+            </>
         );
     });
 
@@ -83,10 +96,9 @@ const HeaderApp = () => {
                 <Container className={classes.inner} fluid>
                     <Group>
                         <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
-                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                        <a onClick={() => navigate('/')} className={classes.link}>
+                        <UnstyledButton onClick={() => goToLink('/')} className={classes.link}>
                             <Title order={1}>Helix</Title>
-                        </a>
+                        </UnstyledButton>
                     </Group>
                     <Group spacing={5} className={classes.links}>
                         {items}

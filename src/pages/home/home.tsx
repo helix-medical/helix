@@ -1,9 +1,10 @@
 import React from 'react';
 import { Card, Grid, Title } from '@mantine/core';
 import useAuth from '../../hooks/useAuth';
-import Account from './account';
+// import Account from './account';
 import Admin from '../admin/admin';
 import HomeCalendar from './calendar';
+import AccountingTile from './accounting';
 
 const Home = () => {
     const { auth } = useAuth();
@@ -18,7 +19,9 @@ const Home = () => {
                     </Card>
                 </Grid.Col>
                 <Grid.Col span={4}>
-                    <Account id={auth.id} />
+                    <AccountingTile period="month" />
+                    <AccountingTile period="week" />
+                    {/* <Account id={auth.id} /> */}
                 </Grid.Col>
             </Grid>
         </>
