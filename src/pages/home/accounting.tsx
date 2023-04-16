@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { ActionIcon, Card, Grid, Group, Progress, RingProgress, Text } from '@mantine/core';
+import { Card, Grid, Progress, RingProgress, Text } from '@mantine/core';
 import axios from 'axios';
 import setNotification from '../system/errors/feedbackNotif';
 import moment from 'moment';
 import cnf from '../../config/config';
-import { IconArrowUpRight } from '@tabler/icons-react';
-import { useNavigate } from 'react-router-dom';
 
 interface IProps {
     period: string;
@@ -17,7 +15,6 @@ const AccountingTile = ({ period }: IProps) => {
     const now = moment().format(cnf.formatDate);
     const lastMonth = moment().subtract(1, 'months').format(cnf.formatDate);
     const lastWeek = moment().subtract(7, 'days').format(cnf.formatDate);
-    const navigate = useNavigate();
 
     const max =
         period === 'month'
@@ -48,15 +45,7 @@ const AccountingTile = ({ period }: IProps) => {
     }, [period]);
 
     return (
-        <Card shadow="sm" p="lg" radius="md" withBorder mb="sm">
-            <Group position="apart">
-                <Text size="xs" weight={700} mb="md" tt="uppercase" c="dimmed">
-                    Accounting
-                </Text>
-                <ActionIcon color="teal" radius="md" size="xl" onClick={() => navigate('/accounting')}>
-                    <IconArrowUpRight size="1.5rem" />
-                </ActionIcon>
-            </Group>
+        <Card p="lg" radius="md" withBorder mb="sm">
             <Grid columns={3}>
                 <Grid.Col span={1}>
                     <RingProgress

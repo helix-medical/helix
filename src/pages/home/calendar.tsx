@@ -12,6 +12,7 @@ import {
     IconReportMedical,
 } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';
+import { useNavigate } from 'react-router-dom';
 
 const localizer = momentLocalizer(moment);
 const color = 'fr-cyan';
@@ -67,6 +68,7 @@ const Event = ({ event }: EventProps<IEvent>) => {
 
 const HomeCalendar = () => {
     const [events, setEvents] = useState<IEvent[]>([]);
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchEvents = async () => {
             const res = await axios.get('api/events');
@@ -117,7 +119,7 @@ const HomeCalendar = () => {
             <Group position="apart" spacing="md">
                 <div></div>
                 <Title order={2}>Week Calendar</Title>
-                <ActionIcon color={color} size="xl">
+                <ActionIcon color={color} size="xl" onClick={() => navigate('/calendar')}>
                     <IconArrowUpRight size="1.5rem" />
                 </ActionIcon>
             </Group>
