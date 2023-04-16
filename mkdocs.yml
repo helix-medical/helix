@@ -32,6 +32,7 @@ theme:
         - content.code.copy
         - navigation.footer
         - content.tooltip
+        - navigation.indexes
     icon:
         repo: fontawesome/brands/github
 
@@ -70,14 +71,21 @@ markdown_extensions:
           custom_fences:
               - name: mermaid
                 class: mermaid
-                # format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
+    - Home: index.md
     - Getting Started:
-          - Home: index.md
+          - getting-started/index.md
           - Disclaimer: getting-started/disclaimer.md
           - Installation: getting-started/install.md
           - Configuration: getting-started/configuration.md
           - Usage: getting-started/usage.md
     - API:
-          - API: api/api.md
+          - api/index.md
+          - Schema: api/schema.md
+          - Events: api/events.md
+          - Patients: api/patients.md
+          - Appointments: api/appointments.md
+          - Accounting: api/accounting.md
+          - Users: api/users.md
+          - Auth: api/auth.md
