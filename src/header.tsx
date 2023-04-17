@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-    createStyles,
-    Header,
-    Container,
-    Group,
-    Button,
-    Burger,
-    rem,
-} from '@mantine/core';
+import { createStyles, Header, Container, Group, Button, Burger, rem, UnstyledButton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { MantineLogo } from '@mantine/ds';
 
@@ -39,18 +31,12 @@ const useStyles = createStyles((theme) => ({
         padding: `${rem(8)} ${rem(12)}`,
         borderRadius: theme.radius.sm,
         textDecoration: 'none',
-        color:
-            theme.colorScheme === 'dark'
-                ? theme.colors.dark[0]
-                : theme.colors.gray[7],
+        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
         fontSize: theme.fontSizes.sm,
         fontWeight: 500,
 
         '&:hover': {
-            backgroundColor:
-                theme.colorScheme === 'dark'
-                    ? theme.colors.dark[6]
-                    : theme.colors.gray[0],
+            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
         },
     },
 
@@ -66,7 +52,7 @@ const links = [
     },
     {
         label: 'Features',
-        link: 'features',
+        link: '#features',
     },
 ];
 
@@ -75,14 +61,9 @@ export function HeaderAction() {
     const [opened, { toggle }] = useDisclosure(false);
     const items = links.map((link) => {
         return (
-            <a
-                key={link.label}
-                href={link.link}
-                className={classes.link}
-                onClick={(event) => event.preventDefault()}
-            >
+            <UnstyledButton key={link.label} className={classes.link} onClick={() => window.open(`${link.link}`)}>
                 {link.label}
-            </a>
+            </UnstyledButton>
         );
     });
 
@@ -90,18 +71,13 @@ export function HeaderAction() {
         <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
             <Container className={classes.inner} fluid>
                 <Group>
-                    <Burger
-                        opened={opened}
-                        onClick={toggle}
-                        className={classes.burger}
-                        size='sm'
-                    />
+                    <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
                     <MantineLogo size={28} />
                 </Group>
                 <Group spacing={5} className={classes.links}>
                     {items}
                 </Group>
-                <Button radius='xl' h={30}>
+                <Button radius="xl" h={30}>
                     Get early access
                 </Button>
             </Container>

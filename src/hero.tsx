@@ -1,17 +1,6 @@
 import React from 'react';
-import {
-    createStyles,
-    Image,
-    Container,
-    Title,
-    Button,
-    Group,
-    Text,
-    List,
-    ThemeIcon,
-    rem,
-} from '@mantine/core';
-import { IconCheck } from '@tabler/icons-react';
+import { createStyles, Image, Container, Title, Button, Group, Text, List, ThemeIcon, rem } from '@mantine/core';
+import { IconBrandGithub, IconCheck } from '@tabler/icons-react';
 import logo from './assets/logo.png';
 
 const useStyles = createStyles((theme) => ({
@@ -77,56 +66,50 @@ export function HeroBullets() {
                 <div className={classes.inner}>
                     <div className={classes.content}>
                         <Title className={classes.title}>
-                            A <span className={classes.highlight}>modern</span>{' '}
-                            React <br /> components library
+                            Un logiciel <span className={classes.highlight}>libre</span> de
+                            <br />
+                            Gestion de Patients
+                            <br /> pour les <span className={classes.highlight}>Ostéopathes</span>
                         </Title>
-                        <Text color='dimmed' mt='md'>
-                            Build fully functional accessible web applications
-                            faster than ever – Mantine includes more than 120
-                            customizable components and hooks to cover you in
-                            any situation
+                        <Text color="dimmed" mt="md">
+                            Gérez votre patientèle, vos rendez-vous, vos consultations, vos factures et plus encore.
+                            Tout cela gratuitement, sans publicité et pour tout votre cabinet.
                         </Text>
 
                         <List
                             mt={30}
-                            spacing='sm'
-                            size='sm'
+                            spacing="sm"
+                            size="sm"
                             icon={
-                                <ThemeIcon size={20} radius='xl'>
+                                <ThemeIcon size={20} radius="xl">
                                     <IconCheck size={rem(12)} stroke={1.5} />
                                 </ThemeIcon>
                             }
                         >
                             <List.Item>
-                                <b>TypeScript based</b> – build type safe
-                                applications, all components and hooks export
-                                types
+                                <b>Confidentiel</b> – Stocké directement chez vous.
                             </List.Item>
                             <List.Item>
-                                <b>Free and open source</b> – all packages have
-                                MIT license, you can use Mantine in any project
+                                <b>Gratuit et open-source</b> – Pas de licence, pas de publicité, pas de frais cachés.
                             </List.Item>
                             <List.Item>
-                                <b>No annoying focus ring</b> – focus ring will
-                                appear only when user navigates with keyboard
+                                <b>Pour tout votre cabinet</b> – Disponible sur n'importe quel appareil.
                             </List.Item>
                         </List>
 
                         <Group mt={30}>
-                            <Button
-                                radius='xl'
-                                size='md'
-                                className={classes.control}
-                            >
+                            <Button radius="xl" size="md" className={classes.control}>
                                 Get started
                             </Button>
                             <Button
-                                variant='default'
-                                radius='xl'
-                                size='md'
+                                variant="default"
+                                radius="xl"
+                                size="md"
                                 className={classes.control}
+                                leftIcon={<IconBrandGithub />}
+                                onClick={() => window.open('https://github.com/helix-medical', '_blank')}
                             >
-                                Source code
+                                Code Source
                             </Button>
                         </Group>
                     </div>
