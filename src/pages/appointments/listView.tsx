@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
 import KindAppointment from '../../components/customBadges/kindAppointment';
 import { IAppointmentExtended } from '../../interfaces';
@@ -49,6 +49,11 @@ const AppTableView = ({ appointments }: IProps): JSX.Element => {
     const [reverseSortDirection, setReverseSortDirection] = useState(false);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        setSortedData(sortData(appointments, { sortBy, reversed: reverseSortDirection, search }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [appointments]);
+
     const setSorting = (field: keyof IAppointmentExtended) => {
         const reversed = field === sortBy ? !reverseSortDirection : false;
         setReverseSortDirection(reversed);
@@ -89,7 +94,7 @@ const AppTableView = ({ appointments }: IProps): JSX.Element => {
     return (
         <ScrollArea>
             <TextInput
-                placeholder="Search a patient"
+                placeholder="Search an appointment"
                 mb="md"
                 icon={<IconSearch size="0.9rem" stroke={1.5} />}
                 value={search}

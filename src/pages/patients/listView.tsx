@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IconSearch } from '@tabler/icons-react';
 import { IPatient } from '../../interfaces';
 import { keys } from '@mantine/utils';
@@ -48,6 +48,11 @@ const PatientsTableView = ({ patients, handleDelete }: TableSortProps) => {
     const [patient, setPatient] = useState<IPatient>({} as IPatient);
     const toggleModal = () => setShow(!show);
 
+    useEffect(() => {
+        setSortedData(sortData(patients, { sortBy, reversed: reverseSortDirection, search }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [patients]);
+
     const setSorting = (field: keyof IPatient) => {
         const reversed = field === sortBy ? !reverseSortDirection : false;
         setReverseSortDirection(reversed);
@@ -74,7 +79,7 @@ const PatientsTableView = ({ patients, handleDelete }: TableSortProps) => {
             <td>
                 <Button
                     variant="light"
-                    color='fr-yellow.4'
+                    color="fr-yellow.4"
                     onClick={() => {
                         setPatient(row);
                         toggleModal();

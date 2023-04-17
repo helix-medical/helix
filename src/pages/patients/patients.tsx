@@ -1,18 +1,17 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
 import {
-    Button,
-    Badge,
-    Group,
-    Grid,
-    Title,
     ActionIcon,
+    Badge,
+    Button,
     createStyles,
+    Grid,
+    Group,
     Paper,
-    useMantineTheme,
+    Title,
     Tooltip,
+    useMantineTheme,
 } from '@mantine/core';
 import PatientItemGrid from './itemGrid';
 import ModalAddPatient from './create';
