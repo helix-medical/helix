@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import { keys } from '@mantine/utils';
 import Th from '../../components/thSort';
 import { IconSearch } from '@tabler/icons-react';
+import ExportAccounting from './export';
 
 const filterData = (data: ITransactions[], search: string) => {
     const query = search.toLowerCase().trim();
@@ -159,9 +160,7 @@ const ListTransactions = (): JSX.Element => {
                         ]}
                         radius="md"
                     />
-                    <Button color="teal" radius="sm">
-                        Export
-                    </Button>
+                    <ExportAccounting period={view} />
                 </Group>
             </Grid>
             <ScrollArea>
