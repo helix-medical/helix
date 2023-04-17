@@ -19,11 +19,11 @@ import { ITransactions } from '../../interfaces';
 import PaymentMethod from '../../components/customBadges/paymentMethod';
 import moment from 'moment';
 import cnf from '../../config/config';
-import { useNavigate } from 'react-router-dom';
 import { keys } from '@mantine/utils';
 import Th from '../../components/thSort';
 import { IconSearch } from '@tabler/icons-react';
 import ExportAccounting from './export';
+import ViewFacture from './viewFacture';
 
 const filterData = (data: ITransactions[], search: string) => {
     const query = search.toLowerCase().trim();
@@ -60,11 +60,12 @@ const sortData = (
 const ListTransactions = (): JSX.Element => {
     const [transactions, setTransactions] = useState<ITransactions[]>([]);
     const [view, setView] = useState('all');
-    const navigate = useNavigate();
     const [search, setSearch] = useState<string>('');
     const [sortedData, setSortedData] = useState(transactions);
     const [sortBy, setSortBy] = useState<keyof ITransactions | null>(null);
     const [reverseSortDirection, setReverseSortDirection] = useState(false);
+    const [showFacture, setShowFacture] = useState(false);
+    const [id, setId] = useState<string>('');
 
     useEffect(() => {
         setSortedData(sortData(transactions, { sortBy, reversed: reverseSortDirection, search }));
@@ -130,7 +131,8 @@ const ListTransactions = (): JSX.Element => {
                     radius="sm"
                     variant="light"
                     onClick={() => {
-                        navigate(``);
+                        setId(row.uid);
+                        setShowFacture(true);
                     }}
                 >
                     View
@@ -228,6 +230,7 @@ const ListTransactions = (): JSX.Element => {
                     </tbody>
                 </Table>
             </ScrollArea>
+            <ViewFacture open={showFacture} handler={() => setShowFacture(false)} id={id} />
         </Paper>
     );
 };
