@@ -11,7 +11,7 @@ import axios from 'axios';
 const header = ['Transaction ID', 'Date', 'Amount', 'Method', 'Patient'];
 
 const ModalExport = ({ period, open, handler }: { period: string; open: boolean; handler: any }) => {
-    const [view, setView] = useState(period);
+    const [view, setView] = useState(period === 'all' ? 'year' : period);
     const [transactions, setTransactions] = useState<ITransactions[]>([]);
     const [startDate, setStartDate] = useState('1998-12-17');
     const csvLink = useRef(null);
@@ -19,21 +19,24 @@ const ModalExport = ({ period, open, handler }: { period: string; open: boolean;
     const theme = useMantineTheme();
 
     useEffect(() => {
-        const fetchAllTransactions = async (period: string) => {
-            switch (period) {
-                case 'week':
-                    setStartDate(moment().subtract(7, 'days').format(cnf.formatDate));
-                    break;
-                case 'month':
-                    setStartDate(moment().subtract(1, 'months').format(cnf.formatDate));
-                    break;
-                case 'semester':
-                    setStartDate(moment().subtract(6, 'months').format(cnf.formatDate));
-                    break;
-                case 'year':
-                    setStartDate(moment().subtract(1, 'years').format(cnf.formatDate));
-                    break;
-            }
+        switch (view) {
+            case 'week':
+                setStartDate(moment().subtract(7, 'days').format(cnf.formatDate));
+                break;
+            case 'month':
+                setStartDate(moment().subtract(1, 'months').format(cnf.formatDate));
+                break;
+            case 'semester':
+                setStartDate(moment().subtract(6, 'months').format(cnf.formatDate));
+                break;
+            case 'year':
+                setStartDate(moment().subtract(1, 'years').format(cnf.formatDate));
+                break;
+        }
+    }, [view]);
+
+    useEffect(() => {
+        const fetchAllTransactions = async () => {
             try {
                 const res = await axios.get(`/api/accounting/${startDate}/${endDate}`);
                 setTransactions(
@@ -50,9 +53,15 @@ const ModalExport = ({ period, open, handler }: { period: string; open: boolean;
                 else setNotification(true, `${error.message}: ${error.response.data.message}`);
             }
         };
-        fetchAllTransactions(view);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [view]);
+        fetchAllTransactions();
+    }, [startDate, endDate]);
+
+    const handleClick = () => {
+        if (csvLink.current) {
+            const node: any = csvLink.current;
+            node.link.click();
+        }
+    };
 
     return (
         <Modal.Root opened={open} onClose={handler}>
@@ -103,16 +112,7 @@ const ModalExport = ({ period, open, handler }: { period: string; open: boolean;
                         style={{ display: 'none' }}
                     ></CSVLink>
                     <Center>
-                        <Button
-                            mt="lg"
-                            color="teal"
-                            onClick={() => {
-                                if (csvLink.current) {
-                                    const node: any = csvLink.current;
-                                    node.link.click();
-                                }
-                            }}
-                        >
+                        <Button mt="lg" color="teal" onClick={handleClick}>
                             Export
                         </Button>
                     </Center>
