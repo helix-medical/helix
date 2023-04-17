@@ -74,9 +74,44 @@ const getSum = async (req: Request, res: Response) => {
     });
 };
 
+const facture = async (req: Request, res: Response) => {
+    const sqlQuery = `
+        SELECT
+            a.amount,
+            a.method,
+            a.date,
+            app.id,
+            p.name AS patientName,
+            p.lastName AS patientLastName,
+            p.address AS patientAddress,
+            p.city AS patientCity,
+            u.name AS doctorName,
+            u.lastName AS doctorLastName
+        FROM
+            accounting a
+            INNER JOIN
+                appointments app
+                    ON a.appointment = app.id   
+            INNER JOIN
+                patients p
+                    ON app.patientId = p.id
+            INNER JOIN
+                events e
+                    ON app.event = e.id
+            INNER JOIN
+                users u
+                    ON e.calendar = u.uid
+        WHERE
+            a.uid = ?
+    `;
+    const values = [req.params.id];
+
+    await queries.pull(req, res, sqlQuery, values, { id: req.params.id, name: 'Facture', verb: 'returned' });
+};
+
 export default {
     create,
     getTransactions,
     getSum,
+    facture,
 };
-//
