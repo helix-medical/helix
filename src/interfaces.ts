@@ -107,10 +107,10 @@ export interface IUsers {
 }
 
 export interface ITransactions {
-    uid?: string;
+    uid: string;
     date: string;
     method: string;
-    amount: number;
+    amount: string;
     patientName: string;
     patientLastName: string;
     appointment: string;
