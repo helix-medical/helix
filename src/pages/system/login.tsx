@@ -1,13 +1,26 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { isNotEmpty, useForm } from '@mantine/form';
-import { PasswordInput, Anchor, Paper, Title, Container, Group, Button, Select, Checkbox } from '@mantine/core';
+import {
+    PasswordInput,
+    Anchor,
+    Paper,
+    Title,
+    Container,
+    Group,
+    Button,
+    Select,
+    Checkbox,
+    Image,
+    Center,
+} from '@mantine/core';
 import { IconLock, IconUserSearch, IconSelector } from '@tabler/icons-react';
 import WrongAuth from './errors/wrongAuth';
 import useAuth from '../../hooks/useAuth';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import setNotification from './errors/feedbackNotif';
+import logo from '../../assets/logo.png';
 
 const Login = () => {
     const { setAuth, persist, setPersist } = useAuth();
@@ -76,7 +89,10 @@ const Login = () => {
     };
 
     return (
-        <Container size={420} my={40}>
+        <Container size={420} my={20}>
+            <Center>
+                <Image src={logo} alt="Helix" withPlaceholder width={200} height="auto" />
+            </Center>
             <Title align="center">Welcome to Helix</Title>
 
             <Paper withBorder shadow="md" p={30} mt={30} radius="md">
