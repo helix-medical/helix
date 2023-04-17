@@ -21,6 +21,7 @@ const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
                     <Textarea
                         label="Reasons for the consultation"
                         maxRows={nbLines(anamnesis.reasons, 1)}
+                        minRows={nbLines(anamnesis.reasons, 1)}
                         defaultValue={view ? anamnesis.reasons : undefined}
                         {...(view ? null : form.getInputProps('anamnesis.reasons'))}
                         readOnly={view}
@@ -30,15 +31,17 @@ const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
                     <Textarea
                         label="Symptoms"
                         maxRows={nbLines(anamnesis.symptoms, 3)}
+                        minRows={nbLines(anamnesis.symptoms, 1)}
                         defaultValue={view ? anamnesis.symptoms : undefined}
                         {...(view ? null : form.getInputProps('anamnesis.symptoms'))}
                         readOnly={view}
                     />
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col span={12}>
                     <Textarea
                         label="Antécédents sur la zone"
                         maxRows={nbLines(anamnesis.knownDiseases, 3)}
+                        minRows={nbLines(anamnesis.knownDiseases, 1)}
                         defaultValue={view ? anamnesis.knownDiseases : undefined}
                         {...(view ? null : form.getInputProps('anamnesis.knownDiseases'))}
                         readOnly={view}

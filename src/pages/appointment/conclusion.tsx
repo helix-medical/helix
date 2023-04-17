@@ -29,6 +29,7 @@ function Conclusion({ conclusion, view }: IProps): JSX.Element {
                     <Textarea
                         label="Treatment"
                         maxRows={nbLines(conclusion.treatment, 3)}
+                        minRows={nbLines(conclusion.treatment, 1)}
                         defaultValue={view ? conclusion.treatment : undefined}
                         {...(view ? null : form.getInputProps('conclusion.treatment'))}
                         readOnly={view}
@@ -38,6 +39,7 @@ function Conclusion({ conclusion, view }: IProps): JSX.Element {
                     <Textarea
                         label="Conseils"
                         maxRows={nbLines(conclusion.observations, 3)}
+                        minRows={nbLines(conclusion.observations, 1)}
                         defaultValue={view ? conclusion.observations : undefined}
                         {...(view ? null : form.getInputProps('conclusion.observations'))}
                         readOnly={view}
