@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import db from '../database/config';
 import sc from '../tools/statusCodes';
-import logger from '../system/logger';
+import logger from '../tools/logger';
 
 interface IId {
     id: string;

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import validate from '../validation/validator';
-import logger from '../system/logger';
+import logger from '../tools/logger';
 import sc from '../tools/statusCodes';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {

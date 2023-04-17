@@ -1,6 +1,6 @@
 import mysql from 'mysql';
 require('dotenv').config();
-import logger from '../system/logger';
+import logger from '../tools/logger';
 
 const db = mysql.createConnection({
     host: process.env.HELIX_DB_HOST,

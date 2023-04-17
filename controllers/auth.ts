@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 import db from '../database/config';
-import logger from '../system/logger';
+import logger from '../tools/logger';
 import sc from '../tools/statusCodes';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';

@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from 'express';
 import validate from '../validation/validator';
-import logger from '../system/logger';
+import logger from '../tools/logger';
 import sc from '../tools/statusCodes';
 import jwt from 'jsonwebtoken';
 require('dotenv').config();

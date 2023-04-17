@@ -6,12 +6,12 @@ import appointments from './routers/appointments';
 import authORoute from './routers/auth';
 import accounting from './routers/accounting';
 import users from './routers/users';
-import errorHandler from './system/errors';
+import errorHandler from './tools/errors';
 import sc from './tools/statusCodes';
 // import auth from './middleware/auth';
 import cookieParser from 'cookie-parser';
 import credentials from './middleware/credentials';
-import logger from './system/logger';
+import logger from './tools/logger';
 import events from './routers/events';
 
 // Config
