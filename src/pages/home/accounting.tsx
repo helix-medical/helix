@@ -71,19 +71,19 @@ const AccountingTile = ({ period }: IProps) => {
                         sections={[
                             {
                                 value: (data.cards * 100) / data.sum,
-                                color: 'teal',
+                                color: 'cyan',
                                 label: 'Cards',
                                 tooltip: `Cards -- ${data.cards}€`,
                             },
                             {
                                 value: (data.cashs * 100) / data.sum,
-                                color: 'lime.7',
+                                color: 'green',
                                 label: 'Cash',
                                 tooltip: `Cash -- ${data.cashs}€`,
                             },
                             {
                                 value: (data.checks * 100) / data.sum,
-                                color: 'green.5',
+                                color: 'yellow',
                                 label: 'Checks',
                                 tooltip: `Checks -- ${data.checks}€`,
                             },
