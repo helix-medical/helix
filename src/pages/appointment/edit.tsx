@@ -104,7 +104,7 @@ const EditAppointment = (): JSX.Element => {
                 observations: '',
             },
             payment: {
-                amount: 33,
+                amount: cnf.defaultAmount,
                 method: '',
             },
         },
