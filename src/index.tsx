@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
     // disable react dev tools
 }
 
-function App() {
+const App = () => {
     const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
     const toggleColorScheme = (value?: ColorScheme) =>
         setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
@@ -82,9 +82,9 @@ function App() {
             </MantineProvider>
         </ColorSchemeProvider>
     );
-}
+};
 
-const root = createRoot(document.getElementById('root') ?? document.body);
+const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(<App />);
 
 // If you want your app to work offline and load faster, you can change

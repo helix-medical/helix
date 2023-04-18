@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
 });
 
 const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: string }) => {
-    // const id = window.location.href.split('/').slice(-1)[0];
     const [data, setData] = useState<any>();
     const theme = useMantineTheme();
 
@@ -23,6 +22,7 @@ const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: s
         pdf(<Facture data={data} id={id} />)
             .toBlob()
             .then((blob) => saveAs(blob, `${moment(data.date).format('YYYYMMDD')}-facture-${id}.pdf`));
+        setNotification(false, 'Facture téléchargée');
     };
 
     useEffect(() => {
