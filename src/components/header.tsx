@@ -1,7 +1,19 @@
 import React from 'react';
-import { createStyles, Header, Container, Group, Button, Burger, rem, UnstyledButton } from '@mantine/core';
+import {
+    createStyles,
+    Header,
+    Container,
+    Group,
+    Button,
+    Burger,
+    rem,
+    UnstyledButton,
+    Title,
+    Avatar,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { MantineLogo } from '@mantine/ds';
+import { SwitchToggle } from './toggleColorScheme';
+import logo from '../assets/logo.png';
 
 const HEADER_HEIGHT = rem(60);
 
@@ -46,22 +58,18 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const links = [
-    {
-        label: 'Docs',
-        link: 'docs',
-    },
-    {
-        label: 'Features',
-        link: '#features',
-    },
+    { label: 'Home', link: '#' },
+    { label: 'Features', link: '#features' },
+    { label: 'FAQ', link: '#faq' },
+    { label: 'Docs', link: 'docs' },
 ];
 
-export function HeaderAction() {
+const HeaderWebsite = () => {
     const { classes } = useStyles();
     const [opened, { toggle }] = useDisclosure(false);
     const items = links.map((link) => {
         return (
-            <UnstyledButton key={link.label} className={classes.link} onClick={() => window.open(`${link.link}`)}>
+            <UnstyledButton key={link.label} className={classes.link} component="a" href={link.link}>
                 {link.label}
             </UnstyledButton>
         );
@@ -72,15 +80,23 @@ export function HeaderAction() {
             <Container className={classes.inner} fluid>
                 <Group>
                     <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
-                    <MantineLogo size={28} />
+                    <Avatar src={logo} size="md" />
+                    <Title order={3} style={{ color: 'white' }}>
+                        Helix
+                    </Title>
                 </Group>
                 <Group spacing={5} className={classes.links}>
                     {items}
                 </Group>
-                <Button radius="xl" h={30}>
-                    Get early access
-                </Button>
+                <Group position="right">
+                    <SwitchToggle />
+                    <Button radius="xl" h={30}>
+                        Get early access
+                    </Button>
+                </Group>
             </Container>
         </Header>
     );
-}
+};
+
+export default HeaderWebsite;

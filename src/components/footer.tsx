@@ -4,12 +4,8 @@ import { MantineLogo } from '@mantine/ds';
 
 const useStyles = createStyles((theme) => ({
     footer: {
-        // marginTop: rem(120),
-        borderTop: `${rem(1)} solid ${
-            theme.colorScheme === 'dark'
-                ? theme.colors.dark[5]
-                : theme.colors.gray[2]
-        }`,
+        marginTop: rem(120),
+        borderTop: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]}`,
     },
 
     inner: {
@@ -36,16 +32,10 @@ const links = [
     { label: 'GitHub', link: 'https://github.com/helix-medical' },
 ];
 
-export function FooterSimple() {
+const Footer = () => {
     const { classes } = useStyles();
     const items = links.map((link) => (
-        <Anchor<'a'>
-            color='dimmed'
-            key={link.label}
-            href={link.link}
-            onClick={(event) => event.preventDefault()}
-            size='sm'
-        >
+        <Anchor<'a'> color="dimmed" key={link.label} href={link.link} size="sm">
             {link.label}
         </Anchor>
     ));
@@ -58,4 +48,6 @@ export function FooterSimple() {
             </Container>
         </div>
     );
-}
+};
+
+export default Footer;
