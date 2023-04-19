@@ -9,7 +9,6 @@ const readAll = async (req: Request, res: Response) => {
             uid,
             name,
             lastName,
-            clearPassword,
             lastActive,
             state,
             role
@@ -83,7 +82,6 @@ const create = async (req: Request, res: Response) => {
                 role,
                 state,
                 password,
-                clearPassword,
                 lastActive
             )
         VALUES
@@ -97,7 +95,6 @@ const create = async (req: Request, res: Response) => {
         req.body.role,
         'first-time',
         hashedPassword,
-        req.body.password,
         '1970-01-01 00:00:00',
     ];
 
