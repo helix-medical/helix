@@ -41,7 +41,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:${{ env.TAG }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest
       # - name: Docker metadata
       #   id: metadata
       #   uses: docker/metadata-action@v3
