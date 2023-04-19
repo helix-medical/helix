@@ -138,6 +138,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                                     {...form.getInputProps('patientId')}
                                     data={patients}
                                     searchable
+                                    nothingFound="No patients found, ensure you have created a patient first"
                                 />
                             </Grid.Col>
                             <Grid.Col span={12}>
@@ -159,6 +160,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                                     {...form.getInputProps('practitioner')}
                                     data={practitioners}
                                     searchable
+                                    nothingFound="No practitioners found, ensure you have created a practitioner first"
                                 />
                             </Grid.Col>
                         </Grid>

@@ -65,6 +65,9 @@ const AccountingTile = ({ period }: IProps) => {
                         €{data?.sum}
                     </Text>
                     <Progress
+                        style={{
+                            display: data?.sum === 0 ? 'none' : 'block',
+                        }}
                         mt="xl"
                         size={24}
                         radius="md"

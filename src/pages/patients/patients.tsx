@@ -59,6 +59,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
             try {
                 const res = await api.get(`/patients`);
                 setPatients(res.data);
+                setError(null);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');
                 else setNotification(true, `${error.message}: ${error.response.data.message}`);
@@ -121,7 +122,10 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                 </Group>
             </Grid>
             {error ? (
-                <NoContent message={error} title="No Patients Found" />
+                <NoContent
+                    message={`${error}, please add one to start. If it's already done, please refresh the page.`}
+                    title="No Patients Found"
+                />
             ) : (
                 <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
                     {isGrid ? (

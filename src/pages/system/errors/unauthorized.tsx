@@ -1,5 +1,5 @@
 import React from 'react';
-import style from '../../../styles/404.module.css';
+import style from '../../../styles/errors.module.css';
 import { Title, Text } from '@mantine/core';
 
 const Unauthorized = (): JSX.Element => {

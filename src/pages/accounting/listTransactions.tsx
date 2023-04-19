@@ -222,7 +222,7 @@ const ListTransactions = (): JSX.Element => {
                             <tr>
                                 <td colSpan={6}>
                                     <Text weight={500} align="center">
-                                        Not patients found
+                                        No Transactions found
                                     </Text>
                                 </td>
                             </tr>
@@ -230,7 +230,7 @@ const ListTransactions = (): JSX.Element => {
                     </tbody>
                 </Table>
             </ScrollArea>
-            <ViewFacture open={showFacture} handler={() => setShowFacture(false)} id={id} />
+            {showFacture && <ViewFacture open={showFacture} handler={() => setShowFacture(false)} id={id} />}
         </Paper>
     );
 };

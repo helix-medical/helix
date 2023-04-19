@@ -149,7 +149,7 @@ const AppTableView = ({ appointments }: IProps): JSX.Element => {
                         <tr>
                             <td colSpan={6}>
                                 <Text weight={500} align="center">
-                                    Not patients found
+                                    No appointments found
                                 </Text>
                             </td>
                         </tr>

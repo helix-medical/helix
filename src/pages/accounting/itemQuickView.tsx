@@ -21,7 +21,7 @@ const ItemQuickView = ({ sum, name }: IProps) => {
             <Text fz="xl" fw={700}>
                 Total:{' '}
                 <Text span fz="xl" fw={700} color="teal.6">
-                    €{sum?.sum}
+                    €{sum?.sum ?? 0}
                 </Text>
             </Text>
             <Grid columns={3} mt="xs">
@@ -31,7 +31,7 @@ const ItemQuickView = ({ sum, name }: IProps) => {
                             <IconCreditCard />
                         </ThemeIcon>
                         <Text fz="lg" fw={700}>
-                            €{sum?.cards}
+                            €{sum?.cards ?? 0}
                         </Text>
                     </Group>
                 </Grid.Col>
@@ -41,7 +41,7 @@ const ItemQuickView = ({ sum, name }: IProps) => {
                             <IconCoins />
                         </ThemeIcon>
                         <Text fz="lg" fw={700}>
-                            €{sum?.cashs}
+                            €{sum?.cashs ?? 0}
                         </Text>
                     </Group>
                 </Grid.Col>
@@ -51,7 +51,7 @@ const ItemQuickView = ({ sum, name }: IProps) => {
                             <IconFileHorizontal />
                         </ThemeIcon>
                         <Text fz="lg" fw={700}>
-                            €{sum?.checks}
+                            €{sum?.checks ?? 0}
                         </Text>
                     </Group>
                 </Grid.Col>

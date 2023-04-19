@@ -65,8 +65,8 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
         const fetchAllAppointments = async () => {
             try {
                 const res = await api.get(`/appointments/${period}`);
-                if (res.data.length === 0) setError('No Appointments Found');
-                else setAppointments(res.data);
+                setAppointments(res.data);
+                setError(null);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');
                 else setNotification(true, `${error.message}: ${error.response.data.message}`);
@@ -130,7 +130,10 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                 </Group>
             </Grid>
             {error ? (
-                <NoContent message={error} title="No Appointments Found" />
+                <NoContent
+                    message={`${error}, please add one to start. If it's already done, please refresh the page.`}
+                    title="No Appointments Found"
+                />
             ) : (
                 <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
                     {isGrid ? (
@@ -146,7 +149,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                     )}
                 </Paper>
             )}
-            <ModalCreateApp show={show} toggleModal={toggleModal} />
+            {show && <ModalCreateApp show={show} toggleModal={toggleModal} />}
         </>
     );
 };

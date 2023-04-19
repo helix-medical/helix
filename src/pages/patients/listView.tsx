@@ -156,7 +156,7 @@ const PatientsTableView = ({ patients, handleDelete }: TableSortProps) => {
                         <tr>
                             <td colSpan={7}>
                                 <Text weight={500} align="center">
-                                    Not patients found
+                                    No patients found
                                 </Text>
                             </td>
                         </tr>
