@@ -63,7 +63,7 @@ const useStyles = createStyles((theme) => ({
 const links = [
     { label: 'Patients', link: '/patients', color: 'fr-yellow.4' },
     { label: 'Appointments', link: '/appointments', color: 'fr-pink' },
-    { label: 'Calendar', link: '/calendar' },
+    { label: 'Calendar', link: '/calendar', color: 'fr-cyan.4' },
     { label: 'Accounting', link: '/accounting', color: 'teal' },
 ];
 
@@ -80,13 +80,11 @@ const HeaderApp = () => {
 
     const items = links.map((link) => {
         return (
-            <>
-                <UnstyledButton onClick={() => goToLink(link.link)} className={classes.link} key={link.link}>
-                    <Text size="lg" weight={500}>
-                        {link.label}
-                    </Text>
-                </UnstyledButton>
-            </>
+            <UnstyledButton onClick={() => goToLink(link.link)} className={classes.link} key={link.link}>
+                <Text size="lg" weight={500}>
+                    {link.label}
+                </Text>
+            </UnstyledButton>
         );
     });
 

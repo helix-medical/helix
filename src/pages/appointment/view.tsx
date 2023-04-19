@@ -11,6 +11,7 @@ import Secretary from './secretary';
 import useAuth from '../../hooks/useAuth';
 import cnf from '../../config/config';
 import api from '../../config/api';
+import GenerateReport from './generateReport';
 
 const ViewAppointment = () => {
     const id = window.location.href.split('/').slice(-2)[0];
@@ -18,6 +19,7 @@ const ViewAppointment = () => {
     const { auth } = useAuth();
     const isRestricted = auth.role === cnf.roles.SECRETARY;
     const [mainColor, setMainColor] = useState('fr-orange.4');
+    const [open, setOpen] = useState(false);
     const theme = useMantineTheme();
     useEffect(() => {
         setMainColor(theme.colorScheme === 'dark' ? 'fr-orange.6' : 'fr-orange.4');
@@ -78,7 +80,7 @@ const ViewAppointment = () => {
 
     return (
         <>
-            <NavBarAppointment view={true} color={mainColor} />
+            <NavBarAppointment view={true} color={mainColor} handler={() => setOpen(true)} />
             <Metadata appointment={data} />
             <AppFormProvider form={form}>
                 <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
@@ -93,6 +95,7 @@ const ViewAppointment = () => {
                 ) : null}
                 <Secretary secretary={payment} view={true} />
             </AppFormProvider>
+            <GenerateReport open={open} handler={() => setOpen(false)} data={data as any} />
         </>
     );
 };

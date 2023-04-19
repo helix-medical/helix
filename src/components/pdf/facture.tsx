@@ -2,6 +2,7 @@ import React from 'react';
 import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import moment from 'moment';
 import cnf from '../../config/config';
+import HeaderPDF from './header';
 
 const styles = StyleSheet.create({
     page: {
@@ -14,25 +15,6 @@ const styles = StyleSheet.create({
         marginTop: 20,
         textAlign: 'center',
         color: 'grey',
-    },
-    cabinet: {
-        fontSize: 12,
-        marginTop: 20,
-        textAlign: 'left',
-        color: 'black',
-        marginLeft: 20,
-    },
-    osteo: {
-        fontSize: 12,
-        marginTop: 20,
-        textAlign: 'right',
-        color: 'black',
-        marginRight: 20,
-    },
-    head: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
     },
     table: {
         display: 'flex',
@@ -65,20 +47,7 @@ const Facture = ({ id, data }: { id: string; data: any }) => {
                 <View style={styles.header}>
                     <Text>Facture</Text>
                 </View>
-                <View style={styles.head}>
-                    <View style={styles.cabinet}>
-                        <Text>Cabinet d'Ostéopathie Grande Place</Text>
-                        <Text>1 rue de la Grande Place</Text>
-                        <Text>Adresse à rajouter</Text>
-                    </View>
-                    <View style={styles.osteo}>
-                        <Text>
-                            {data.doctorName} {data.doctorLastName}
-                        </Text>
-                        <Text>IMPLEMENT TEL</Text>
-                        <Text>IMPLEMENT MAIL</Text>
-                    </View>
-                </View>
+                <HeaderPDF data={{ doctorName: data.doctorName, doctorLastName: data.doctorLastName }} />
                 <View style={styles.main}>
                     <Text>Facture {id}</Text>
                     <Text>{moment().format(cnf.formatDateTimePretty)}</Text>
