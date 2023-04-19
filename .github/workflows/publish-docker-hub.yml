@@ -30,9 +30,11 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build and Push
+        env:
+          TAG: ${GITHUB_REF/refs\/tags\//}
         uses: docker/build-push-action@v4
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest, ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:${{ env.TAG }}
