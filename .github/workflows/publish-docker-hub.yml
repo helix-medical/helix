@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DOCKER_IMAGE: helix-db
+      DOCKER_IMAGE: helix-client
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       TAG: ${GITHUB_REF/refs\/tags\//}
