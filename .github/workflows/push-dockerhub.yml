@@ -32,9 +32,13 @@ jobs:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_TOKEN }}
 
-      - name: Push the Docker image
-        run: docker push ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:${{ env.TAG }}
-
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:${{ env.TAG }}
       # - name: Docker metadata
       #   id: metadata
       #   uses: docker/metadata-action@v3
