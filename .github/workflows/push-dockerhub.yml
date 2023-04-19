@@ -33,7 +33,7 @@ jobs:
           password: ${{ env.DOCKER_TOKEN }}
 
       - name: Push the Docker image
-        run: docker push ${{ env.DOCKER_IMAGE }}:${{ env.TAG }}
+        run: docker push ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:${{ env.TAG }}
 
       # - name: Docker metadata
       #   id: metadata
