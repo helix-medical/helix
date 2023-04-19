@@ -22,7 +22,7 @@ jobs:
 
       - name: Get the version
         id: get_version
-        run: echo {{ env.TAG}}
+        run: echo ${{ env.TAG }}
 
       # - name: Docker metadata
       #   id: metadata
