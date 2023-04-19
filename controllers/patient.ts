@@ -4,7 +4,7 @@ import queries from '../database/queries';
 
 const create = async (req: Request, res: Response) => {
     let id = uuid();
-    while (await queries.checkId(id, 'users', 'id')) id = uuid();
+    while (await queries.checkId(id, 'patients', 'id')) id = uuid();
     const sqlQuery = `
         INSERT INTO
             patients (
