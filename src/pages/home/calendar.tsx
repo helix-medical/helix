@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { Calendar, EventProps, Navigate, ToolbarProps, momentLocalizer } from 'react-big-calendar';
 import { IEvent } from '../../interfaces';
-import axios from 'axios';
 import { ActionIcon, Group, Text, Title } from '@mantine/core';
 import {
     IconArrowUpRight,
@@ -13,6 +12,7 @@ import {
 } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';
 import { useNavigate } from 'react-router-dom';
+import api from '../../config/api';
 
 const localizer = momentLocalizer(moment);
 const color = 'fr-cyan';
@@ -71,7 +71,7 @@ const HomeCalendar = () => {
     const navigate = useNavigate();
     useEffect(() => {
         const fetchEvents = async () => {
-            const res = await axios.get('api/events');
+            const res = await api.get('/events');
             const events = res.data.map((event: any) => ({
                 start: moment(event.start).toDate(),
                 end: moment(event.end).toDate(),

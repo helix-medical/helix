@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Biodatas from './biodatas';
 import Anamnesis from './anamnesis';
 import Conclusion from './conclusion';
@@ -11,6 +10,7 @@ import setNotification from '../system/errors/feedbackNotif';
 import Secretary from './secretary';
 import useAuth from '../../hooks/useAuth';
 import cnf from '../../config/config';
+import api from '../../config/api';
 
 const ViewAppointment = () => {
     const id = window.location.href.split('/').slice(-2)[0];
@@ -60,7 +60,7 @@ const ViewAppointment = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`/api/appointments/${id}/view`);
+                const res = await api.get(`/appointments/${id}/view`);
                 setData(res.data[0]);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');

@@ -1,6 +1,6 @@
-import axios from 'axios';
 import useAuth from './useAuth';
 import setNotification from '../pages/system/errors/feedbackNotif';
+import api from '../config/api';
 
 const useLogout = () => {
     const { setAuth, setPersist } = useAuth();
@@ -9,7 +9,7 @@ const useLogout = () => {
         setAuth({});
         setPersist(false);
         try {
-            const res = await axios.get('/api/auth/logout', { withCredentials: true });
+            const res = await api.get('/auth/logout', { withCredentials: true });
             setNotification(false, res.data.message);
         } catch (err: any) {
             console.log(err);

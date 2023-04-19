@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {
     Badge,
     Button,
@@ -24,6 +23,7 @@ import Th from '../../components/thSort';
 import { IconSearch } from '@tabler/icons-react';
 import ExportAccounting from './export';
 import ViewFacture from './viewFacture';
+import api from '../../config/api';
 
 const filterData = (data: ITransactions[], search: string) => {
     const query = search.toLowerCase().trim();
@@ -99,7 +99,7 @@ const ListTransactions = (): JSX.Element => {
                     break;
             }
             try {
-                const res = await axios.get(`/api/accounting/${startDate}/${endDate}`);
+                const res = await api.get(`/accounting/${startDate}/${endDate}`);
                 setTransactions(res.data);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');

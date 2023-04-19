@@ -2,10 +2,10 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Button, Title, TextInput, Card, Center, Grid } from '@mantine/core';
 import ChangePassword from './changePassword';
-import axios from 'axios';
 import { IUsers } from '../../interfaces';
 import cnf from '../../config/config';
 import moment from 'moment';
+import api from '../../config/api';
 
 const Account = ({ id }: { id: string }): JSX.Element => {
     const [show, setShow] = useState(false);
@@ -15,7 +15,7 @@ const Account = ({ id }: { id: string }): JSX.Element => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`/api/users/${id}`);
+                const res = await api.get(`/users/${id}`);
                 setUser(res.data[0]);
             } catch (error) {
                 console.log(error);

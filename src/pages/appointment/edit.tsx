@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Button, Center, useMantineTheme } from '@mantine/core';
 import PatientMetadata from './patientMetadata';
 import Anamnesis from './anamnesis';
@@ -13,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import Secretary from './secretary';
 import moment from 'moment';
 import cnf from '../../config/config';
+import api from '../../config/api';
 
 const EditAppointment = (): JSX.Element => {
     const id = window.location.href.split('/').slice(-2)[0];
@@ -48,7 +48,7 @@ const EditAppointment = (): JSX.Element => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`/api/appointments/${id}/edit`);
+                const res = await api.get(`/appointments/${id}/edit`);
                 setData(res.data[0]);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');
@@ -63,7 +63,7 @@ const EditAppointment = (): JSX.Element => {
         if (form.validate().hasErrors) return;
 
         try {
-            let res = await axios.post(`/api/accounting`, {
+            let res = await api.post(`/accounting`, {
                 amount: form.values.payment.amount,
                 method: form.values.payment.method,
                 appointment: id,
@@ -78,7 +78,7 @@ const EditAppointment = (): JSX.Element => {
                 payment: res.data.id,
             };
             try {
-                res = await axios.put(`/api/appointments/${id}/content`, appointmentFinal);
+                res = await api.put(`/appointments/${id}/content`, appointmentFinal);
                 setNotification(false, res.data.message);
                 navigate('/appointments');
             } catch (error: any) {

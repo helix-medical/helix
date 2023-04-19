@@ -5,12 +5,12 @@ import RoleBadge from '../../components/customBadges/userBadge';
 import { IconArchive, IconArchiveOff, IconEdit, IconEye } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';
 import ModalAddUser from './create';
-import axios from 'axios';
 import { IUsers } from '../../interfaces';
 import setNotification from '../system/errors/feedbackNotif';
 import UserStatus from '../../components/customBadges/userStatus';
 import cnf from '../../config/config';
 import moment from 'moment';
+import api from '../../config/api';
 
 const ListUsers = (): JSX.Element => {
     const [show, setShow] = useState(false);
@@ -24,7 +24,7 @@ const ListUsers = (): JSX.Element => {
     useEffect(() => {
         const fetchAllUsers = async () => {
             try {
-                const res = await axios.get('/api/users');
+                const res = await api.get('/users');
                 setUsers(res.data);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');
@@ -36,7 +36,7 @@ const ListUsers = (): JSX.Element => {
 
     const disableUser = async (uid: string) => {
         try {
-            const res = await axios.delete(`/api/users/${uid}`);
+            const res = await api.delete(`/users/${uid}`);
             setNotification(false, res.data.message);
             setRefresh(!refresh);
         } catch (error: any) {
@@ -47,7 +47,7 @@ const ListUsers = (): JSX.Element => {
 
     const enableUser = async (uid: string) => {
         try {
-            const res = await axios.put(`/api/users/${uid}/enable`);
+            const res = await api.put(`/users/${uid}/enable`);
             setNotification(false, res.data.message);
             setRefresh(!refresh);
         } catch (error: any) {

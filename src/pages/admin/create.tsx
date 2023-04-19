@@ -1,8 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import { Modal, Button, Grid, TextInput, Select, Text, PasswordInput, Group, useMantineTheme } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
 import setNotification from '../system/errors/feedbackNotif';
+import api from '../../config/api';
 
 interface IProps {
     show: boolean;
@@ -33,7 +33,7 @@ const ModalAddUser = ({ show, toggleModal }: IProps): JSX.Element => {
         e.preventDefault();
         if (form.validate().hasErrors) return;
         try {
-            const res = await axios.post(`/api/users/add`, form.values, {
+            const res = await api.post(`/users/add`, form.values, {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
             });

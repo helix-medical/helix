@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Grid, Progress, RingProgress, Text } from '@mantine/core';
-import axios from 'axios';
 import setNotification from '../system/errors/feedbackNotif';
 import moment from 'moment';
 import cnf from '../../config/config';
+import api from '../../config/api';
 
 interface IProps {
     period: string;
@@ -24,7 +24,7 @@ const AccountingTile = ({ period }: IProps) => {
     useEffect(() => {
         const getSumMonth = async () => {
             try {
-                const res = await axios.get(`/api/accounting/sum/${lastMonth}/${now}`);
+                const res = await api.get(`/accounting/sum/${lastMonth}/${now}`);
                 setData(res.data);
                 setSum((res.data.sum * 100) / max);
             } catch (error: any) {
@@ -33,7 +33,7 @@ const AccountingTile = ({ period }: IProps) => {
         };
         const getSumWeek = async () => {
             try {
-                const res = await axios.get(`/api/accounting/sum/${lastWeek}/${now}`);
+                const res = await api.get(`/accounting/sum/${lastWeek}/${now}`);
                 setData(res.data);
                 setSum((res.data.sum * 100) / max);
             } catch (error: any) {

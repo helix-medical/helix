@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-import axios from 'axios';
 import {
     Button,
     Modal,
@@ -20,6 +19,7 @@ import setNotification from '../system/errors/feedbackNotif';
 import cnf from '../../config/config';
 import { IconPhone, IconSend } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';
+import api from '../../config/api';
 
 interface IProps {
     show: boolean;
@@ -59,7 +59,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                 }),
             };
             try {
-                const res = await axios.put(`/api/patients/${patientInput.id}`, finalPatient);
+                const res = await api.put(`/patients/${patientInput.id}`, finalPatient);
                 setNotification(false, res.data.message);
             } catch (err: any) {
                 if (!err?.response) setNotification(true, 'Network error');

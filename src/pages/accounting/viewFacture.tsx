@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { PDFViewer, StyleSheet, pdf } from '@react-pdf/renderer';
-import axios from 'axios';
 import setNotification from '../../pages/system/errors/feedbackNotif';
 import { Button, Group, LoadingOverlay, Modal, Title, useMantineTheme } from '@mantine/core';
 import Facture from '../../components/pdf/facture';
 import { saveAs } from 'file-saver';
 import moment from 'moment';
+import api from '../../config/api';
 
 const styles = StyleSheet.create({
     viewer: {
@@ -28,7 +28,7 @@ const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: s
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`/api/accounting/${id}/facture`);
+                const res = await api.get(`/accounting/${id}/facture`);
                 setData(res.data[0]);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');

@@ -3,9 +3,9 @@ import { Title, Grid, Paper } from '@mantine/core';
 import moment from 'moment';
 import cnf from '../../config/config';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import setNotification from '../system/errors/feedbackNotif';
 import ItemQuickView from './itemQuickView';
+import api from '../../config/api';
 
 interface ISum {
     sum: number;
@@ -27,7 +27,7 @@ const QuickView = () => {
     useEffect(() => {
         const getSumMonth = async () => {
             try {
-                const res = await axios.get(`/api/accounting/sum/${lastMonth}/${now}`);
+                const res = await api.get(`/accounting/sum/${lastMonth}/${now}`);
                 setSumMonth(res.data);
             } catch (error: any) {
                 setNotification(true, `${error.message}: ${error.response.data.message}`);
@@ -35,7 +35,7 @@ const QuickView = () => {
         };
         const getSumWeek = async () => {
             try {
-                const res = await axios.get(`/api/accounting/sum/${lastWeek}/${now}`);
+                const res = await api.get(`/accounting/sum/${lastWeek}/${now}`);
                 setSumWeek(res.data);
             } catch (error: any) {
                 setNotification(true, `${error.message}: ${error.response.data.message}`);
@@ -43,7 +43,7 @@ const QuickView = () => {
         };
         const getSumAll = async () => {
             try {
-                const res = await axios.get(`/api/accounting/sum/${initDate}/${now}`);
+                const res = await api.get(`/accounting/sum/${initDate}/${now}`);
                 setSumAll(res.data);
             } catch (error: any) {
                 setNotification(true, `${error.message}: ${error.response.data.message}`);

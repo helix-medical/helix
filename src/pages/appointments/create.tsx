@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Button, Modal, Select, Group, Text, Grid, useMantineTheme } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import setNotification from '../system/errors/feedbackNotif';
 import cnf from '../../config/config';
 import moment from 'moment';
+import api from '../../config/api';
 
 interface IProps {
     show: boolean;
@@ -32,15 +32,15 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
             calendar: form.values.practitioner,
         };
         try {
-            const index = await axios.post(`/api/events`, event);
+            const index = await api.post(`/events`, event);
             setNotification(false, index.data.message);
-            let res = await axios.post(`/api/appointments/new`, {
+            let res = await api.post(`/appointments/new`, {
                 patientId: form.values.patientId,
                 kind: form.values.kind,
                 event: index.data.id,
             });
             setNotification(false, res.data.message);
-            res = await axios.put(`/api/events/${index.data.id}/add_appointment`, {
+            res = await api.put(`/events/${index.data.id}/add_appointment`, {
                 appId: res.data.id,
                 patientId: form.values.patientId,
             });
@@ -54,7 +54,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
 
     const getPatients = async () => {
         try {
-            const response = await axios.get('/api/patients/appointments');
+            const response = await api.get('/patients/appointments');
             setPatients(
                 response.data.map((patient: any) => ({
                     label: `${patient.name} ${patient.lastName}`,
@@ -69,7 +69,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
 
     const getPractitioners = async () => {
         try {
-            const response = await axios.get('/api/users/practitioners');
+            const response = await api.get('/users/practitioners');
             setPractitioners(
                 response.data.map((practitioner: any) => ({
                     label: `${practitioner.name} ${practitioner.lastName}`,

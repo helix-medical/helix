@@ -5,7 +5,6 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import { Badge, Paper, Title, useMantineTheme, Text } from '@mantine/core';
-import axios from 'axios';
 import '../../styles/calendar.css';
 import Toolbar from './toolbar';
 import Event from './event';
@@ -15,6 +14,7 @@ import ViewEvent from './view';
 import DateCellWrapper from './dateCellWrapper';
 import cnf from '../../config/config';
 import setNotification from '../system/errors/feedbackNotif';
+import api from '../../config/api';
 
 const Calendar = () => {
     const theme = useMantineTheme();
@@ -37,7 +37,7 @@ const Calendar = () => {
 
     useEffect(() => {
         const fetchEvents = async () => {
-            const res = await axios.get('api/events');
+            const res = await api.get('/events');
             const events = res.data.map((event: any) => ({
                 start: moment(event.start).toDate(),
                 end: moment(event.end).toDate(),
@@ -131,7 +131,7 @@ const Calendar = () => {
         async ({ event, start, end }: { event: IEvent; start: Date; end: Date }) => {
             const { id } = event;
             try {
-                const res = await axios.put(`api/events/${id}/date`, {
+                const res = await api.put(`/events/${id}/date`, {
                     start: moment(start).format(cnf.formatDateTime),
                     end: moment(end).format(cnf.formatDateTime),
                 });

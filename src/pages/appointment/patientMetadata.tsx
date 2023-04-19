@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Textarea, Title, Tabs, Button, Badge, Center, Paper, TextInput } from '@mantine/core';
 import PreviousAppointments from './previousAppointments';
 import Biodatas from './biodatas';
 import { IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
 import { IconCalendarCheck, IconDna, IconAlertTriangle } from '@tabler/icons-react';
 import setNotification from '../system/errors/feedbackNotif';
+import api from '../../config/api';
 
 interface IProps {
     patientInput: IAppointmentDataView | IAppointmentDataEdit;
@@ -85,7 +85,7 @@ function PatientMetadata({ patientInput, color }: IProps): JSX.Element {
         console.log(finalPatient);
 
         try {
-            const res = await axios.put(`/api/patients/${id}`, finalPatient);
+            const res = await api.put(`/patients/${id}`, finalPatient);
             setNotification(false, res.data.message);
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');

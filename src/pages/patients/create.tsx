@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { useForm, isEmail, isNotEmpty } from '@mantine/form';
 import { Button, Modal, TextInput, Select, Group, Grid, Text, useMantineTheme, Textarea } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
@@ -7,6 +6,7 @@ import dayjs from 'dayjs';
 import setNotification from '../system/errors/feedbackNotif';
 import { useNavigate } from 'react-router-dom';
 import cnf from '../../config/config';
+import api from '../../config/api';
 
 interface IProps {
     show: boolean;
@@ -58,7 +58,7 @@ const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
         };
         console.log(patient);
         try {
-            const res = await axios.post(`/api/patients/add`, patient);
+            const res = await api.post(`/patients/add`, patient);
             setNotification(false, res.data.message);
             form.reset();
             toggleModal();

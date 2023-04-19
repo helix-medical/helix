@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
 import {
     ActionIcon,
@@ -19,6 +18,7 @@ import PatientsTableView from './listView';
 import { IPatient } from '../../interfaces';
 import setNotification from '../system/errors/feedbackNotif';
 import NoContent from '../system/errors/noContent';
+import api from '../../config/api';
 
 const useStyles = createStyles((theme) => ({
     button: {
@@ -57,7 +57,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     useEffect(() => {
         const fetchAllPatients = async () => {
             try {
-                const res = await axios.get(`/api/patients`);
+                const res = await api.get(`/patients`);
                 setPatients(res.data);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');
@@ -77,7 +77,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     const handleDelete = async (id: string | undefined) => {
         if (!id) return console.error('No id');
         try {
-            const res = await axios.delete(`/api/patients/${id}`);
+            const res = await api.delete(`/patients/${id}`);
             setNotification(false, res.data.message);
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');

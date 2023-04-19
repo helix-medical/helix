@@ -6,7 +6,7 @@ import { SegmentedControl } from '@mantine/core';
 import moment from 'moment';
 import cnf from '../../config/config';
 import setNotification from '../system/errors/feedbackNotif';
-import axios from 'axios';
+import api from '../../config/api';
 
 const header = ['Transaction ID', 'Date', 'Amount', 'Method', 'Patient'];
 
@@ -38,7 +38,7 @@ const ModalExport = ({ period, open, handler }: { period: string; open: boolean;
     useEffect(() => {
         const fetchAllTransactions = async () => {
             try {
-                const res = await axios.get(`/api/accounting/${startDate}/${endDate}`);
+                const res = await api.get(`/accounting/${startDate}/${endDate}`);
                 setTransactions(
                     res.data.map((transaction: ITransactions) => [
                         transaction.uid,

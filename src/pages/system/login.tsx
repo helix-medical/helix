@@ -17,10 +17,10 @@ import {
 import { IconLock, IconUserSearch, IconSelector } from '@tabler/icons-react';
 import WrongAuth from './errors/wrongAuth';
 import useAuth from '../../hooks/useAuth';
-import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import setNotification from './errors/feedbackNotif';
 import logo from '../../assets/logo.png';
+import api from '../../config/api';
 
 const Login = () => {
     const { setAuth, persist, setPersist } = useAuth();
@@ -31,7 +31,7 @@ const Login = () => {
 
     const getUsers = async () => {
         try {
-            const response = await axios.get('/api/users/connexion');
+            const response = await api.get('/users/connexion');
             setUsers(response.data.map((user: any) => ({ label: `${user.name} ${user.lastName}`, value: user.uid })));
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');
@@ -67,7 +67,7 @@ const Login = () => {
         if (form.validate().hasErrors) return;
         setLoading(true);
         try {
-            const response = await axios.post('/api/auth/login', form.values, {
+            const response = await api.post('/auth/login', form.values, {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
             });
@@ -129,7 +129,7 @@ const Login = () => {
                     <Button fullWidth mt="xl" type="submit" loading={loading} loaderPosition="center">
                         {loading ? '' : 'Sign in'}
                     </Button>
-                    <Group position="apart" mt="lg">
+                    <Group position="center" mt="lg">
                         <Anchor component="a" size="sm" href="mailto:contact.helix@skiff.com">
                             Contact administrator
                         </Anchor>

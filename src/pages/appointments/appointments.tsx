@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {
     Button,
     Badge,
@@ -23,6 +22,7 @@ import { IAppointmentExtended } from '../../interfaces';
 import { useDisclosure } from '@mantine/hooks';
 import setNotification from '../system/errors/feedbackNotif';
 import NoContent from '../system/errors/noContent';
+import api from '../../config/api';
 
 const useStyles = createStyles((theme) => ({
     button: {
@@ -64,7 +64,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     useEffect(() => {
         const fetchAllAppointments = async () => {
             try {
-                const res = await axios.get(`/api/appointments/${period}`);
+                const res = await api.get(`/appointments/${period}`);
                 if (res.data.length === 0) setError('No Appointments Found');
                 else setAppointments(res.data);
             } catch (error: any) {
