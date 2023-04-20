@@ -9,11 +9,11 @@ import '../../styles/calendar.css';
 import Toolbar from './toolbar';
 import Event from './event';
 import { IEvent } from '../../interfaces';
-import AgendaEvent from './agendaEvent';
+import AgendaEvent from './agenda-event';
 import ViewEvent from './view';
-import DateCellWrapper from './dateCellWrapper';
+import DateCellWrapper from './date-cell-wrapper';
 import cnf from '../../config/config';
-import setNotification from '../system/errors/feedbackNotif';
+import setNotification from '../system/errors/feedback-notif';
 import api from '../../config/api';
 
 const Calendar = () => {

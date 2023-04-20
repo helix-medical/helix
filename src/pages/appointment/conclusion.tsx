@@ -1,8 +1,8 @@
 import React from 'react';
 import { Textarea, Title, Grid, TextInput, Paper } from '@mantine/core';
-import getNbLines from '../../tools/getLines';
+import getNbLines from '../../tools/get-lines';
 import { IConclusion } from '../../interfaces';
-import { useAppFormContext } from './formContext';
+import { useAppFormContext } from './form-context';
 
 interface IProps {
     conclusion: IConclusion;

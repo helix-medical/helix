@@ -12,17 +12,17 @@ import {
     TextInput,
     Title,
 } from '@mantine/core';
-import setNotification from '../system/errors/feedbackNotif';
+import setNotification from '../system/errors/feedback-notif';
 import IdBadge from '../../components/customBadges/id';
 import { ITransactions } from '../../interfaces';
-import PaymentMethod from '../../components/customBadges/paymentMethod';
+import PaymentMethod from '../../components/customBadges/payment-method';
 import moment from 'moment';
 import cnf from '../../config/config';
 import { keys } from '@mantine/utils';
-import Th from '../../components/thSort';
+import Th from '../../components/th-sort';
 import { IconSearch } from '@tabler/icons-react';
 import ExportAccounting from './export';
-import ViewFacture from './viewFacture';
+import ViewFacture from './view-facture';
 import api from '../../config/api';
 
 const filterData = (data: ITransactions[], search: string) => {

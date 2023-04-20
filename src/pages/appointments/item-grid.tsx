@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Text, Button, Group } from '@mantine/core';
-import KindAppointment from '../../components/customBadges/kindAppointment';
+import KindAppointment from '../../components/customBadges/kind-appointment';
 import { IAppointmentExtended } from '../../interfaces';
 import { useNavigate } from 'react-router-dom';
 import cnf from '../../config/config';

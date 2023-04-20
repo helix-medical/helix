@@ -1,29 +1,26 @@
 import React, { useEffect } from 'react';
+import { IconSearch } from '@tabler/icons-react';
+import { IPatient } from '../../interfaces';
+import { keys } from '@mantine/utils';
 import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
-import KindAppointment from '../../components/customBadges/kindAppointment';
-import { IAppointmentExtended } from '../../interfaces';
+import { useState } from 'react';
 import IdBadge from '../../components/customBadges/id';
-import { useNavigate } from 'react-router-dom';
+import Th from '../../components/th-sort';
 import cnf from '../../config/config';
 import moment from 'moment';
-import { keys } from '@mantine/utils';
-import Th from '../../components/thSort';
-import { useState } from 'react';
-import { IconSearch } from '@tabler/icons-react';
+import ModalViewPatient from './view';
 
-interface IProps {
-    appointments: IAppointmentExtended[];
+interface TableSortProps {
+    patients: IPatient[];
+    handleDelete: (id: string | undefined) => void;
 }
 
-const filterData = (data: IAppointmentExtended[], search: string) => {
+const filterData = (data: IPatient[], search: string) => {
     const query = search.toLowerCase().trim();
     return data.filter((item) => keys(data[0]).some((key) => item[key].toLowerCase().includes(query)));
 };
 
-const sortData = (
-    data: IAppointmentExtended[],
-    payload: { sortBy: keyof IAppointmentExtended | null; reversed: boolean; search: string }
-) => {
+const sortData = (data: IPatient[], payload: { sortBy: keyof IPatient | null; reversed: boolean; search: string }) => {
     const { sortBy } = payload;
 
     if (!sortBy) {
@@ -42,29 +39,31 @@ const sortData = (
     );
 };
 
-const AppTableView = ({ appointments }: IProps): JSX.Element => {
+const PatientsTableView = ({ patients, handleDelete }: TableSortProps) => {
     const [search, setSearch] = useState<string>('');
-    const [sortedData, setSortedData] = useState(appointments);
-    const [sortBy, setSortBy] = useState<keyof IAppointmentExtended | null>(null);
+    const [sortedData, setSortedData] = useState(patients);
+    const [sortBy, setSortBy] = useState<keyof IPatient | null>(null);
     const [reverseSortDirection, setReverseSortDirection] = useState(false);
-    const navigate = useNavigate();
+    const [show, setShow] = useState(false);
+    const [patient, setPatient] = useState<IPatient>({} as IPatient);
+    const toggleModal = () => setShow(!show);
 
     useEffect(() => {
-        setSortedData(sortData(appointments, { sortBy, reversed: reverseSortDirection, search }));
+        setSortedData(sortData(patients, { sortBy, reversed: reverseSortDirection, search }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [appointments]);
+    }, [patients]);
 
-    const setSorting = (field: keyof IAppointmentExtended) => {
+    const setSorting = (field: keyof IPatient) => {
         const reversed = field === sortBy ? !reverseSortDirection : false;
         setReverseSortDirection(reversed);
         setSortBy(field);
-        setSortedData(sortData(appointments, { sortBy: field, reversed, search }));
+        setSortedData(sortData(patients, { sortBy: field, reversed, search }));
     };
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.currentTarget;
         setSearch(value);
-        setSortedData(sortData(appointments, { sortBy, reversed: reverseSortDirection, search: value }));
+        setSortedData(sortData(patients, { sortBy, reversed: reverseSortDirection, search: value }));
     };
 
     const rows = sortedData.map((row) => (
@@ -74,18 +73,19 @@ const AppTableView = ({ appointments }: IProps): JSX.Element => {
             </td>
             <td>{row.name}</td>
             <td>{row.lastName}</td>
-            <td>{moment(row.date).format(cnf.formatDateTimePretty)}</td>
-            <td>
-                <KindAppointment kind={row.kind} />
-            </td>
+            <td>{moment(row.birthDate).format(cnf.formatDatePretty)}</td>
+            <td>{row.email}</td>
+            <td>{row.city}</td>
             <td>
                 <Button
                     variant="light"
-                    color="fr-orange.4"
-                    p={row.status !== 'pending' ? 'xs' : 'sm'}
-                    onClick={() => navigate(`/appointments/${row.id}/${row.status === 'finished' ? 'view' : 'edit'}`)}
+                    color="fr-yellow.4"
+                    onClick={() => {
+                        setPatient(row);
+                        toggleModal();
+                    }}
                 >
-                    {row.status !== 'pending' ? 'View' : 'Edit'}
+                    View
                 </Button>
             </td>
         </tr>
@@ -94,7 +94,7 @@ const AppTableView = ({ appointments }: IProps): JSX.Element => {
     return (
         <ScrollArea>
             <TextInput
-                placeholder="Search an appointment"
+                placeholder="Search a patient"
                 mb="md"
                 icon={<IconSearch size="0.9rem" stroke={1.5} />}
                 value={search}
@@ -126,18 +126,25 @@ const AppTableView = ({ appointments }: IProps): JSX.Element => {
                             Last Name
                         </Th>
                         <Th
-                            sorted={sortBy === 'date'}
+                            sorted={sortBy === 'birthDate'}
                             reversed={reverseSortDirection}
-                            onSort={() => setSorting('date')}
+                            onSort={() => setSorting('birthDate')}
                         >
-                            Date
+                            Birth Date
                         </Th>
                         <Th
-                            sorted={sortBy === 'kind'}
+                            sorted={sortBy === 'email'}
                             reversed={reverseSortDirection}
-                            onSort={() => setSorting('kind')}
+                            onSort={() => setSorting('email')}
                         >
-                            Kind
+                            Email
+                        </Th>
+                        <Th
+                            sorted={sortBy === 'city'}
+                            reversed={reverseSortDirection}
+                            onSort={() => setSorting('city')}
+                        >
+                            City
                         </Th>
                         <th>View</th>
                     </tr>
@@ -147,17 +154,25 @@ const AppTableView = ({ appointments }: IProps): JSX.Element => {
                         rows
                     ) : (
                         <tr>
-                            <td colSpan={6}>
+                            <td colSpan={7}>
                                 <Text weight={500} align="center">
-                                    No appointments found
+                                    No patients found
                                 </Text>
                             </td>
                         </tr>
                     )}
                 </tbody>
             </Table>
+            {show && (
+                <ModalViewPatient
+                    patientInput={patient}
+                    show={show}
+                    toggleModal={toggleModal}
+                    handleDelete={handleDelete}
+                />
+            )}
         </ScrollArea>
     );
 };
 
-export default AppTableView;
+export default PatientsTableView;

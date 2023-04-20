@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Textarea, Title, Tabs, Button, Badge, Center, Paper, TextInput } from '@mantine/core';
-import PreviousAppointments from './previousAppointments';
+import PreviousAppointments from './previous-appointments';
 import Biodatas from './biodatas';
 import { IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
 import { IconCalendarCheck, IconDna, IconAlertTriangle } from '@tabler/icons-react';
-import setNotification from '../system/errors/feedbackNotif';
+import setNotification from '../system/errors/feedback-notif';
 import api from '../../config/api';
 
 interface IProps {

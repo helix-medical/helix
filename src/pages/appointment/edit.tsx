@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Center, useMantineTheme } from '@mantine/core';
-import PatientMetadata from './patientMetadata';
+import PatientMetadata from './patient-metadata';
 import Anamnesis from './anamnesis';
 import Conclusion from './conclusion';
 import Metadata from './metadata';
 import NavBarAppointment from './navbar';
 import { isNotEmpty } from '@mantine/form';
-import { useAppForm, AppFormProvider } from './formContext';
-import setNotification from '../system/errors/feedbackNotif';
+import { useAppForm, AppFormProvider } from './form-context';
+import setNotification from '../system/errors/feedback-notif';
 import { useNavigate } from 'react-router-dom';
 import Secretary from './secretary';
 import moment from 'moment';

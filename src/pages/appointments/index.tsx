@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
 import {
-    ActionIcon,
-    Badge,
     Button,
-    createStyles,
-    Grid,
+    Badge,
     Group,
-    Paper,
+    Grid,
     Title,
+    ActionIcon,
+    createStyles,
+    Burger,
+    Paper,
     Tooltip,
+    SegmentedControl,
     useMantineTheme,
 } from '@mantine/core';
-import PatientItemGrid from './itemGrid';
-import ModalAddPatient from './create';
-import PatientsTableView from './listView';
-import { IPatient } from '../../interfaces';
-import setNotification from '../system/errors/feedbackNotif';
-import NoContent from '../system/errors/noContent';
+import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
+import AppItemGrid from './item-grid';
+import AppTableView from './list-view';
+import ModalCreateApp from './create';
+import { IAppointmentExtended } from '../../interfaces';
+
+import { useDisclosure } from '@mantine/hooks';
+import setNotification from '../system/errors/feedback-notif';
+import NoContent from '../system/errors/no-content';
 import api from '../../config/api';
 
 const useStyles = createStyles((theme) => ({
@@ -35,30 +39,33 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const Patients = ({ add }: { add: boolean }): JSX.Element => {
+    // Modal
+    const [show, setShow] = useState(add);
+    const toggleModal = () => setShow(!show);
     const [mainColor, setMainColor] = useState('fr-yellow.4');
     const theme = useMantineTheme();
-    const [refresh, setRefresh] = useState<boolean>(false);
-    // Modal for create a patient
-    const [show, setShow] = useState(add);
-    const toggleModal = () => {
-        setShow(!show);
-        setRefresh(!refresh);
-    };
+    useEffect(() => {
+        setMainColor(theme.colorScheme === 'dark' ? 'fr-orange.6' : 'fr-orange.4');
+    }, [theme.colorScheme]);
 
     // View Type
     const [viewType, setViewType] = useState('grid');
-    const isGrid: boolean = viewType === 'grid';
+    const isGrid = viewType === 'grid';
 
-    // Fetch all patients
-    const [patients, setPatients] = useState<IPatient[]>([]);
     const { classes } = useStyles();
+    const [opened, { toggle }] = useDisclosure(false);
     const [error, setError] = useState<string | null>(null);
 
+    const [period, setPeriod] = useState('all');
+
+    // fetch all appointments
+    const [appointments, setAppointments] = useState([]);
+
     useEffect(() => {
-        const fetchAllPatients = async () => {
+        const fetchAllAppointments = async () => {
             try {
-                const res = await api.get(`/patients`);
-                setPatients(res.data);
+                const res = await api.get(`/appointments/${period}`);
+                setAppointments(res.data);
                 setError(null);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');
@@ -66,25 +73,9 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                 setError(error.response.data.message);
             }
         };
-        fetchAllPatients();
-    }, [refresh]);
-    const nbPatients = patients.length;
-
-    useEffect(() => {
-        setMainColor(theme.colorScheme === 'dark' ? 'fr-yellow.6' : 'fr-yellow.4');
-    }, [theme.colorScheme]);
-
-    // Delete a patient
-    const handleDelete = async (id: string | undefined) => {
-        if (!id) return console.error('No id');
-        try {
-            const res = await api.delete(`/patients/${id}`);
-            setNotification(false, res.data.message);
-        } catch (error: any) {
-            if (!error?.response) setNotification(true, 'Network error');
-            else setNotification(true, `${error.message}: ${error.response.data.message}`);
-        }
-    };
+        fetchAllAppointments();
+    }, [period, show]);
+    const nbAppointments = appointments.length;
 
     const changeView = () => {
         setViewType((currentState) => {
@@ -96,15 +87,26 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     return (
         <>
             <Grid justify="space-between" align="center" p="md">
-                <Group position="left">
+                <Group>
                     <Title order={1}>
-                        Patients{' '}
+                        Appointments{' '}
                         <Badge size="xl" radius="lg" variant="filled" color={mainColor}>
-                            {nbPatients}
+                            {nbAppointments}
                         </Badge>
                     </Title>
                 </Group>
-                <Group position="right">
+                <Group>
+                    <SegmentedControl
+                        value={period}
+                        onChange={(value) => setPeriod(value)}
+                        data={[
+                            { label: 'Past', value: 'past' },
+                            { label: 'All', value: 'all' },
+                            { label: 'Upcoming', value: 'upcoming' },
+                        ]}
+                        color={mainColor}
+                    />
+
                     <Tooltip label={isGrid ? 'Table' : 'Grid'} withArrow position="bottom" color={mainColor}>
                         <ActionIcon
                             color={mainColor}
@@ -116,32 +118,38 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                             {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
                         </ActionIcon>
                     </Tooltip>
-                    <Button onClick={toggleModal} color={mainColor}>
-                        New Patient
+                    <Button onClick={toggleModal} className={classes.button} color={mainColor}>
+                        New Appointment
                     </Button>
+                    <Burger opened={opened} className={classes.burger} onClick={toggle} />
+                    {opened && (
+                        <Button onClick={toggleModal} color={mainColor}>
+                            New Appointment
+                        </Button>
+                    )}
                 </Group>
             </Grid>
             {error ? (
                 <NoContent
                     message={`${error}, please add one to start. If it's already done, please refresh the page.`}
-                    title="No Patients Found"
+                    title="No Appointments Found"
                 />
             ) : (
                 <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
                     {isGrid ? (
                         <Grid columns={12}>
-                            {patients.map((patient: IPatient) => (
-                                <Grid.Col xs={6} sm={4} md={3} lg={3} xl={2} key={patient.id}>
-                                    <PatientItemGrid key={patient.id} patient={patient} handleDelete={handleDelete} />
+                            {appointments.map((appointment: IAppointmentExtended) => (
+                                <Grid.Col xs={6} sm={4} md={3} lg={3} xl={2} key={appointment.id}>
+                                    <AppItemGrid key={appointment.id} appointment={appointment} />
                                 </Grid.Col>
                             ))}
                         </Grid>
                     ) : (
-                        <PatientsTableView patients={patients} handleDelete={handleDelete} />
+                        <AppTableView appointments={appointments} />
                     )}
                 </Paper>
             )}
-            <ModalAddPatient show={show} toggleModal={toggleModal} />
+            {show && <ModalCreateApp show={show} toggleModal={toggleModal} />}
         </>
     );
 };

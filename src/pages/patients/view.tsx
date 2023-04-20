@@ -14,8 +14,8 @@ import {
 } from '@mantine/core';
 import { useForm, isEmail, isNotEmpty } from '@mantine/form';
 import { IPatient } from '../../interfaces';
-import useAuth from '../../hooks/useAuth';
-import setNotification from '../system/errors/feedbackNotif';
+import useAuth from '../../hooks/use-auth';
+import setNotification from '../system/errors/feedback-notif';
 import cnf from '../../config/config';
 import { IconPhone, IconSend } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';

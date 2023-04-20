@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ModalViewPatient from './view';
 import { IPatient } from '../../interfaces';
 import { Card, Text, Button, Group } from '@mantine/core';
-import SexBadge from '../../components/customBadges/sexBadge';
+import SexBadge from '../../components/customBadges/sex-badge';
 import IdBadge from '../../components/customBadges/id';
 
 interface IProps {

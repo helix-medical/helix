@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Button, Title, TextInput, Card, Center, Grid } from '@mantine/core';
-import ChangePassword from './changePassword';
+import ChangePassword from './change-password';
 import { IUsers } from '../../interfaces';
 import cnf from '../../config/config';
 import moment from 'moment';

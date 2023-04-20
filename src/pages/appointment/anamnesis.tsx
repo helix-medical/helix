@@ -1,8 +1,8 @@
 import React from 'react';
 import { Textarea, Title, Grid, Paper } from '@mantine/core';
-import getNbLines from '../../tools/getLines';
+import getNbLines from '../../tools/get-lines';
 import { IAnamnesis } from '../../interfaces';
-import { useAppFormContext } from './formContext';
+import { useAppFormContext } from './form-context';
 
 interface IProps {
     anamnesis: IAnamnesis;

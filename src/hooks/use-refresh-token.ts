@@ -1,5 +1,5 @@
 import api from '../config/api';
-import useAuth from './useAuth';
+import useAuth from './use-auth';
 
 const useRefreshToken = () => {
     const { setAuth } = useAuth();

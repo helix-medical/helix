@@ -3,7 +3,7 @@ import { useForm, isEmail, isNotEmpty } from '@mantine/form';
 import { Button, Modal, TextInput, Select, Group, Grid, Text, useMantineTheme, Textarea } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import dayjs from 'dayjs';
-import setNotification from '../system/errors/feedbackNotif';
+import setNotification from '../system/errors/feedback-notif';
 import { useNavigate } from 'react-router-dom';
 import cnf from '../../config/config';
 import api from '../../config/api';

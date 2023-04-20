@@ -15,10 +15,10 @@ import {
     Center,
 } from '@mantine/core';
 import { IconLock, IconUserSearch, IconSelector } from '@tabler/icons-react';
-import WrongAuth from './errors/wrongAuth';
-import useAuth from '../../hooks/useAuth';
+import WrongAuth from './errors/wrong-auth';
+import useAuth from '../../hooks/use-auth';
 import { useNavigate, useLocation } from 'react-router-dom';
-import setNotification from './errors/feedbackNotif';
+import setNotification from './errors/feedback-notif';
 import logo from '../../assets/logo.png';
 import api from '../../config/api';
 

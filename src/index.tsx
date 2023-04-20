@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import * as serviceWorkerRegistration from './config/serviceWorkerRegistration';
+import * as serviceWorkerRegistration from './config/service-worker-registration';
 
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
-import AppRouter from './pages/system/appRouter';
-import { AuthProvider } from './components/auth/authProvider';
+import AppRouter from './pages/system/app-router';
+import { AuthProvider } from './components/auth/auth-provider';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Spotlight from './config/spotlight';
 import { disableReactDevTools } from '@fvilers/disable-react-devtools';

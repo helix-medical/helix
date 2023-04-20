@@ -5,13 +5,13 @@ import Conclusion from './conclusion';
 import Metadata from './metadata';
 import NavBarAppointment from './navbar';
 import { Paper, Title, useMantineTheme } from '@mantine/core';
-import { useAppForm, AppFormProvider } from './formContext';
-import setNotification from '../system/errors/feedbackNotif';
+import { useAppForm, AppFormProvider } from './form-context';
+import setNotification from '../system/errors/feedback-notif';
 import Secretary from './secretary';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/use-auth';
 import cnf from '../../config/config';
 import api from '../../config/api';
-import GenerateReport from './generateReport';
+import GenerateReport from './generate-report';
 
 const ViewAppointment = () => {
     const id = window.location.href.split('/').slice(-2)[0];

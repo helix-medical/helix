@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button, Grid, TextInput, Select, Text, PasswordInput, Group, useMantineTheme } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
-import setNotification from '../system/errors/feedbackNotif';
+import setNotification from '../system/errors/feedback-notif';
 import api from '../../config/api';
 
 interface IProps {

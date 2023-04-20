@@ -1,8 +1,8 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import useRefreshToken from '../../hooks/useRefreshToken';
-import useAuth from '../../hooks/useAuth';
+import useRefreshToken from '../../hooks/use-refresh-token';
+import useAuth from '../../hooks/use-auth';
 import { LoadingOverlay } from '@mantine/core';
 
 const PersistentLogin = () => {

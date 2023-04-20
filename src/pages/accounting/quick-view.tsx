@@ -3,8 +3,8 @@ import { Title, Grid, Paper } from '@mantine/core';
 import moment from 'moment';
 import cnf from '../../config/config';
 import { useEffect, useState } from 'react';
-import setNotification from '../system/errors/feedbackNotif';
-import ItemQuickView from './itemQuickView';
+import setNotification from '../system/errors/feedback-notif';
+import ItemQuickView from './item-quick-view';
 import api from '../../config/api';
 
 interface ISum {

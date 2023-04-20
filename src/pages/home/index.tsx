@@ -1,8 +1,8 @@
 import React from 'react';
 import { ActionIcon, Card, Grid, Group, Title } from '@mantine/core';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/use-auth';
 // import Account from './account';
-import Admin from '../admin/admin';
+import Admin from '../admin';
 import HomeCalendar from './calendar';
 import AccountingTile from './accounting';
 import { IconArrowUpRight } from '@tabler/icons-react';
