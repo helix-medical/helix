@@ -8,11 +8,12 @@ import accounting from './routers/accounting';
 import users from './routers/users';
 import errorHandler from './tools/errors';
 import sc from './tools/status-codes';
-// import auth from './middleware/auth';
+import auth from './middleware/auth';
 import cookieParser from 'cookie-parser';
 import credentials from './middleware/credentials';
 import logger from './tools/logger';
 import events from './routers/events';
+import unsecured from './routers/unsecured';
 
 // Config
 const app: Express = express();
@@ -34,9 +35,10 @@ app.get('/api', (req: Request, res: Response) => {
 
 // Routers
 app.use('/api/auth', authORoute);
+app.use('/api/unsecured', unsecured);
 
 // Protected routes
-// app.use(auth.verifyToken);
+app.use(auth.verifyToken);
 app.use('/api/patients', patients);
 app.use('/api/appointments', appointments);
 app.use('/api/users', users);
