@@ -29,7 +29,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
             return logger.fail(req, res, 'Invalid token');
         } else {
             logger.success(req, res, 'Valid token');
-            req.body.role = decoded.userData.role;
+            // req.body.role = decoded.userData.role;
             next();
         }
     });
