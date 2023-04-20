@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import db from '../database/config';
-import sc from '../tools/statusCodes';
+import sc from '../tools/status-codes';
 import logger from '../tools/logger';
 
 interface IId {

@@ -7,7 +7,7 @@ import authORoute from './routers/auth';
 import accounting from './routers/accounting';
 import users from './routers/users';
 import errorHandler from './tools/errors';
-import sc from './tools/statusCodes';
+import sc from './tools/status-codes';
 // import auth from './middleware/auth';
 import cookieParser from 'cookie-parser';
 import credentials from './middleware/credentials';

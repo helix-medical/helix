@@ -1,7 +1,7 @@
 import { Response, Request } from 'express';
 import db from '../database/config';
 import logger from '../tools/logger';
-import sc from '../tools/statusCodes';
+import sc from '../tools/status-codes';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { IUser } from '../tools/interfaces';

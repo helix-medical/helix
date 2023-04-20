@@ -1,5 +1,5 @@
 import { Response, NextFunction, Request } from 'express';
-import sc from './statusCodes';
+import sc from './status-codes';
 import logger from './logger';
 
 const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
