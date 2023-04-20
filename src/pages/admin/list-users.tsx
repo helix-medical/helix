@@ -29,7 +29,8 @@ const ListUsers = (): JSX.Element => {
                 setUsers(res.data);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');
-                else setNotification(true, `${error.message}: ${error.response.data.message}`);
+                else if (error.response.status !== 404)
+                    setNotification(true, `${error.message}: ${error.response.data.message}`);
             }
         };
         fetchAllUsers();

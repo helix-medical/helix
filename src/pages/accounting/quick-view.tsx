@@ -31,7 +31,8 @@ const QuickView = () => {
                 const res = await api.get(`/accounting/sum/${lastMonth}/${now}`);
                 setSumMonth(res.data);
             } catch (error: any) {
-                setNotification(true, `${error.message}: ${error.response.data.message}`);
+                if (error.response.status !== 404)
+                    setNotification(true, `${error.message}: ${error.response.data.message}`);
             }
         };
         const getSumWeek = async () => {
@@ -39,7 +40,8 @@ const QuickView = () => {
                 const res = await api.get(`/accounting/sum/${lastWeek}/${now}`);
                 setSumWeek(res.data);
             } catch (error: any) {
-                setNotification(true, `${error.message}: ${error.response.data.message}`);
+                if (error.response.status !== 404)
+                    setNotification(true, `${error.message}: ${error.response.data.message}`);
             }
         };
         const getSumAll = async () => {
@@ -47,7 +49,8 @@ const QuickView = () => {
                 const res = await api.get(`/accounting/sum/${initDate}/${now}`);
                 setSumAll(res.data);
             } catch (error: any) {
-                setNotification(true, `${error.message}: ${error.response.data.message}`);
+                if (error.response.status !== 404)
+                    setNotification(true, `${error.message}: ${error.response.data.message}`);
             }
         };
         getSumMonth();

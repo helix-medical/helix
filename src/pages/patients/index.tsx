@@ -63,7 +63,8 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                 setError(null);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');
-                else setNotification(true, `${error.message}: ${error.response.data.message}`);
+                else if (error.response.status !== 404)
+                    setNotification(true, `${error.message}: ${error.response.data.message}`);
                 setError(error.response.data.message);
             }
         };
@@ -124,10 +125,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                 </Group>
             </Grid>
             {error ? (
-                <NoContent
-                    message={`${error}, please add one to start. If it's already done, please refresh the page.`}
-                    title="No Patients Found"
-                />
+                <NoContent message={error} title="Error while getting Patients" />
             ) : (
                 <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
                     {isGrid ? (

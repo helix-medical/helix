@@ -34,10 +34,7 @@ const ModalAddUser = ({ show, toggleModal }: IProps): JSX.Element => {
         e.preventDefault();
         if (form.validate().hasErrors) return;
         try {
-            const res = await api.post(`/users/add`, form.values, {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true,
-            });
+            const res = await api.post(`/users/add`, form.values);
             setNotification(false, res.data.message);
             form.reset();
             toggleModal();

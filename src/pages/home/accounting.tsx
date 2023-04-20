@@ -29,7 +29,8 @@ const AccountingTile = ({ period }: IProps) => {
                 setData(res.data);
                 setSum((res.data.sum * 100) / max);
             } catch (error: any) {
-                setNotification(true, `${error.message}: ${error.response.data.message}`);
+                if (error.response.status !== 404)
+                    setNotification(true, `${error.message}: ${error.response.data.message}`);
             }
         };
         const getSumWeek = async () => {
@@ -38,7 +39,8 @@ const AccountingTile = ({ period }: IProps) => {
                 setData(res.data);
                 setSum((res.data.sum * 100) / max);
             } catch (error: any) {
-                setNotification(true, `${error.message}: ${error.response.data.message}`);
+                if (error.response.status !== 404)
+                    setNotification(true, `${error.message}: ${error.response.data.message}`);
             }
         };
         period === 'month' ? getSumMonth() : getSumWeek();
