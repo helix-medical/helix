@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import setNotification from '../system/errors/feedback-notif';
 import { useNavigate } from 'react-router-dom';
 import cnf from '../../config/config';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 interface IProps {
     show: boolean;
@@ -14,6 +14,7 @@ interface IProps {
 }
 
 const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
+    const api = useSecureAPI();
     const handleClose = () => toggleModal();
     const theme = useMantineTheme();
     const navigate = useNavigate();

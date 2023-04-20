@@ -9,7 +9,7 @@ interface IProps {
     view?: boolean;
 }
 
-function Conclusion({ conclusion, view }: IProps): JSX.Element {
+const Conclusion = ({ conclusion, view }: IProps): JSX.Element => {
     const nbLines = (text: string, base: number) => (view ? getNbLines(text) : base);
     const form = useAppFormContext();
 
@@ -48,6 +48,6 @@ function Conclusion({ conclusion, view }: IProps): JSX.Element {
             </Grid>
         </Paper>
     );
-}
+};
 
 export default Conclusion;

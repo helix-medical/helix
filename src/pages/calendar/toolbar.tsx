@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToolbarProps, Navigate, View } from 'react-big-calendar';
-import { ActionIcon, Center, Grid, Group, Paper, SegmentedControl, Text } from '@mantine/core';
+import { ActionIcon, Card, Center, Grid, Group, SegmentedControl, Text } from '@mantine/core';
 import { IconCalendar, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 
 interface IEvent {
@@ -15,7 +15,7 @@ interface ISelectItems {
     value: View;
 }
 
-const color = 'blue';
+const color = 'fr-cyan';
 
 const SelectView = ({ views: viewNames, view, onView, messages }: any) => {
     const data: ISelectItems[] = [
@@ -23,40 +23,48 @@ const SelectView = ({ views: viewNames, view, onView, messages }: any) => {
         { label: messages[viewNames[0]], value: viewNames[0] },
         { label: messages[viewNames[2]], value: viewNames[2] },
     ];
-    return <SegmentedControl data={data} value={view} onChange={(value) => onView(value)} color={color} />;
+    return (
+        <SegmentedControl
+            data={data}
+            value={view}
+            onChange={(value) => onView(value)}
+            color={`${color}.5`}
+            radius="xl"
+        />
+    );
 };
 
 const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, view }: ToolbarProps<IEvent>) => {
     return (
-        <Paper shadow="sm" p="xs" radius="sm" mb="sm" withBorder>
+        <Card shadow="sm" pt="xs" radius="sm" mb="sm" withBorder>
             <Grid columns={3}>
                 <Grid.Col xs={3} sm={1}>
-                    <Group position="center">
-                        <ActionIcon onClick={() => onNavigate(Navigate.PREVIOUS)} variant="outline" color={color}>
-                            <IconChevronLeft size="1.2rem" />
+                    <Group position="center" mt="xs">
+                        <ActionIcon size="lg" onClick={() => onNavigate(Navigate.PREVIOUS)} color={color}>
+                            <IconChevronLeft size="1.5rem" />
                         </ActionIcon>
-                        <ActionIcon onClick={() => onNavigate(Navigate.TODAY)} variant="outline" color={color}>
-                            <IconCalendar size="1.2rem" />
+                        <ActionIcon size="lg" onClick={() => onNavigate(Navigate.TODAY)} color={color}>
+                            <IconCalendar size="1.5rem" />
                         </ActionIcon>
-                        <ActionIcon onClick={() => onNavigate(Navigate.NEXT)} variant="outline" color={color}>
-                            <IconChevronRight size="1.2rem" />
+                        <ActionIcon size="lg" onClick={() => onNavigate(Navigate.NEXT)} color={color}>
+                            <IconChevronRight size="1.5rem" />
                         </ActionIcon>
                     </Group>
                 </Grid.Col>
                 <Grid.Col xs={3} sm={1}>
                     <Center>
-                        <Text fz="md" fw={700}>
+                        <Text fz="lg" fw={700} mt="xs">
                             {label}
                         </Text>
                     </Center>
                 </Grid.Col>
                 <Grid.Col xs={3} sm={1}>
-                    <Center>
+                    <Group position="right" mt="xs">
                         <SelectView views={views} view={view} onView={onView} messages={messages} />
-                    </Center>
+                    </Group>
                 </Grid.Col>
             </Grid>
-        </Paper>
+        </Card>
     );
 };
 

@@ -5,7 +5,7 @@ import { Button, Group, LoadingOverlay, Modal, Title, useMantineTheme } from '@m
 import Facture from '../../components/pdf/facture';
 import { saveAs } from 'file-saver';
 import moment from 'moment';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 const styles = StyleSheet.create({
     viewer: {
@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
 });
 
 const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: string }) => {
+    const api = useSecureAPI();
     const [data, setData] = useState<any>();
     const theme = useMantineTheme();
 
@@ -36,6 +37,7 @@ const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: s
             }
         };
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     return (

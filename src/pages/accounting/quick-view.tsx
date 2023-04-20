@@ -5,7 +5,7 @@ import cnf from '../../config/config';
 import { useEffect, useState } from 'react';
 import setNotification from '../system/errors/feedback-notif';
 import ItemQuickView from './item-quick-view';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 interface ISum {
     sum: number;
@@ -15,6 +15,7 @@ interface ISum {
 }
 
 const QuickView = () => {
+    const api = useSecureAPI();
     const now = moment().format(cnf.formatDate);
     const lastMonth = moment().subtract(1, 'months').format(cnf.formatDate);
     const lastWeek = moment().subtract(7, 'days').format(cnf.formatDate);

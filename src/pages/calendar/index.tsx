@@ -14,9 +14,10 @@ import ViewEvent from './view';
 import DateCellWrapper from './date-cell-wrapper';
 import cnf from '../../config/config';
 import setNotification from '../system/errors/feedback-notif';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 const Calendar = () => {
+    const api = useSecureAPI();
     const theme = useMantineTheme();
     const borderColor = theme.colorScheme === 'dark' ? '#373A40' : '#dee2e6';
     const HelixCalendar = withDragAndDrop(BigCalendar);
@@ -48,6 +49,7 @@ const Calendar = () => {
             setEvents(events);
         };
         fetchEvents();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh]);
 
     const slotGroupPropGetter = useCallback(
@@ -141,6 +143,7 @@ const Calendar = () => {
                 setNotification(true, err.response.data.message);
             }
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [refresh]
     );
 

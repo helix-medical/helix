@@ -12,31 +12,29 @@ import {
 } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';
 import { useNavigate } from 'react-router-dom';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 const localizer = momentLocalizer(moment);
 const color = 'fr-cyan';
 
 const Toolbar = ({ label, onNavigate }: ToolbarProps<IEvent>) => {
     return (
-        <>
-            <Group position="apart" mb="md" ml="sm" mr="sm">
-                <Text fz="lg" fw={700}>
-                    {label}
-                </Text>
-                <Group>
-                    <ActionIcon size="lg" onClick={() => onNavigate(Navigate.PREVIOUS)} color={color}>
-                        <IconChevronLeft size="1.5rem" />
-                    </ActionIcon>
-                    <ActionIcon size="lg" onClick={() => onNavigate(Navigate.TODAY)} color={color}>
-                        <IconCalendar size="1.5rem" />
-                    </ActionIcon>
-                    <ActionIcon size="lg" onClick={() => onNavigate(Navigate.NEXT)} color={color}>
-                        <IconChevronRight size="1.5rem" />
-                    </ActionIcon>
-                </Group>
+        <Group position="apart" mb="md" ml="sm" mr="sm">
+            <Text fz="lg" fw={700}>
+                {label}
+            </Text>
+            <Group>
+                <ActionIcon size="lg" onClick={() => onNavigate(Navigate.PREVIOUS)} color={color}>
+                    <IconChevronLeft size="1.5rem" />
+                </ActionIcon>
+                <ActionIcon size="lg" onClick={() => onNavigate(Navigate.TODAY)} color={color}>
+                    <IconCalendar size="1.5rem" />
+                </ActionIcon>
+                <ActionIcon size="lg" onClick={() => onNavigate(Navigate.NEXT)} color={color}>
+                    <IconChevronRight size="1.5rem" />
+                </ActionIcon>
             </Group>
-        </>
+        </Group>
     );
 };
 
@@ -67,8 +65,10 @@ const Event = ({ event }: EventProps<IEvent>) => {
 };
 
 const HomeCalendar = () => {
+    const api = useSecureAPI();
     const [events, setEvents] = useState<IEvent[]>([]);
     const navigate = useNavigate();
+
     useEffect(() => {
         const fetchEvents = async () => {
             const res = await api.get('/events');
@@ -82,7 +82,9 @@ const HomeCalendar = () => {
             setEvents(events);
         };
         fetchEvents();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     const slotGroupPropGetter = useCallback(
         () => ({
             style: {

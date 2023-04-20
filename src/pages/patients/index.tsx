@@ -18,7 +18,7 @@ import PatientsTableView from './list-view';
 import { IPatient } from '../../interfaces';
 import setNotification from '../system/errors/feedback-notif';
 import NoContent from '../system/errors/no-content';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 const useStyles = createStyles((theme) => ({
     button: {
@@ -35,6 +35,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const Patients = ({ add }: { add: boolean }): JSX.Element => {
+    const api = useSecureAPI();
     const [mainColor, setMainColor] = useState('fr-yellow.4');
     const theme = useMantineTheme();
     const [refresh, setRefresh] = useState<boolean>(false);
@@ -67,6 +68,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
             }
         };
         fetchAllPatients();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh]);
     const nbPatients = patients.length;
 

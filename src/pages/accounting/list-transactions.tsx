@@ -23,7 +23,7 @@ import Th from '../../components/th-sort';
 import { IconSearch } from '@tabler/icons-react';
 import ExportAccounting from './export';
 import ViewFacture from './view-facture';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 const filterData = (data: ITransactions[], search: string) => {
     const query = search.toLowerCase().trim();
@@ -58,6 +58,7 @@ const sortData = (
 };
 
 const ListTransactions = (): JSX.Element => {
+    const api = useSecureAPI();
     const [transactions, setTransactions] = useState<ITransactions[]>([]);
     const [view, setView] = useState('all');
     const [search, setSearch] = useState<string>('');
@@ -107,6 +108,7 @@ const ListTransactions = (): JSX.Element => {
             }
         };
         fetchAllTransactions(view);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [view]);
 
     const rows = sortedData.map((row) => (

@@ -31,7 +31,7 @@ const Login = () => {
 
     const getUsers = async () => {
         try {
-            const response = await api.get('/users/connexion');
+            const response = await api.get('/unsecured/users');
             setUsers(response.data.map((user: any) => ({ label: `${user.name} ${user.lastName}`, value: user.uid })));
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');

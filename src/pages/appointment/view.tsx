@@ -10,10 +10,11 @@ import setNotification from '../system/errors/feedback-notif';
 import Secretary from './secretary';
 import useAuth from '../../hooks/use-auth';
 import cnf from '../../config/config';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 import GenerateReport from './generate-report';
 
 const ViewAppointment = () => {
+    const api = useSecureAPI();
     const id = window.location.href.split('/').slice(-2)[0];
     const form = useAppForm();
     const { auth } = useAuth();
@@ -70,6 +71,7 @@ const ViewAppointment = () => {
             }
         };
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     const content = JSON.parse(data.content);

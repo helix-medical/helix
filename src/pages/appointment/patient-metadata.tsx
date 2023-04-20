@@ -5,14 +5,15 @@ import Biodatas from './biodatas';
 import { IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
 import { IconCalendarCheck, IconDna, IconAlertTriangle } from '@tabler/icons-react';
 import setNotification from '../system/errors/feedback-notif';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 interface IProps {
     patientInput: IAppointmentDataView | IAppointmentDataEdit;
     color: string;
 }
 
-function PatientMetadata({ patientInput, color }: IProps): JSX.Element {
+const PatientMetadata = ({ patientInput, color }: IProps): JSX.Element => {
+    const api = useSecureAPI();
     const passif = JSON.parse(patientInput.passif);
     const id = patientInput.patientId;
 
@@ -163,6 +164,6 @@ function PatientMetadata({ patientInput, color }: IProps): JSX.Element {
             </Center>
         </Paper>
     );
-}
+};
 
 export default PatientMetadata;

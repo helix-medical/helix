@@ -22,7 +22,7 @@ import { IAppointmentExtended } from '../../interfaces';
 import { useDisclosure } from '@mantine/hooks';
 import setNotification from '../system/errors/feedback-notif';
 import NoContent from '../system/errors/no-content';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 const useStyles = createStyles((theme) => ({
     button: {
@@ -39,6 +39,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const Patients = ({ add }: { add: boolean }): JSX.Element => {
+    const api = useSecureAPI();
     // Modal
     const [show, setShow] = useState(add);
     const toggleModal = () => setShow(!show);
@@ -74,6 +75,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
             }
         };
         fetchAllAppointments();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [period, show]);
     const nbAppointments = appointments.length;
 

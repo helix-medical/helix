@@ -19,7 +19,7 @@ import setNotification from '../system/errors/feedback-notif';
 import cnf from '../../config/config';
 import { IconPhone, IconSend } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 interface IProps {
     show: boolean;
@@ -29,6 +29,7 @@ interface IProps {
 }
 
 function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IProps): JSX.Element {
+    const api = useSecureAPI();
     const handleClose = () => toggleModal();
     const passif = JSON.parse(patientInput.passif);
     const theme = useMantineTheme();

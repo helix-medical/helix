@@ -6,11 +6,12 @@ import { SegmentedControl } from '@mantine/core';
 import moment from 'moment';
 import cnf from '../../config/config';
 import setNotification from '../system/errors/feedback-notif';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 const header = ['Transaction ID', 'Date', 'Amount', 'Method', 'Patient'];
 
 const ModalExport = ({ period, open, handler }: { period: string; open: boolean; handler: any }) => {
+    const api = useSecureAPI();
     const [view, setView] = useState(period === 'all' ? 'year' : period);
     const [transactions, setTransactions] = useState<ITransactions[]>([]);
     const [startDate, setStartDate] = useState('1998-12-17');
@@ -54,6 +55,7 @@ const ModalExport = ({ period, open, handler }: { period: string; open: boolean;
             }
         };
         fetchAllTransactions();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [startDate, endDate]);
 
     const handleClick = () => {

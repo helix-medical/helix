@@ -10,9 +10,10 @@ import setNotification from '../system/errors/feedback-notif';
 import UserStatus from '../../components/customBadges/user-status';
 import cnf from '../../config/config';
 import moment from 'moment';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 const ListUsers = (): JSX.Element => {
+    const api = useSecureAPI();
     const [show, setShow] = useState(false);
     const toggleModal = () => {
         setShow(!show);
@@ -32,6 +33,7 @@ const ListUsers = (): JSX.Element => {
             }
         };
         fetchAllUsers();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh]);
 
     const disableUser = async (uid: string) => {

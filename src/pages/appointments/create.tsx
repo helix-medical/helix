@@ -5,7 +5,7 @@ import { isNotEmpty, useForm } from '@mantine/form';
 import setNotification from '../system/errors/feedback-notif';
 import cnf from '../../config/config';
 import moment from 'moment';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 interface IProps {
     show: boolean;
@@ -13,6 +13,7 @@ interface IProps {
 }
 
 const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
+    const api = useSecureAPI();
     const handleClose = () => {
         form.reset();
         toggleModal();
@@ -85,6 +86,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
     useEffect(() => {
         getPatients();
         getPractitioners();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const form = useForm({

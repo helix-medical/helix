@@ -8,7 +8,7 @@ interface IProps {
     appointment: IAppointmentDataView | IAppointmentDataEdit;
 }
 
-function Metadata({ appointment }: IProps): JSX.Element {
+const Metadata = ({ appointment }: IProps): JSX.Element => {
     return (
         <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
             <Title order={2}>Appointment Data</Title>
@@ -32,6 +32,6 @@ function Metadata({ appointment }: IProps): JSX.Element {
             </Grid>
         </Paper>
     );
-}
+};
 
 export default Metadata;

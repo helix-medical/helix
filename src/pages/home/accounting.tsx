@@ -3,13 +3,14 @@ import { Card, Grid, Progress, RingProgress, Text } from '@mantine/core';
 import setNotification from '../system/errors/feedback-notif';
 import moment from 'moment';
 import cnf from '../../config/config';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 interface IProps {
     period: string;
 }
 
 const AccountingTile = ({ period }: IProps) => {
+    const api = useSecureAPI();
     const [data, setData] = useState<any>({});
     const [sum, setSum] = useState<number>(0);
     const now = moment().format(cnf.formatDate);

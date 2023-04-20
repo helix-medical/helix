@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button, Grid, TextInput, Select, Text, PasswordInput, Group, useMantineTheme } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
 import setNotification from '../system/errors/feedback-notif';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 interface IProps {
     show: boolean;
@@ -10,6 +10,7 @@ interface IProps {
 }
 
 const ModalAddUser = ({ show, toggleModal }: IProps): JSX.Element => {
+    const api = useSecureAPI();
     const handleClose = () => toggleModal();
     const theme = useMantineTheme();
 

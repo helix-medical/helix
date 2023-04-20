@@ -15,7 +15,7 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-function NavBarAppointment({ view, color, handler }: IProps): JSX.Element {
+const NavBarAppointment = ({ view, color, handler }: IProps): JSX.Element => {
     const { classes: style } = useStyles();
     return (
         <Grid justify="space-between" align="center" p="md">
@@ -36,6 +36,6 @@ function NavBarAppointment({ view, color, handler }: IProps): JSX.Element {
             </Group>
         </Grid>
     );
-}
+};
 
 export default NavBarAppointment;

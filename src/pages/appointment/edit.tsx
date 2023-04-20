@@ -12,9 +12,10 @@ import { useNavigate } from 'react-router-dom';
 import Secretary from './secretary';
 import moment from 'moment';
 import cnf from '../../config/config';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 const EditAppointment = (): JSX.Element => {
+    const api = useSecureAPI();
     const id = window.location.href.split('/').slice(-2)[0];
     const navigate = useNavigate();
     const [mainColor, setMainColor] = useState('fr-orange.4');
@@ -56,6 +57,7 @@ const EditAppointment = (): JSX.Element => {
             }
         };
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     const handleClick = async (e: { preventDefault: () => void }) => {

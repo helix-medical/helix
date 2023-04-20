@@ -5,9 +5,10 @@ import ChangePassword from './change-password';
 import { IUsers } from '../../interfaces';
 import cnf from '../../config/config';
 import moment from 'moment';
-import api from '../../config/api';
+import useSecureAPI from '../../hooks/use-secure-api';
 
 const Account = ({ id }: { id: string }): JSX.Element => {
+    const api = useSecureAPI();
     const [show, setShow] = useState(false);
     const toggleModal = () => setShow(!show);
     const [user, setUser] = useState<IUsers>();
@@ -22,6 +23,7 @@ const Account = ({ id }: { id: string }): JSX.Element => {
             }
         };
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     return (
