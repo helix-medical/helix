@@ -4,7 +4,7 @@ import Hero from './hero';
 import HeaderWebsite from './header';
 import Faq from './questions';
 import Footer from './footer';
-import UserReview from './userReview';
+import UserReview from './user-review';
 import Banner from './banner';
 
 const App = () => {

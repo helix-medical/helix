@@ -12,7 +12,7 @@ import {
     Avatar,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { SwitchToggle } from './toggleColorScheme';
+import { SwitchToggle } from './toggle-color-scheme';
 import logo from '../assets/logo.png';
 
 const HEADER_HEIGHT = rem(60);
