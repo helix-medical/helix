@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
 import KindAppointment from '../../components/customBadges/kind-appointment';
-import { IAppointmentExtended } from '../../interfaces';
+import { IAppointmentExtended } from '../../types/interfaces';
 import IdBadge from '../../components/customBadges/id';
 import { useNavigate } from 'react-router-dom';
 import cnf from '../../config/config';

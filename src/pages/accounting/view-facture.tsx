@@ -10,7 +10,7 @@ import useSecureAPI from '../../hooks/use-secure-api';
 const styles = StyleSheet.create({
     viewer: {
         width: '100%',
-        height: 800,
+        height: 720,
     },
 });
 
@@ -22,7 +22,7 @@ const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: s
     const handleDownload = () => {
         pdf(<Facture data={data} id={id} />)
             .toBlob()
-            .then((blob) => saveAs(blob, `${moment(data.date).format('YYYYMMDD')}-facture-${id}.pdf`));
+            .then((blob) => saveAs(blob, `${moment(data.date).format('YYYYMMDD')}-facture-${factureNumber}.pdf`));
         setNotification(false, 'Facture téléchargée');
     };
 
@@ -40,6 +40,8 @@ const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: s
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
+    const factureNumber = data && moment(data.date).format('YYYYMM') + '-' + data.factureID.toString().padStart(3, '0');
+
     return (
         <Modal.Root opened={open} onClose={handler} size="xl">
             <Modal.Overlay
@@ -51,10 +53,7 @@ const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: s
                 <Modal.Header>
                     <Modal.Title>
                         <Group position="apart">
-                            <Title order={4}>Facture {id}</Title>
-                            <Button variant="light" color="teal" onClick={handleDownload}>
-                                Télécharger
-                            </Button>
+                            <Title order={4}>Facture {factureNumber}</Title>
                         </Group>
                     </Modal.Title>
                     <Modal.CloseButton />
@@ -62,11 +61,16 @@ const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: s
                 <Modal.Body>
                     {data ? (
                         <PDFViewer style={styles.viewer}>
-                            <Facture data={data} id={id} />
+                            <Facture data={{ ...data, factureNumber }} id={id} />
                         </PDFViewer>
                     ) : (
                         <LoadingOverlay visible />
                     )}
+                    <Group position="center" mt="sm">
+                        <Button variant="light" color="teal" onClick={handleDownload}>
+                            Télécharger
+                        </Button>
+                    </Group>
                 </Modal.Body>
             </Modal.Content>
         </Modal.Root>

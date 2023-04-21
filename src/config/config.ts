@@ -16,6 +16,15 @@ interface IConfig {
         PRACTITIONER: number;
         SECRETARY: number;
     };
+    cabinet: {
+        name: string;
+        address: string;
+        city: string;
+        phone: string;
+        email: string;
+        website: string;
+        siret: string;
+    };
 }
 
 const cnf = configJSON as IConfig;

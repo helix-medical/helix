@@ -1,6 +1,6 @@
 import React from 'react';
 import { Badge, Title } from '@mantine/core';
-import { IPassif } from '../../interfaces';
+import { IPassif } from '../../types/interfaces';
 
 interface IProps {
     passif: IPassif;

@@ -15,7 +15,7 @@ import {
 import PatientItemGrid from './item-grid';
 import ModalAddPatient from './create';
 import PatientsTableView from './list-view';
-import { IPatient } from '../../interfaces';
+import { IPatient } from '../../types/interfaces';
 import setNotification from '../system/errors/feedback-notif';
 import NoContent from '../system/errors/no-content';
 import useSecureAPI from '../../hooks/use-secure-api';

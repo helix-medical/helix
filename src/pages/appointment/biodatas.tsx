@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput, Textarea, Grid } from '@mantine/core';
 import getNbLines from '../../tools/get-lines';
-import { IPassif, IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
+import { IPassif, IAppointmentDataView, IAppointmentDataEdit } from '../../types/interfaces';
 import cnf from '../../config/config';
 import moment from 'moment';
 

@@ -44,6 +44,7 @@ const Secretary = ({ secretary, view }: IProps): JSX.Element => {
                     ) : (
                         <Select
                             label="Method"
+                            placeholder="Choose..."
                             defaultValue={cnf.defaultPaymentMethod}
                             data={['cash', 'card', 'check']}
                             {...form.getInputProps('payment.method')}

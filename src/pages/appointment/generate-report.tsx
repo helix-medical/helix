@@ -1,5 +1,5 @@
 import React from 'react';
-import { IAppointmentDataView } from '../../interfaces';
+import { IAppointmentDataView } from '../../types/interfaces';
 import { Button, Group, LoadingOverlay, Modal, Title, useMantineTheme } from '@mantine/core';
 import { PDFViewer, StyleSheet, pdf } from '@react-pdf/renderer';
 import AppointmentPDF from '../../components/pdf/appointment';

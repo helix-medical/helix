@@ -3,6 +3,7 @@ import {
     createStyles,
     Header,
     Container,
+    Avatar,
     Group,
     Burger,
     rem,
@@ -19,6 +20,7 @@ import useLogout from '../hooks/use-logout';
 import DrawerApp from './navbar-links';
 import { spotlight } from '@mantine/spotlight';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 const useStyles = createStyles((theme) => ({
     inner: {
@@ -95,7 +97,10 @@ const HeaderApp = () => {
                     <Group>
                         <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
                         <UnstyledButton onClick={() => goToLink('/')} className={classes.link}>
-                            <Title order={1}>Helix</Title>
+                            <Group>
+                                <Avatar src={logo} size="md" />
+                                <Title order={1}>Helix</Title>
+                            </Group>
                         </UnstyledButton>
                     </Group>
                     <Group spacing={5} className={classes.links}>

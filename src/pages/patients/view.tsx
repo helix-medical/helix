@@ -13,7 +13,7 @@ import {
     UnstyledButton,
 } from '@mantine/core';
 import { useForm, isEmail, isNotEmpty } from '@mantine/form';
-import { IPatient } from '../../interfaces';
+import { IPatient } from '../../types/interfaces';
 import useAuth from '../../hooks/use-auth';
 import setNotification from '../system/errors/feedback-notif';
 import cnf from '../../config/config';

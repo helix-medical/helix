@@ -1,5 +1,5 @@
 import React from 'react';
-import { IAppointmentDataView } from '../../interfaces';
+import { IAppointmentDataView } from '../../types/interfaces';
 import { Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer';
 import HeaderPDF from './header';
 

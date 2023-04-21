@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, useMantineTheme, Text } from '@mantine/core';
-import { IEvent } from '../../interfaces';
+import { IEvent } from '../../types/interfaces';
 import moment from 'moment';
 import cnf from '../../config/config';
 

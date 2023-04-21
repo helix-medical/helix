@@ -17,7 +17,7 @@ import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
 import AppItemGrid from './item-grid';
 import AppTableView from './list-view';
 import ModalCreateApp from './create';
-import { IAppointmentExtended } from '../../interfaces';
+import { IAppointmentExtended } from '../../types/interfaces';
 
 import { useDisclosure } from '@mantine/hooks';
 import setNotification from '../system/errors/feedback-notif';

@@ -13,5 +13,14 @@
         "ADMIN": 2003,
         "PRACTITIONER": 1998,
         "SECRETARY": 1515
+    },
+    "cabinet": {
+        "name": "Cabinet de la Grande Place",
+        "address": "1, Grande Place",
+        "city": "35000 Rennes",
+        "phone": "02 99 99 99 99",
+        "email": "contact@grandeplace.fr",
+        "website": "grandeplace.fr",
+        "siret": "123 456 789 01234"
     }
 }

@@ -14,7 +14,7 @@ import {
 } from '@mantine/core';
 import setNotification from '../system/errors/feedback-notif';
 import IdBadge from '../../components/customBadges/id';
-import { ITransactions } from '../../interfaces';
+import { ITransactions } from '../../types/interfaces';
 import PaymentMethod from '../../components/customBadges/payment-method';
 import moment from 'moment';
 import cnf from '../../config/config';

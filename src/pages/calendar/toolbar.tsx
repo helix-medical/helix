@@ -39,7 +39,7 @@ const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, vi
         <Card shadow="sm" pt="xs" radius="sm" mb="sm" withBorder>
             <Grid columns={3}>
                 <Grid.Col xs={3} sm={1}>
-                    <Group position="center" mt="xs">
+                    <Group position="left" mt="xs">
                         <ActionIcon size="lg" onClick={() => onNavigate(Navigate.PREVIOUS)} color={color}>
                             <IconChevronLeft size="1.5rem" />
                         </ActionIcon>

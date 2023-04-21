@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Textarea, Title, Tabs, Button, Badge, Center, Paper, TextInput } from '@mantine/core';
 import PreviousAppointments from './previous-appointments';
 import Biodatas from './biodatas';
-import { IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
+import { IAppointmentDataView, IAppointmentDataEdit } from '../../types/interfaces';
 import { IconCalendarCheck, IconDna, IconAlertTriangle } from '@tabler/icons-react';
 import setNotification from '../system/errors/feedback-notif';
 import useSecureAPI from '../../hooks/use-secure-api';

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Center, Modal, Text, TextInput, useMantineTheme } from '@mantine/core';
-import { ITransactions } from '../../interfaces';
+import { ITransactions } from '../../types/interfaces';
 import { CSVLink } from 'react-csv';
 import { SegmentedControl } from '@mantine/core';
 import moment from 'moment';

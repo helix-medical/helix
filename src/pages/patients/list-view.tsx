@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { IconSearch } from '@tabler/icons-react';
-import { IPatient } from '../../interfaces';
+import { IPatient } from '../../types/interfaces';
 import { keys } from '@mantine/utils';
 import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
 import { useState } from 'react';

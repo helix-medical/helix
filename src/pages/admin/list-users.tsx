@@ -5,7 +5,7 @@ import RoleBadge from '../../components/customBadges/user-badge';
 import { IconArchive, IconArchiveOff, IconEdit, IconEye } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';
 import ModalAddUser from './create';
-import { IUsers } from '../../interfaces';
+import { IUsers } from '../../types/interfaces';
 import setNotification from '../system/errors/feedback-notif';
 import UserStatus from '../../components/customBadges/user-status';
 import cnf from '../../config/config';

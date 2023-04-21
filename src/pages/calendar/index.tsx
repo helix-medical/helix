@@ -8,7 +8,7 @@ import { Badge, Paper, Title, useMantineTheme, Text } from '@mantine/core';
 import '../../styles/calendar.css';
 import Toolbar from './toolbar';
 import Event from './event';
-import { IEvent } from '../../interfaces';
+import { IEvent } from '../../types/interfaces';
 import AgendaEvent from './agenda-event';
 import ViewEvent from './view';
 import DateCellWrapper from './date-cell-wrapper';

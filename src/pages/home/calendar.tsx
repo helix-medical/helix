@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { Calendar, EventProps, Navigate, ToolbarProps, momentLocalizer } from 'react-big-calendar';
-import { IEvent } from '../../interfaces';
+import { IEvent } from '../../types/interfaces';
 import { ActionIcon, Group, Text, Title } from '@mantine/core';
 import {
     IconArrowUpRight,

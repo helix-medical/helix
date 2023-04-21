@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextInput, Title, Grid, Paper } from '@mantine/core';
-import { IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
+import { IAppointmentDataView, IAppointmentDataEdit } from '../../types/interfaces';
 import cnf from '../../config/config';
 import moment from 'moment';
 

@@ -1,25 +1,27 @@
 import { View, Text, StyleSheet } from '@react-pdf/renderer';
 import React from 'react';
+import cnf from '../../config/config';
 
 const styles = StyleSheet.create({
     cabinet: {
-        fontSize: 12,
-        marginTop: 20,
         textAlign: 'left',
-        color: 'black',
-        marginLeft: 20,
     },
     osteo: {
-        fontSize: 12,
-        marginTop: 20,
-        textAlign: 'right',
-        color: 'black',
-        marginRight: 20,
+        alignItems: 'flex-end',
     },
-    head: {
+    header: {
+        margin: 50,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        fontSize: 14,
+        color: 'black',
+    },
+    head: {
+        fontSize: 10,
+        color: 'grey',
+        fontWeight: 'bold',
+        marginBottom: 3,
     },
 });
 
@@ -32,18 +34,21 @@ interface IProps {
 
 const HeaderPDF = ({ data }: IProps) => {
     return (
-        <View style={styles.head}>
+        <View style={styles.header}>
             <View style={styles.cabinet}>
-                <Text>Cabinet d'Ostéopathie Grande Place</Text>
-                <Text>1 rue de la Grande Place</Text>
-                <Text>Adresse à rajouter</Text>
+                <Text style={styles.head}>CABINET</Text>
+                <Text>{cnf.cabinet.name}</Text>
+                <Text>{cnf.cabinet.address}</Text>
+                <Text>{cnf.cabinet.city}</Text>
+                <Text>{cnf.cabinet.website}</Text>
             </View>
             <View style={styles.osteo}>
+                <Text style={styles.head}>OSTÉOPATHE</Text>
                 <Text>
                     {data.doctorName} {data.doctorLastName}
                 </Text>
-                <Text>IMPLEMENT TEL</Text>
-                <Text>IMPLEMENT MAIL</Text>
+                <Text>{cnf.cabinet.email}</Text>
+                <Text>{cnf.cabinet.phone}</Text>
             </View>
         </View>
     );
