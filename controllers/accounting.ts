@@ -80,6 +80,7 @@ const facture = async (req: Request, res: Response) => {
             a.amount,
             a.method,
             a.date,
+            a.facture AS factureID,
             app.id,
             p.name AS patientName,
             p.lastName AS patientLastName,
