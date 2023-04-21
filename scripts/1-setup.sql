@@ -63,7 +63,9 @@ CREATE TABLE
         `method` VARCHAR(10) NOT NULL,
         `date` VARCHAR(10) NOT NULL,
         `appointment` VARCHAR(8),
+        `facture` INT AUTO_INCREMENT,
         PRIMARY KEY (`uid`),
+        KEY facture (facture),
         FOREIGN KEY (`appointment`) REFERENCES `helix`.`appointments`(`id`) ON DELETE
         SET NULL
     );
