@@ -27,6 +27,20 @@ interface IConfig {
     };
 }
 
+const getRole = (role: number) => {
+    switch (role) {
+        case cnf.roles.ADMIN:
+            return 'ADMIN';
+        case cnf.roles.PRACTITIONER:
+            return 'PRACTITIONER';
+        case cnf.roles.SECRETARY:
+            return 'SECRETARY';
+        default:
+            return 'UNKNOWN';
+    }
+};
+
 const cnf = configJSON as IConfig;
 
 export default cnf;
+export { getRole };

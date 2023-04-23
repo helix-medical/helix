@@ -7,6 +7,7 @@ import HomeCalendar from './calendar';
 import AccountingTile from './accounting';
 import { IconArrowUpRight } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
+import GrantAccess from '../../components/auth/grant-access';
 
 const Home = () => {
     const { auth } = useAuth();
@@ -15,8 +16,10 @@ const Home = () => {
     return (
         <>
             <Title order={1}>Welcome on Helix, {auth.name}!</Title>
-            <Grid columns={12} p='lg'>
-                {auth.role === 2003 && <Admin />}
+            <Grid columns={12} p="lg">
+                <GrantAccess levels={['ADMIN']}>
+                    <Admin />
+                </GrantAccess>
                 <Grid.Col span={8}>
                     <Card shadow="sm" padding="lg" radius="md" withBorder>
                         <HomeCalendar />
@@ -24,7 +27,7 @@ const Home = () => {
                 </Grid.Col>
                 <Grid.Col span={4}>
                     <Card shadow="sm" padding="lg" radius="md" withBorder>
-                        <Group position="apart" mb='md'>
+                        <Group position="apart" mb="md">
                             <div></div>
                             <Title order={2}>Accounting</Title>
                             <ActionIcon color={'teal'} size="xl" onClick={() => navigate('/accounting')}>

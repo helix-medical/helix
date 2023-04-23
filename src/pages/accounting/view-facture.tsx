@@ -20,7 +20,7 @@ const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: s
     const theme = useMantineTheme();
 
     const handleDownload = () => {
-        pdf(<Facture data={data} id={id} />)
+        pdf(<Facture data={{ ...data, factureNumber }} id={id} />)
             .toBlob()
             .then((blob) => saveAs(blob, `${moment(data.date).format('YYYYMMDD')}-facture-${factureNumber}.pdf`));
         setNotification(false, 'Facture téléchargée');

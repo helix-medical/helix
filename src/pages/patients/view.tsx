@@ -14,12 +14,11 @@ import {
 } from '@mantine/core';
 import { useForm, isEmail, isNotEmpty } from '@mantine/form';
 import { IPatient } from '../../types/interfaces';
-import useAuth from '../../hooks/use-auth';
 import setNotification from '../system/errors/feedback-notif';
-import cnf from '../../config/config';
 import { IconPhone, IconSend } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';
 import useSecureAPI from '../../hooks/use-secure-api';
+import GrantAccess from '../../components/auth/grant-access';
 
 interface IProps {
     show: boolean;
@@ -33,8 +32,6 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
     const handleClose = () => toggleModal();
     const passif = JSON.parse(patientInput.passif);
     const theme = useMantineTheme();
-    const { auth } = useAuth();
-    const isRestricted = auth.role === cnf.roles.SECRETARY;
 
     const [update, setUpdate] = useState(false);
 
@@ -232,7 +229,7 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                                     </Badge>
                                 </UnstyledButton>
                             </Grid.Col>
-                            {!isRestricted && (
+                            <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
                                 <Grid.Col span={12}>
                                     <Textarea
                                         label="Antécédents médicaux"
@@ -242,20 +239,18 @@ function ModalViewPatient({ show, toggleModal, patientInput, handleDelete }: IPr
                                         readOnly={!update}
                                     />
                                 </Grid.Col>
-                            )}
+                            </GrantAccess>
                         </Grid>
                     </Modal.Body>
                     <Group position="right" p="md">
-                        {!isRestricted && (
-                            <>
-                                <Button variant="light" color="red" onClick={() => handleDelete(patientInput.id)}>
-                                    Delete
-                                </Button>
-                                <Button variant="light" onClick={handleUpdate}>
-                                    {update ? 'Save' : 'Edit'}
-                                </Button>
-                            </>
-                        )}
+                        <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
+                            <Button variant="light" color="red" onClick={() => handleDelete(patientInput.id)}>
+                                Delete
+                            </Button>
+                            <Button variant="light" onClick={handleUpdate}>
+                                {update ? 'Save' : 'Edit'}
+                            </Button>
+                        </GrantAccess>
                         <Button color="gray" type="submit">
                             Close
                         </Button>

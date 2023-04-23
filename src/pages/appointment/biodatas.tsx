@@ -4,16 +4,16 @@ import getNbLines from '../../tools/get-lines';
 import { IPassif, IAppointmentDataView, IAppointmentDataEdit } from '../../types/interfaces';
 import cnf from '../../config/config';
 import moment from 'moment';
+import GrantAccess from '../../components/auth/grant-access';
 
 interface IProps {
     patient: IAppointmentDataView | IAppointmentDataEdit;
     view?: boolean;
     passif?: IPassif;
     handler?: (e: { target: { name: any; value: any } }) => void;
-    restricted: boolean;
 }
 
-const Biodatas = ({ patient, view, passif, handler, restricted }: IProps): JSX.Element => {
+const Biodatas = ({ patient, view, passif, handler }: IProps): JSX.Element => {
     return (
         <Grid columns={12}>
             <Grid.Col sm={6} md={4}>
@@ -67,8 +67,8 @@ const Biodatas = ({ patient, view, passif, handler, restricted }: IProps): JSX.E
             <Grid.Col sm={6} md={4}>
                 <TextInput label="City" defaultValue={patient.city} readOnly={view} onChange={handler} name="city" />
             </Grid.Col>
-            {view && passif && !restricted && (
-                <>
+            {view && passif && (
+                <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
                     <Grid.Col sm={8}>
                         <Textarea
                             label="Previous Medical Issues"
@@ -80,7 +80,7 @@ const Biodatas = ({ patient, view, passif, handler, restricted }: IProps): JSX.E
                     <Grid.Col sm={4}>
                         <TextInput label="Doctor" defaultValue={patient.doctor} />
                     </Grid.Col>
-                </>
+                </GrantAccess>
             )}
         </Grid>
     );

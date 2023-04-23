@@ -69,7 +69,7 @@ const EditAppointment = (): JSX.Element => {
                 amount: form.values.payment.amount,
                 method: form.values.payment.method,
                 appointment: id,
-                date: moment().format(cnf.formatDate),
+                date: moment().format(cnf.formatDateTime),
             });
             setNotification(false, res.data.message);
             const appointmentFinal = {

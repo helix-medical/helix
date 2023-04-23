@@ -8,17 +8,14 @@ import { Paper, Title, useMantineTheme } from '@mantine/core';
 import { useAppForm, AppFormProvider } from './form-context';
 import setNotification from '../system/errors/feedback-notif';
 import Secretary from './secretary';
-import useAuth from '../../hooks/use-auth';
-import cnf from '../../config/config';
 import useSecureAPI from '../../hooks/use-secure-api';
 import GenerateReport from './generate-report';
+import GrantAccess from '../../components/auth/grant-access';
 
 const ViewAppointment = () => {
     const api = useSecureAPI();
     const id = window.location.href.split('/').slice(-2)[0];
     const form = useAppForm();
-    const { auth } = useAuth();
-    const isRestricted = auth.role === cnf.roles.SECRETARY;
     const [mainColor, setMainColor] = useState('fr-orange.4');
     const [open, setOpen] = useState(false);
     const theme = useMantineTheme();
@@ -87,14 +84,12 @@ const ViewAppointment = () => {
             <AppFormProvider form={form}>
                 <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
                     <Title order={2}>Patient Data</Title>
-                    <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} restricted={isRestricted} />
+                    <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} />
                 </Paper>
-                {!isRestricted ? (
-                    <>
-                        <Anamnesis anamnesis={content} view={true} />
-                        <Conclusion conclusion={content} view={true} />
-                    </>
-                ) : null}
+                <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
+                    <Anamnesis anamnesis={content} view={true} />
+                    <Conclusion conclusion={content} view={true} />
+                </GrantAccess>
                 <Secretary secretary={payment} view={true} />
             </AppFormProvider>
             <GenerateReport open={open} handler={() => setOpen(false)} data={data as any} />

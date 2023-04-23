@@ -128,13 +128,7 @@ const PatientMetadata = ({ patientInput, color }: IProps): JSX.Element => {
                 </Tabs.List>
                 <form>
                     <Tabs.Panel value="data">
-                        <Biodatas
-                            patient={patientInput}
-                            view={false}
-                            passif={passif}
-                            handler={handleChange}
-                            restricted={false}
-                        />
+                        <Biodatas patient={patientInput} view={false} passif={passif} handler={handleChange} />
                     </Tabs.Panel>
                     <Tabs.Panel value="medical">
                         <Title order={3}>Antécédents Médicaux</Title>
