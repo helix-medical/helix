@@ -61,7 +61,7 @@ CREATE TABLE
         `uid` VARCHAR(8) NOT NULL,
         `amount` INT NOT NULL,
         `method` VARCHAR(10) NOT NULL,
-        `date` VARCHAR(10) NOT NULL,
+        `date` VARCHAR(16) NOT NULL,
         `appointment` VARCHAR(8),
         `facture` INT AUTO_INCREMENT,
         PRIMARY KEY (`uid`),
