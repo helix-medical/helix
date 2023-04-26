@@ -1,19 +1,8 @@
 import React from 'react';
-import {
-    createStyles,
-    Header,
-    Container,
-    Group,
-    Button,
-    Burger,
-    rem,
-    UnstyledButton,
-    Title,
-    Avatar,
-} from '@mantine/core';
+import { createStyles, Header, Container, Group, Button, Burger, rem, UnstyledButton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { SwitchToggle } from './toggle-color-scheme';
-import logo from '../assets/logo.png';
+import HelixLogo from './logo';
 
 const HEADER_HEIGHT = rem(60);
 
@@ -80,10 +69,7 @@ const HeaderWebsite = () => {
             <Container className={classes.inner} fluid>
                 <Group>
                     <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
-                    <Avatar src={logo} size="md" />
-                    <Title order={3} style={{ color: 'white' }}>
-                        Helix
-                    </Title>
+                    <HelixLogo />
                 </Group>
                 <Group spacing={5} className={classes.links}>
                     {items}

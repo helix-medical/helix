@@ -11,6 +11,7 @@ import {
     rem,
     Button,
     Center,
+    Kbd,
 } from '@mantine/core';
 import {
     IconGauge,
@@ -24,38 +25,62 @@ import {
 const mockdata = [
     {
         title: 'Gestion des Patients',
-        description:
-            'This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit',
+        description: (
+            <Text>
+                Vous pouvez gérer tous vos patients, leurs dossiers, leurs antécédents directement depuis la page{' '}
+                <Kbd>Patients</Kbd>.
+            </Text>
+        ),
         icon: IconUsersGroup,
     },
     {
         title: 'Gestion des Consultations',
-        description:
-            'People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma',
+        description: (
+            <Text>
+                Avec le calendrier, vous avez une vision claire sur votre emploi du temps, et vous pouvez facilement
+                ajouter un rendez-vous quand vous êtes disponibles.
+            </Text>
+        ),
         icon: IconCalendar,
     },
     {
         title: 'Gestion des Factures',
-        description:
-            'They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves',
+        description: (
+            <Text>
+                Gérez vos factures directement dans l'application. Vous pouvez directement les imprimer ou les envoyer
+                par mail à vos patients.
+            </Text>
+        ),
         icon: IconFileEuro,
     },
     {
         title: 'Open source',
-        description:
-            'It is said to have been born in the ice of the mountains. It is said to have been born in the ice of the mountains',
+        description: (
+            <Text>
+                Helix est un logiciel libre, ce qui signifie que vous pouvez l'utiliser gratuitement, et même le
+                modifier. C'est un gage de transparence et de sécurité.
+            </Text>
+        ),
         icon: IconBrandGit,
     },
     {
         title: 'Rapide',
-        description:
-            'This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit',
+        description: (
+            <Text>
+                Helix est conçu pour être rapide et réactif. C'est une application directement dans votre navigateur,
+                qui ne nécessite pas d'installation. Vous pouvez l'utiliser sur n'importe quel appareil.
+            </Text>
+        ),
         icon: IconGauge,
     },
     {
         title: 'Confidentiel',
-        description:
-            'People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma',
+        description: (
+            <Text>
+                Helix est designé pour être entièrement RGPD-compatible. Les données des patients ne sortent pas de
+                votre cabinet, et seuls les praticiens peuvent y avoir accès.
+            </Text>
+        ),
         icon: IconUserShield,
     },
 ];
@@ -125,18 +150,22 @@ const Features = () => {
             </Group>
 
             <Title order={2} className={classes.title} ta="center" mt="sm">
-                Nos fonctionnalités phares
+                Fonctionnalités
             </Title>
 
             <Text c="dimmed" className={classes.description} ta="center" mt="md">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec
+                Voici les principales fonctionnalités de Helix. Nous travaillons constamment à l'amélioration de
+                l'application, et nous sommes ouverts à toutes les suggestions. N'hésitez pas à essayer ces fonctionnalités
+                par vous même en testant notre application.
             </Text>
 
             <SimpleGrid cols={3} spacing="xl" mt={50} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
                 {features}
             </SimpleGrid>
             <Center mt="xl">
-                <Button size='lg' radius='md'>Get started</Button>
+                <Button size="lg" radius="md">
+                    Get started
+                </Button>
             </Center>
         </Container>
     );

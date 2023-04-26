@@ -1,6 +1,6 @@
 import React from 'react';
-import { createStyles, Container, Group, Anchor, rem } from '@mantine/core';
-import { MantineLogo } from '@mantine/ds';
+import { createStyles, Container, Group, Anchor, rem, Text } from '@mantine/core';
+import HelixLogo from './logo';
 
 const useStyles = createStyles((theme) => ({
     footer: {
@@ -43,7 +43,10 @@ const Footer = () => {
     return (
         <div className={classes.footer}>
             <Container className={classes.inner}>
-                <MantineLogo size={28} />
+                <HelixLogo />
+                <Text size="sm" color="dimmed">
+                    © 2023 Helix Medical
+                </Text>
                 <Group className={classes.links}>{items}</Group>
             </Container>
         </div>
