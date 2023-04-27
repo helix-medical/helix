@@ -51,6 +51,7 @@ const links = [
     { label: 'Features', link: '#features' },
     { label: 'FAQ', link: '#faq' },
     { label: 'Docs', link: 'docs' },
+    { label: 'Demo', link: 'demo' },
 ];
 
 const HeaderWebsite = () => {
