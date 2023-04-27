@@ -93,7 +93,7 @@ const Spotlight = ({ children }: { children: JSX.Element }) => {
             actions={actions}
             searchIcon={<IconSearch size="1.2rem" />}
             searchPlaceholder="Search..."
-            shortcut={['mod + p', '/']}
+            shortcut={['mod + k', '/']}
             onQueryChange={setQuery}
             nothingFoundMessage="Nothing found..."
         >
