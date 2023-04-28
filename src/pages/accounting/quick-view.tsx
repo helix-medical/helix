@@ -16,10 +16,10 @@ interface ISum {
 
 const QuickView = () => {
     const api = useSecureAPI();
-    const now = moment().format(cnf.formatDate);
-    const lastMonth = moment().subtract(1, 'months').format(cnf.formatDate);
-    const lastWeek = moment().subtract(7, 'days').format(cnf.formatDate);
-    const initDate = moment('1998-12-17').format(cnf.formatDate);
+    const now = moment().format(cnf.formatDateTime);
+    const lastMonth = moment().subtract(1, 'months').format(cnf.formatDateTime);
+    const lastWeek = moment().subtract(7, 'days').format(cnf.formatDateTime);
+    const initDate = moment('1998-12-17').format(cnf.formatDateTime);
 
     const [sumMonth, setSumMonth] = useState<ISum>();
     const [sumWeek, setSumWeek] = useState<ISum>();

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Badge, useMantineTheme } from '@mantine/core';
 import { DateCellWrapperProps } from 'react-big-calendar';
+import moment from 'moment';
 
 const DateCellWrapper = (props: DateCellWrapperProps) => {
     const { children, value } = props;
@@ -14,7 +15,7 @@ const DateCellWrapper = (props: DateCellWrapperProps) => {
     return (
         <div style={style}>
             <Badge color="red" variant="filled" style={{ float: 'none' }}>
-                {value.getDate()}
+                {moment(value).format('DDD')}
             </Badge>
             {children}
         </div>

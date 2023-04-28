@@ -13,9 +13,9 @@ const AccountingTile = ({ period }: IProps) => {
     const api = useSecureAPI();
     const [data, setData] = useState<any>({});
     const [sum, setSum] = useState<number>(0);
-    const now = moment().format(cnf.formatDate);
-    const lastMonth = moment().subtract(1, 'months').format(cnf.formatDate);
-    const lastWeek = moment().subtract(7, 'days').format(cnf.formatDate);
+    const now = moment().format(cnf.formatDateTime);
+    const lastMonth = moment().subtract(1, 'months').format(cnf.formatDateTime);
+    const lastWeek = moment().subtract(7, 'days').format(cnf.formatDateTime);
 
     const max =
         period === 'month'

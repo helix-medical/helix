@@ -14,24 +14,24 @@ const ModalExport = ({ period, open, handler }: { period: string; open: boolean;
     const api = useSecureAPI();
     const [view, setView] = useState(period === 'all' ? 'year' : period);
     const [transactions, setTransactions] = useState<ITransactions[]>([]);
-    const [startDate, setStartDate] = useState('1998-12-17');
+    const [startDate, setStartDate] = useState('1998-12-17 00:00');
     const csvLink = useRef(null);
-    const endDate = moment().format(cnf.formatDate);
+    const endDate = moment().format(cnf.formatDateTime);
     const theme = useMantineTheme();
 
     useEffect(() => {
         switch (view) {
             case 'week':
-                setStartDate(moment().subtract(7, 'days').format(cnf.formatDate));
+                setStartDate(moment().subtract(7, 'days').format(cnf.formatDateTime));
                 break;
             case 'month':
-                setStartDate(moment().subtract(1, 'months').format(cnf.formatDate));
+                setStartDate(moment().subtract(1, 'months').format(cnf.formatDateTime));
                 break;
             case 'semester':
-                setStartDate(moment().subtract(6, 'months').format(cnf.formatDate));
+                setStartDate(moment().subtract(6, 'months').format(cnf.formatDateTime));
                 break;
             case 'year':
-                setStartDate(moment().subtract(1, 'years').format(cnf.formatDate));
+                setStartDate(moment().subtract(1, 'years').format(cnf.formatDateTime));
                 break;
         }
     }, [view]);

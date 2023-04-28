@@ -90,13 +90,13 @@ const ListTransactions = (): JSX.Element => {
         const fetchAllTransactions = async (period: string) => {
             const now = new Date();
             let startDate: string = '1998-12-17';
-            const endDate = moment(now).format(cnf.formatDate);
+            const endDate = moment(now).format(cnf.formatDateTime);
             switch (period) {
                 case 'week':
-                    startDate = moment(now).subtract(7, 'days').format(cnf.formatDate);
+                    startDate = moment(now).subtract(7, 'days').format(cnf.formatDateTime);
                     break;
                 case 'month':
-                    startDate = moment(now).subtract(1, 'months').format(cnf.formatDate);
+                    startDate = moment(now).subtract(1, 'months').format(cnf.formatDateTime);
                     break;
             }
             try {
