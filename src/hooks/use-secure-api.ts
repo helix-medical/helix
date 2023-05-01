@@ -1,4 +1,4 @@
-import { secureAPI } from '../config/api';
+import { secureAPI } from '../api/api';
 import { useEffect } from 'react';
 import useRefreshToken from './use-refresh-token';
 import useAuth from './use-auth';

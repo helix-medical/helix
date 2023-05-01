@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { isNotEmpty, useForm } from '@mantine/form';
 import {
     PasswordInput,
@@ -20,7 +19,7 @@ import useAuth from '../../hooks/use-auth';
 import { useNavigate, useLocation } from 'react-router-dom';
 import setNotification from './errors/feedback-notif';
 import logo from '../../assets/logo.png';
-import api from '../../config/api';
+import api from '../../api/api';
 
 const Login = () => {
     const { setAuth, persist, setPersist } = useAuth();

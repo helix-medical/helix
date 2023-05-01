@@ -1,6 +1,6 @@
 import useAuth from './use-auth';
 import setNotification from '../pages/system/errors/feedback-notif';
-import api from '../config/api';
+import api from '../api/api';
 
 const useLogout = () => {
     const { setAuth, setPersist } = useAuth();

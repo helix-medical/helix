@@ -1,4 +1,4 @@
-import api from '../config/api';
+import api from '../api/api';
 import useAuth from './use-auth';
 
 const useRefreshToken = () => {

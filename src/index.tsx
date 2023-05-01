@@ -67,7 +67,7 @@ const App = () => {
             <MantineProvider
                 withGlobalStyles
                 withNormalizeCSS
-                theme={{ colorScheme: colorScheme, loader: 'dots', colors: colors as any }}
+                theme={{ colorScheme, loader: 'dots', colors: colors as any }}
             >
                 <Notifications />
                 <BrowserRouter>
