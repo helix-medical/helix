@@ -4,8 +4,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Badge, Paper, Title } from '@mantine/core';
 import { Calendar as BigCalendar } from 'react-big-calendar';
 import CalendarConfig from './calendar-config';
-import CalendarLogic from './calendar-logic';
 import Styles from './styles';
+import useCalendarLogic from './calendar-logic';
 import ViewEvent from './view';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
@@ -21,7 +21,7 @@ const Calendar = () => {
         handleClose,
         onSelectEvent,
         opened,
-    } = CalendarLogic();
+    } = useCalendarLogic();
     const { customComponents, formats, localizer, messages } = CalendarConfig();
     const HelixCalendar = withDragAndDrop(BigCalendar);
 

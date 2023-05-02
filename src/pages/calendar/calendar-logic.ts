@@ -1,14 +1,16 @@
 import { useCallback, useState } from 'react';
-import setNotification from '../../components/errors/feedback-notif';
-import moment from 'moment';
-import cnf from '../../config/config';
 import { IEvent } from '../../types/interfaces';
-import useSecureAPI from '../../hooks/use-secure-api';
+import cnf from '../../config/config';
+import moment from 'moment';
+import setNotification from '../../components/errors/feedback-notif';
+import useApplicationRoutes from '../../api/routes';
 
-const CalendarLogic = () => {
+const useCalendarLogic = () => {
+    const routes = useApplicationRoutes();
+
     const [refresh, setRefresh] = useState(false);
     const [events, setEvents] = useState<IEvent[]>([]);
-    const api = useSecureAPI();
+    const [opened, setOpened] = useState(false);
     const [event, setEvent] = useState<IEvent>({
         start: new Date(),
         end: new Date(),
@@ -16,7 +18,6 @@ const CalendarLogic = () => {
         id: '',
         kind: 'event',
     });
-    const [opened, setOpened] = useState(false);
 
     const handleClose = () => {
         setOpened(false);
@@ -27,7 +28,7 @@ const CalendarLogic = () => {
     const handleResizeEvent = async ({ event, start, end }: { event: IEvent; start: Date; end: Date }) => {
         const { id } = event;
         try {
-            const res = await api.put(`/events/${id}/date`, {
+            const res = await routes.events.updateDate(id, {
                 start: moment(start).format(cnf.formatDateTime),
                 end: moment(end).format(cnf.formatDateTime),
             });
@@ -39,7 +40,7 @@ const CalendarLogic = () => {
     };
 
     const fetchEvents = async () => {
-        const res = await api.get('/events');
+        const res = await routes.events.getAll();
         const events = res.data.map((event: any) => ({
             start: moment(event.start).toDate(),
             end: moment(event.end).toDate(),
@@ -68,4 +69,4 @@ const CalendarLogic = () => {
     };
 };
 
-export default CalendarLogic;
+export default useCalendarLogic;
