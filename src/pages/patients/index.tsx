@@ -1,100 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
-import {
-    ActionIcon,
-    Badge,
-    Button,
-    createStyles,
-    Grid,
-    Group,
-    Paper,
-    Title,
-    Tooltip,
-    useMantineTheme,
-} from '@mantine/core';
+import { ActionIcon, Badge, Button, Grid, Group, Paper, Title, Tooltip, useMantineTheme } from '@mantine/core';
 import PatientItemGrid from './item-grid';
 import ModalAddPatient from './create';
 import PatientsTableView from './list-view';
 import { IPatient } from '../../types/interfaces';
-import setNotification from '../../components/errors/feedback-notif';
 import NoContent from '../../components/errors/no-content';
-import useRoutes from '../../api/routes';
-
-const useStyles = createStyles((theme) => ({
-    button: {
-        [theme.fn.smallerThan('xs')]: {
-            display: 'none',
-        },
-    },
-
-    burger: {
-        [theme.fn.largerThan('xs')]: {
-            display: 'none',
-        },
-    },
-}));
+import Styles from './styles';
+import useComponentLogic from './index.logic';
 
 const Patients = ({ add }: { add: boolean }): JSX.Element => {
-    const route = useRoutes().patients;
     const [mainColor, setMainColor] = useState('fr-yellow.4');
     const theme = useMantineTheme();
-    const [refresh, setRefresh] = useState<boolean>(false);
-    // Modal for create a patient
-    const [show, setShow] = useState(add);
-    const toggleModal = () => {
-        setShow(!show);
-        setRefresh(!refresh);
-    };
-
-    // View Type
-    const [viewType, setViewType] = useState('grid');
-    const isGrid: boolean = viewType === 'grid';
-
-    // Fetch all patients
-    const [patients, setPatients] = useState<IPatient[]>([]);
-    const { classes } = useStyles();
-    const [error, setError] = useState<string | null>(null);
+    const { classes } = Styles();
+    const {
+        patients,
+        fetchAllPatients,
+        error,
+        handleDelete,
+        changeView,
+        isGrid,
+        refresh,
+        show,
+        nbPatients,
+        toggleModal,
+    } = useComponentLogic(add);
 
     useEffect(() => {
-        const fetchAllPatients = async () => {
-            try {
-                const res = await route.getAll();
-                setPatients(res.data);
-                setError(null);
-            } catch (error: any) {
-                if (!error?.response) setNotification(true, 'Network error');
-                else if (error.response.status !== 404)
-                    setNotification(true, `${error.message}: ${error.response.data.message}`);
-                setError(error.response.data.message);
-            }
-        };
         fetchAllPatients();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh]);
-    const nbPatients = patients.length;
 
     useEffect(() => {
         setMainColor(theme.colorScheme === 'dark' ? 'fr-yellow.6' : 'fr-yellow.4');
     }, [theme.colorScheme]);
-
-    // Delete a patient
-    const handleDelete = async (id: string | undefined) => {
-        if (!id) return console.error('No id');
-        try {
-            const res = await route.delete(id);
-            setNotification(false, res.data.message);
-        } catch (error: any) {
-            if (!error?.response) setNotification(true, 'Network error');
-            else setNotification(true, `${error.message}: ${error.response.data.message}`);
-        }
-    };
-
-    const changeView = () => {
-        setViewType((currentState) => {
-            if (currentState === 'grid') return 'table';
-            else return 'grid';
-        });
-    };
 
     return (
         <>
@@ -113,7 +52,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                             color={mainColor}
                             variant="outline"
                             size="lg"
-                            onClick={changeView}
+                            onClick={() => changeView}
                             className={classes.button}
                         >
                             {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}
