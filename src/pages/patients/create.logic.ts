@@ -1,13 +1,13 @@
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import setNotification from '../../components/errors/feedback-notif';
-import useRoutes from '../../api/routes';
+import usePatientsRoute from '../../api/patients';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import cnf from '../../config/config';
 
-const ComponentLogic = (handleClose: () => void) => {
+const useComponentLogic = (handleClose: () => void) => {
     const navigate = useNavigate();
-    const route = useRoutes().patients;
+    const route = usePatientsRoute();
 
     const form = useForm({
         initialValues: {
@@ -67,4 +67,4 @@ const ComponentLogic = (handleClose: () => void) => {
     };
 };
 
-export default ComponentLogic;
+export default useComponentLogic;

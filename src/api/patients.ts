@@ -1,6 +1,6 @@
 import useSecureAPI from '../hooks/use-secure-api';
 
-const PatientsRoute = () => {
+const usePatientsRoute = () => {
     const api = useSecureAPI();
 
     const getAll = () => {
@@ -22,4 +22,4 @@ const PatientsRoute = () => {
     };
 };
 
-export default PatientsRoute;
+export default usePatientsRoute;

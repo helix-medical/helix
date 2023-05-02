@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Modal, TextInput, Select, Group, Grid, Text, useMantineTheme, Textarea } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
-import ComponentLogic from './create.logic';
+import useComponentLogic from './create.logic';
 
 interface IProps {
     show: boolean;
@@ -11,7 +11,7 @@ interface IProps {
 const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
     const handleClose = () => toggleModal();
     const theme = useMantineTheme();
-    const { form, handleClick } = ComponentLogic(handleClose);
+    const { form, handleClick } = useComponentLogic(handleClose);
 
     return (
         <Modal.Root opened={show} onClose={handleClose} size="lg" padding={12}>

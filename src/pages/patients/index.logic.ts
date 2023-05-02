@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { IPatient } from '../../types/interfaces';
-import useRoutes from '../../api/routes';
+import usePatientsRoute from '../../api/patients';
 import setNotification from '../../components/errors/feedback-notif';
 
 const useComponentLogic = (add: boolean) => {
-    const route = useRoutes().patients;
+    const route = usePatientsRoute();
     const [patients, setPatients] = useState<IPatient[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [viewType, setViewType] = useState('grid');
