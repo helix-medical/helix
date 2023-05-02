@@ -1,12 +1,7 @@
 import React from 'react';
-import { useForm, isEmail, isNotEmpty } from '@mantine/form';
 import { Button, Modal, TextInput, Select, Group, Grid, Text, useMantineTheme, Textarea } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
-import dayjs from 'dayjs';
-import setNotification from '../../components/errors/feedback-notif';
-import { useNavigate } from 'react-router-dom';
-import cnf from '../../config/config';
-import useSecureAPI from '../../hooks/use-secure-api';
+import ComponentLogic from './create.logic';
 
 interface IProps {
     show: boolean;
@@ -14,62 +9,9 @@ interface IProps {
 }
 
 const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
-    const api = useSecureAPI();
     const handleClose = () => toggleModal();
     const theme = useMantineTheme();
-    const navigate = useNavigate();
-
-    const form = useForm({
-        initialValues: {
-            name: '',
-            lastName: '',
-            birthDate: '',
-            sex: '',
-            email: '',
-            city: '',
-            address: '',
-            phone: '',
-            doctor: '',
-            job: '',
-            passif: JSON.stringify({
-                medicalIssues: '',
-                lastAppointments: ['0'],
-            }),
-        },
-
-        validate: {
-            name: (value) => (value.length < 2 ? 'Name must be at least 2 chars' : null),
-            lastName: (value) => (value.length < 2 ? 'Last name must be at least 2 chars' : null),
-            sex: (value) => (value !== 'F' && value !== 'M' ? 'Sex must be at `M` or `F`' : null),
-            birthDate: isNotEmpty('Birth date is required'),
-            email: isEmail('Invalid email'),
-            city: (value) => (value.length < 2 ? 'City must be at least 2 chars' : null),
-            address: isNotEmpty('Address is required'),
-            phone: (value) => (value.length < 10 ? 'Phone must be at least 10 chars' : null),
-            job: isNotEmpty('Job is required'),
-        },
-    });
-
-    const handleClick = async (e: { preventDefault: () => void }) => {
-        e.preventDefault();
-        if (form.validate().hasErrors) return;
-        const patient = {
-            ...form.values,
-            birthDate: dayjs(form.values.birthDate).format(cnf.formatDate),
-        };
-        console.log(patient);
-        try {
-            const res = await api.post(`/patients/add`, patient);
-            setNotification(false, res.data.message);
-            form.reset();
-            toggleModal();
-            navigate('/patients');
-        } catch (error: any) {
-            console.log(error);
-            if (!error?.response) setNotification(true, 'Network error');
-            else setNotification(true, `${error.message}: ${error.response.data.message}`);
-        }
-    };
+    const { form, handleClick } = ComponentLogic(handleClose);
 
     return (
         <Modal.Root opened={show} onClose={handleClose} size="lg" padding={12}>

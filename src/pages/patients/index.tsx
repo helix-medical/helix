@@ -18,8 +18,7 @@ import PatientsTableView from './list-view';
 import { IPatient } from '../../types/interfaces';
 import setNotification from '../../components/errors/feedback-notif';
 import NoContent from '../../components/errors/no-content';
-import useSecureAPI from '../../hooks/use-secure-api';
-import patientsAPI from '../../api/patients';
+import useRoutes from '../../api/routes';
 
 const useStyles = createStyles((theme) => ({
     button: {
@@ -36,7 +35,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const Patients = ({ add }: { add: boolean }): JSX.Element => {
-    const api = useSecureAPI();
+    const route = useRoutes().patients;
     const [mainColor, setMainColor] = useState('fr-yellow.4');
     const theme = useMantineTheme();
     const [refresh, setRefresh] = useState<boolean>(false);
@@ -59,7 +58,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     useEffect(() => {
         const fetchAllPatients = async () => {
             try {
-                const res = await patientsAPI.getAll(api);
+                const res = await route.getAll();
                 setPatients(res.data);
                 setError(null);
             } catch (error: any) {
@@ -82,7 +81,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     const handleDelete = async (id: string | undefined) => {
         if (!id) return console.error('No id');
         try {
-            const res = await api.delete(`/patients/${id}`);
+            const res = await route.delete(id);
             setNotification(false, res.data.message);
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');
