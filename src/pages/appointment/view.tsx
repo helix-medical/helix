@@ -6,7 +6,7 @@ import Metadata from './metadata';
 import NavBarAppointment from './navbar';
 import { Paper, Title, useMantineTheme } from '@mantine/core';
 import { useAppForm, AppFormProvider } from './form-context';
-import setNotification from '../system/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notif';
 import Secretary from './secretary';
 import useSecureAPI from '../../hooks/use-secure-api';
 import GenerateReport from './generate-report';

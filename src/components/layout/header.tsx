@@ -15,12 +15,12 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch, IconPower } from '@tabler/icons-react';
-import ToggleTheme from './toggle-theme';
-import useLogout from '../hooks/use-logout';
+import ToggleTheme from '../toggle-theme';
+import useLogout from '../../hooks/use-logout';
 import DrawerApp from './navbar-links';
 import { spotlight } from '@mantine/spotlight';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/logo.png';
+import logo from '../../assets/logo.png';
 
 const useStyles = createStyles((theme) => ({
     inner: {

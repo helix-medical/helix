@@ -20,8 +20,8 @@ import ModalCreateApp from './create';
 import { IAppointmentExtended } from '../../types/interfaces';
 
 import { useDisclosure } from '@mantine/hooks';
-import setNotification from '../system/errors/feedback-notif';
-import NoContent from '../system/errors/no-content';
+import setNotification from '../../components/errors/feedback-notif';
+import NoContent from '../../components/errors/no-content';
 import useSecureAPI from '../../hooks/use-secure-api';
 
 const useStyles = createStyles((theme) => ({

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PDFViewer, StyleSheet, pdf } from '@react-pdf/renderer';
-import setNotification from '../system/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notif';
 import { Button, Group, LoadingOverlay, Modal, Title, useMantineTheme } from '@mantine/core';
 import Facture from '../../components/pdf/facture';
 import { saveAs } from 'file-saver';

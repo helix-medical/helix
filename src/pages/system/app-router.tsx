@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 // System
 import Login from './login';
-import Layout from './layout';
+import Layout from '../../components/layout';
 import RequireAuth from '../../components/auth/require-auth';
 import PersistentLogin from '../../components/auth/persistent-login';
 import cnf from '../../config/config';
@@ -15,8 +15,8 @@ import Appointments from '../appointments';
 import ViewAppointment from '../appointment/view';
 import Accounting from '../accounting';
 // Errors
-import NotFound from './errors/404';
-import Unauthorized from './errors/unauthorized';
+import NotFound from '../../components/errors/404';
+import Unauthorized from '../../components/errors/unauthorized';
 
 const AppRouter = () => {
     const ROLES = cnf.roles;

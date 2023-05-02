@@ -1,14 +1,14 @@
 import React from 'react';
 import { EventProps } from 'react-big-calendar';
-// import moment from 'moment';
-import { Group, Text } from '@mantine/core';
+import { Badge, Group, Text } from '@mantine/core';
 import { IEvent } from '../../types/interfaces';
-import KindAppointment from '../../components/customBadges/kind-appointment';
 
 const AgendaEvent = ({ event }: EventProps<IEvent>) => {
     return (
         <Group position="left">
-            <KindAppointment kind={event.kind} />
+            <Badge variant="outline" color={event.kind === 'app' ? 'fr-orange.4' : 'fr-cyan.4'} size="sm">
+                {event.kind}
+            </Badge>
             <Text>{event.title}</Text>
         </Group>
     );

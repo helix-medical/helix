@@ -1,6 +1,6 @@
 import React from 'react';
 import { Title, Text } from '@mantine/core';
-import style from '../../../styles/errors.module.css';
+import style from '../../styles/errors.module.css';
 
 interface IProps {
     message: string;

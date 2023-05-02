@@ -12,7 +12,7 @@ import {
     TextInput,
     Title,
 } from '@mantine/core';
-import setNotification from '../system/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notif';
 import IdBadge from '../../components/customBadges/id';
 import { ITransactions } from '../../types/interfaces';
 import PaymentMethod from '../../components/customBadges/payment-method';

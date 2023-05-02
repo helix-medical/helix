@@ -7,7 +7,7 @@ import Metadata from './metadata';
 import NavBarAppointment from './navbar';
 import { isNotEmpty } from '@mantine/form';
 import { useAppForm, AppFormProvider } from './form-context';
-import setNotification from '../system/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notif';
 import { useNavigate } from 'react-router-dom';
 import Secretary from './secretary';
 import moment from 'moment';

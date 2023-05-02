@@ -16,9 +16,10 @@ import PatientItemGrid from './item-grid';
 import ModalAddPatient from './create';
 import PatientsTableView from './list-view';
 import { IPatient } from '../../types/interfaces';
-import setNotification from '../system/errors/feedback-notif';
-import NoContent from '../system/errors/no-content';
+import setNotification from '../../components/errors/feedback-notif';
+import NoContent from '../../components/errors/no-content';
 import useSecureAPI from '../../hooks/use-secure-api';
+import patientsAPI from '../../api/patients';
 
 const useStyles = createStyles((theme) => ({
     button: {
@@ -58,7 +59,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     useEffect(() => {
         const fetchAllPatients = async () => {
             try {
-                const res = await api.get(`/patients`);
+                const res = await patientsAPI.getAll(api);
                 setPatients(res.data);
                 setError(null);
             } catch (error: any) {

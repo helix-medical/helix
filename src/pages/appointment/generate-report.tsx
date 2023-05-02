@@ -5,7 +5,7 @@ import { PDFViewer, StyleSheet, pdf } from '@react-pdf/renderer';
 import AppointmentPDF from '../../components/pdf/appointment';
 import saveAs from 'file-saver';
 import moment from 'moment';
-import setNotification from '../system/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notif';
 
 const styles = StyleSheet.create({
     viewer: {

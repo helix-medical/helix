@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToolbarProps, Navigate, View } from 'react-big-calendar';
-import { ActionIcon, Card, Center, Grid, Group, SegmentedControl, Text } from '@mantine/core';
+import { ActionIcon, Card, Center, Grid, Group, SegmentedControl, Select, Text } from '@mantine/core';
 import { IconCalendar, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 
 interface IEvent {
@@ -34,6 +34,10 @@ const SelectView = ({ views: viewNames, view, onView, messages }: any) => {
     );
 };
 
+const SelectCalendar = () => {
+    return <Select data={['Calendar 1', 'Calendar 2', 'Calendar 3']} placeholder="Select calendar" radius="xl" />;
+};
+
 const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, view }: ToolbarProps<IEvent>) => {
     return (
         <Card shadow="sm" pt="xs" radius="sm" mb="sm" withBorder>
@@ -50,6 +54,7 @@ const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, vi
                             <IconChevronRight size="1.5rem" />
                         </ActionIcon>
                     </Group>
+                    <SelectCalendar />
                 </Grid.Col>
                 <Grid.Col xs={3} sm={1}>
                     <Center>
