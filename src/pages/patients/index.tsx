@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
-import { ActionIcon, Badge, Button, Grid, Group, Paper, Title, Tooltip, useMantineTheme } from '@mantine/core';
+import {
+    ActionIcon,
+    Badge,
+    Button,
+    Grid,
+    Group,
+    LoadingOverlay,
+    Paper,
+    Title,
+    Tooltip,
+    useMantineTheme,
+} from '@mantine/core';
 import PatientItemGrid from './item-grid';
 import ModalAddPatient from './create';
 import PatientsTableView from './list-view';
@@ -65,6 +76,8 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
             </Grid>
             {error ? (
                 <NoContent message={error} title="Error while getting Patients" />
+            ) : nbPatients === 0 ? (
+                <LoadingOverlay visible={true} />
             ) : (
                 <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
                     {isGrid ? (
