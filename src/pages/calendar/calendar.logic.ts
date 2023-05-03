@@ -9,9 +9,14 @@ const useCalendarLogic = () => {
     const routes = useApplicationRoutes();
 
     const [calendar, setCalendar] = useState<string>('all');
+    const [openCreate, setOpenCreate] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [events, setEvents] = useState<IEvent[]>([]);
     const [opened, setOpened] = useState(false);
+    const [range, setRange] = useState<any>({
+        start: new Date(),
+        end: new Date(),
+    });
     const [event, setEvent] = useState<IEvent>({
         start: new Date(),
         end: new Date(),
@@ -26,6 +31,10 @@ const useCalendarLogic = () => {
 
     const handleCalendarChange = (calendar: string) => {
         setCalendar(calendar);
+    };
+
+    const toggleOpenCreate = () => {
+        setOpenCreate(!openCreate);
     };
 
     const slotGroupPropGetter = useCallback(() => ({ style: { minHeight: 60 } }), []);
@@ -48,10 +57,10 @@ const useCalendarLogic = () => {
         try {
             let res;
             if (calendar === 'all') {
-                console.log('all');
+                // console.log('all');
                 res = await routes.events.getAll();
             } else {
-                console.log('calendar', calendar);
+                // console.log('calendar', calendar);
                 res = await routes.events.getByCalendar(calendar);
             }
             const eventsTMP = res.data.map((event: any) => ({
@@ -72,6 +81,11 @@ const useCalendarLogic = () => {
         setOpened(true);
     };
 
+    const onCreateEvent = (range: any) => {
+        setRange(range);
+        setOpenCreate(true);
+    };
+
     return {
         slotGroupPropGetter,
         handleResizeEvent,
@@ -83,6 +97,10 @@ const useCalendarLogic = () => {
         event,
         calendar,
         handleCalendarChange,
+        openCreate,
+        toggleOpenCreate,
+        onCreateEvent,
+        range,
     };
 };
 

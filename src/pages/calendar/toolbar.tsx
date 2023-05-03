@@ -60,9 +60,7 @@ const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, vi
     useEffect(() => {
         fetchCalendars();
 
-        return () => {
-            console.log('unmounting');
-        };
+        return () => {};
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
