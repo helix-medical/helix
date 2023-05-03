@@ -21,6 +21,19 @@ const getEvents = async (req: Request, res: Response) => {
     await queries.pull(req, res, sqlQuery, [], { id: `all`, name: 'Events', verb: 'returned' });
 };
 
+const getByCalendar = async (req: Request, res: Response) => {
+    const calendar = req.params.calendar;
+    const sqlQuery = `
+        SELECT
+            *
+        FROM
+            events
+        WHERE
+            calendar = ?
+    `;
+    await queries.pull(req, res, sqlQuery, [calendar], { id: calendar, name: 'Events', verb: 'returned' });
+};
+
 const updateDate = async (req: Request, res: Response) => {
     const event = req.params.id;
     const sqlQuery = `
@@ -83,6 +96,7 @@ const delete_ = async (req: Request, res: Response) => {
 export default {
     create,
     getEvents,
+    getByCalendar,
     updateDate,
     updateCalendar,
     addAppointment,
