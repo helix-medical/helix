@@ -5,7 +5,7 @@ import { Button, Group, LoadingOverlay, Modal, Title, useMantineTheme } from '@m
 import Facture from '../../components/pdf/facture';
 import { saveAs } from 'file-saver';
 import moment from 'moment';
-import useSecureAPI from '../../hooks/use-secure-api';
+import useApplicationRoutes from '../../api/routes';
 
 const styles = StyleSheet.create({
     viewer: {
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 });
 
 const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: string }) => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     const [data, setData] = useState<any>();
     const theme = useMantineTheme();
 
@@ -29,7 +29,7 @@ const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: s
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await api.get(`/accounting/${id}/facture`);
+                const res = await routes.accounting.getFacture(id);
                 setData(res.data[0]);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');

@@ -1,13 +1,13 @@
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import setNotification from '../../components/errors/feedback-notification';
-import usePatientsRoute from '../../api/patients';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import cnf from '../../config/config';
+import useApplicationRoutes from '../../api/routes';
 
 const useComponentLogic = (handleClose: () => void) => {
     const navigate = useNavigate();
-    const route = usePatientsRoute();
+    const routes = useApplicationRoutes();
 
     const form = useForm({
         initialValues: {
@@ -49,7 +49,7 @@ const useComponentLogic = (handleClose: () => void) => {
         };
         console.log(patient);
         try {
-            const res = await route.create(patient);
+            const res = await routes.patients.create(patient);
             setNotification(false, res.data.message);
             form.reset();
             handleClose();

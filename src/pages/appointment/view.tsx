@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import Biodatas from './biodatas';
-import Anamnesis from './anamnesis';
-import Conclusion from './conclusion';
-import Metadata from './metadata';
-import NavBarAppointment from './navbar';
 import { Paper, Title, useMantineTheme } from '@mantine/core';
 import { useAppForm, AppFormProvider } from './form-context';
-import setNotification from '../../components/errors/feedback-notification';
-import Secretary from './secretary';
-import useSecureAPI from '../../hooks/use-secure-api';
+import Anamnesis from './anamnesis';
+import Biodatas from './biodatas';
+import Conclusion from './conclusion';
 import GenerateReport from './generate-report';
 import GrantAccess from '../../components/auth/grant-access';
+import Metadata from './metadata';
+import NavBarAppointment from './navbar';
+import Secretary from './secretary';
+import setNotification from '../../components/errors/feedback-notification';
+import useApplicationRoutes from '../../api/routes';
 
 const ViewAppointment = () => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     const id = window.location.href.split('/').slice(-2)[0];
     const form = useAppForm();
     const [mainColor, setMainColor] = useState('fr-orange.4');
@@ -60,7 +60,7 @@ const ViewAppointment = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await api.get(`/appointments/${id}/view`);
+                const res = await routes.appointments.getForView(id);
                 setData(res.data[0]);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');

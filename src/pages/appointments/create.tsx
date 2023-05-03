@@ -5,7 +5,7 @@ import { isNotEmpty, useForm } from '@mantine/form';
 import setNotification from '../../components/errors/feedback-notification';
 import cnf from '../../config/config';
 import moment from 'moment';
-import useSecureAPI from '../../hooks/use-secure-api';
+import useApplicationRoutes from '../../api/routes';
 
 interface IProps {
     show: boolean;
@@ -13,7 +13,7 @@ interface IProps {
 }
 
 const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     const handleClose = () => {
         form.reset();
         toggleModal();
@@ -33,15 +33,15 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
             calendar: form.values.practitioner,
         };
         try {
-            const index = await api.post(`/events`, event);
+            const index = await routes.events.create(event);
             setNotification(false, index.data.message);
-            let res = await api.post(`/appointments/new`, {
+            let res = await routes.appointments.create({
                 patientId: form.values.patientId,
                 kind: form.values.kind,
                 event: index.data.id,
             });
             setNotification(false, res.data.message);
-            res = await api.put(`/events/${index.data.id}/add_appointment`, {
+            res = await routes.events.addAppointment(index.data.id, {
                 appId: res.data.id,
                 patientId: form.values.patientId,
             });
@@ -55,7 +55,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
 
     const getPatients = async () => {
         try {
-            const response = await api.get('/patients/appointments');
+            const response = await routes.patients.getForAppointment();
             setPatients(
                 response.data.map((patient: any) => ({
                     label: `${patient.name} ${patient.lastName}`,
@@ -70,7 +70,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
 
     const getPractitioners = async () => {
         try {
-            const response = await api.get('/users/practitioners');
+            const response = await routes.users.getPractitioners();
             setPractitioners(
                 response.data.map((practitioner: any) => ({
                     label: `${practitioner.name} ${practitioner.lastName}`,

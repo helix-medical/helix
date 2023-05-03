@@ -5,10 +5,10 @@ import ChangePassword from './change-password';
 import { IUsers } from '../../types/interfaces';
 import cnf from '../../config/config';
 import moment from 'moment';
-import useSecureAPI from '../../hooks/use-secure-api';
+import useApplicationRoutes from '../../api/routes';
 
 const Account = ({ id }: { id: string }): JSX.Element => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     const [show, setShow] = useState(false);
     const toggleModal = () => setShow(!show);
     const [user, setUser] = useState<IUsers>();
@@ -16,7 +16,7 @@ const Account = ({ id }: { id: string }): JSX.Element => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await api.get(`/users/${id}`);
+                const res = await routes.users.getOne(id);
                 setUser(res.data[0]);
             } catch (error) {
                 console.log(error);

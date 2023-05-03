@@ -6,12 +6,12 @@ import { SegmentedControl } from '@mantine/core';
 import moment from 'moment';
 import cnf from '../../config/config';
 import setNotification from '../../components/errors/feedback-notification';
-import useSecureAPI from '../../hooks/use-secure-api';
+import useApplicationRoutes from '../../api/routes';
 
 const header = ['Transaction ID', 'Date', 'Amount', 'Method', 'Patient'];
 
 const ModalExport = ({ period, open, handler }: { period: string; open: boolean; handler: any }) => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     const [view, setView] = useState(period === 'all' ? 'year' : period);
     const [transactions, setTransactions] = useState<ITransactions[]>([]);
     const [startDate, setStartDate] = useState('1998-12-17 00:00');
@@ -39,7 +39,7 @@ const ModalExport = ({ period, open, handler }: { period: string; open: boolean;
     useEffect(() => {
         const fetchAllTransactions = async () => {
             try {
-                const res = await api.get(`/accounting/${startDate}/${endDate}`);
+                const res = await routes.accounting.getByDates(startDate, endDate);
                 setTransactions(
                     res.data.map((transaction: ITransactions) => [
                         transaction.uid,

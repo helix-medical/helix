@@ -10,10 +10,10 @@ import setNotification from '../../components/errors/feedback-notification';
 import UserStatus from '../../components/customBadges/user-status';
 import cnf from '../../config/config';
 import moment from 'moment';
-import useSecureAPI from '../../hooks/use-secure-api';
+import useApplicationRoutes from '../../api/routes';
 
 const ListUsers = (): JSX.Element => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     const [show, setShow] = useState(false);
     const toggleModal = () => {
         setShow(!show);
@@ -25,7 +25,7 @@ const ListUsers = (): JSX.Element => {
     useEffect(() => {
         const fetchAllUsers = async () => {
             try {
-                const res = await api.get('/users');
+                const res = await routes.users.getAll();
                 setUsers(res.data);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');
@@ -39,7 +39,7 @@ const ListUsers = (): JSX.Element => {
 
     const disableUser = async (uid: string) => {
         try {
-            const res = await api.delete(`/users/${uid}`);
+            const res = await routes.users.disable(uid);
             setNotification(false, res.data.message);
             setRefresh(!refresh);
         } catch (error: any) {
@@ -50,7 +50,7 @@ const ListUsers = (): JSX.Element => {
 
     const enableUser = async (uid: string) => {
         try {
-            const res = await api.put(`/users/${uid}/enable`);
+            const res = await routes.users.enable(uid);
             setNotification(false, res.data.message);
             setRefresh(!refresh);
         } catch (error: any) {

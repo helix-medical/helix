@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { IPatient } from '../../types/interfaces';
-import usePatientsRoute from '../../api/patients';
 import setNotification from '../../components/errors/feedback-notification';
+import useApplicationRoutes from '../../api/routes';
 
 const useComponentLogic = (add: boolean) => {
-    const route = usePatientsRoute();
+    const routes = useApplicationRoutes();
     const [patients, setPatients] = useState<IPatient[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [viewType, setViewType] = useState('grid');
@@ -19,7 +19,7 @@ const useComponentLogic = (add: boolean) => {
 
     const fetchAllPatients = async () => {
         try {
-            const res = await route.getAll();
+            const res = await routes.patients.getAll();
             setPatients(res.data);
             setError(null);
         } catch (error: any) {
@@ -33,7 +33,7 @@ const useComponentLogic = (add: boolean) => {
     const handleDelete = async (id: string | undefined) => {
         if (!id) return console.error('No id');
         try {
-            const res = await route.delete(id);
+            const res = await routes.patients.delete(id);
             setNotification(false, res.data.message);
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');

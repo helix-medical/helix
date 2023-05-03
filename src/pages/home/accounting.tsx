@@ -3,14 +3,14 @@ import { Card, Grid, Progress, RingProgress, Text } from '@mantine/core';
 import setNotification from '../../components/errors/feedback-notification';
 import moment from 'moment';
 import cnf from '../../config/config';
-import useSecureAPI from '../../hooks/use-secure-api';
+import useApplicationRoutes from '../../api/routes';
 
 interface IProps {
     period: string;
 }
 
 const AccountingTile = ({ period }: IProps) => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     const [data, setData] = useState<any>({});
     const [sum, setSum] = useState<number>(0);
     const now = moment().format(cnf.formatDateTime);
@@ -23,9 +23,9 @@ const AccountingTile = ({ period }: IProps) => {
             : cnf.nbWorkDays * cnf.nbWorkHours * cnf.defaultAmount;
 
     useEffect(() => {
-        const getSumMonth = async () => {
+        const getSum = async () => {
             try {
-                const res = await api.get(`/accounting/sum/${lastMonth}/${now}`);
+                const res = await routes.accounting.getSumByDates(period === 'month' ? lastMonth : lastWeek, now);
                 setData(res.data);
                 setSum((res.data.sum * 100) / max);
             } catch (error: any) {
@@ -33,17 +33,17 @@ const AccountingTile = ({ period }: IProps) => {
                     setNotification(true, `${error.message}: ${error.response.data.message}`);
             }
         };
-        const getSumWeek = async () => {
-            try {
-                const res = await api.get(`/accounting/sum/${lastWeek}/${now}`);
-                setData(res.data);
-                setSum((res.data.sum * 100) / max);
-            } catch (error: any) {
-                if (error.response.status !== 404)
-                    setNotification(true, `${error.message}: ${error.response.data.message}`);
-            }
-        };
-        period === 'month' ? getSumMonth() : getSumWeek();
+        // const getSumWeek = async () => {
+        //     try {
+        //         const res = await api.get(`/accounting/sum/${lastWeek}/${now}`);
+        //         setData(res.data);
+        //         setSum((res.data.sum * 100) / max);
+        //     } catch (error: any) {
+        //         if (error.response.status !== 404)
+        //             setNotification(true, `${error.message}: ${error.response.data.message}`);
+        //     }
+        // };
+        getSum();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [period]);
 

@@ -19,9 +19,10 @@ import useAuth from '../../hooks/use-auth';
 import { useNavigate, useLocation } from 'react-router-dom';
 import setNotification from '../../components/errors/feedback-notification';
 import logo from '../../assets/logo.png';
-import api from '../../api/api';
+import useApplicationRoutes from '../../api/routes';
 
 const Login = () => {
+    const routes = useApplicationRoutes();
     const { setAuth, persist, setPersist } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -30,7 +31,7 @@ const Login = () => {
 
     const getUsers = async () => {
         try {
-            const response = await api.get('/unsecured/users');
+            const response = await routes.unsecured.getUsers();
             setUsers(response.data.map((user: any) => ({ label: `${user.name} ${user.lastName}`, value: user.uid })));
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');
@@ -40,6 +41,7 @@ const Login = () => {
 
     useEffect(() => {
         getUsers();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -66,10 +68,7 @@ const Login = () => {
         if (form.validate().hasErrors) return;
         setLoading(true);
         try {
-            const response = await api.post('/auth/login', form.values, {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true,
-            });
+            const response = await routes.unsecured.login(form.values);
             const accessToken = response?.data?.token;
             const name = response?.data?.name;
             const role = response?.data?.role;

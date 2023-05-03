@@ -12,10 +12,10 @@ import { useNavigate } from 'react-router-dom';
 import Secretary from './secretary';
 import moment from 'moment';
 import cnf from '../../config/config';
-import useSecureAPI from '../../hooks/use-secure-api';
+import useApplicationRoutes from '../../api/routes';
 
 const EditAppointment = (): JSX.Element => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     const id = window.location.href.split('/').slice(-2)[0];
     const navigate = useNavigate();
     const [mainColor, setMainColor] = useState('fr-orange.4');
@@ -49,7 +49,7 @@ const EditAppointment = (): JSX.Element => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await api.get(`/appointments/${id}/edit`);
+                const res = await routes.appointments.getForEdit(id);
                 setData(res.data[0]);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');
@@ -65,7 +65,7 @@ const EditAppointment = (): JSX.Element => {
         if (form.validate().hasErrors) return;
 
         try {
-            let res = await api.post(`/accounting`, {
+            let res = await routes.accounting.create({
                 amount: form.values.payment.amount,
                 method: form.values.payment.method,
                 appointment: id,
@@ -80,7 +80,7 @@ const EditAppointment = (): JSX.Element => {
                 payment: res.data.id,
             };
             try {
-                res = await api.put(`/appointments/${id}/content`, appointmentFinal);
+                res = await routes.appointments.pushContent(id, appointmentFinal);
                 setNotification(false, res.data.message);
                 navigate('/appointments');
             } catch (error: any) {

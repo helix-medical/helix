@@ -5,7 +5,7 @@ import cnf from '../../config/config';
 import { useEffect, useState } from 'react';
 import setNotification from '../../components/errors/feedback-notification';
 import ItemQuickView from './item-quick-view';
-import useSecureAPI from '../../hooks/use-secure-api';
+import useApplicationRoutes from '../../api/routes';
 
 interface ISum {
     sum: number;
@@ -15,7 +15,7 @@ interface ISum {
 }
 
 const QuickView = () => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     const now = moment().format(cnf.formatDateTime);
     const lastMonth = moment().subtract(1, 'months').format(cnf.formatDateTime);
     const lastWeek = moment().subtract(7, 'days').format(cnf.formatDateTime);
@@ -28,7 +28,7 @@ const QuickView = () => {
     useEffect(() => {
         const getSumMonth = async () => {
             try {
-                const res = await api.get(`/accounting/sum/${lastMonth}/${now}`);
+                const res = await routes.accounting.getSumByDates(lastMonth, now);
                 setSumMonth(res.data);
             } catch (error: any) {
                 if (error.response.status !== 404)
@@ -37,7 +37,7 @@ const QuickView = () => {
         };
         const getSumWeek = async () => {
             try {
-                const res = await api.get(`/accounting/sum/${lastWeek}/${now}`);
+                const res = await routes.accounting.getSumByDates(lastWeek, now);
                 setSumWeek(res.data);
             } catch (error: any) {
                 if (error.response.status !== 404)
@@ -46,7 +46,7 @@ const QuickView = () => {
         };
         const getSumAll = async () => {
             try {
-                const res = await api.get(`/accounting/sum/${initDate}/${now}`);
+                const res = await routes.accounting.getSumByDates(initDate, now);
                 setSumAll(res.data);
             } catch (error: any) {
                 if (error.response.status !== 404)

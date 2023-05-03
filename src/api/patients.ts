@@ -1,14 +1,24 @@
 import useSecureAPI from '../hooks/use-secure-api';
 
+interface IPatient {
+    name: string;
+    lastName: string;
+    birthDate: string;
+    sex: string;
+    email: string;
+    city: string;
+    doctor: string;
+    job: string;
+    address: string;
+    phone: string;
+    passif: string;
+}
+
 const usePatientsRoute = () => {
     const api = useSecureAPI();
     const baseUrl = '/patients';
 
-    const getAll = async () => {
-        return await api.get(baseUrl);
-    };
-
-    const create = async (data: any) => {
+    const create = async (data: IPatient) => {
         return await api.post(`${baseUrl}/add`, data);
     };
 
@@ -16,16 +26,25 @@ const usePatientsRoute = () => {
         return await api.delete(`${baseUrl}/${id}`);
     };
 
+    const getAll = async () => {
+        return await api.get(baseUrl);
+    };
+
     const getForAppointment = async () => {
         return await api.get(`${baseUrl}/appointments`);
     };
 
+    const update = async (id: string, data: IPatient) => {
+        return await api.put(`${baseUrl}/${id}`, data);
+    };
+
     return {
-        getAll,
         create,
         delete: delete_,
+        getAll,
         getForAppointment,
+        update,
     };
 };
 
-export default usePatientsRoute;
+export { usePatientsRoute };

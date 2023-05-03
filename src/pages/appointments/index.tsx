@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Button,
-    Badge,
-    Group,
-    Grid,
-    Title,
     ActionIcon,
-    createStyles,
+    Badge,
     Burger,
+    Button,
+    createStyles,
+    Grid,
+    Group,
     Paper,
-    Tooltip,
     SegmentedControl,
+    Title,
+    Tooltip,
     useMantineTheme,
 } from '@mantine/core';
+import { IAppointmentExtended } from '../../types/interfaces';
 import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
+import { useDisclosure } from '@mantine/hooks';
 import AppItemGrid from './item-grid';
 import AppTableView from './list-view';
 import ModalCreateApp from './create';
-import { IAppointmentExtended } from '../../types/interfaces';
-
-import { useDisclosure } from '@mantine/hooks';
-import setNotification from '../../components/errors/feedback-notification';
 import NoContent from '../../components/errors/no-content';
-import useSecureAPI from '../../hooks/use-secure-api';
+import setNotification from '../../components/errors/feedback-notification';
+import useApplicationRoutes from '../../api/routes';
 
 const useStyles = createStyles((theme) => ({
     button: {
@@ -39,7 +38,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const Patients = ({ add }: { add: boolean }): JSX.Element => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     // Modal
     const [show, setShow] = useState(add);
     const toggleModal = () => setShow(!show);
@@ -65,7 +64,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     useEffect(() => {
         const fetchAllAppointments = async () => {
             try {
-                const res = await api.get(`/appointments/${period}`);
+                const res = await routes.appointments.getByPeriod(period);
                 setAppointments(res.data);
                 setError(null);
             } catch (error: any) {

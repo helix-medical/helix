@@ -12,7 +12,7 @@ import {
 } from '@tabler/icons-react';
 import IdBadge from '../../components/customBadges/id';
 import { useNavigate } from 'react-router-dom';
-import useSecureAPI from '../../hooks/use-secure-api';
+import useApplicationRoutes from '../../api/routes';
 
 const localizer = momentLocalizer(moment);
 const color = 'fr-cyan';
@@ -65,13 +65,13 @@ const Event = ({ event }: EventProps<IEvent>) => {
 };
 
 const HomeCalendar = () => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     const [events, setEvents] = useState<IEvent[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchEvents = async () => {
-            const res = await api.get('/events');
+            const res = await routes.events.getAll();
             const events = res.data.map((event: any) => ({
                 start: moment(event.start).toDate(),
                 end: moment(event.end).toDate(),

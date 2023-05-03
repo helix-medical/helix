@@ -23,7 +23,7 @@ import Th from '../../components/th-sort';
 import { IconSearch } from '@tabler/icons-react';
 import ExportAccounting from './export';
 import ViewFacture from './view-facture';
-import useSecureAPI from '../../hooks/use-secure-api';
+import useApplicationRoutes from '../../api/routes';
 
 const filterData = (data: ITransactions[], search: string) => {
     const query = search.toLowerCase().trim();
@@ -58,7 +58,7 @@ const sortData = (
 };
 
 const ListTransactions = (): JSX.Element => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     const [transactions, setTransactions] = useState<ITransactions[]>([]);
     const [view, setView] = useState('all');
     const [search, setSearch] = useState<string>('');
@@ -100,7 +100,7 @@ const ListTransactions = (): JSX.Element => {
                     break;
             }
             try {
-                const res = await api.get(`/accounting/${startDate}/${endDate}`);
+                const res = await routes.accounting.getByDates(startDate, endDate);
                 setTransactions(res.data);
             } catch (error: any) {
                 if (!error?.response) setNotification(true, 'Network error');

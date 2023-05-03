@@ -5,7 +5,7 @@ import Biodatas from './biodatas';
 import { IAppointmentDataView, IAppointmentDataEdit } from '../../types/interfaces';
 import { IconCalendarCheck, IconDna, IconAlertTriangle } from '@tabler/icons-react';
 import setNotification from '../../components/errors/feedback-notification';
-import useSecureAPI from '../../hooks/use-secure-api';
+import useApplicationRoutes from '../../api/routes';
 
 interface IProps {
     patientInput: IAppointmentDataView | IAppointmentDataEdit;
@@ -13,7 +13,7 @@ interface IProps {
 }
 
 const PatientMetadata = ({ patientInput, color }: IProps): JSX.Element => {
-    const api = useSecureAPI();
+    const routes = useApplicationRoutes();
     const passif = JSON.parse(patientInput.passif);
     const id = patientInput.patientId;
 
@@ -86,7 +86,7 @@ const PatientMetadata = ({ patientInput, color }: IProps): JSX.Element => {
         console.log(finalPatient);
 
         try {
-            const res = await api.put(`/patients/${id}`, finalPatient);
+            const res = await routes.patients.update(id, finalPatient);
             setNotification(false, res.data.message);
         } catch (error: any) {
             if (!error?.response) setNotification(true, 'Network error');

@@ -65,7 +65,7 @@ const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, vi
     }, []);
 
     return (
-        <Card shadow="sm" pt="xs" radius="sm" mb="sm" withBorder>
+        <Card pt="xs" radius="sm" mb="sm" withBorder>
             <Grid columns={3}>
                 <Grid.Col xs={3} sm={1}>
                     <Group position="left" mt="xs">
