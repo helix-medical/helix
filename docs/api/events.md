@@ -6,6 +6,7 @@
 flowchart TB
  EVNT{{/api/events}} -- Read All --> MRAEVT{GET} ---> EVNT_READALL{{/}}
  EVNT -- Read One --> MROEVT{GET} ---> EVNT_READONE{{/:id}}
+ ENVT -- Read by Calendar --> MRCAL{GET} ---> EVNT_READCAL{{/calendar/:id}}
  EVNT -- Create --> MCEVT{PST} --> MWCEVT[[Create]] --> EVNT_CREATE{{/}}
  EVNT -- Upate Date --> MUDEVT{PUT} --> MWUDEVT[[Up Date]] --> EVNT_UPDATE{{/:id/date}}
  EVNT -- Update Calendar --> MUCEVT{PUT} --> MWUCEVT[[Up Cal]] --> EVNT_UPCAL{{/:id/calendar}}
