@@ -1,5 +1,5 @@
 import useAuth from './use-auth';
-import setNotification from '../components/errors/feedback-notif';
+import setNotification from '../components/errors/feedback-notification';
 import api from '../api/api';
 
 const useLogout = () => {

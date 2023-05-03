@@ -3,7 +3,7 @@ import { Title, Grid, Paper } from '@mantine/core';
 import moment from 'moment';
 import cnf from '../../config/config';
 import { useEffect, useState } from 'react';
-import setNotification from '../../components/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notification';
 import ItemQuickView from './item-quick-view';
 import useSecureAPI from '../../hooks/use-secure-api';
 

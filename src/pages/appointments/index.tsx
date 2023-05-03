@@ -20,7 +20,7 @@ import ModalCreateApp from './create';
 import { IAppointmentExtended } from '../../types/interfaces';
 
 import { useDisclosure } from '@mantine/hooks';
-import setNotification from '../../components/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notification';
 import NoContent from '../../components/errors/no-content';
 import useSecureAPI from '../../hooks/use-secure-api';
 

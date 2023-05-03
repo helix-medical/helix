@@ -5,7 +5,7 @@ import { Badge, Paper, Title } from '@mantine/core';
 import { Calendar as BigCalendar } from 'react-big-calendar';
 import CalendarConfig from './calendar-config';
 import Styles from './styles';
-import useCalendarLogic from './calendar-logic';
+import { useCalendarLogic } from './calendar.logic';
 import ViewEvent from './view';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 

@@ -6,7 +6,7 @@ import { IconArchive, IconArchiveOff, IconEdit, IconEye } from '@tabler/icons-re
 import IdBadge from '../../components/customBadges/id';
 import ModalAddUser from './create';
 import { IUsers } from '../../types/interfaces';
-import setNotification from '../../components/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notification';
 import UserStatus from '../../components/customBadges/user-status';
 import cnf from '../../config/config';
 import moment from 'moment';

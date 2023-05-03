@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IPatient } from '../../types/interfaces';
 import usePatientsRoute from '../../api/patients';
-import setNotification from '../../components/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notification';
 
 const useComponentLogic = (add: boolean) => {
     const route = usePatientsRoute();

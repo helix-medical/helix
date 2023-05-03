@@ -5,7 +5,7 @@ import { CSVLink } from 'react-csv';
 import { SegmentedControl } from '@mantine/core';
 import moment from 'moment';
 import cnf from '../../config/config';
-import setNotification from '../../components/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notification';
 import useSecureAPI from '../../hooks/use-secure-api';
 
 const header = ['Transaction ID', 'Date', 'Amount', 'Method', 'Patient'];

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Grid, Progress, RingProgress, Text } from '@mantine/core';
-import setNotification from '../../components/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notification';
 import moment from 'moment';
 import cnf from '../../config/config';
 import useSecureAPI from '../../hooks/use-secure-api';

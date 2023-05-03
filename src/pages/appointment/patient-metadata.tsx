@@ -4,7 +4,7 @@ import PreviousAppointments from './previous-appointments';
 import Biodatas from './biodatas';
 import { IAppointmentDataView, IAppointmentDataEdit } from '../../types/interfaces';
 import { IconCalendarCheck, IconDna, IconAlertTriangle } from '@tabler/icons-react';
-import setNotification from '../../components/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notification';
 import useSecureAPI from '../../hooks/use-secure-api';
 
 interface IProps {

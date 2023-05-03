@@ -1,5 +1,5 @@
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
-import setNotification from '../../components/errors/feedback-notif';
+import setNotification from '../../components/errors/feedback-notification';
 import usePatientsRoute from '../../api/patients';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ToolbarProps, Navigate, View } from 'react-big-calendar';
-import { ActionIcon, Card, Center, Grid, Group, SegmentedControl, Select, Text } from '@mantine/core';
+import { ActionIcon, Card, Center, Grid, Group, NativeSelect, SegmentedControl, Text } from '@mantine/core';
 import { IconCalendar, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import { useToolbarLogic } from './toolbar.logic';
 
 interface IEvent {
     start: Date;
@@ -34,11 +35,18 @@ const SelectView = ({ views: viewNames, view, onView, messages }: any) => {
     );
 };
 
-const SelectCalendar = () => {
-    return <Select data={['Calendar 1', 'Calendar 2', 'Calendar 3']} placeholder="Select calendar" radius="xl" />;
+const SelectCalendar = ({ calendars }: { calendars: { value: string; label: string }[] }) => {
+    return <NativeSelect data={calendars} placeholder="Select calendar" radius="xl" />;
 };
 
 const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, view }: ToolbarProps<IEvent>) => {
+    const { calendars, fetchCalendars } = useToolbarLogic();
+
+    useEffect(() => {
+        fetchCalendars();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <Card shadow="sm" pt="xs" radius="sm" mb="sm" withBorder>
             <Grid columns={3}>
@@ -53,8 +61,8 @@ const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, vi
                         <ActionIcon size="lg" onClick={() => onNavigate(Navigate.NEXT)} color={color}>
                             <IconChevronRight size="1.5rem" />
                         </ActionIcon>
+                        <SelectCalendar calendars={calendars} />
                     </Group>
-                    <SelectCalendar />
                 </Grid.Col>
                 <Grid.Col xs={3} sm={1}>
                     <Center>
