@@ -35,12 +35,25 @@ const SelectView = ({ views: viewNames, view, onView, messages }: any) => {
     );
 };
 
-const SelectCalendar = ({ calendars }: { calendars: { value: string; label: string }[] }) => {
-    return <NativeSelect data={calendars} placeholder="Select calendar" radius="xl" />;
+const SelectCalendar = ({
+    calendars,
+    handler,
+}: {
+    calendars: { value: string; label: string }[];
+    handler: (calendar: string) => void;
+}) => {
+    return (
+        <NativeSelect
+            data={calendars}
+            placeholder="Select calendar"
+            radius="xl"
+            onChange={(event) => handler(event.currentTarget.value)}
+        />
+    );
 };
 
 const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, view }: ToolbarProps<IEvent>) => {
-    const { calendars, fetchCalendars } = useToolbarLogic();
+    const { calendars, fetchCalendars, handleCalendarChange } = useToolbarLogic();
 
     useEffect(() => {
         fetchCalendars();
@@ -61,7 +74,7 @@ const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, vi
                         <ActionIcon size="lg" onClick={() => onNavigate(Navigate.NEXT)} color={color}>
                             <IconChevronRight size="1.5rem" />
                         </ActionIcon>
-                        <SelectCalendar calendars={calendars} />
+                        <SelectCalendar calendars={calendars} handler={handleCalendarChange} />
                     </Group>
                 </Grid.Col>
                 <Grid.Col xs={3} sm={1}>

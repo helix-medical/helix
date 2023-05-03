@@ -1,12 +1,14 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { IEvent } from '../../types/interfaces';
 import cnf from '../../config/config';
 import moment from 'moment';
 import setNotification from '../../components/errors/feedback-notification';
 import useApplicationRoutes from '../../api/routes';
+import { useToolbarLogic } from './toolbar.logic';
 
 const useCalendarLogic = () => {
     const routes = useApplicationRoutes();
+    const { calendar } = useToolbarLogic();
 
     const [refresh, setRefresh] = useState(false);
     const [events, setEvents] = useState<IEvent[]>([]);
@@ -22,6 +24,12 @@ const useCalendarLogic = () => {
     const handleClose = () => {
         setOpened(false);
     };
+
+    useEffect(() => {
+        // fetchEvents();
+        console.log('calendar', calendar);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [calendar]);
 
     const slotGroupPropGetter = useCallback(() => ({ style: { minHeight: 60 } }), []);
 
@@ -41,7 +49,14 @@ const useCalendarLogic = () => {
 
     const fetchEvents = async () => {
         try {
-            const res = await routes.events.getAll();
+            let res;
+            if (calendar === 'all') {
+                console.log('all');
+                res = await routes.events.getAll();
+            } else {
+                console.log('calendar', calendar);
+                res = await routes.events.getByCalendar(calendar);
+            }
             const events = res.data.map((event: any) => ({
                 start: moment(event.start).toDate(),
                 end: moment(event.end).toDate(),
