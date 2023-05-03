@@ -3,43 +3,40 @@ import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Badge, Paper, Title } from '@mantine/core';
 import { Calendar as BigCalendar } from 'react-big-calendar';
-import CalendarConfig from './calendar-config';
+import useCalendarConfig from './calendar-config';
 import Styles from './styles';
 import { useCalendarLogic } from './calendar.logic';
 import ViewEvent from './view';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
+import moment from 'moment';
 
 const Calendar = () => {
     const { classes } = Styles();
-    const {
-        slotGroupPropGetter,
-        handleResizeEvent,
-        refresh,
-        fetchEvents,
-        events,
-        event,
-        handleClose,
-        onSelectEvent,
-        opened,
-    } = useCalendarLogic();
-    const { customComponents, formats, localizer, messages } = CalendarConfig();
+    const { slotGroupPropGetter, handleResizeEvent, events, event, handleClose, onSelectEvent, opened, fetchEvents } =
+        useCalendarLogic();
+    const { customComponents, formats, localizer, messages } = useCalendarConfig();
     const HelixCalendar = withDragAndDrop(BigCalendar);
 
     useEffect(() => {
         fetchEvents();
+
+        return () => {
+            console.log('unmounting');
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [refresh]);
+    }, []);
 
     return (
         <>
             <Title order={1} mb="xl">
                 Calendar{' '}
-                <Badge color="teal" size="xl">
+                <Badge color="fr-cyan.4" size="xl">
                     Beta
                 </Badge>
             </Title>
             <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
                 <HelixCalendar
+                    defaultDate={moment('2023-04-16').toDate()}
                     className={classes.calendar}
                     localizer={localizer}
                     events={events}

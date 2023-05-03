@@ -3,6 +3,7 @@ import { ToolbarProps, Navigate, View } from 'react-big-calendar';
 import { ActionIcon, Card, Center, Grid, Group, NativeSelect, SegmentedControl, Text } from '@mantine/core';
 import { IconCalendar, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { useToolbarLogic } from './toolbar.logic';
+import { useCalendarLogic } from './calendar.logic';
 
 interface IEvent {
     start: Date;
@@ -53,10 +54,15 @@ const SelectCalendar = ({
 };
 
 const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, view }: ToolbarProps<IEvent>) => {
-    const { calendars, fetchCalendars, handleCalendarChange } = useToolbarLogic();
+    const { calendars, fetchCalendars } = useToolbarLogic();
+    const { handleCalendarChange } = useCalendarLogic();
 
     useEffect(() => {
         fetchCalendars();
+
+        return () => {
+            console.log('unmounting');
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

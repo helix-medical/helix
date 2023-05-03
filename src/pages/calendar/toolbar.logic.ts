@@ -5,12 +5,7 @@ import setNotification from '../../components/errors/feedback-notification';
 const useToolbarLogic = () => {
     const routes = useApplicationRoutes();
     const [calendars, setCalendars] = useState<{ value: string; label: string }[]>([]);
-    const [calendar, setCalendar] = useState<string>('all');
-
-    const handleCalendarChange = (calendar: string) => {
-        setCalendar(calendar);
-    };
-
+    
     const fetchCalendars = async () => {
         try {
             const res = await routes.users.getPractitioners();
@@ -26,8 +21,6 @@ const useToolbarLogic = () => {
     return {
         calendars,
         fetchCalendars,
-        calendar,
-        handleCalendarChange,
     };
 };
 

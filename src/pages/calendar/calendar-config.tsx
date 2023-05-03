@@ -5,7 +5,7 @@ import Toolbar from './toolbar';
 import { Text } from '@mantine/core';
 import moment from 'moment';
 
-const CalendarConfig = () => {
+const useCalendarConfig = () => {
     const customComponents = {
         timeGutterWrapper: (props: any): any => (
             <Text tt="uppercase" fw={500}>
@@ -67,4 +67,4 @@ const CalendarConfig = () => {
     return { customComponents, localizer, formats, messages };
 };
 
-export default CalendarConfig;
+export default useCalendarConfig;

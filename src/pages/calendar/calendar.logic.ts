@@ -1,15 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { IEvent } from '../../types/interfaces';
 import cnf from '../../config/config';
 import moment from 'moment';
 import setNotification from '../../components/errors/feedback-notification';
 import useApplicationRoutes from '../../api/routes';
-import { useToolbarLogic } from './toolbar.logic';
 
 const useCalendarLogic = () => {
     const routes = useApplicationRoutes();
-    const { calendar } = useToolbarLogic();
 
+    const [calendar, setCalendar] = useState<string>('all');
     const [refresh, setRefresh] = useState(false);
     const [events, setEvents] = useState<IEvent[]>([]);
     const [opened, setOpened] = useState(false);
@@ -25,11 +24,9 @@ const useCalendarLogic = () => {
         setOpened(false);
     };
 
-    useEffect(() => {
-        // fetchEvents();
-        console.log('calendar', calendar);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [calendar]);
+    const handleCalendarChange = (calendar: string) => {
+        setCalendar(calendar);
+    };
 
     const slotGroupPropGetter = useCallback(() => ({ style: { minHeight: 60 } }), []);
 
@@ -57,14 +54,14 @@ const useCalendarLogic = () => {
                 console.log('calendar', calendar);
                 res = await routes.events.getByCalendar(calendar);
             }
-            const events = res.data.map((event: any) => ({
+            const eventsTMP = res.data.map((event: any) => ({
                 start: moment(event.start).toDate(),
                 end: moment(event.end).toDate(),
                 title: `${event.title}`,
                 id: event.id,
                 kind: event.appID !== '' ? 'app' : 'event',
             }));
-            setEvents(events);
+            setEvents(eventsTMP);
         } catch (err: any) {
             setNotification(true, err.response.data.message);
         }
@@ -78,13 +75,14 @@ const useCalendarLogic = () => {
     return {
         slotGroupPropGetter,
         handleResizeEvent,
-        refresh,
-        fetchEvents,
         events,
         onSelectEvent,
+        fetchEvents,
         opened,
         handleClose,
         event,
+        calendar,
+        handleCalendarChange,
     };
 };
 
