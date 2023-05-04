@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IPatient } from '../../types/interfaces';
 import setNotification from '../../components/errors/feedback-notification';
 import useApplicationRoutes from '../../api/routes';
@@ -17,18 +17,22 @@ const useComponentLogic = (add: boolean) => {
         setRefresh(!refresh);
     };
 
-    const fetchAllPatients = async () => {
-        try {
-            const res = await routes.patients.getAll();
-            setPatients(res.data);
-            setError(null);
-        } catch (error: any) {
-            if (!error?.response) setNotification(true, 'Network error');
-            else if (error.response.status !== 404)
-                setNotification(true, `${error.message}: ${error.response.data.message}`);
-            setError(error.response.data.message);
-        }
-    };
+    useEffect(() => {
+        const fetchAllPatients = async () => {
+            try {
+                const res = await routes.patients.getAll();
+                setPatients(res.data);
+                setError(null);
+            } catch (error: any) {
+                if (!error?.response) setNotification(true, 'Network error');
+                else if (error.response.status !== 404)
+                    setNotification(true, `${error.message}: ${error.response.data.message}`);
+                setError(error.response.data.message);
+            }
+        };
+        fetchAllPatients();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [refresh]);
 
     const handleDelete = async (id: string | undefined) => {
         if (!id) return console.error('No id');
@@ -48,13 +52,11 @@ const useComponentLogic = (add: boolean) => {
     return {
         patients,
         error,
-        fetchAllPatients,
         handleDelete,
         nbPatients: patients.length,
         isGrid,
         show,
         toggleModal,
-        refresh,
         changeView,
     };
 };

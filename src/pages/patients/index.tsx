@@ -24,23 +24,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     const [mainColor, setMainColor] = useState('fr-yellow.4');
     const theme = useMantineTheme();
     const { classes } = Styles();
-    const {
-        patients,
-        fetchAllPatients,
-        error,
-        handleDelete,
-        changeView,
-        isGrid,
-        refresh,
-        show,
-        nbPatients,
-        toggleModal,
-    } = useComponentLogic(add);
-
-    useEffect(() => {
-        fetchAllPatients();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [refresh]);
+    const { patients, error, handleDelete, changeView, isGrid, show, nbPatients, toggleModal } = useComponentLogic(add);
 
     useEffect(() => {
         setMainColor(theme.colorScheme === 'dark' ? 'fr-yellow.6' : 'fr-yellow.4');
@@ -63,7 +47,7 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                             color={mainColor}
                             variant="outline"
                             size="lg"
-                            onClick={() => changeView}
+                            onClick={changeView}
                             className={classes.button}
                         >
                             {isGrid ? <IconLayoutList /> : <IconLayoutGrid />}

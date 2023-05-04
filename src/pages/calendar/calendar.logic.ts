@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { IEvent } from '../../types/interfaces';
 import cnf from '../../config/config';
 import moment from 'moment';
@@ -36,8 +36,6 @@ const useCalendarLogic = () => {
     const toggleOpenCreate = () => {
         setOpenCreate(!openCreate);
     };
-
-    const slotGroupPropGetter = useCallback(() => ({ style: { minHeight: 60 } }), []);
 
     const handleResizeEvent = async ({ event, start, end }: { event: IEvent; start: Date; end: Date }) => {
         const { id } = event;
@@ -87,7 +85,6 @@ const useCalendarLogic = () => {
     };
 
     return {
-        slotGroupPropGetter,
         handleResizeEvent,
         events,
         onSelectEvent,

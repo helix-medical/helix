@@ -3,7 +3,7 @@ import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Badge, Paper, Title } from '@mantine/core';
 import { Calendar as BigCalendar } from 'react-big-calendar';
-import useCalendarConfig from './calendar-config';
+import useCalendarConfig from './calendar.config';
 import Styles from './styles';
 import { useCalendarLogic } from './calendar.logic';
 import ViewEvent from './view';
@@ -14,7 +14,6 @@ import CreateEvent from './create';
 const Calendar = () => {
     const { classes } = Styles();
     const {
-        slotGroupPropGetter,
         handleResizeEvent,
         events,
         event,
@@ -27,7 +26,7 @@ const Calendar = () => {
         onCreateEvent,
         range,
     } = useCalendarLogic();
-    const { customComponents, formats, localizer, messages } = useCalendarConfig();
+    const { customComponents, formats, localizer, messages, slotGroupPropGetter } = useCalendarConfig();
     const HelixCalendar = withDragAndDrop(BigCalendar);
 
     useEffect(() => {
