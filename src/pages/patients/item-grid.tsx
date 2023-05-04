@@ -33,7 +33,7 @@ function PatientItemGrid({ patient, handleDelete }: IProps): JSX.Element {
             </Card>
             {show ? (
                 <ModalViewPatient
-                    patientInput={patient}
+                    patient={patient}
                     show={show}
                     toggleModal={toggleModal}
                     handleDelete={handleDelete}

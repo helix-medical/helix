@@ -17,7 +17,7 @@ import ModalAddPatient from './create';
 import PatientsTableView from './list-view';
 import { IPatient } from '../../types/interfaces';
 import NoContent from '../../components/errors/no-content';
-import Styles from './styles';
+import Styles from './patients.styles';
 import useComponentLogic from './index.logic';
 
 const Patients = ({ add }: { add: boolean }): JSX.Element => {
