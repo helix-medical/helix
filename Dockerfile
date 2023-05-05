@@ -1,4 +1,4 @@
-FROM mysql:latest
+FROM mariadb:latest
 
 ENV MYSQL_DATABASE=helix
 
