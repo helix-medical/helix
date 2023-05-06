@@ -61,17 +61,10 @@ const read = async (req: Request, res: Response) => {
             p.phone,
             p.doctor,
             p.job
-        FROM
-            appointments app
-            INNER JOIN
-                patients p
-                    ON app.patientId = p.id
-            INNER JOIN
-                events e
-                    ON app.event = e.id
-            INNER JOIN
-                users u
-                    ON e.calendar = u.uid
+        FROM appointments app
+            INNER JOIN patients p ON app.patientId = p.id
+            INNER JOIN events e ON app.event = e.id
+            INNER JOIN users u ON e.calendar = u.uid
             ${view === 'view' ? `INNER JOIN accounting a ON app.payment = a.uid` : ''}
         WHERE app.id = ?
     `;
@@ -82,12 +75,9 @@ const read = async (req: Request, res: Response) => {
 const updateContent = async (req: Request, res: Response) => {
     const appointmentId = req.params.id;
     const sqlQuery = `
-        UPDATE
-            appointments
-        SET
-            content = ?, status = ? , payment = ?
-        WHERE
-            id = ?
+        UPDATE appointments
+        SET content = ?, status = ? , payment = ?
+        WHERE id = ?
     `;
     const values = [req.body.content, 'finished', req.body.payment];
 
@@ -98,8 +88,34 @@ const updateContent = async (req: Request, res: Response) => {
     });
 };
 
+const getFromEvent = async (req: Request, res: Response) => {
+    const sqlQuery = `
+        SELECT
+            a.id AS appID,
+            p.id AS patientID,
+            p.name AS patientName,
+            p.lastName AS patientLastName,
+            p.email,
+            p.phone,
+            p.birthDate,
+            u.name AS practitionerName,
+            u.lastName AS practitionerLastName,
+            a.kind,
+            a.status
+        FROM events e
+            INNER JOIN appointments a ON e.appID = a.id
+            INNER JOIN users u ON e.calendar = u.uid
+            INNER JOIN patients p ON a.patientId = p.id
+        WHERE e.id = ?
+    `;
+    const values = [req.params.id];
+
+    await queries.pull(req, res, sqlQuery, values, { id: req.params.id, name: 'Appointment', verb: 'returned' });
+};
+
 export default module.exports = {
     create,
     updateContent,
     read,
+    getFromEvent,
 };

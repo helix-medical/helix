@@ -6,10 +6,9 @@ import middleware from '../middleware/appointments';
 
 router.get('/:period', controllerAll.readAll);
 
-// router.get('/:id/read', controller.read);
+router.get('/:id/get-minimal', controller.getFromEvent);
 
 router.get('/:id/:view', controller.read);
-// router.get('/:id/edit', controller.getForEdit);
 
 router.post('/new', middleware.create, controller.create);
 
