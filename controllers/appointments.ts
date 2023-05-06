@@ -35,6 +35,36 @@ const readAll = async (req: Request, res: Response) => {
     });
 };
 
+const getByPatient = async (req: Request, res: Response) => {
+    const sqlQuery = `
+        SELECT
+            app.id AS appID,
+            app.kind,
+            app.status,
+            e.start,
+            e.end,
+            u.name AS practitionerName,
+            u.lastName AS practitionerLastName,
+            app.content,
+            app.payment,
+            acc.amount,
+            acc.method
+        FROM appointments app
+            INNER JOIN events e ON app.id = e.appID
+            INNER JOIN users u ON e.calendar = u.uid
+            LEFT JOIN accounting acc ON app.payment = acc.uid
+        WHERE patientId = ?
+        ORDER BY e.start DESC;
+    `;
+
+    await queries.pull(req, res, sqlQuery, [req.params.id], {
+        id: req.params.id,
+        name: 'Appointment',
+        verb: 'returned',
+    });
+};
+
 export default module.exports = {
     readAll,
+    getByPatient,
 };

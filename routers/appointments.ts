@@ -4,6 +4,8 @@ import controller from '../controllers/appointment';
 import controllerAll from '../controllers/appointments';
 import middleware from '../middleware/appointments';
 
+router.get('/patient/:id', controllerAll.getByPatient);
+
 router.get('/:period', controllerAll.readAll);
 
 router.get('/:id/get-minimal', controller.getFromEvent);
