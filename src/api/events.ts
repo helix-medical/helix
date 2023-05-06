@@ -4,7 +4,7 @@ const useEventsRoute = () => {
     const api = useSecureAPI();
     const baseUrl = '/events';
 
-    const addAppointment = async (id: string, data: { appId: any; patientId: string }) => {
+    const addAppointment = async (id: string, data: { appId: string; patientId: string }) => {
         return await api.put(`${baseUrl}/${id}/add_appointment`, data);
     };
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, Select, Modal, useMantineTheme, SegmentedControl, TextInput, Paper, Group, Button } from '@mantine/core';
+import { Text, Select, Modal, SegmentedControl, TextInput, Paper, Group, Button } from '@mantine/core';
 import cnf from '../../config/config';
 import moment from 'moment';
 import useComponentLogic from './create.logic';
+import ModalOverlay from '../../components/modal-overlay';
 
 interface IAppointment {
     range: any;
@@ -70,16 +71,11 @@ const Event = ({ range }: { range: any }) => {
 
 const CreateEvent = ({ opened, handler, range }: { opened: boolean; handler: () => void; range: any }) => {
     const { form, patients, practitioners, handleSubmit } = useComponentLogic(handler);
-    const theme = useMantineTheme();
     form.values.date = moment(range.start).format(cnf.formatDateTime);
 
     return (
         <Modal.Root opened={opened} onClose={handler} radius="md">
-            <Modal.Overlay
-                color={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
-                opacity={0.55}
-                blur={3}
-            />
+            <Modal.Overlay {...ModalOverlay} />
             <Modal.Content>
                 <Modal.Header>
                     <Modal.Title>

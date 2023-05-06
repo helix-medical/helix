@@ -35,6 +35,10 @@ const useAppointmentsRoute = () => {
         return await api.get(`${baseUrl}/${id}/view`);
     };
 
+    const getFromEvent = async (id: string) => {
+        return await api.get(`${baseUrl}/${id}/get-minimal`);
+    };
+
     const pushContent = async (id: string, data: IContent) => {
         return await api.put(`${baseUrl}/${id}/content`, data);
     };
@@ -45,6 +49,7 @@ const useAppointmentsRoute = () => {
         getByPeriod,
         getForEdit,
         getForView,
+        getFromEvent,
         pushContent,
     };
 };

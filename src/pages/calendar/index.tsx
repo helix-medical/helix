@@ -67,7 +67,7 @@ const Calendar = () => {
                     onEventDrop={handleResizeEvent as any}
                 />
             </Paper>
-            <ViewEvent event={event} opened={opened} handleClose={handleClose} />
+            {opened ? <ViewEvent input={event} opened={opened} handleClose={handleClose} /> : null}
             {openCreate ? <CreateEvent opened={openCreate} handler={toggleOpenCreate} range={range} /> : null}
         </>
     );
