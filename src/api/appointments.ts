@@ -23,6 +23,10 @@ const useAppointmentsRoute = () => {
         return await api.get(baseUrl);
     };
 
+    const getByPatient = async (id: string) => {
+        return await api.get(`${baseUrl}/patient/${id}`);
+    };
+
     const getByPeriod = async (period: string) => {
         return await api.get(`${baseUrl}/${period}`);
     };
@@ -46,6 +50,7 @@ const useAppointmentsRoute = () => {
     return {
         create,
         getAll,
+        getByPatient,
         getByPeriod,
         getForEdit,
         getForView,

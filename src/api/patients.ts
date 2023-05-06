@@ -34,6 +34,10 @@ const usePatientsRoute = () => {
         return await api.get(`${baseUrl}/appointments`);
     };
 
+    const getOne = async (id: string) => {
+        return await api.get(`${baseUrl}/${id}`);
+    };
+
     const update = async (id: string, data: IPatient) => {
         return await api.put(`${baseUrl}/${id}`, data);
     };
@@ -43,6 +47,7 @@ const usePatientsRoute = () => {
         delete: delete_,
         getAll,
         getForAppointment,
+        getOne,
         update,
     };
 };

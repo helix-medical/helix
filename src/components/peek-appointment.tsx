@@ -36,7 +36,11 @@ const PeekAppointment = ({ input }: { input: IEvent }) => {
                 Patient
                 <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
                     {' - '}
-                    <Anchor onClick={() => navigate('/patients')} color="fr-yellow.3" component="button">
+                    <Anchor
+                        onClick={() => navigate(`/patients/${event.patientID}`)}
+                        color="fr-yellow.3"
+                        component="button"
+                    >
                         <Text span fz="sm" fw={500}>
                             More details
                         </Text>

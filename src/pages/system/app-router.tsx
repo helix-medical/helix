@@ -7,13 +7,14 @@ import RequireAuth from '../../components/auth/require-auth';
 import PersistentLogin from '../../components/auth/persistent-login';
 import cnf from '../../config/config';
 // Pages
-import Patients from '../patients';
-import Home from '../home';
+import Accounting from '../accounting';
+import Appointments from '../appointments';
 import Calendar from '../calendar';
 import EditAppointment from '../appointment/edit';
-import Appointments from '../appointments';
+import Home from '../home';
+import Patient from '../patient';
+import Patients from '../patients';
 import ViewAppointment from '../appointment/view';
-import Accounting from '../accounting';
 // Errors
 import NotFound from '../../components/errors/404';
 import Unauthorized from '../../components/errors/unauthorized';
@@ -32,8 +33,11 @@ const AppRouter = () => {
                 <Route element={<PersistentLogin />}>
                     <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER, ROLES.SECRETARY]} />}>
                         <Route path="/" element={<Home />} />
-                        <Route path="patients" element={<Patients add={false} />} />
-                        <Route path="patients/add" element={<Patients add={true} />} />
+                        <Route path="patients">
+                            <Route index element={<Patients add={false} />} />
+                            <Route path="add" element={<Patients add={true} />} />
+                            <Route path=":patientID" element={<Patient />} />
+                        </Route>
                         <Route path="accounting" element={<Accounting />} />
                         <Route path="calendar" element={<Calendar />} />
                         <Route path="appointments">
