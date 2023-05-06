@@ -20,6 +20,10 @@ const useEventsRoute = () => {
         return await api.get(`${baseUrl}/calendar/${calendar}`);
     };
 
+    const getNextAppointment = async (date: string) => {
+        return await api.get(`${baseUrl}/next-appointment/${date}`);
+    };
+
     const updateDate = async (id: string, data: { start: string; end: string }) => {
         return await api.put(`${baseUrl}/${id}/date`, data);
     };
@@ -29,6 +33,7 @@ const useEventsRoute = () => {
         create,
         getAll,
         getByCalendar,
+        getNextAppointment,
         updateDate,
     };
 };

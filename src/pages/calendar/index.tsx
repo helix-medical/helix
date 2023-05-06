@@ -4,7 +4,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Badge, Paper, Title } from '@mantine/core';
 import { Calendar as BigCalendar } from 'react-big-calendar';
 import useCalendarConfig from './calendar.config';
-import Styles from './calendar.styles';
+import CalendarStyles from '../../styles/calendar.styles';
 import { useCalendarLogic } from './calendar.logic';
 import ViewEvent from './view';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
@@ -12,7 +12,7 @@ import moment from 'moment';
 import CreateEvent from './create';
 
 const Calendar = () => {
-    const { classes } = Styles();
+    const { classes } = CalendarStyles();
     const {
         handleResizeEvent,
         events,

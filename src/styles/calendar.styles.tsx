@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core';
 
-const Styles = createStyles((theme) => {
+const CalendarStyles = createStyles((theme) => {
     const borderColor = theme.colorScheme === 'dark' ? '#373A40' : 'inherit';
     return {
         calendar: {
@@ -33,8 +33,21 @@ const Styles = createStyles((theme) => {
                 borderLeft: `2px solid ${borderColor}`,
                 borderBottom: `1px solid ${borderColor}`,
             },
+            '.rbc-agenda-view table.rbc-agenda-table': {
+                border: `1px solid ${borderColor}`,
+                borderRadius: theme.radius.sm,
+            },
+            '.rbc-agenda-view table.rbc-agenda-table tbody > tr > td + td': {
+                borderLeft: `1px solid ${borderColor}`,
+            },
+            '.rbc-agenda-view table.rbc-agenda-table tbody > tr + tr': {
+                borderTop: `1px solid ${borderColor}`,
+            },
+            '.rbc-agenda-view table.rbc-agenda-table thead > tr > th': {
+                borderBottom: `1px solid ${borderColor}`,
+            },
         },
     };
 });
 
-export default Styles;
+export default CalendarStyles;

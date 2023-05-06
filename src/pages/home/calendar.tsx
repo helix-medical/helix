@@ -13,6 +13,7 @@ import {
 import IdBadge from '../../components/customBadges/id';
 import { useNavigate } from 'react-router-dom';
 import useApplicationRoutes from '../../api/routes';
+import CalendarStyles from '../../styles/calendar.styles';
 
 const localizer = momentLocalizer(moment);
 const color = 'fr-cyan';
@@ -64,9 +65,10 @@ const Event = ({ event }: EventProps<IEvent>) => {
     );
 };
 
-const HomeCalendar = () => {
+const HomeCalendar = ({ handler }: { handler: (event: IEvent) => void }) => {
     const routes = useApplicationRoutes();
     const [events, setEvents] = useState<IEvent[]>([]);
+    const { classes } = CalendarStyles();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -126,6 +128,8 @@ const HomeCalendar = () => {
                 </ActionIcon>
             </Group>
             <Calendar
+                defaultDate={moment('2023-04-16').toDate()}
+                className={classes.calendar}
                 localizer={localizer}
                 events={events}
                 startAccessor="start"
@@ -138,6 +142,7 @@ const HomeCalendar = () => {
                 components={components}
                 formats={formats}
                 length={7}
+                onSelectEvent={(event: IEvent) => handler(event)}
             />
         </>
     );

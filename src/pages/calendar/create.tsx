@@ -110,7 +110,7 @@ const CreateEvent = ({ opened, handler, range }: { opened: boolean; handler: () 
                             <Button variant="light" color="red" onClick={handler}>
                                 Cancel
                             </Button>
-                            <Button color="green" type="submit">
+                            <Button color="green" type="submit" disabled={form.values.type === 'event'}>
                                 Submit
                             </Button>
                         </Group>
