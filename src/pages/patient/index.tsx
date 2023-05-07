@@ -1,9 +1,9 @@
 import { Biodatas } from './biodatas';
-import { usePatient } from './patient.logic';
-import { PatientNavBar } from './navbar';
 import { Grid } from '@mantine/core';
-import { PatientAppointments } from './appointments';
 import { PatientAccounting } from './accounting';
+import { PatientAppointments } from './appointments';
+import { PatientNavBar } from './navbar';
+import { usePatient } from './patient.logic';
 
 const Patient = () => {
     const id = window.location.href.split('/').slice(-1)[0];

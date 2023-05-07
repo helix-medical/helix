@@ -5,7 +5,7 @@ import moment from 'moment';
 
 const rows = (data: ITransaction[]) =>
     data.map((transaction) => (
-        <tr>
+        <tr key={transaction.id}>
             <td>{moment(transaction.date).format('dddd DD MMMM YYYY')}</td>
             <td>{transaction.amount}€</td>
             <td>

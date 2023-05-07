@@ -2,14 +2,18 @@ import { useEffect, useState } from 'react';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import useApplicationRoutes from '../../api/routes';
 import { IAppointment, ITransaction } from './types';
+import setNotification from '../../components/errors/feedback-notification';
+import { useNavigate } from 'react-router-dom';
 
 const usePatient = (id: string) => {
     const routes = useApplicationRoutes();
+    const navigate = useNavigate();
     const [appointments, setAppointments] = useState<IAppointment[]>([]);
     const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
     const form = useForm({
         initialValues: {
+            id: id,
             name: '',
             lastName: '',
             birthDate: '',
@@ -36,11 +40,25 @@ const usePatient = (id: string) => {
         },
     });
 
+    const handleDelete = async (id: string) => {
+        console.log(id);
+        if (!id) return console.error('No id');
+        try {
+            const res = await routes.patients.delete(id);
+            setNotification(false, res.data.message);
+            navigate('/patients');
+        } catch (error: any) {
+            if (!error?.response) setNotification(true, 'Network error');
+            else setNotification(true, `${error.message}: ${error.response.data.message}`);
+        }
+    };
+
     useEffect(() => {
         const fetchPatient = async () => {
             try {
                 const response = await routes.patients.getOne(id);
                 form.setValues({
+                    id: id,
                     name: response.data[0].name,
                     lastName: response.data[0].lastName,
                     birthDate: response.data[0].birthDate,
@@ -82,7 +100,7 @@ const usePatient = (id: string) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
-    return { form, appointments, transactions };
+    return { form, appointments, transactions, handleDelete };
 };
 
 export { usePatient };

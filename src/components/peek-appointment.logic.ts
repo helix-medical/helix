@@ -36,11 +36,9 @@ const usePeekAppointment = (input: IEvent) => {
     });
 
     useEffect(() => {
-        console.log('input', input);
         const fetchEvent = async () => {
             if (input.kind !== 'app') return;
             if (input.id === '' || input.id === '00000000') return;
-            console.log('fetching event');
             try {
                 const response = await routes.appointments.getFromEvent(input.id);
                 setEvent(response.data[0]);
