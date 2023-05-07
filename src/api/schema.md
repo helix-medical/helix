@@ -9,13 +9,13 @@ subgraph Routers
  RP[/Patients\]
  RU[/Users\]
  RA[/Auth\]
- R404[/404\]
 end
 
 subgraph Middlewares
  MEJ(ExpressJSON) -->MC(Credentials)
  MC --> MCORS(CORS)
  MCORS --> MCP(CookiesParser)
+ MCP --> MLOG(LoggerCheckpoint)
 end
 
 subgraph Databases
@@ -26,14 +26,14 @@ subgraph Databases
  USRS_DB[(Users)]
 end
 
-MCP --> MLC(LoggerChekpoint)
+MLOG --> MLC{{API Gateway}}
 MLC --> RE
 MLC --> RAP
 MLC --> RAC
 MLC --> RP
 MLC --> RU
 MLC --> RA
-MLC --> R404
+MLC --> R404{{Error Handler}}
 RP <---> PTNS_DB
 RAP <---> APPS_DB
 RE <---> EVNT_DB
@@ -41,10 +41,10 @@ RAC <---> ACCS_DB
 RU <---> USRS_DB
 RA <---> USRS_DB
 
-click RE "/docs/api/events"
-click RP "/docs/api/patients"
-click RAP "/docs/api/appointments"
-click RAC "/docs/api/accounting"
-click RU "/docs/api/users"
-click RA "/docs/api/auth"
+click RE "/api/events.html"
+click RP "/api/patients.html"
+click RAP "/api/appointments.html"
+click RAC "/api/accounting.html"
+click RU "/api/users.html"
+click RA "/api/auth.html"
 ```
