@@ -1,12 +1,13 @@
 import { Biodatas } from './biodatas';
 import { usePatient } from './patient.logic';
 import { PatientNavBar } from './navbar';
-import { Grid, Paper } from '@mantine/core';
+import { Grid } from '@mantine/core';
 import { PatientAppointments } from './appointments';
+import { PatientAccounting } from './accounting';
 
 const Patient = () => {
     const id = window.location.href.split('/').slice(-1)[0];
-    const { form } = usePatient(id);
+    const { form, appointments, transactions } = usePatient(id);
     return (
         <>
             <PatientNavBar form={form} />
@@ -15,12 +16,10 @@ const Patient = () => {
                     <Biodatas form={form} update={false} />
                 </Grid.Col>
                 <Grid.Col span={4}>
-                    <Paper shadow="md" p="md" radius="md" withBorder>
-                        <div>TODO: Patient's accounting</div>
-                    </Paper>
+                    <PatientAccounting data={transactions} />
                 </Grid.Col>
                 <Grid.Col span={12}>
-                    <PatientAppointments id={id} />
+                    <PatientAppointments data={appointments} />
                 </Grid.Col>
             </Grid>
         </>

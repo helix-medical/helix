@@ -19,6 +19,10 @@ const useAccountingRoute = () => {
         return await api.get(`${baseUrl}/${start}/${end}`);
     };
 
+    const getByPatient = async (id: string) => {
+        return await api.get(`${baseUrl}/patient/${id}`);
+    };
+
     const getFacture = async (id: string) => {
         return await api.get(`${baseUrl}/${id}/facture`);
     };
@@ -30,6 +34,7 @@ const useAccountingRoute = () => {
     return {
         create,
         getByDates,
+        getByPatient,
         getFacture,
         getSumByDates,
     };

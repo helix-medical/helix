@@ -1,9 +1,10 @@
+import React from 'react';
 import { Paper, Accordion, Group, Text, Title, Textarea, TextInput } from '@mantine/core';
-import { IAppointment, usePatientAppointments } from './appointments.logic';
-import moment from 'moment';
-import KindAppointment from '../../components/customBadges/kind-appointment';
-import StateAppointment from '../../components/customBadges/state-appointment';
+import { IAppointment } from './types';
 import getNbLines from '../../helpers/get-lines';
+import KindAppointment from '../../components/customBadges/kind-appointment';
+import moment from 'moment';
+import StateAppointment from '../../components/customBadges/state-appointment';
 
 const Item = ({ data }: { data: IAppointment }) => {
     const content = JSON.parse(data.content);
@@ -66,20 +67,17 @@ const Item = ({ data }: { data: IAppointment }) => {
     );
 };
 
-const PatientAppointments = ({ id }: { id: string }) => {
-    const { appointments } = usePatientAppointments(id);
-    return (
-        <Paper shadow="md" p="md" radius="md" withBorder>
-            <Title order={3} mb="md">
-                Appointments
-            </Title>
-            <Accordion variant="separated">
-                {appointments.map((appointment) => (
-                    <Item key={appointment.appID} data={appointment} />
-                ))}
-            </Accordion>
-        </Paper>
-    );
-};
+const PatientAppointments = ({ data }: { data: IAppointment[] }) => (
+    <Paper shadow="md" p="md" radius="md" withBorder>
+        <Title order={3} mb="md">
+            Appointments
+        </Title>
+        <Accordion variant="separated">
+            {data.map((appointment) => (
+                <Item key={appointment.appID} data={appointment} />
+            ))}
+        </Accordion>
+    </Paper>
+);
 
 export { PatientAppointments };

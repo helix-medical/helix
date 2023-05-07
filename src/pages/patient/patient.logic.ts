@@ -1,29 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import useApplicationRoutes from '../../api/routes';
-
-export interface IPatient {
-    id: string;
-    name: string;
-    lastName: string;
-    birthDate: string;
-    sex: string;
-    city: string;
-    email: string;
-    phone: string;
-    address: string;
-    job: string;
-    doctor: string;
-    medicalIssues: string;
-}
-
-export interface IPassif {
-    lastAppointments: string[];
-    medicalIssues: string;
-}
+import { IAppointment, ITransaction } from './types';
 
 const usePatient = (id: string) => {
     const routes = useApplicationRoutes();
+    const [appointments, setAppointments] = useState<IAppointment[]>([]);
+    const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
     const form = useForm({
         initialValues: {
@@ -74,11 +57,32 @@ const usePatient = (id: string) => {
                 console.log(error);
             }
         };
+
+        const fetchPatientAppointments = async () => {
+            try {
+                const response = await routes.appointments.getByPatient(id);
+                setAppointments(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        const fetchPatientTransactions = async () => {
+            try {
+                const response = await routes.accounting.getByPatient(id);
+                setTransactions(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
         fetchPatient();
+        fetchPatientAppointments();
+        fetchPatientTransactions();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
-    return { form };
+    return { form, appointments, transactions };
 };
 
 export { usePatient };
