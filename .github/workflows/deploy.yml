@@ -22,7 +22,9 @@ jobs:
           toolchain: stable
 
       - name: Install mdbook
-        run: cargo install mdbook mdbook-mermaid
+        run: |
+          cargo install mdbook --no-default-features --features search --vers "^0.4" --locked
+          cargo install mdbook-mermaid
 
       - name: Build Documentation
         run: mdbook build
