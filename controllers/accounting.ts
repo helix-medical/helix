@@ -9,11 +9,9 @@ const create = async (req: Request, res: Response) => {
     let id = uuid();
     while (await queries.checkId(id, 'accounting', 'uid')) id = uuid();
     const sqlQuery = `
-        INSERT INTO
-            accounting
+        INSERT INTO accounting
                 (uid, amount, method, date, appointment)
-            VALUES
-                (?)
+        VALUES (?)
     `;
     const values = [id, req.body.amount, req.body.method, req.body.date, req.body.appointment];
 
@@ -31,18 +29,11 @@ const getTransactions = async (req: Request, res: Response) => {
             p.name AS patientName,
             p.lastName AS patientLastName,
             a.appointment
-        FROM
-            accounting a
-            INNER JOIN
-                appointments app
-                    ON a.appointment = app.id
-            INNER JOIN
-                patients p
-                    ON app.patientId = p.id
-        WHERE
-            a.date BETWEEN ? AND ?
-        ORDER BY
-            a.date DESC
+        FROM accounting a
+            INNER JOIN appointments app ON a.appointment = app.id
+            INNER JOIN patients p ON app.patientId = p.id
+        WHERE a.date BETWEEN ? AND ?
+        ORDER BY a.date DESC
     `;
     const values = [req.params.start, req.params.end];
 
@@ -55,10 +46,8 @@ const getSum = async (req: Request, res: Response) => {
             SUM(CASE WHEN COALESCE(method, '') = 'check' THEN amount ELSE 0 END) AS checks,
             SUM(CASE WHEN COALESCE(method, '') = 'card' THEN amount ELSE 0 END) AS cards,
             SUM(CASE WHEN COALESCE(method, '') = 'cash' THEN amount ELSE 0 END) AS cashs
-        FROM
-            accounting
-        WHERE
-            date BETWEEN ? AND ?
+        FROM accounting
+        WHERE date BETWEEN ? AND ?
     `;
     const values = [req.params.start, req.params.end];
 
@@ -88,31 +77,38 @@ const facture = async (req: Request, res: Response) => {
             p.city AS patientCity,
             u.name AS doctorName,
             u.lastName AS doctorLastName
-        FROM
-            accounting a
-            INNER JOIN
-                appointments app
-                    ON a.appointment = app.id   
-            INNER JOIN
-                patients p
-                    ON app.patientId = p.id
-            INNER JOIN
-                events e
-                    ON app.event = e.id
-            INNER JOIN
-                users u
-                    ON e.calendar = u.uid
-        WHERE
-            a.uid = ?
+        FROM accounting a
+            INNER JOIN appointments app ON a.appointment = app.id   
+            INNER JOIN patients p ON app.patientId = p.id
+            INNER JOIN events e ON app.event = e.id
+            INNER JOIN users u ON e.calendar = u.uid
+        WHERE a.uid = ?
     `;
     const values = [req.params.id];
 
     await queries.pull(req, res, sqlQuery, values, { id: req.params.id, name: 'Facture', verb: 'returned' });
 };
 
+const getByPatient = async (req: Request, res: Response) => {
+    const sqlQuery = `
+        SELECT
+            uid AS id,
+            amount,
+            method,
+            date
+        FROM accounting acc
+            INNER JOIN appointments app ON acc.appointment = app.id
+        WHERE patientId = ?
+    `;
+    const values = [req.params.id];
+
+    await queries.pull(req, res, sqlQuery, values, { id: req.params.id, name: 'Transactions', verb: 'returned' });
+};
+
 export default {
     create,
     getTransactions,
     getSum,
+    getByPatient,
     facture,
 };
