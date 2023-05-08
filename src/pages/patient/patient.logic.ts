@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import useApplicationRoutes from '../../api/routes';
-import { IAppointment, ITransaction } from './types';
-import setNotification from '../../components/errors/feedback-notification';
-import { useNavigate } from 'react-router-dom';
+import { IAppointment, IPatient, ITransaction } from './types';
 
 const usePatient = (id: string) => {
     const routes = useApplicationRoutes();
-    const navigate = useNavigate();
     const [appointments, setAppointments] = useState<IAppointment[]>([]);
     const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
-    const form = useForm({
+    const form = useForm<IPatient>({
         initialValues: {
             id: id,
             name: '',
@@ -21,6 +18,7 @@ const usePatient = (id: string) => {
             email: '',
             city: '',
             medicalIssues: '',
+            lastAppointments: [],
             address: '',
             phone: '',
             doctor: '',
@@ -40,19 +38,6 @@ const usePatient = (id: string) => {
         },
     });
 
-    const handleDelete = async (id: string) => {
-        console.log(id);
-        if (!id) return console.error('No id');
-        try {
-            const res = await routes.patients.delete(id);
-            setNotification(false, res.data.message);
-            navigate('/patients');
-        } catch (error: any) {
-            if (!error?.response) setNotification(true, 'Network error');
-            else setNotification(true, `${error.message}: ${error.response.data.message}`);
-        }
-    };
-
     useEffect(() => {
         const fetchPatient = async () => {
             try {
@@ -70,6 +55,7 @@ const usePatient = (id: string) => {
                     phone: response.data[0].phone,
                     doctor: response.data[0].doctor,
                     job: response.data[0].job,
+                    lastAppointments: JSON.parse(response.data[0].passif).lastAppointments,
                 });
             } catch (error) {
                 console.log(error);
@@ -100,7 +86,7 @@ const usePatient = (id: string) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
-    return { form, appointments, transactions, handleDelete };
+    return { form, appointments, transactions };
 };
 
 export { usePatient };

@@ -11,6 +11,7 @@ export interface IPatient {
     job: string;
     doctor: string;
     medicalIssues: string;
+    lastAppointments: string[];
 }
 
 export interface IPassif {

@@ -1,10 +1,18 @@
 import { Avatar, Button, Divider, Group, Title } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
 import GrantAccess from '../../components/auth/grant-access';
-import { usePatient } from './patient.logic';
+import { usePatientNavBar } from './navbar.logic';
+import { IPatient } from './types';
+import { usePatientContext } from './patient.context';
+import { useEffect } from 'react';
 
-const PatientNavBar = ({ form }: { form: UseFormReturnType<any> }) => {
-    const { handleDelete } = usePatient(form.values.id);
+const PatientNavBar = ({ form }: { form: UseFormReturnType<IPatient> }) => {
+    const { handleDelete, handleUpdate, update } = usePatientNavBar(form);
+    const { setUpdate } = usePatientContext();
+    useEffect(() => {
+        setUpdate(update);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [update]);
     return (
         <>
             <Group position="apart" mt="md">
@@ -23,8 +31,8 @@ const PatientNavBar = ({ form }: { form: UseFormReturnType<any> }) => {
                         <Button variant="light" color="red" size="sm" onClick={() => handleDelete(form.values.id)}>
                             Delete
                         </Button>
-                        <Button variant="light" color="green" size="sm">
-                            Edit
+                        <Button variant="light" color="green" size="sm" onClick={(event) => handleUpdate(event)}>
+                            {update ? 'Save' : 'Update'}
                         </Button>
                     </GrantAccess>
                     <Button variant="light" color="blue" size="sm">

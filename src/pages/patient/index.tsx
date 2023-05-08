@@ -4,16 +4,17 @@ import { PatientAccounting } from './accounting';
 import { PatientAppointments } from './appointments';
 import { PatientNavBar } from './navbar';
 import { usePatient } from './patient.logic';
+import { PatientProvider } from './patient.context';
 
 const Patient = () => {
     const id = window.location.href.split('/').slice(-1)[0];
     const { form, appointments, transactions } = usePatient(id);
     return (
-        <>
+        <PatientProvider>
             <PatientNavBar form={form} />
             <Grid columns={12}>
                 <Grid.Col span={8}>
-                    <Biodatas form={form} update={false} />
+                    <Biodatas form={form} />
                 </Grid.Col>
                 <Grid.Col span={4}>
                     <PatientAccounting data={transactions} />
@@ -22,7 +23,7 @@ const Patient = () => {
                     <PatientAppointments data={appointments} />
                 </Grid.Col>
             </Grid>
-        </>
+        </PatientProvider>
     );
 };
 
