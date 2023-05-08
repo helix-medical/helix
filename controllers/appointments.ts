@@ -59,7 +59,7 @@ const getByPatient = async (req: Request, res: Response) => {
 
     await queries.pull(req, res, sqlQuery, [req.params.id], {
         id: req.params.id,
-        name: 'Appointment',
+        name: 'Appointments',
         verb: 'returned',
     });
 };
