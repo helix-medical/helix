@@ -1,8 +1,8 @@
-import { IEvent } from '../types/interfaces';
+import { IEvent } from '../../types/interfaces';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import setNotification from './errors/feedback-notification';
-import useApplicationRoutes from '../api/routes';
+import setNotification from '../errors/feedback-notification';
+import useApplicationRoutes from '../../api/routes';
 
 export interface IPeekAppointment {
     appID: string;

@@ -12,18 +12,18 @@ import {
     TextInput,
     Title,
 } from '@mantine/core';
-import setNotification from '../../components/errors/feedback-notification';
-import IdBadge from '../../components/customBadges/id';
-import { ITransactions } from '../../types/interfaces';
-import PaymentMethod from '../../components/customBadges/payment-method';
-import moment from 'moment';
-import cnf from '../../config/config';
-import { keys } from '@mantine/utils';
-import Th from '../../components/th-sort';
 import { IconSearch } from '@tabler/icons-react';
+import { ITransactions } from '../../types/interfaces';
+import { keys } from '@mantine/utils';
+import cnf from '../../config/config';
 import ExportAccounting from './export';
-import ViewFacture from './view-facture';
+import IdBadge from '../../components/customBadges/id';
+import moment from 'moment';
+import PaymentMethod from '../../components/customBadges/payment-method';
+import setNotification from '../../components/errors/feedback-notification';
+import Th from '../../components/th-sort';
 import useApplicationRoutes from '../../api/routes';
+import ViewFacture from '../../components/view-facture';
 
 const filterData = (data: ITransactions[], search: string) => {
     const query = search.toLowerCase().trim();

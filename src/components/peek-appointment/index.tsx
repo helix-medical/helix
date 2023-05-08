@@ -1,11 +1,11 @@
 import { Anchor, Button, Center, Divider, SimpleGrid, TextInput, Text } from '@mantine/core';
-import { usePeekAppointment } from './peek-appointment.logic';
-import { IEvent } from '../types/interfaces';
-import KindAppointment from './customBadges/kind-appointment';
+import { usePeekAppointment } from './logic';
+import { IEvent } from '../../types/interfaces';
+import KindAppointment from '../customBadges/kind-appointment';
 import { IconPhone, IconSend } from '@tabler/icons-react';
 import moment from 'moment';
-import cnf from '../config/config';
-import GrantAccess from './auth/grant-access';
+import cnf from '../../config/config';
+import GrantAccess from '../auth/grant-access';
 
 const PeekAppointment = ({ input }: { input: IEvent }) => {
     const { navigate, event } = usePeekAppointment(input);
