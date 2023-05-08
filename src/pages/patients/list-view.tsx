@@ -1,32 +1,17 @@
 import React from 'react';
 import { IconSearch } from '@tabler/icons-react';
-import { IPatient } from '../../types/interfaces';
+import { IPatientListView } from './types';
 import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
-import IdBadge from '../../components/customBadges/id';
-import Th from '../../components/th-sort';
-import cnf from '../../config/config';
-import moment from 'moment';
-import ModalViewPatient from './view';
 import { useListView } from './list-view.logic';
+import cnf from '../../config/config';
+import IdBadge from '../../components/customBadges/id';
+import moment from 'moment';
+import Th from '../../components/th-sort';
 
-interface TableSortProps {
-    patients: IPatient[];
-    handleDelete: (id: string | undefined) => void;
-}
-
-const PatientsTableView = ({ patients, handleDelete }: TableSortProps) => {
-    const {
-        sortedData,
-        search,
-        handleSearchChange,
-        reverseSortDirection,
-        toggleModal,
-        setPatient,
-        patient,
-        sortBy,
-        setSorting,
-        show,
-    } = useListView(patients);
+const PatientsTableView = ({ patients }: { patients: IPatientListView[] }) => {
+    const { sortedData, search, handleSearchChange, reverseSortDirection, sortBy, setSorting, navigate } =
+        useListView(patients);
+    const navigateToPatient = (id: string) => navigate(`/patients/${id}`);
 
     const rows = sortedData.map((row: any) => (
         <tr key={row.id}>
@@ -37,16 +22,8 @@ const PatientsTableView = ({ patients, handleDelete }: TableSortProps) => {
             <td>{row.lastName}</td>
             <td>{moment(row.birthDate).format(cnf.formatDatePretty)}</td>
             <td>{row.email}</td>
-            <td>{row.city}</td>
             <td>
-                <Button
-                    variant="light"
-                    color="fr-yellow.4"
-                    onClick={() => {
-                        setPatient(row);
-                        toggleModal();
-                    }}
-                >
+                <Button variant="light" color="fr-yellow.4" onClick={() => navigateToPatient(row.id)}>
                     View
                 </Button>
             </td>
@@ -101,13 +78,6 @@ const PatientsTableView = ({ patients, handleDelete }: TableSortProps) => {
                         >
                             Email
                         </Th>
-                        <Th
-                            sorted={sortBy === 'city'}
-                            reversed={reverseSortDirection}
-                            onSort={() => setSorting('city')}
-                        >
-                            City
-                        </Th>
                         <th>View</th>
                     </tr>
                 </thead>
@@ -125,11 +95,8 @@ const PatientsTableView = ({ patients, handleDelete }: TableSortProps) => {
                     )}
                 </tbody>
             </Table>
-            {show && (
-                <ModalViewPatient patient={patient} show={show} toggleModal={toggleModal} handleDelete={handleDelete} />
-            )}
         </ScrollArea>
     );
 };
 
-export default PatientsTableView;
+export { PatientsTableView };

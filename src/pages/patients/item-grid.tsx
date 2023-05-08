@@ -1,46 +1,30 @@
 import React from 'react';
-import { useState } from 'react';
-import ModalViewPatient from './view';
-import { IPatient } from '../../types/interfaces';
 import { Card, Text, Button, Group } from '@mantine/core';
 import SexBadge from '../../components/customBadges/sex-badge';
 import IdBadge from '../../components/customBadges/id';
+import { useNavigate } from 'react-router-dom';
+import { IPatientGridView } from './types';
 
-interface IProps {
-    patient: IPatient;
-    handleDelete: (id: string | undefined) => void;
-}
-
-function PatientItemGrid({ patient, handleDelete }: IProps): JSX.Element {
-    const [show, setShow] = useState(false);
-    const toggleModal = () => setShow(!show);
+function PatientItemGrid({ patient }: { patient: IPatientGridView }): JSX.Element {
+    const navigate = useNavigate();
+    const navigateToPatient = () => navigate(`/patients/${patient.id}`);
 
     return (
-        <div key={patient.id}>
-            <Card radius="md" withBorder shadow="sm" padding="lg">
-                <Group position="center" mb="md">
-                    <Text size="xl" weight={700}>
-                        {patient.name} {patient.lastName}
-                    </Text>
-                </Group>
-                <Group position="center">
-                    <IdBadge id={patient.id ?? ''} />
-                    <SexBadge sex={patient.sex} />
-                </Group>
-                <Button variant="light" radius="md" mt="md" fullWidth onClick={toggleModal} color="fr-yellow.4">
-                    View
-                </Button>
-            </Card>
-            {show ? (
-                <ModalViewPatient
-                    patient={patient}
-                    show={show}
-                    toggleModal={toggleModal}
-                    handleDelete={handleDelete}
-                />
-            ) : null}
-        </div>
+        <Card radius="md" withBorder shadow="sm" padding="lg" key={patient.id}>
+            <Group position="center" mb="md">
+                <Text size="xl" weight={700}>
+                    {patient.name} {patient.lastName}
+                </Text>
+            </Group>
+            <Group position="center">
+                <IdBadge id={patient.id ?? ''} />
+                <SexBadge sex={patient.sex} />
+            </Group>
+            <Button variant="light" radius="md" mt="md" fullWidth onClick={navigateToPatient} color="fr-yellow.4">
+                View
+            </Button>
+        </Card>
     );
 }
 
-export default PatientItemGrid;
+export { PatientItemGrid };

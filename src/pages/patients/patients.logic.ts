@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { IPatient } from '../../types/interfaces';
 import setNotification from '../../components/errors/feedback-notification';
 import useApplicationRoutes from '../../api/routes';
+import { IPatientListView } from './types';
 
-const useComponentLogic = (add: boolean) => {
+const usePatients = (add: boolean) => {
     const routes = useApplicationRoutes();
-    const [patients, setPatients] = useState<IPatient[]>([]);
+    const [patients, setPatients] = useState<IPatientListView[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [viewType, setViewType] = useState('grid');
     const isGrid: boolean = viewType === 'grid';
@@ -34,17 +34,6 @@ const useComponentLogic = (add: boolean) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh]);
 
-    const handleDelete = async (id: string | undefined) => {
-        if (!id) return console.error('No id');
-        try {
-            const res = await routes.patients.delete(id);
-            setNotification(false, res.data.message);
-        } catch (error: any) {
-            if (!error?.response) setNotification(true, 'Network error');
-            else setNotification(true, `${error.message}: ${error.response.data.message}`);
-        }
-    };
-
     const changeView = () => {
         setViewType((currentState) => (currentState === 'grid' ? 'list' : 'grid'));
     };
@@ -52,7 +41,6 @@ const useComponentLogic = (add: boolean) => {
     return {
         patients,
         error,
-        handleDelete,
         nbPatients: patients.length,
         isGrid,
         show,
@@ -61,4 +49,4 @@ const useComponentLogic = (add: boolean) => {
     };
 };
 
-export default useComponentLogic;
+export { usePatients };

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
 import {
     ActionIcon,
     Badge,
@@ -12,19 +11,20 @@ import {
     Tooltip,
     useMantineTheme,
 } from '@mantine/core';
-import PatientItemGrid from './item-grid';
-import ModalAddPatient from './create';
-import PatientsTableView from './list-view';
-import { IPatient } from '../../types/interfaces';
+import { IconLayoutGrid, IconLayoutList } from '@tabler/icons-react';
+import { IPatientGridView } from './types';
+import { ModalAddPatient } from './create';
+import { PatientItemGrid } from './item-grid';
+import { PatientsStyles } from './patients.styles';
+import { PatientsTableView } from './list-view';
+import { usePatients } from './patients.logic';
 import NoContent from '../../components/errors/no-content';
-import Styles from './patients.styles';
-import useComponentLogic from './index.logic';
 
 const Patients = ({ add }: { add: boolean }): JSX.Element => {
     const [mainColor, setMainColor] = useState('fr-yellow.4');
     const theme = useMantineTheme();
-    const { classes } = Styles();
-    const { patients, error, handleDelete, changeView, isGrid, show, nbPatients, toggleModal } = useComponentLogic(add);
+    const { classes } = PatientsStyles();
+    const { patients, error, changeView, isGrid, show, nbPatients, toggleModal } = usePatients(add);
 
     useEffect(() => {
         setMainColor(theme.colorScheme === 'dark' ? 'fr-yellow.6' : 'fr-yellow.4');
@@ -66,14 +66,14 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
                 <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
                     {isGrid ? (
                         <Grid columns={12}>
-                            {patients.map((patient: IPatient) => (
+                            {patients.map((patient: IPatientGridView) => (
                                 <Grid.Col xs={6} sm={4} md={3} lg={3} xl={2} key={patient.id}>
-                                    <PatientItemGrid key={patient.id} patient={patient} handleDelete={handleDelete} />
+                                    <PatientItemGrid patient={patient} />
                                 </Grid.Col>
                             ))}
                         </Grid>
                     ) : (
-                        <PatientsTableView patients={patients} handleDelete={handleDelete} />
+                        <PatientsTableView patients={patients} />
                     )}
                 </Paper>
             )}

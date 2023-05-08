@@ -1,7 +1,6 @@
-import { createStyles } from "@mantine/core";
+import { createStyles } from '@mantine/core';
 
-
-const Styles = createStyles((theme) => ({
+const PatientsStyles = createStyles((theme) => ({
     button: {
         [theme.fn.smallerThan('xs')]: {
             display: 'none',
@@ -15,4 +14,4 @@ const Styles = createStyles((theme) => ({
     },
 }));
 
-export default Styles;
+export { PatientsStyles };

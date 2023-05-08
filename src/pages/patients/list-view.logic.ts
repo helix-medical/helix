@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
 import { IPatient } from '../../types/interfaces';
 import { keys } from '@mantine/utils';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const useListView = (patients: any) => {
     const filterData = (data: IPatient[], search: string) => {
@@ -34,9 +35,7 @@ const useListView = (patients: any) => {
     const [sortedData, setSortedData] = useState(patients);
     const [sortBy, setSortBy] = useState<keyof IPatient | null>(null);
     const [reverseSortDirection, setReverseSortDirection] = useState(false);
-    const [show, setShow] = useState(false);
-    const [patient, setPatient] = useState<IPatient>({} as IPatient);
-    const toggleModal = () => setShow(!show);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setSortedData(sortData(patients, { sortBy, reversed: reverseSortDirection, search }));
@@ -61,12 +60,9 @@ const useListView = (patients: any) => {
         setSorting,
         handleSearchChange,
         search,
-        show,
-        toggleModal,
-        setPatient,
         reverseSortDirection,
-        patient,
         sortBy,
+        navigate,
     };
 };
 

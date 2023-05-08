@@ -1,8 +1,8 @@
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
-import setNotification from '../../components/errors/feedback-notification';
 import { useNavigate } from 'react-router-dom';
-import moment from 'moment';
 import cnf from '../../config/config';
+import moment from 'moment';
+import setNotification from '../../components/errors/feedback-notification';
 import useApplicationRoutes from '../../api/routes';
 
 const useComponentLogic = (handleClose: () => void) => {

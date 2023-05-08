@@ -125,4 +125,4 @@ const ModalAddPatient = ({ show, toggleModal }: IProps): JSX.Element => {
     );
 };
 
-export default ModalAddPatient;
+export { ModalAddPatient };
