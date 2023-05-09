@@ -3,7 +3,7 @@ import { ITransaction } from './types';
 import { usePatientAccounting } from './accounting.logic';
 import moment from 'moment';
 import PaymentMethod from '../../components/customBadges/payment-method';
-import ViewFacture from '../../components/view-facture';
+import ViewPDF from '../../components/pdf/viewer';
 
 const rows = (data: ITransaction[], handler: (id: string) => any) =>
     data.map((transaction) => (
@@ -48,7 +48,9 @@ const PatientAccounting = ({ data }: { data: ITransaction[] }) => {
                     <tbody>{data.length === 0 ? <NoData /> : rows(data, handleShowFacture)}</tbody>
                 </Table>
             </ScrollArea>
-            {showFacture ? <ViewFacture open={showFacture} handler={handleHideFacture} id={selected} /> : null}
+            {showFacture ? (
+                <ViewPDF open={showFacture} handler={handleHideFacture} id={selected} type="facture" />
+            ) : null}
         </Paper>
     );
 };

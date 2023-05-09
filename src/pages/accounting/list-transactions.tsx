@@ -23,7 +23,7 @@ import PaymentMethod from '../../components/customBadges/payment-method';
 import setNotification from '../../components/errors/feedback-notification';
 import Th from '../../components/th-sort';
 import useApplicationRoutes from '../../api/routes';
-import ViewFacture from '../../components/view-facture';
+import ViewPDF from '../../components/pdf/viewer';
 
 const filterData = (data: ITransactions[], search: string) => {
     const query = search.toLowerCase().trim();
@@ -233,7 +233,7 @@ const ListTransactions = (): JSX.Element => {
                     </tbody>
                 </Table>
             </ScrollArea>
-            {showFacture && <ViewFacture open={showFacture} handler={() => setShowFacture(false)} id={id} />}
+            {showFacture && <ViewPDF open={showFacture} handler={() => setShowFacture(false)} id={id} type="facture" />}
         </Paper>
     );
 };

@@ -9,9 +9,9 @@ const usePatientNavBar = (form: UseFormReturnType<IPatient>) => {
     const navigate = useNavigate();
     const routes = useApplicationRoutes();
     const [update, setUpdate] = useState(false);
+    const [showExport, setShowExport] = useState(false);
 
     const handleDelete = async (id: string) => {
-        console.log(id);
         if (!id) return console.error('No id');
         try {
             const res = await routes.patients.delete(id);
@@ -45,7 +45,6 @@ const usePatientNavBar = (form: UseFormReturnType<IPatient>) => {
                 }),
             };
 
-            console.log(finalPatient);
             try {
                 const res = await routes.patients.update(form.values.id, finalPatient);
                 setNotification(false, res.data.message);
@@ -57,7 +56,11 @@ const usePatientNavBar = (form: UseFormReturnType<IPatient>) => {
         setUpdate(!update);
     };
 
-    return { handleDelete, handleUpdate, update };
+    const handleExport = () => {
+        setShowExport(!showExport);
+    };
+
+    return { handleDelete, handleUpdate, update, handleExport, showExport };
 };
 
 export { usePatientNavBar };

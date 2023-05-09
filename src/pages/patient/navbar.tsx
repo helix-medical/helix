@@ -3,11 +3,12 @@ import { UseFormReturnType } from '@mantine/form';
 import GrantAccess from '../../components/auth/grant-access';
 import { usePatientNavBar } from './navbar.logic';
 import { IPatient } from './types';
-import { usePatientContext } from './patient.context';
+import { usePatientContext } from './context';
 import { useEffect } from 'react';
+import ViewPDF from '../../components/pdf/viewer';
 
 const PatientNavBar = ({ form }: { form: UseFormReturnType<IPatient> }) => {
-    const { handleDelete, handleUpdate, update } = usePatientNavBar(form);
+    const { handleDelete, handleUpdate, update, showExport, handleExport } = usePatientNavBar(form);
     const { setUpdate } = usePatientContext();
     useEffect(() => {
         setUpdate(update);
@@ -35,12 +36,15 @@ const PatientNavBar = ({ form }: { form: UseFormReturnType<IPatient> }) => {
                             {update ? 'Save' : 'Update'}
                         </Button>
                     </GrantAccess>
-                    <Button variant="light" color="blue" size="sm">
+                    <Button variant="light" color="blue" size="sm" onClick={handleExport}>
                         Export
                     </Button>
                 </Group>
             </Group>
             <Divider my="sm" />
+            {showExport ? (
+                <ViewPDF open={showExport} id={form.values.id} type="patient" handler={handleExport} />
+            ) : null}
         </>
     );
 };

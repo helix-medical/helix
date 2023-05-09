@@ -3,8 +3,8 @@ import { Grid } from '@mantine/core';
 import { PatientAccounting } from './accounting';
 import { PatientAppointments } from './appointments';
 import { PatientNavBar } from './navbar';
-import { usePatient } from './patient.logic';
-import { PatientProvider } from './patient.context';
+import { PatientProvider } from './context';
+import { usePatient } from './logic';
 
 const Patient = () => {
     const id = window.location.href.split('/').slice(-1)[0];
@@ -23,6 +23,7 @@ const Patient = () => {
                     <PatientAppointments data={appointments} />
                 </Grid.Col>
             </Grid>
+            
         </PatientProvider>
     );
 };

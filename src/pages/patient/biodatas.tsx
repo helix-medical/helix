@@ -3,7 +3,7 @@ import { IconPhone, IconSend } from '@tabler/icons-react';
 import GrantAccess from '../../components/auth/grant-access';
 import { UseFormReturnType } from '@mantine/form';
 import { IPatient } from './types';
-import { usePatientContext } from './patient.context';
+import { usePatientContext } from './context';
 
 const Biodatas = ({ form }: { form: UseFormReturnType<IPatient> }) => {
     const { update } = usePatientContext();
