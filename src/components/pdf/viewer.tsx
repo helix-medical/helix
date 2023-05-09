@@ -1,13 +1,15 @@
 import React from 'react';
 import { Button, Group, LoadingOverlay, Modal, Title } from '@mantine/core';
 import { PDFViewer } from '@react-pdf/renderer';
-import { useViewFacture } from './logic';
-import { ViewFactureStyles } from './styles';
-import Facture from '../pdf/facture';
+import { useViewPDF } from './logic';
+import { PDFStyles } from './styles';
+import Facture from './facture';
 import ModalOverlay from '../modal-overlay';
+import PatientPDF from './patient';
+// import AppointmentPDF from './appointment';
 
-const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: string }) => {
-    const { factureNumber, data, handleDownload } = useViewFacture(id);
+const ViewPDF = ({ open, handler, id, type }: { open: boolean; handler: any; id: string; type: string }) => {
+    const { title, data, handleDownload } = useViewPDF(id, type);
 
     return (
         <Modal.Root opened={open} onClose={handler} size="xl">
@@ -16,15 +18,21 @@ const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: s
                 <Modal.Header>
                     <Modal.Title>
                         <Group position="apart">
-                            <Title order={4}>Facture {factureNumber}</Title>
+                            <Title order={4}>{title}</Title>
                         </Group>
                     </Modal.Title>
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
                     {data ? (
-                        <PDFViewer style={ViewFactureStyles.viewer}>
-                            <Facture data={{ ...data, factureNumber }} id={id} />
+                        <PDFViewer style={PDFStyles.viewer}>
+                            {type === 'facture' ? (
+                                <Facture data={data} id={id} />
+                            ) : (
+                                // ) : type === 'patient' ? (
+                                <PatientPDF data={data} />
+                                // <AppointmentPDF data={{}} />
+                            )}
                         </PDFViewer>
                     ) : (
                         <LoadingOverlay visible />
@@ -40,4 +48,4 @@ const ViewFacture = ({ open, handler, id }: { open: boolean; handler: any; id: s
     );
 };
 
-export default ViewFacture;
+export default ViewPDF;
