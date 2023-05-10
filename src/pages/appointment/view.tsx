@@ -4,7 +4,6 @@ import { useAppForm, AppFormProvider } from './form-context';
 import Anamnesis from './anamnesis';
 import Biodatas from './biodatas';
 import Conclusion from './conclusion';
-import GenerateReport from './generate-report';
 import GrantAccess from '../../components/auth/grant-access';
 import Metadata from './metadata';
 import NavBarAppointment from './navbar';
@@ -18,10 +17,6 @@ const ViewAppointment = () => {
     const form = useAppForm();
     const [mainColor, setMainColor] = useState('fr-orange.4');
     const [open, setOpen] = useState(false);
-    const theme = useMantineTheme();
-    useEffect(() => {
-        setMainColor(theme.colorScheme === 'dark' ? 'fr-orange.6' : 'fr-orange.4');
-    }, [theme.colorScheme]);
 
     const [data, setData] = useState({
         appID: id,
@@ -79,7 +74,7 @@ const ViewAppointment = () => {
 
     return (
         <>
-            <NavBarAppointment view={true} color={mainColor} handler={() => setOpen(true)} />
+            <NavBarAppointment view color={mainColor} handler={() => setOpen(true)} />
             <Metadata appointment={data} />
             <AppFormProvider form={form}>
                 <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
@@ -92,7 +87,6 @@ const ViewAppointment = () => {
                 </GrantAccess>
                 <Secretary secretary={payment} view={true} />
             </AppFormProvider>
-            <GenerateReport open={open} handler={() => setOpen(false)} data={data as any} />
         </>
     );
 };

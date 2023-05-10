@@ -28,11 +28,11 @@ const NavBarAppointment = ({ view, color, handler }: IProps): JSX.Element => {
                 </Title>
             </Group>
             <Group>
-                {view && (
+                {view ? (
                     <Button onClick={handler} color={color}>
                         Export to PDF
                     </Button>
-                )}
+                ) : null}
             </Group>
         </Grid>
     );
