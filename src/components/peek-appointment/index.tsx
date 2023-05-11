@@ -108,9 +108,7 @@ const PeekAppointment = ({ input }: { input: IEvent }) => {
                 color="fr-orange.4"
                 fullWidth
                 mt="lg"
-                onClick={() =>
-                    navigate(`/appointments/${event.appID}/${event.status === 'finished' ? 'view' : 'edit'}`)
-                }
+                onClick={() => navigate(`/appointments/${event.appID}`)}
             >
                 {event.status !== 'pending' ? 'View Appointment' : 'Start Appointment'}
             </Button>

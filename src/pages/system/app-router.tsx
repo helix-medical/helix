@@ -8,14 +8,12 @@ import PersistentLogin from '../../components/auth/persistent-login';
 import cnf from '../../config/config';
 // Pages
 import Accounting from '../accounting';
+import Appointment from '../appointment';
 import Appointments from '../appointments';
 import Calendar from '../calendar';
-import EditAppointment from '../appointment/edit';
 import Home from '../home';
 import Patient from '../patient';
 import Patients from '../patients';
-import ViewAppointment from '../appointment/view';
-import Appointment from '../appointment';
 // Errors
 import NotFound from '../../components/errors/404';
 import Unauthorized from '../../components/errors/unauthorized';
@@ -45,12 +43,7 @@ const AppRouter = () => {
                             <Route index element={<Appointments add={false} />} />
                             <Route path="add" element={<Appointments add={true} />} />
                             <Route path=":appointmentID" element={<Appointment />} />
-                            <Route path=":appointmentID/view" element={<ViewAppointment />} />
                         </Route>
-                    </Route>
-                    <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.PRACTITIONER]} />}>
-                        <Route path="appointments/:appointmentID/edit" element={<EditAppointment />} />
-                        <Route path="*" element={<NotFound />} /> {/* ?? */}
                     </Route>
                 </Route>
 

@@ -29,11 +29,7 @@ const AppItemGrid = ({ appointment }: IProps): JSX.Element => {
                     mt="md"
                     fullWidth
                     color="fr-orange.4"
-                    onClick={() =>
-                        navigate(
-                            `/appointments/${appointment.id}/${appointment.status === 'finished' ? 'view' : 'edit'}`
-                        )
-                    }
+                    onClick={() => navigate(`/appointments/${appointment.id}`)}
                 >
                     {appointment.status !== 'pending' ? 'View' : 'Edit'}
                 </Button>
