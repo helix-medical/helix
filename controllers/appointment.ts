@@ -33,30 +33,26 @@ const create = async (req: Request, res: Response) => {
 };
 
 const read = async (req: Request, res: Response) => {
-    const { id, view } = req.params;
+    const { id } = req.params;
     const sqlQuery = `
         SELECT
             app.id AS appID,
             e.start AS date,
             app.kind,
-            ${
-                view === 'view'
-                    ? `app.content,
+            app.content,
             a.amount,
-            a.method,`
-                    : ''
-            }
+            a.method,
             app.patientId,
             app.status,
-            p.name AS pName,
-            p.lastName AS pLastName,
+            u.name AS pName,
+            u.lastName AS pLastName,
             p.email,
             p.birthDate,
             p.city,
             p.sex,
             p.passif,
-            u.name,
-            u.lastName,
+            p.name,
+            p.lastName,
             p.address,
             p.phone,
             p.doctor,
@@ -65,11 +61,11 @@ const read = async (req: Request, res: Response) => {
             INNER JOIN patients p ON app.patientId = p.id
             INNER JOIN events e ON app.event = e.id
             INNER JOIN users u ON e.calendar = u.uid
-            ${view === 'view' ? `INNER JOIN accounting a ON app.payment = a.uid` : ''}
+            LEFT JOIN accounting a ON app.payment = a.uid
         WHERE app.id = ?
     `;
 
-    await queries.pull(req, res, sqlQuery, [id], { id, name: 'Appointment', verb: `returned for ${view}` });
+    await queries.pull(req, res, sqlQuery, [id], { id, name: 'Appointment', verb: `returned` });
 };
 
 const updateContent = async (req: Request, res: Response) => {
