@@ -82,7 +82,7 @@ const useAppointmentGet = (id: string) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await routes.appointments.getForView(id);
+                const res = await routes.appointments.getOne(id);
                 content.setValues({
                     anamnesis: {
                         reasons: JSON.parse(res.data[0].content).reasons,
