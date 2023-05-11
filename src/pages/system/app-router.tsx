@@ -15,6 +15,7 @@ import Home from '../home';
 import Patient from '../patient';
 import Patients from '../patients';
 import ViewAppointment from '../appointment/view';
+import Appointment from '../appointment';
 // Errors
 import NotFound from '../../components/errors/404';
 import Unauthorized from '../../components/errors/unauthorized';
@@ -43,6 +44,7 @@ const AppRouter = () => {
                         <Route path="appointments">
                             <Route index element={<Appointments add={false} />} />
                             <Route path="add" element={<Appointments add={true} />} />
+                            <Route path=":appointmentID" element={<Appointment />} />
                             <Route path=":appointmentID/view" element={<ViewAppointment />} />
                         </Route>
                     </Route>

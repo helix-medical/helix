@@ -6,14 +6,10 @@ import cnf from '../../config/config';
 import { DateTimePicker } from '@mantine/dates';
 
 interface IProps {
-    view?: boolean;
-    secretary: {
-        amount: number;
-        method: string;
-    };
+    view: boolean;
 }
 
-const Secretary = ({ secretary, view }: IProps): JSX.Element => {
+const Secretary = ({ view }: IProps): JSX.Element => {
     const form = useAppFormContext();
 
     return (
@@ -21,26 +17,26 @@ const Secretary = ({ secretary, view }: IProps): JSX.Element => {
             <Title order={2}>Secretary Part</Title>
             <Grid columns={12}>
                 <Grid.Col span={4}>
-                    {view ? (
+                    {/* {view ? (
                         <TextInput
                             icon={<IconCurrencyEuro size="1rem" />}
                             label="Amount"
                             defaultValue={secretary.amount}
                             readOnly
                         />
-                    ) : (
-                        <NumberInput
-                            icon={<IconCurrencyEuro size="1rem" />}
-                            label="Amount"
-                            defaultValue={view ? secretary.amount : cnf.defaultAmount}
-                            {...(view ? null : form.getInputProps('payment.amount'))}
-                            readOnly={view}
-                        />
-                    )}
+                    ) : ( */}
+                    <NumberInput
+                        icon={<IconCurrencyEuro size="1rem" />}
+                        label="Amount"
+                        placeholder="Amount"
+                        {...form.getInputProps('payment.amount')}
+                        readOnly={view}
+                    />
+                    {/* )} */}
                 </Grid.Col>
                 <Grid.Col span={4}>
                     {view ? (
-                        <TextInput label="Method" defaultValue={secretary.method} readOnly />
+                        <TextInput label="Method" defaultValue={form.values.payment.method} readOnly />
                     ) : (
                         <Select
                             label="Method"
@@ -69,4 +65,4 @@ const Secretary = ({ secretary, view }: IProps): JSX.Element => {
     );
 };
 
-export default Secretary;
+export { Secretary };

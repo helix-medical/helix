@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Paper, Title, useMantineTheme } from '@mantine/core';
+import { Paper, Title } from '@mantine/core';
 import { useAppForm, AppFormProvider } from './form-context';
-import Anamnesis from './anamnesis';
-import Biodatas from './biodatas';
-import Conclusion from './conclusion';
 import GrantAccess from '../../components/auth/grant-access';
-import Metadata from './metadata';
-import NavBarAppointment from './navbar';
-import Secretary from './secretary';
+import { Metadata } from './metadata';
+import { NavBarAppointment } from './navbar';
 import setNotification from '../../components/errors/feedback-notification';
 import useApplicationRoutes from '../../api/routes';
 
@@ -75,17 +71,16 @@ const ViewAppointment = () => {
     return (
         <>
             <NavBarAppointment view color={mainColor} handler={() => setOpen(true)} />
-            <Metadata appointment={data} />
+            <Metadata data={data as any} />
             <AppFormProvider form={form}>
                 <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
                     <Title order={2}>Patient Data</Title>
-                    <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} />
+                    {/* <Biodatas view={true} patient={data} passif={JSON.parse(data.passif)} /> */}
                 </Paper>
                 <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
-                    <Anamnesis anamnesis={content} view={true} />
-                    <Conclusion conclusion={content} view={true} />
+                    {/* <Anamnesis anamnesis={content} view={true} /> */}
+                    {/* <Conclusion conclusion={content} view={true} /> */}
                 </GrantAccess>
-                <Secretary secretary={payment} view={true} />
             </AppFormProvider>
         </>
     );

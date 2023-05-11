@@ -1,37 +1,26 @@
 import React from 'react';
 import { TextInput, Title, Grid, Paper } from '@mantine/core';
-import { IAppointmentDataView, IAppointmentDataEdit } from '../../types/interfaces';
-import cnf from '../../config/config';
-import moment from 'moment';
+import { UseFormReturnType } from '@mantine/form';
+import { IAppointmentData } from './types';
 
-interface IProps {
-    appointment: IAppointmentDataView | IAppointmentDataEdit;
-}
+const Metadata = ({ data }: { data: UseFormReturnType<IAppointmentData> }): JSX.Element => (
+    <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
+        <Title order={2}>Appointment Data</Title>
+        <Grid columns={12}>
+            <Grid.Col xs={6} sm={3} md={3}>
+                <TextInput label="Date" readOnly defaultValue={data.values.date} />
+            </Grid.Col>
+            <Grid.Col xs={6} sm={3} md={3}>
+                <TextInput label="Kind" readOnly {...data.getInputProps('kind')} />
+            </Grid.Col>
+            <Grid.Col xs={6} sm={3} md={3}>
+                <TextInput label="Patient ID" readOnly defaultValue={data.values.patientID.toUpperCase()} />
+            </Grid.Col>
+            <Grid.Col xs={6} sm={3} md={3}>
+                <TextInput label="Practitioner" readOnly defaultValue={data.values.practitionerName} />
+            </Grid.Col>
+        </Grid>
+    </Paper>
+);
 
-const Metadata = ({ appointment }: IProps): JSX.Element => {
-    return (
-        <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
-            <Title order={2}>Appointment Data</Title>
-            <Grid columns={12}>
-                <Grid.Col xs={6} sm={3} md={3}>
-                    <TextInput
-                        label="Date"
-                        readOnly
-                        defaultValue={appointment.date ? moment(appointment.date).format(cnf.formatDateTimePretty) : ''}
-                    />
-                </Grid.Col>
-                <Grid.Col xs={6} sm={3} md={3}>
-                    <TextInput label="Kind" readOnly defaultValue={appointment.kind} />
-                </Grid.Col>
-                <Grid.Col xs={6} sm={3} md={3}>
-                    <TextInput label="Patient ID" readOnly defaultValue={appointment.patientId} />
-                </Grid.Col>
-                <Grid.Col xs={6} sm={3} md={3}>
-                    <TextInput label="Practitioner" readOnly defaultValue={appointment.name} />
-                </Grid.Col>
-            </Grid>
-        </Paper>
-    );
-};
-
-export default Metadata;
+export { Metadata };

@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Center, useMantineTheme } from '@mantine/core';
-import PatientMetadata from './patient-metadata';
-import Anamnesis from './anamnesis';
-import Conclusion from './conclusion';
-import Metadata from './metadata';
-import NavBarAppointment from './navbar';
+import { Metadata } from './metadata';
+import { NavBarAppointment } from './navbar';
 import { isNotEmpty } from '@mantine/form';
 import { useAppForm, AppFormProvider } from './form-context';
 import setNotification from '../../components/errors/feedback-notification';
 import { useNavigate } from 'react-router-dom';
-import Secretary from './secretary';
 import moment from 'moment';
 import cnf from '../../config/config';
 import useApplicationRoutes from '../../api/routes';
@@ -131,14 +127,14 @@ const EditAppointment = (): JSX.Element => {
 
     return (
         <>
-            <NavBarAppointment view={false} color={mainColor} />
-            <Metadata appointment={data} />
-            <PatientMetadata patientInput={data} color={mainColor} />
+            <NavBarAppointment color={mainColor} />
+            <Metadata data={data as any} />
+            {/* <PatientMetadata form={data as any} color={mainColor} /> */}
             <AppFormProvider form={form}>
                 <form onSubmit={handleClick}>
-                    <Anamnesis anamnesis={form.values.anamnesis} />
-                    <Conclusion conclusion={form.values.conclusion} />
-                    <Secretary secretary={form.values.payment} />
+                    {/* <Anamnesis anamnesis={form.values.anamnesis} /> */}
+                    {/* <Conclusion conclusion={form.values.conclusion} /> */}
+                    {/* <Secretary secretary={form.values.payment} /> */}
                     <Center>
                         <Button type="submit" m="lg" color={mainColor}>
                             Valid Appointment

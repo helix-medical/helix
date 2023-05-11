@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Badge, Title, Grid, Group, createStyles } from '@mantine/core';
+import { Button, Badge, Title, Grid, Group } from '@mantine/core';
+import { AppointmentStyles } from './styles';
 
 interface IProps {
     view?: boolean;
@@ -7,22 +8,15 @@ interface IProps {
     handler?: () => void;
 }
 
-const useStyles = createStyles((theme) => ({
-    useless: {
-        [theme.fn.smallerThan('xs')]: {
-            display: 'none',
-        },
-    },
-}));
-
 const NavBarAppointment = ({ view, color, handler }: IProps): JSX.Element => {
-    const { classes: style } = useStyles();
+    const { classes } = AppointmentStyles();
+
     return (
         <Grid justify="space-between" align="center" p="md">
             <Group>
                 <Title order={1}>
                     Appointment{' '}
-                    <Badge color={view ? 'red' : 'green'} size="xl" radius="sm" className={style.useless}>
+                    <Badge color={view ? 'red' : 'green'} size="xl" radius="sm" className={classes.useless}>
                         {view ? 'READONLY' : 'CAN EDIT'}
                     </Badge>
                 </Title>
@@ -38,4 +32,4 @@ const NavBarAppointment = ({ view, color, handler }: IProps): JSX.Element => {
     );
 };
 
-export default NavBarAppointment;
+export { NavBarAppointment };
