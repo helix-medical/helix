@@ -30,6 +30,11 @@ const useCalendarConfig = () => {
 
     const slotGroupPropGetter = useCallback(() => ({ style: { minHeight: 60 } }), []);
 
+    const eventPropGetter = useCallback(
+        (event: any) => ({ ...(event.kind === 'app' && { className: 'test-event' }) }),
+        []
+    );
+
     const localizer = momentLocalizer(moment);
 
     const formats = useMemo(
@@ -72,7 +77,7 @@ const useCalendarConfig = () => {
         showMore: (total: number) => `+${total} more`,
     };
 
-    return { customComponents, localizer, formats, messages, slotGroupPropGetter };
+    return { customComponents, localizer, formats, messages, slotGroupPropGetter, eventPropGetter };
 };
 
 export { useCalendarConfig };

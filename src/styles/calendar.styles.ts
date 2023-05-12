@@ -17,6 +17,13 @@ const CalendarStyles = createStyles((theme) => {
                 margin: 5,
                 backgroundColor: theme.colorScheme === 'dark' ? theme.colors['fr-cyan'][6] : theme.colors['fr-cyan'][4],
             },
+            '.rbc-day-slot .rbc-event': {
+                border: 'none',
+            },
+            '.test-event': {
+                backgroundColor:
+                    theme.colorScheme === 'dark' ? theme.colors['fr-orange'][6] : theme.colors['fr-orange'][4],
+            },
             '.rbc-time-view': {
                 border: `1px solid ${borderColor}`,
                 borderRadius: theme.radius.sm,

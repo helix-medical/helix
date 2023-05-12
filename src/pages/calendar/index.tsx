@@ -28,7 +28,7 @@ const Calendar = () => {
         onCreateEvent,
         range,
     } = useCalendar();
-    const { customComponents, formats, localizer, messages, slotGroupPropGetter } = useCalendarConfig();
+    const { customComponents, formats, localizer, messages, slotGroupPropGetter, eventPropGetter } = useCalendarConfig();
     const HelixCalendar = withDragAndDrop(BigCalendar);
 
     const [view, setView] = useState('calendar');
@@ -66,6 +66,7 @@ const Calendar = () => {
                         max={new Date(1972, 0, 1, 19, 59, 59)}
                         min={new Date(1972, 0, 1, 8, 0, 0)}
                         slotGroupPropGetter={slotGroupPropGetter}
+                        eventPropGetter={eventPropGetter}
                         views={['week', 'day', 'agenda']}
                         messages={messages}
                         selectable
