@@ -17,9 +17,8 @@ import { ITransactions } from '../../types/interfaces';
 import { keys } from '@mantine/utils';
 import cnf from '../../config/config';
 import ExportAccounting from './export';
-import IdBadge from '../../components/customBadges/id';
+import { ID, PaymentMethod } from '../../components/custom-badges';
 import moment from 'moment';
-import PaymentMethod from '../../components/customBadges/payment-method';
 import setNotification from '../../components/errors/feedback-notification';
 import Th from '../../components/th-sort';
 import useApplicationRoutes from '../../api/routes';
@@ -115,7 +114,7 @@ const ListTransactions = (): JSX.Element => {
     const rows = sortedData.map((row) => (
         <tr key={row.uid}>
             <td>
-                <IdBadge id={row.uid ?? ''} color="teal" />
+                <ID id={row.uid ?? ''} color="teal" />
             </td>
             <td>
                 <Text fw={700}>€{row.amount}</Text>

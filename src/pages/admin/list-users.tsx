@@ -1,13 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Table, ActionIcon, Flex, Title, Badge, Group, Button, Divider } from '@mantine/core';
-import RoleBadge from '../../components/customBadges/user-badge';
+import { Role, ID, UserStatus } from '../../components/custom-badges';
 import { IconArchive, IconArchiveOff, IconEdit, IconEye } from '@tabler/icons-react';
-import IdBadge from '../../components/customBadges/id';
 import ModalAddUser from './create';
 import { IUsers } from '../../types/interfaces';
 import setNotification from '../../components/errors/feedback-notification';
-import UserStatus from '../../components/customBadges/user-status';
 import cnf from '../../config/config';
 import moment from 'moment';
 import useApplicationRoutes from '../../api/routes';
@@ -86,7 +84,7 @@ const ListUsers = (): JSX.Element => {
                     {users.map((user) => (
                         <tr key={user.uid}>
                             <td>
-                                <IdBadge id={user.uid ?? ''} />
+                                <ID id={user.uid ?? ''} />
                             </td>
                             <td>
                                 {user.name} {user.lastName}
@@ -96,7 +94,7 @@ const ListUsers = (): JSX.Element => {
                             </td>
                             <td>{moment(user.lastActive).format(cnf.formatDateTimePretty)}</td>
                             <td>
-                                <RoleBadge role={user.role} />
+                                <Role role={user.role} />
                             </td>
                             <td>
                                 <Flex>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, Text, Button, Group } from '@mantine/core';
-import SexBadge from '../../components/customBadges/sex-badge';
-import IdBadge from '../../components/customBadges/id';
+import { Sex, ID } from '../../components/custom-badges';
 import { useNavigate } from 'react-router-dom';
 import { IPatientGridView } from './types';
 
@@ -17,8 +16,8 @@ function PatientItemGrid({ patient }: { patient: IPatientGridView }): JSX.Elemen
                 </Text>
             </Group>
             <Group position="center">
-                <IdBadge id={patient.id ?? ''} />
-                <SexBadge sex={patient.sex} />
+                <ID id={patient.id ?? ''} />
+                <Sex sex={patient.sex} />
             </Group>
             <Button variant="light" radius="md" mt="md" fullWidth onClick={navigateToPatient} color="fr-yellow.4">
                 View

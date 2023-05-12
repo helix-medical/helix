@@ -2,9 +2,8 @@ import React from 'react';
 import { Paper, Accordion, Group, Text, Title, Textarea, TextInput } from '@mantine/core';
 import { IAppointment } from './types';
 import getNbLines from '../../helpers/get-lines';
-import KindAppointment from '../../components/customBadges/kind-appointment';
+import { KindAppointment, StateAppointment } from '../../components/custom-badges';
 import moment from 'moment';
-import StateAppointment from '../../components/customBadges/state-appointment';
 
 const Item = ({ data }: { data: IAppointment }) => {
     const content = JSON.parse(data.content);

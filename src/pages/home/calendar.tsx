@@ -10,7 +10,7 @@ import {
     IconChevronRight,
     IconReportMedical,
 } from '@tabler/icons-react';
-import IdBadge from '../../components/customBadges/id';
+import { ID } from '../../components/custom-badges';
 import { useNavigate } from 'react-router-dom';
 import useApplicationRoutes from '../../api/routes';
 import CalendarStyles from '../../styles/calendar.styles';
@@ -55,7 +55,7 @@ const Event = ({ event }: EventProps<IEvent>) => {
     return (
         <Group position="apart">
             <Group>
-                <IdBadge id={event.id} color={event.kind === 'app' ? 'fr-orange.4' : color} />
+                <ID id={event.id} color={event.kind === 'app' ? 'fr-orange.4' : color} />
                 <Text>{event.title}</Text>
             </Group>
             <ActionIcon color={event.kind === 'app' ? 'fr-orange.4' : color}>

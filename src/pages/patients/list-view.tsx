@@ -4,7 +4,7 @@ import { IPatientListView } from './types';
 import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
 import { useListView } from '../../helpers/list-view.logic';
 import cnf from '../../config/config';
-import IdBadge from '../../components/customBadges/id';
+import { ID } from '../../components/custom-badges';
 import moment from 'moment';
 import Th from '../../components/th-sort';
 
@@ -16,7 +16,7 @@ const PatientsTableView = ({ patients }: { patients: IPatientListView[] }) => {
     const rows = sortedData.map((row: any) => (
         <tr key={row.id}>
             <td>
-                <IdBadge id={row.id ?? ''} />
+                <ID id={row.id ?? ''} />
             </td>
             <td>{row.name}</td>
             <td>{row.lastName}</td>
