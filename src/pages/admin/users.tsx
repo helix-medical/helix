@@ -1,62 +1,14 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { Table, ActionIcon, Flex, Title, Badge, Group, Button, Divider } from '@mantine/core';
-import { Role, ID, UserStatus } from '../../components/custom-badges';
 import { IconArchive, IconArchiveOff, IconEdit, IconEye } from '@tabler/icons-react';
-import ModalAddUser from './create';
-import { IUsers } from '../../types/interfaces';
-import setNotification from '../../components/errors/feedback-notification';
+import { ModalAddUser } from './create';
+import { Role, ID, UserStatus } from '../../components/custom-badges';
+import { Table, ActionIcon, Flex, Title, Badge, Group, Button, Divider } from '@mantine/core';
+import { useUsers } from './users.logic';
 import cnf from '../../config/config';
 import moment from 'moment';
-import useApplicationRoutes from '../../api/routes';
 
 const ListUsers = (): JSX.Element => {
-    const routes = useApplicationRoutes();
-    const [show, setShow] = useState(false);
-    const toggleModal = () => {
-        setShow(!show);
-        setRefresh(!refresh);
-    };
-    const [users, setUsers] = useState<IUsers[]>([]);
-    const [refresh, setRefresh] = useState(false);
-
-    useEffect(() => {
-        const fetchAllUsers = async () => {
-            try {
-                const res = await routes.users.getAll();
-                setUsers(res.data);
-            } catch (error: any) {
-                if (!error?.response) setNotification(true, 'Network error');
-                else if (error.response.status !== 404)
-                    setNotification(true, `${error.message}: ${error.response.data.message}`);
-            }
-        };
-        fetchAllUsers();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [refresh]);
-
-    const disableUser = async (uid: string) => {
-        try {
-            const res = await routes.users.disable(uid);
-            setNotification(false, res.data.message);
-            setRefresh(!refresh);
-        } catch (error: any) {
-            if (!error?.response) setNotification(true, 'Network error');
-            else setNotification(true, `${error.message}: ${error.response.data.message}`);
-        }
-    };
-
-    const enableUser = async (uid: string) => {
-        try {
-            const res = await routes.users.enable(uid);
-            setNotification(false, res.data.message);
-            setRefresh(!refresh);
-        } catch (error: any) {
-            if (!error?.response) setNotification(true, 'Network error');
-            else setNotification(true, `${error.message}: ${error.response.data.message}`);
-        }
-    };
-
+    const { users, toggleModal, disableUser, enableUser, show } = useUsers();
     return (
         <>
             <Group position="apart">
@@ -132,4 +84,4 @@ const ListUsers = (): JSX.Element => {
     );
 };
 
-export default ListUsers;
+export { ListUsers };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ActionIcon, Card, Grid, Group, Title } from '@mantine/core';
 import useAuth from '../../hooks/use-auth';
 // import Account from './account';
-import Admin from '../admin';
+import AdminPanel from '../admin';
 import HomeCalendar from './calendar';
 import AccountingTile from './accounting';
 import { IconArrowUpRight } from '@tabler/icons-react';
@@ -26,7 +26,7 @@ const Home = () => {
             <Title order={1}>Welcome on Helix, {auth.name}!</Title>
             <Grid columns={12} p="lg">
                 <GrantAccess levels={['ADMIN']}>
-                    <Admin />
+                    <AdminPanel />
                 </GrantAccess>
                 <Grid.Col span={8}>
                     <Card shadow="sm" padding="lg" radius="md" withBorder>
