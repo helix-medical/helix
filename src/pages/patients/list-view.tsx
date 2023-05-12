@@ -2,7 +2,7 @@ import React from 'react';
 import { IconSearch } from '@tabler/icons-react';
 import { IPatientListView } from './types';
 import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
-import { useListView } from '../../helpers/list-view.logic';
+import { useListView } from '../../helpers/list-view';
 import cnf from '../../config/config';
 import { ID } from '../../components/custom-badges';
 import moment from 'moment';

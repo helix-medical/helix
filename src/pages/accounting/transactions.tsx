@@ -20,7 +20,7 @@ import { ID, PaymentMethod } from '../../components/custom-badges';
 import moment from 'moment';
 import Th from '../../components/th-sort';
 import ViewPDF from '../../components/pdf/viewer';
-import { useListView } from '../../helpers/list-view.logic';
+import { useListView } from '../../helpers/list-view';
 import { useTransactions } from './transactions.logic';
 
 const Transactions = (): JSX.Element => {
