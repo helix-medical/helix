@@ -75,8 +75,8 @@ const facture = async (req: Request, res: Response) => {
             p.lastName AS patientLastName,
             p.address AS patientAddress,
             p.city AS patientCity,
-            u.name AS doctorName,
-            u.lastName AS doctorLastName
+            u.name AS practitionerName,
+            u.lastName AS practitionerLastName
         FROM accounting a
             INNER JOIN appointments app ON a.appointment = app.id   
             INNER JOIN patients p ON app.patientId = p.id
