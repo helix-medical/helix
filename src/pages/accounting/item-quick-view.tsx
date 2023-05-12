@@ -1,63 +1,46 @@
 import React from 'react';
-import { Paper, Text, ThemeIcon, Group, Grid } from '@mantine/core';
+import { Paper, Text, ThemeIcon, Group, Flex } from '@mantine/core';
 import { IconCoins, IconCreditCard, IconFileHorizontal } from '@tabler/icons-react';
+import { ISum } from './types';
 
-interface IProps {
-    sum: {
-        sum: number;
-        checks: number;
-        cashs: number;
-        cards: number;
-    };
-    name: string;
-}
-
-const ItemQuickView = ({ sum, name }: IProps) => {
-    return (
-        <Paper shadow="sm" radius="md" p="lg" withBorder>
-            <Text c="dimmed" tt="uppercase" fw={700} fz="xs">
-                {name}
+const ItemQuickView = ({ sum, name }: { sum: ISum; name: string }) => (
+    <Paper shadow="sm" radius="md" p="lg" withBorder>
+        <Text c="dimmed" tt="uppercase" fw={700} fz="xs">
+            This {name}
+        </Text>
+        <Text fz="xl" fw={700}>
+            Total:{' '}
+            <Text span fz="xl" fw={700} color="teal.6">
+                €{sum?.sum ?? 0}
             </Text>
-            <Text fz="xl" fw={700}>
-                Total:{' '}
-                <Text span fz="xl" fw={700} color="teal.6">
-                    €{sum?.sum ?? 0}
+        </Text>
+        <Flex direction="row" align="center" justify="space-around">
+            <Group position="center">
+                <ThemeIcon radius="md" size="lg" color={sum?.cards > 0 ? 'teal' : 'gray'} variant="outline">
+                    <IconCreditCard />
+                </ThemeIcon>
+                <Text fz="lg" fw={700}>
+                    €{sum?.cards ?? 0}
                 </Text>
-            </Text>
-            <Grid columns={3} mt="xs">
-                <Grid.Col span={1}>
-                    <Group position="center">
-                        <ThemeIcon radius="md" size="lg" color={sum?.cards > 0 ? 'teal' : 'gray'} variant="outline">
-                            <IconCreditCard />
-                        </ThemeIcon>
-                        <Text fz="lg" fw={700}>
-                            €{sum?.cards ?? 0}
-                        </Text>
-                    </Group>
-                </Grid.Col>
-                <Grid.Col span={1}>
-                    <Group position="center">
-                        <ThemeIcon radius="md" size="lg" color={sum?.cashs > 0 ? 'teal' : 'gray'} variant="outline">
-                            <IconCoins />
-                        </ThemeIcon>
-                        <Text fz="lg" fw={700}>
-                            €{sum?.cashs ?? 0}
-                        </Text>
-                    </Group>
-                </Grid.Col>
-                <Grid.Col span={1}>
-                    <Group position="center">
-                        <ThemeIcon radius="md" size="lg" color={sum?.checks > 0 ? 'teal' : 'gray'} variant="outline">
-                            <IconFileHorizontal />
-                        </ThemeIcon>
-                        <Text fz="lg" fw={700}>
-                            €{sum?.checks ?? 0}
-                        </Text>
-                    </Group>
-                </Grid.Col>
-            </Grid>
-        </Paper>
-    );
-};
+            </Group>
+            <Group position="center">
+                <ThemeIcon radius="md" size="lg" color={sum?.cashs > 0 ? 'teal' : 'gray'} variant="outline">
+                    <IconCoins />
+                </ThemeIcon>
+                <Text fz="lg" fw={700}>
+                    €{sum?.cashs ?? 0}
+                </Text>
+            </Group>
+            <Group position="center">
+                <ThemeIcon radius="md" size="lg" color={sum?.checks > 0 ? 'teal' : 'gray'} variant="outline">
+                    <IconFileHorizontal />
+                </ThemeIcon>
+                <Text fz="lg" fw={700}>
+                    €{sum?.checks ?? 0}
+                </Text>
+            </Group>
+        </Flex>
+    </Paper>
+);
 
-export default ItemQuickView;
+export { ItemQuickView };

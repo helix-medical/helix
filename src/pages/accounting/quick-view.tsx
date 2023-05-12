@@ -1,80 +1,28 @@
 import React from 'react';
+import { ISum } from './types';
+import { ItemQuickView } from './item-quick-view';
 import { Title, Grid, Paper } from '@mantine/core';
-import moment from 'moment';
-import cnf from '../../config/config';
-import { useEffect, useState } from 'react';
-import setNotification from '../../components/errors/feedback-notification';
-import ItemQuickView from './item-quick-view';
-import useApplicationRoutes from '../../api/routes';
-
-interface ISum {
-    sum: number;
-    checks: number;
-    cashs: number;
-    cards: number;
-}
+import { useQuickView } from './quick-view.logic';
 
 const QuickView = () => {
-    const routes = useApplicationRoutes();
-    const now = moment().format(cnf.formatDateTime);
-    const lastMonth = moment().subtract(1, 'months').format(cnf.formatDateTime);
-    const lastWeek = moment().subtract(7, 'days').format(cnf.formatDateTime);
-    const initDate = moment('1998-12-17').format(cnf.formatDateTime);
-
-    const [sumMonth, setSumMonth] = useState<ISum>();
-    const [sumWeek, setSumWeek] = useState<ISum>();
-    const [sumAll, setSumAll] = useState<ISum>();
-
-    useEffect(() => {
-        const getSumMonth = async () => {
-            try {
-                const res = await routes.accounting.getSumByDates(lastMonth, now);
-                setSumMonth(res.data);
-            } catch (error: any) {
-                if (error.response.status !== 404)
-                    setNotification(true, `${error.message}: ${error.response.data.message}`);
-            }
-        };
-        const getSumWeek = async () => {
-            try {
-                const res = await routes.accounting.getSumByDates(lastWeek, now);
-                setSumWeek(res.data);
-            } catch (error: any) {
-                if (error.response.status !== 404)
-                    setNotification(true, `${error.message}: ${error.response.data.message}`);
-            }
-        };
-        const getSumAll = async () => {
-            try {
-                const res = await routes.accounting.getSumByDates(initDate, now);
-                setSumAll(res.data);
-            } catch (error: any) {
-                if (error.response.status !== 404)
-                    setNotification(true, `${error.message}: ${error.response.data.message}`);
-            }
-        };
-        getSumMonth();
-        getSumWeek();
-        getSumAll();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const { sumMonth, sumWeek, sumAll } = useQuickView();
 
     return (
         <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
             <Title order={2}>Quick View</Title>
             <Grid columns={12} align="center" p="md">
                 <Grid.Col xs={12} sm={6} md={6} lg={4} xl={4}>
-                    <ItemQuickView sum={sumMonth as ISum} name="This Month" />
+                    <ItemQuickView sum={sumMonth as ISum} name="Month" />
                 </Grid.Col>
                 <Grid.Col xs={12} sm={6} md={6} lg={4} xl={4}>
-                    <ItemQuickView sum={sumWeek as ISum} name="This Week" />
+                    <ItemQuickView sum={sumWeek as ISum} name="Week" />
                 </Grid.Col>
                 <Grid.Col xs={12} sm={12} md={12} lg={4} xl={4}>
-                    <ItemQuickView sum={sumAll as ISum} name="All Time" />
+                    <ItemQuickView sum={sumAll as ISum} name="Time" />
                 </Grid.Col>
             </Grid>
         </Paper>
     );
 };
 
-export default QuickView;
+export { QuickView };

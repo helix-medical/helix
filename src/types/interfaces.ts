@@ -106,16 +106,6 @@ export interface IUsers {
     lastActive: string;
 }
 
-export interface ITransactions {
-    uid: string;
-    date: string;
-    method: string;
-    amount: string;
-    patientName: string;
-    patientLastName: string;
-    appointment: string;
-}
-
 export interface IEvent {
     id: string;
     title: string;

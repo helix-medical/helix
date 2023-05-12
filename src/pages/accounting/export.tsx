@@ -1,77 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Button, Center, Modal, Text, TextInput, useMantineTheme } from '@mantine/core';
-import { ITransactions } from '../../types/interfaces';
+import React, { useState } from 'react';
+import { Button, Center, Modal, Text, TextInput } from '@mantine/core';
 import { CSVLink } from 'react-csv';
 import { SegmentedControl } from '@mantine/core';
-import moment from 'moment';
+import { useTransactionsExport } from './export.logic';
 import cnf from '../../config/config';
-import setNotification from '../../components/errors/feedback-notification';
-import useApplicationRoutes from '../../api/routes';
+import ModalOverlay from '../../components/modal-overlay';
+import moment from 'moment';
 
 const header = ['Transaction ID', 'Date', 'Amount', 'Method', 'Patient'];
 
 const ModalExport = ({ period, open, handler }: { period: string; open: boolean; handler: any }) => {
-    const routes = useApplicationRoutes();
-    const [view, setView] = useState(period === 'all' ? 'year' : period);
-    const [transactions, setTransactions] = useState<ITransactions[]>([]);
-    const [startDate, setStartDate] = useState('1998-12-17 00:00');
-    const csvLink = useRef(null);
-    const endDate = moment().format(cnf.formatDateTime);
-    const theme = useMantineTheme();
-
-    useEffect(() => {
-        switch (view) {
-            case 'week':
-                setStartDate(moment().subtract(7, 'days').format(cnf.formatDateTime));
-                break;
-            case 'month':
-                setStartDate(moment().subtract(1, 'months').format(cnf.formatDateTime));
-                break;
-            case 'semester':
-                setStartDate(moment().subtract(6, 'months').format(cnf.formatDateTime));
-                break;
-            case 'year':
-                setStartDate(moment().subtract(1, 'years').format(cnf.formatDateTime));
-                break;
-        }
-    }, [view]);
-
-    useEffect(() => {
-        const fetchAllTransactions = async () => {
-            try {
-                const res = await routes.accounting.getByDates(startDate, endDate);
-                setTransactions(
-                    res.data.map((transaction: ITransactions) => [
-                        transaction.uid,
-                        transaction.date,
-                        transaction.amount,
-                        transaction.method,
-                        `${transaction.patientName} ${transaction.patientLastName}`,
-                    ])
-                );
-            } catch (error: any) {
-                if (!error?.response) setNotification(true, 'Network error');
-                else setNotification(true, `${error.message}: ${error.response.data.message}`);
-            }
-        };
-        fetchAllTransactions();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [startDate, endDate]);
-
-    const handleClick = () => {
-        if (csvLink.current) {
-            const node: any = csvLink.current;
-            node.link.click();
-        }
-    };
+    const { view, setView, startDate, endDate, transactions, csvLink, handleExport } = useTransactionsExport(period);
 
     return (
         <Modal.Root opened={open} onClose={handler}>
-            <Modal.Overlay
-                color={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
-                opacity={0.55}
-                blur={3}
-            />
+            <Modal.Overlay {...ModalOverlay} />
             <Modal.Content>
                 <Modal.Header>
                     <Modal.Title>
@@ -114,7 +57,7 @@ const ModalExport = ({ period, open, handler }: { period: string; open: boolean;
                         style={{ display: 'none' }}
                     ></CSVLink>
                     <Center>
-                        <Button mt="lg" color="teal" onClick={handleClick}>
+                        <Button mt="lg" color="teal" onClick={handleExport}>
                             Export
                         </Button>
                     </Center>
@@ -132,7 +75,7 @@ const ExportAccounting = ({ period }: { period: string }): JSX.Element => {
             <Button color="teal" radius="sm" onClick={() => setOpen(!open)}>
                 Export
             </Button>
-            <ModalExport open={open} period={period} handler={() => setOpen(!open)} />
+            {open ? <ModalExport open={open} period={period} handler={() => setOpen(!open)} /> : null}
         </>
     );
 };
