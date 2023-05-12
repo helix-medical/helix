@@ -3,7 +3,7 @@ import { ToolbarProps, Navigate, View } from 'react-big-calendar';
 import { ActionIcon, Card, Center, Grid, Group, NativeSelect, SegmentedControl, Text } from '@mantine/core';
 import { IconCalendar, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { useToolbarLogic } from './toolbar.logic';
-import { useCalendarLogic } from './calendar.logic';
+import { useCalendar } from './logic';
 
 interface IEvent {
     start: Date;
@@ -55,7 +55,7 @@ const SelectCalendar = ({
 
 const Toolbar = ({ label, localizer: { messages }, onNavigate, onView, views, view }: ToolbarProps<IEvent>) => {
     const { calendars, fetchCalendars } = useToolbarLogic();
-    const { handleCalendarChange } = useCalendarLogic();
+    const { handleCalendarChange } = useCalendar();
 
     useEffect(() => {
         fetchCalendars();

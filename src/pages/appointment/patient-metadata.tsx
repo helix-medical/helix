@@ -1,11 +1,43 @@
 import React from 'react';
-import { Textarea, Title, Tabs, Button, Badge, Center, Paper, TextInput } from '@mantine/core';
-import { Biodatas } from './biodatas';
-import { IconCalendarCheck, IconDna, IconAlertTriangle } from '@tabler/icons-react';
-import { UseFormReturnType } from '@mantine/form';
 import { IAppointmentData } from './types';
+import { IconCalendarCheck, IconDna, IconAlertTriangle } from '@tabler/icons-react';
+import { params } from './utils';
+import { Textarea, Title, Tabs, Button, Badge, Center, Paper, TextInput, Grid } from '@mantine/core';
 import { useAppointmentPatient } from './patient.logic';
+import { UseFormReturnType } from '@mantine/form';
 import GrantAccess from '../../components/auth/grant-access';
+
+const Biodatas = ({ data, view }: { data: UseFormReturnType<IAppointmentData>; view: boolean }): JSX.Element => (
+    <Grid columns={12}>
+        <Grid.Col sm={6} md={4}>
+            <TextInput label="Name" {...data.getInputProps('name')} {...params(view)} />
+        </Grid.Col>
+        <Grid.Col sm={6} md={4}>
+            <TextInput label="Last Name" {...data.getInputProps('lastName')} {...params(view)} />
+        </Grid.Col>
+        <Grid.Col xs={4} sm={2} md={4}>
+            <TextInput label="Sex" readOnly {...data.getInputProps('sex')} />
+        </Grid.Col>
+        <Grid.Col xs={8} sm={4} md={4}>
+            <TextInput label="Birth Date" {...data.getInputProps('birthDate')} {...params(view)} />
+        </Grid.Col>
+        <Grid.Col sm={6} md={4}>
+            <TextInput label="Email" {...data.getInputProps('email')} {...params(view)} />
+        </Grid.Col>
+        <Grid.Col sm={6} md={4}>
+            <TextInput label="Phone" {...data.getInputProps('phone')} {...params(view)} />
+        </Grid.Col>
+        <Grid.Col sm={6} md={4}>
+            <TextInput label="Address" {...data.getInputProps('address')} {...params(view)} />
+        </Grid.Col>
+        <Grid.Col sm={6} md={4}>
+            <TextInput label="Job" {...data.getInputProps('job')} {...params(view)} />
+        </Grid.Col>
+        <Grid.Col sm={6} md={4}>
+            <TextInput label="City" {...data.getInputProps('city')} {...params(view)} />
+        </Grid.Col>
+    </Grid>
+);
 
 interface IProps {
     form: UseFormReturnType<IAppointmentData>;

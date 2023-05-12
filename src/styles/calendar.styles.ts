@@ -11,7 +11,7 @@ const CalendarStyles = createStyles((theme) => {
             '.rbc-day-bg + .rbc-day-bg': { borderLeft: `2px solid ${borderColor}` },
             '.rbc-event-label': { display: 'none' },
             '.rbc-today': {
-                backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors['fr-cyan'][0],
+                backgroundColor: theme.colorScheme === 'dark' ? theme.colors['fr-cyan'][9] : theme.colors['fr-cyan'][0],
             },
             '.rbc-event': {
                 margin: 5,

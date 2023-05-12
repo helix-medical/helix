@@ -121,4 +121,4 @@ const CreateEvent = ({ opened, handler, range }: { opened: boolean; handler: () 
     );
 };
 
-export default CreateEvent;
+export { CreateEvent };

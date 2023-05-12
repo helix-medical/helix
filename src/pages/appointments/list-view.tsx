@@ -1,76 +1,21 @@
-import React, { useEffect } from 'react';
-import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
-import KindAppointment from '../../components/customBadges/kind-appointment';
+import React from 'react';
 import { IAppointmentExtended } from '../../types/interfaces';
-import IdBadge from '../../components/customBadges/id';
-import { useNavigate } from 'react-router-dom';
-import cnf from '../../config/config';
-import moment from 'moment';
-import { keys } from '@mantine/utils';
-import Th from '../../components/th-sort';
-import { useState } from 'react';
 import { IconSearch } from '@tabler/icons-react';
+import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
+import { useListView } from '../../helpers/list-view.logic';
+import cnf from '../../config/config';
+import { ID, KindAppointment } from '../../components/custom-badges';
+import moment from 'moment';
+import Th from '../../components/th-sort';
 
-interface IProps {
-    appointments: IAppointmentExtended[];
-}
-
-const filterData = (data: IAppointmentExtended[], search: string) => {
-    const query = search.toLowerCase().trim();
-    return data.filter((item) => keys(data[0]).some((key) => item[key].toLowerCase().includes(query)));
-};
-
-const sortData = (
-    data: IAppointmentExtended[],
-    payload: { sortBy: keyof IAppointmentExtended | null; reversed: boolean; search: string }
-) => {
-    const { sortBy } = payload;
-
-    if (!sortBy) {
-        return filterData(data, payload.search);
-    }
-
-    return filterData(
-        [...data].sort((a, b) => {
-            if (payload.reversed) {
-                return b[sortBy].localeCompare(a[sortBy]);
-            }
-
-            return a[sortBy].localeCompare(b[sortBy]);
-        }),
-        payload.search
-    );
-};
-
-const AppTableView = ({ appointments }: IProps): JSX.Element => {
-    const [search, setSearch] = useState<string>('');
-    const [sortedData, setSortedData] = useState(appointments);
-    const [sortBy, setSortBy] = useState<keyof IAppointmentExtended | null>(null);
-    const [reverseSortDirection, setReverseSortDirection] = useState(false);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        setSortedData(sortData(appointments, { sortBy, reversed: reverseSortDirection, search }));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [appointments]);
-
-    const setSorting = (field: keyof IAppointmentExtended) => {
-        const reversed = field === sortBy ? !reverseSortDirection : false;
-        setReverseSortDirection(reversed);
-        setSortBy(field);
-        setSortedData(sortData(appointments, { sortBy: field, reversed, search }));
-    };
-
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.currentTarget;
-        setSearch(value);
-        setSortedData(sortData(appointments, { sortBy, reversed: reverseSortDirection, search: value }));
-    };
+const AppTableView = ({ appointments }: { appointments: IAppointmentExtended[] }): JSX.Element => {
+    const { sortedData, search, handleSearchChange, reverseSortDirection, sortBy, setSorting, navigate } =
+        useListView<IAppointmentExtended>(appointments);
 
     const rows = sortedData.map((row) => (
         <tr key={row.id}>
             <td>
-                <IdBadge id={row.id ?? ''} />
+                <ID id={row.id ?? ''} />
             </td>
             <td>{row.name}</td>
             <td>{row.lastName}</td>

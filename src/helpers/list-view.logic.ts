@@ -1,18 +1,20 @@
-import { IPatient } from '../../types/interfaces';
+// import { IPatient } from '../../types/interfaces';
 import { keys } from '@mantine/utils';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const useListView = (patients: any) => {
-    const filterData = (data: IPatient[], search: string) => {
+const useListView = <T>(patients: T[]) => {
+    const filterData = (data: T[], search: string) => {
         const query = search.toLowerCase().trim();
-        return data.filter((item) => keys(data[0]).some((key) => item[key].toLowerCase().includes(query)));
+        return data.filter((item) =>
+            // eslint-disable-next-line array-callback-return
+            keys(data[0]).some((key) => {
+                if (typeof item[key] === 'string') return (item[key] as string).toLowerCase().includes(query);
+            })
+        );
     };
 
-    const sortData = (
-        data: IPatient[],
-        payload: { sortBy: keyof IPatient | null; reversed: boolean; search: string }
-    ) => {
+    const sortData = (data: T[], payload: { sortBy: keyof T | null; reversed: boolean; search: string }) => {
         const { sortBy } = payload;
 
         if (!sortBy) {
@@ -22,18 +24,18 @@ const useListView = (patients: any) => {
         return filterData(
             [...data].sort((a, b) => {
                 if (payload.reversed) {
-                    return b[sortBy].localeCompare(a[sortBy]);
+                    return (b[sortBy] as string).localeCompare(a[sortBy] as string);
                 }
 
-                return a[sortBy].localeCompare(b[sortBy]);
+                return (a[sortBy] as string).localeCompare(b[sortBy] as string);
             }),
             payload.search
         );
     };
 
     const [search, setSearch] = useState<string>('');
-    const [sortedData, setSortedData] = useState(patients);
-    const [sortBy, setSortBy] = useState<keyof IPatient | null>(null);
+    const [sortedData, setSortedData] = useState<T[]>(patients);
+    const [sortBy, setSortBy] = useState<keyof T | null>(null);
     const [reverseSortDirection, setReverseSortDirection] = useState(false);
     const navigate = useNavigate();
 
@@ -42,7 +44,7 @@ const useListView = (patients: any) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [patients]);
 
-    const setSorting = (field: keyof IPatient) => {
+    const setSorting = (field: keyof T) => {
         const reversed = field === sortBy ? !reverseSortDirection : false;
         setReverseSortDirection(reversed);
         setSortBy(field);

@@ -76,4 +76,4 @@ const useCalendarConfig = () => {
     return { customComponents, localizer, formats, messages, slotGroupPropGetter };
 };
 
-export default useCalendarConfig;
+export { useCalendarConfig };

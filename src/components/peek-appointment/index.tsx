@@ -1,7 +1,7 @@
 import { Anchor, Button, Center, Divider, SimpleGrid, TextInput, Text } from '@mantine/core';
 import { usePeekAppointment } from './logic';
 import { IEvent } from '../../types/interfaces';
-import KindAppointment from '../customBadges/kind-appointment';
+import { KindAppointment } from '../custom-badges';
 import { IconPhone, IconSend } from '@tabler/icons-react';
 import moment from 'moment';
 import cnf from '../../config/config';

@@ -5,7 +5,7 @@ import moment from 'moment';
 import setNotification from '../../components/errors/feedback-notification';
 import useApplicationRoutes from '../../api/routes';
 
-const useCalendarLogic = () => {
+const useCalendar = () => {
     const routes = useApplicationRoutes();
 
     const [calendar, setCalendar] = useState<string>('all');
@@ -101,4 +101,4 @@ const useCalendarLogic = () => {
     };
 };
 
-export { useCalendarLogic };
+export { useCalendar };

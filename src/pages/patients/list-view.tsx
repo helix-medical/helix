@@ -2,7 +2,7 @@ import React from 'react';
 import { IconSearch } from '@tabler/icons-react';
 import { IPatientListView } from './types';
 import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';
-import { useListView } from './list-view.logic';
+import { useListView } from '../../helpers/list-view.logic';
 import cnf from '../../config/config';
 import IdBadge from '../../components/customBadges/id';
 import moment from 'moment';
@@ -10,7 +10,7 @@ import Th from '../../components/th-sort';
 
 const PatientsTableView = ({ patients }: { patients: IPatientListView[] }) => {
     const { sortedData, search, handleSearchChange, reverseSortDirection, sortBy, setSorting, navigate } =
-        useListView(patients);
+        useListView<IPatientListView>(patients);
     const navigateToPatient = (id: string) => navigate(`/patients/${id}`);
 
     const rows = sortedData.map((row: any) => (

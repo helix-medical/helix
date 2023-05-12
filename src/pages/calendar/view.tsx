@@ -76,4 +76,4 @@ const ViewEvent = ({ input, opened, handleClose }: { input: IEvent; opened: bool
     </Modal.Root>
 );
 
-export default ViewEvent;
+export { ViewEvent };
