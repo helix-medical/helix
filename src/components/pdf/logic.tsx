@@ -24,7 +24,7 @@ const useViewPDF = (id: string, type: string) => {
     };
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchFactureData = async () => {
             try {
                 const res = await routes.accounting.getFacture(id);
                 setData(res.data[0]);
@@ -51,7 +51,7 @@ const useViewPDF = (id: string, type: string) => {
                 else setNotification(true, `${error.message}: ${error.response.data.message}`);
             }
         };
-        if (type === 'facture') fetchData();
+        if (type === 'facture') fetchFactureData();
         else if (type === 'patient') fetchPatientData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);

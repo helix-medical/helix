@@ -37,7 +37,7 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-const Patients = ({ add }: { add: boolean }): JSX.Element => {
+const Appointments = ({ add }: { add?: boolean }): JSX.Element => {
     const routes = useApplicationRoutes();
     // Modal
     const [show, setShow] = useState(add);
@@ -153,4 +153,4 @@ const Patients = ({ add }: { add: boolean }): JSX.Element => {
     );
 };
 
-export default Patients;
+export default Appointments;

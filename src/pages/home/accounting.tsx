@@ -33,16 +33,6 @@ const AccountingTile = ({ period }: IProps) => {
                     setNotification(true, `${error.message}: ${error.response.data.message}`);
             }
         };
-        // const getSumWeek = async () => {
-        //     try {
-        //         const res = await api.get(`/accounting/sum/${lastWeek}/${now}`);
-        //         setData(res.data);
-        //         setSum((res.data.sum * 100) / max);
-        //     } catch (error: any) {
-        //         if (error.response.status !== 404)
-        //             setNotification(true, `${error.message}: ${error.response.data.message}`);
-        //     }
-        // };
         getSum();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [period]);

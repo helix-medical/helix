@@ -1,7 +1,21 @@
 import React from 'react';
+import { Badge, Center, Group, Text } from '@mantine/core';
+import moment from 'moment';
 import { EventProps } from 'react-big-calendar';
-import { Badge, Group, Text } from '@mantine/core';
 import { IEvent } from '../../types/interfaces';
+
+const Event = ({ event }: EventProps<IEvent>) => {
+    return (
+        <>
+            <Text fz="xs" fw={700}>
+                {moment(event.start).format('HH:mm')} - {moment(event.end).format('HH:mm')}
+            </Text>
+            <Center>
+                <Text>{event.title}</Text>
+            </Center>
+        </>
+    );
+};
 
 const AgendaEvent = ({ event }: EventProps<IEvent>) => {
     return (
@@ -14,4 +28,4 @@ const AgendaEvent = ({ event }: EventProps<IEvent>) => {
     );
 };
 
-export default AgendaEvent;
+export { Event, AgendaEvent };

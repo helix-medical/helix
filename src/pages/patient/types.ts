@@ -39,3 +39,12 @@ export interface ITransaction {
     method: string;
     date: string;
 }
+
+export interface IContent {
+    reasons: string;
+    symptoms: string;
+    diagnosis: string;
+    treatment: string;
+    knownDiseases: string;
+    observations: string;
+}

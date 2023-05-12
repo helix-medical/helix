@@ -1,6 +1,5 @@
 import { momentLocalizer } from 'react-big-calendar';
-import AgendaEvent from './agenda-event';
-import Event from './event';
+import { Event, AgendaEvent } from './events';
 import Toolbar from './toolbar';
 import { Text } from '@mantine/core';
 import moment from 'moment';

@@ -7,10 +7,11 @@ import { Group, Paper, SegmentedControl, Title } from '@mantine/core';
 import { useCalendar } from './logic';
 import { useCalendarConfig } from './calendar.config';
 import { ViewEvent } from './view';
+// import Appointments from '../appointments';
+import AppTableView from '../appointments/list-view';
 import CalendarStyles from '../../styles/calendar.styles';
 import moment from 'moment';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
-import AppTableView from '../appointments/list-view';
 
 const Calendar = () => {
     const { classes } = CalendarStyles();
@@ -78,6 +79,7 @@ const Calendar = () => {
                     />
                 ) : (
                     <AppTableView appointments={events.filter((event) => event.kind === 'app') as any} />
+                    // <Appointments />
                 )}
             </Paper>
             {opened ? <ViewEvent input={event} opened={opened} handleClose={handleClose} /> : null}

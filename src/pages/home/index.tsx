@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ActionIcon, Card, Grid, Group, Title } from '@mantine/core';
 import useAuth from '../../hooks/use-auth';
-// import Account from './account';
+import Account from './account';
 import AdminPanel from '../admin';
 import HomeCalendar from './calendar';
 import AccountingTile from './accounting';
@@ -35,7 +35,7 @@ const Home = () => {
                 </Grid.Col>
                 <Grid.Col span={4}>
                     <NextAppointmentWrapper input={event} />
-                    <Card shadow="sm" padding="lg" radius="md" withBorder>
+                    <Card shadow="sm" padding="lg" radius="md" withBorder mb="md">
                         <Group position="apart" mb="md">
                             <div></div>
                             <Title order={2}>Accounting</Title>
@@ -46,7 +46,7 @@ const Home = () => {
                         <AccountingTile period="week" />
                         <AccountingTile period="month" />
                     </Card>
-                    {/* <Account id={auth.id} /> */}
+                    <Account id={auth.id} />
                 </Grid.Col>
             </Grid>
         </>

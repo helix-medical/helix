@@ -1,6 +1,6 @@
 import React from 'react';
 import { Textarea, Title, Grid, Paper } from '@mantine/core';
-import getNbLines from '../../helpers/get-lines';
+import nbLines from '../../helpers/get-lines';
 import { useAppFormContext } from './form-context';
 
 const Conclusion = ({ view }: { view: boolean }): JSX.Element => {
@@ -16,15 +16,15 @@ const Conclusion = ({ view }: { view: boolean }): JSX.Element => {
                         {...form.getInputProps('conclusion.diagnosis')}
                         placeholder="Diagnosis"
                         readOnly={view}
-                        maxRows={getNbLines(form.values.conclusion.diagnosis)}
-                        minRows={getNbLines(form.values.conclusion.diagnosis)}
+                        maxRows={nbLines(form.values.conclusion.diagnosis)}
+                        minRows={nbLines(form.values.conclusion.diagnosis)}
                     />
                 </Grid.Col>
                 <Grid.Col span={12}>
                     <Textarea
                         label="Treatment"
-                        maxRows={getNbLines(form.values.conclusion.treatment)}
-                        minRows={getNbLines(form.values.conclusion.treatment)}
+                        maxRows={nbLines(form.values.conclusion.treatment)}
+                        minRows={nbLines(form.values.conclusion.treatment)}
                         {...form.getInputProps('conclusion.treatment')}
                         placeholder="Treatment"
                         readOnly={view}
@@ -33,8 +33,8 @@ const Conclusion = ({ view }: { view: boolean }): JSX.Element => {
                 <Grid.Col span={12}>
                     <Textarea
                         label="Conseils"
-                        maxRows={getNbLines(form.values.conclusion.observations)}
-                        minRows={getNbLines(form.values.conclusion.observations)}
+                        maxRows={nbLines(form.values.conclusion.observations)}
+                        minRows={nbLines(form.values.conclusion.observations)}
                         {...form.getInputProps('conclusion.observations')}
                         placeholder="Conseils"
                         readOnly={view}
