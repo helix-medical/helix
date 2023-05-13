@@ -1,78 +1,37 @@
 import React from 'react';
 import {
-    createStyles,
-    Header,
-    Container,
-    Avatar,
-    Group,
-    Burger,
-    rem,
-    Title,
     ActionIcon,
+    Avatar,
+    Burger,
+    Container,
+    Group,
+    Header,
+    rem,
+    Text,
+    Title,
     Tooltip,
     UnstyledButton,
-    Text,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { DrawerApp } from './navbar-links';
 import { IconSearch, IconPower } from '@tabler/icons-react';
-import ToggleTheme from '../toggle-theme';
-import useLogout from '../../hooks/use-logout';
-import DrawerApp from './navbar-links';
 import { spotlight } from '@mantine/spotlight';
+import { useDisclosure } from '@mantine/hooks';
+import { useLayoutStyles } from './styles';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
-
-const useStyles = createStyles((theme) => ({
-    inner: {
-        height: rem(60),
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-
-    links: {
-        [theme.fn.smallerThan('sm')]: {
-            display: 'none',
-        },
-    },
-
-    burger: {
-        [theme.fn.largerThan('sm')]: {
-            display: 'none',
-        },
-    },
-
-    link: {
-        display: 'block',
-        lineHeight: 1,
-        padding: `${rem(8)} ${rem(12)}`,
-        borderRadius: theme.radius.sm,
-        textDecoration: 'none',
-        // color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
-        // fontSize: theme.fontSizes.sm,
-        fontWeight: 500,
-
-        '&:hover': {
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-        },
-    },
-
-    linkLabel: {
-        marginRight: rem(5),
-    },
-}));
+import ToggleTheme from '../toggle-theme';
+import useLogout from '../../hooks/use-logout';
 
 const links = [
-    { label: 'Patients', link: '/patients', color: 'fr-yellow.4' },
-    { label: 'Appointments', link: '/appointments', color: 'fr-pink' },
-    { label: 'Calendar', link: '/calendar', color: 'fr-cyan.4' },
-    { label: 'Accounting', link: '/accounting', color: 'teal' },
+    { label: 'Patients', link: '/patients' },
+    { label: 'Rendez-vous', link: '/calendar' },
+    { label: 'Comptabilité', link: '/accounting' },
 ];
 
 const HeaderApp = () => {
     const [opened, { toggle }] = useDisclosure(false);
     const logout = useLogout();
-    const { classes } = useStyles();
+    const { classes } = useLayoutStyles();
     const navigate = useNavigate();
 
     const goToLink = (link: string) => {
@@ -92,7 +51,7 @@ const HeaderApp = () => {
 
     return (
         <>
-            <Header height={rem(60)} sx={{ borderBottom: 0 }} mb={10}>
+            <Header height={rem(60)} className={classes.header}>
                 <Container className={classes.inner} fluid>
                     <Group>
                         <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
@@ -127,4 +86,4 @@ const HeaderApp = () => {
     );
 };
 
-export default HeaderApp;
+export { HeaderApp };

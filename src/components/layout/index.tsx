@@ -1,16 +1,15 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import HeaderApp from './header';
-import styles from '../../styles/app.module.css';
+import { HeaderApp } from './header';
+import { useLayoutStyles } from './styles';
+import { AppShell } from '@mantine/core';
 
 const Layout = () => {
+    const { classes } = useLayoutStyles();
     return (
-        <>
-            <HeaderApp />
-            <div className={styles.body}>
-                <Outlet />
-            </div>
-        </>
+        <AppShell header={<HeaderApp />} className={classes.body}>
+            <Outlet />
+        </AppShell>
     );
 };
 
