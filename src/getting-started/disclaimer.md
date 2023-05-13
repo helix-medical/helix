@@ -1,8 +1,8 @@
 # Disclaimer et précautions d'usage
 
-!!! tip "Contenu de cette page"
-
-    Quelques choses à avoir en tête avant d'utiliser Helix.
+> **Contenu de cette page**
+>
+> Quelques choses à avoir en tête avant d'utiliser Helix.
 
 ## Développement en cours
 

@@ -14,9 +14,9 @@
   - [Schema](./api/schema.md)
   - [Accounting](./api/accounting.md)
   - [Appointments](./api/appointments.md)
-  - [Patients](./api/patients.md)
-  - [Events](./api/events.md)
   - [Auth](./api/auth.md)
+  - [Events](./api/events.md)
+  - [Patients](./api/patients.md)
   - [Users](./api/users.md)
 
 - [Utility `lx`](./lx-tool/index.md)

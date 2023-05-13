@@ -2,6 +2,7 @@
 
 Installateur et configurateur de Helix.
 
-!!! info "Documentation"
-
-    Pour voir la documentation technique complète, [cliquez ici](https://github.com/helix-medical/lx).
+> **Documentation**
+>
+> Pour voir la documentation technique complète, [cliquez ici](https://helix-medical.github.io/lx-tool).
+> *Written in Rust*

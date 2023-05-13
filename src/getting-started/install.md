@@ -1,10 +1,10 @@
 # Installation
 
-!!! warning "A prendre en compte avant l'installation"
+> **A prendre en compte avant l'installation**
+>
+> Merci de vous assurer que vous avez bien lu les [précautions d'usage](disclaimer.md) avant d'installer Helix.
 
-    Merci de vous assurer que vous avez bien lu les [précautions d'usage](disclaimer.md) avant d'installer Helix.
-
-## Requirements
+## Prérequis
 
 La philosophie de Helix est d'être hébergé chez soi, en *self-hosting*. C'est un gage de confidentialité, non négligeable dans le milieu médical, et cela permet à Helix de rester gratuit, et sans publicités.
 
@@ -18,7 +18,7 @@ Pour cela, il faut donc prévoir un peu de matériel et d'espace disque. Voici l
 
 ## Installation
 
-Commencez par cloner le dépôt, et lancer les conteneurs Docker:
+Commencez par cloner le repo:
 
 ```bash
 git clone https://github.com/helix-medical/releases && cd releases
@@ -30,10 +30,10 @@ Ensuite, lancez l'utilitaire d'installation. L'utilitaire va vous demander quelq
 lx config
 ```
 
-Enfin, déployez Helix:
+Enfin, démarrez Helix:
 
 ```bash
-lx deploy
+lx start
 ```
 
 Et c'est tout ! Helix est maintenant installé et fonctionnel. Vous pouvez vous connecter à l'adresse `http://localhost:3000` (ou `http://<votre-ip>:3000` si vous utilisez un serveur distant).
