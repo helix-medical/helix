@@ -17,22 +17,20 @@ if (process.env.NODE_ENV === 'production') {
     console.warn = () => {};
 }
 
-const App = () => {
-    return (
-        <ThemeProvider>
-            <Notifications />
-            <BrowserRouter>
-                <AuthProvider>
-                    <Spotlight>
-                        <Routes>
-                            <Route path="/*" element={<AppRouter />} />
-                        </Routes>
-                    </Spotlight>
-                </AuthProvider>
-            </BrowserRouter>
-        </ThemeProvider>
-    );
-};
+const App = () => (
+    <ThemeProvider>
+        <Notifications />
+        <BrowserRouter>
+            <AuthProvider>
+                <Spotlight>
+                    <Routes>
+                        <Route path="/*" element={<AppRouter />} />
+                    </Routes>
+                </Spotlight>
+            </AuthProvider>
+        </BrowserRouter>
+    </ThemeProvider>
+);
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(
