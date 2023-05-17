@@ -16,7 +16,7 @@ Pour cela, il faut donc prévoir un peu de matériel et d'espace disque. Voici l
   + Un processeur récent (Intel Core i3 ou supérieur, ou équivalent)
 + [Docker](https://docs.docker.com/get-docker/) et [Docker Compose](https://docs.docker.com/compose/compose-file/)
 
-## Installation
+## Étapes
 
 Commencez par cloner le repo:
 

@@ -22,3 +22,5 @@
 - [Utility `lx`](./lx-tool/index.md)
   - [Installation](./lx-tool/install.md)
   - [Usage](./lx-tool/usage.md)
+
+- [Contributing](./contributing/index.md)
