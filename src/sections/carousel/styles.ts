@@ -1,6 +1,10 @@
 import { createStyles, getStylesRef, rem } from '@mantine/core';
 
 const useCarouselStyles = createStyles((theme) => ({
+    inner: {
+        marginTop: `calc(${theme.spacing.xl} * 2)`,
+        paddingTop: `calc(${theme.spacing.xl} * 4)`,
+    },
     title: {
         color: theme.colorScheme === 'dark' ? theme.white : theme.black,
         fontSize: rem(34),

@@ -50,9 +50,10 @@ const useStyles = createStyles((theme) => ({
 const links = [
     { label: 'Home', link: '#' },
     { label: 'Features', link: '#features' },
+    { label: 'Interface', link: '#interface' },
     { label: 'FAQ', link: '#faq' },
-    { label: 'Docs', link: 'docs' },
-    { label: 'Demo', link: 'demo' },
+    { label: 'Docs', link: 'https://helix-medical.github.io/docs/' },
+    { label: 'Demo', link: 'https://helix-medical.github.io/demo/' },
 ];
 
 const HeaderWebsite = () => {

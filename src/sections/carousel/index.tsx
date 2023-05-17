@@ -1,6 +1,6 @@
 import React from 'react';
 import { Carousel } from '@mantine/carousel';
-import { Image, Paper, Text, Title } from '@mantine/core';
+import { Container, Image, Paper, Text, Title } from '@mantine/core';
 import { useCarouselStyles } from './styles';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { carouselData } from './data';
@@ -12,16 +12,16 @@ const CarouselSection = () => {
         <Carousel.Slide key={slide.title} onClick={() => {}}>
             <Paper shadow="sm" withBorder radius="md" p="xl">
                 <Image src={slide.image} withPlaceholder alt={slide.title} />
-                <Title order={2} align="center" className={classes.title}>
+                <Title order={3} align="center" mt="xs">
                     {slide.title}
                 </Title>
-                <Text>{slide.description}</Text>
+                <Text mb="lg">{slide.description}</Text>
             </Paper>
         </Carousel.Slide>
     ));
 
     return (
-        <>
+        <Container py="xl" id="interface" className={classes.inner}>
             <Title order={2} align="center" className={classes.title}>
                 Interface
             </Title>
@@ -38,7 +38,7 @@ const CarouselSection = () => {
             >
                 {slides}
             </Carousel>
-        </>
+        </Container>
     );
 };
 

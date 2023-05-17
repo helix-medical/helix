@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, Group, Title, Text, Card, SimpleGrid, Container, rem, Button, Center } from '@mantine/core';
+import { Title, Text, Card, SimpleGrid, Container, rem } from '@mantine/core';
 import { useFeaturesStyles } from './styles';
 import { featuresData } from './data';
 
@@ -18,13 +18,7 @@ const Features = () => {
     ));
 
     return (
-        <Container size="lg" py="xl" id="features">
-            <Group position="center">
-                <Badge variant="filled" size="lg">
-                    Best company ever
-                </Badge>
-            </Group>
-
+        <Container size="lg" py="xl" id="features" className={classes.inner}>
             <Title order={2} className={classes.title} ta="center" mt="sm">
                 Fonctionnalités
             </Title>
@@ -38,11 +32,6 @@ const Features = () => {
             <SimpleGrid cols={3} spacing="xl" mt={50} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
                 {features}
             </SimpleGrid>
-            <Center mt="xl">
-                <Button size="lg" radius="md">
-                    Get started
-                </Button>
-            </Center>
         </Container>
     );
 };

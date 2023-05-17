@@ -1,6 +1,9 @@
 import { createStyles, rem } from '@mantine/core';
 
 const useFeaturesStyles = createStyles((theme) => ({
+    inner: {
+        paddingTop: `calc(${theme.spacing.xl} * 2)`,
+    },
     title: {
         color: theme.colorScheme === 'dark' ? theme.white : theme.black,
         fontSize: rem(34),
