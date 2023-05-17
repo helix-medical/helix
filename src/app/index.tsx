@@ -1,14 +1,15 @@
 import React from 'react';
-import Banner from '../sections/banner';
+// import Banner from '../sections/banner';
 import Faq from '../sections/questions';
 import Features from '../sections/features';
 import Footer from '../components/footer';
 import Hero from '../sections/hero';
 import { Layout } from './layout';
 import { ThemeProvider } from './theme-provider';
-import UserReview from '../sections/user-review';
+// import UserReview from '../sections/user-review';
 import AffixWebsite from '../components/affix';
 import CarouselSection from '../sections/carousel';
+import InterSection from '../components/inter-section';
 
 const App = () => {
     return (
@@ -18,9 +19,10 @@ const App = () => {
                 <Hero />
                 <Features />
                 <CarouselSection />
-                <UserReview />
+                {/* <UserReview /> */}
+                <InterSection />
                 <Faq />
-                <Banner />
+                {/* <Banner /> */}
                 <Footer />
             </Layout>
         </ThemeProvider>

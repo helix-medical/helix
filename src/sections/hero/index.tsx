@@ -45,7 +45,7 @@ const Hero = () => {
 
                 <Group mt={30}>
                     <Button radius="xl" size="md" className={classes.control} onClick={() => goToInstall()}>
-                        Get Started
+                        Installer Maintenant
                     </Button>
                     <Button
                         variant="default"

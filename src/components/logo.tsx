@@ -1,16 +1,9 @@
-import { Title, Avatar, Group, createStyles } from '@mantine/core';
+import { Title, Avatar, Group } from '@mantine/core';
 import logo from '../assets/logo.png';
-
-const useStyles = createStyles((theme) => ({
-    logo: {
-        display: 'flex',
-        alignItems: 'center',
-        color: theme.colorScheme === 'dark' ? theme.white : theme.black,
-    },
-}));
+import { useComponentsStyles } from './styles';
 
 const HelixLogo = () => {
-    const { classes } = useStyles();
+    const { classes } = useComponentsStyles().logo();
     return (
         <Group>
             <Avatar src={logo} size="md" />

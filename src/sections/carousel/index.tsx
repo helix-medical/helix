@@ -1,6 +1,6 @@
 import React from 'react';
 import { Carousel } from '@mantine/carousel';
-import { Container, Image, Paper, Text, Title } from '@mantine/core';
+import { Card, Container, Image, Paper, Text, Title } from '@mantine/core';
 import { useCarouselStyles } from './styles';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { carouselData } from './data';
@@ -11,20 +11,19 @@ const CarouselSection = () => {
     const slides = carouselData.map((slide) => (
         <Carousel.Slide key={slide.title} onClick={() => {}}>
             <Paper shadow="sm" withBorder radius="md" p="xl">
-                <Image src={slide.image} withPlaceholder alt={slide.title} />
-                <Title order={3} align="center" mt="xs">
-                    {slide.title}
-                </Title>
-                <Text mb="lg">{slide.description}</Text>
+                <Image src={slide.image} withPlaceholder alt={slide.title} className={classes.image} />
+                <Card m="sm" shadow="sm" radius="md" padding="sm">
+                    <Title order={3} align="center" mt="xs">
+                        {slide.title}
+                    </Title>
+                    <Text mb="lg">{slide.description}</Text>
+                </Card>
             </Paper>
         </Carousel.Slide>
     ));
 
     return (
-        <Container py="xl" id="interface" className={classes.inner}>
-            <Title order={2} align="center" className={classes.title}>
-                Interface
-            </Title>
+        <Container py="xl" className={classes.inner}>
             <Carousel
                 maw={1000}
                 mx="auto"

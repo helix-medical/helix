@@ -1,31 +1,7 @@
 import React from 'react';
-import { createStyles, Container, Group, Anchor, rem, Text } from '@mantine/core';
+import { Container, Group, Anchor, Text } from '@mantine/core';
 import HelixLogo from './logo';
-
-const useStyles = createStyles((theme) => ({
-    footer: {
-        marginTop: rem(120),
-        borderTop: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]}`,
-    },
-
-    inner: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingTop: theme.spacing.xl,
-        paddingBottom: theme.spacing.xl,
-
-        [theme.fn.smallerThan('xs')]: {
-            flexDirection: 'column',
-        },
-    },
-
-    links: {
-        [theme.fn.smallerThan('xs')]: {
-            marginTop: theme.spacing.md,
-        },
-    },
-}));
+import { useComponentsStyles } from './styles';
 
 const links = [
     { label: 'Docs', link: '/docs/' },
@@ -33,7 +9,7 @@ const links = [
 ];
 
 const Footer = () => {
-    const { classes } = useStyles();
+    const { classes } = useComponentsStyles().footer();
     const items = links.map((link) => (
         <Anchor<'a'> color="dimmed" key={link.label} href={link.link} size="sm">
             {link.label}
