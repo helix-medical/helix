@@ -1,6 +1,6 @@
 {
     "name": "website",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "private": true,
     "dependencies": {
         "@emotion/react": "^11.10.6",
@@ -9,7 +9,6 @@
         "@mantine/ds": "^6.0.7",
         "@mantine/hooks": "^6.0.7",
         "@tabler/icons-react": "^2.16.0",
-        "embla-carousel-react": "^8.0.0-rc03",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-scripts": "5.0.1",
