@@ -8,7 +8,14 @@ const useQuestionsStyles = createStyles((theme) => ({
     },
 
     title: {
-        marginBottom: `calc(${theme.spacing.xl} * 1.5)`,
+        color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+        fontSize: rem(34),
+        fontWeight: 900,
+        marginBottom: rem(15),
+
+        [theme.fn.smallerThan('sm')]: {
+            fontSize: rem(24),
+        },
     },
 
     item: {
