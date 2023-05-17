@@ -2,6 +2,7 @@ import { createStyles, rem } from '@mantine/core';
 
 const useFeaturesStyles = createStyles((theme) => ({
     title: {
+        color: theme.colorScheme === 'dark' ? theme.white : theme.black,
         fontSize: rem(34),
         fontWeight: 900,
 
