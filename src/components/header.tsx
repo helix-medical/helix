@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, Header, Container, Group, Button, Burger, rem, UnstyledButton } from '@mantine/core';
+import { createStyles, Header, Container, Group, Button, Burger, rem, UnstyledButton, Menu } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { SwitchToggle } from './toggle-color-scheme';
 import HelixLogo from './logo';
@@ -15,7 +15,7 @@ const useStyles = createStyles((theme) => ({
         alignItems: 'center',
     },
 
-    links: {
+    useless: {
         [theme.fn.smallerThan('sm')]: {
             display: 'none',
         },
@@ -70,14 +70,21 @@ const HeaderWebsite = () => {
         <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
             <Container className={classes.inner} fluid>
                 <Group>
-                    <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
+                    <Menu shadow="md" width={200} opened={opened} onChange={toggle}>
+                        <Menu.Target>
+                            <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
+                        </Menu.Target>
+                        <Menu.Dropdown>{items}</Menu.Dropdown>
+                    </Menu>
                     <HelixLogo />
                 </Group>
-                <Group spacing={5} className={classes.links}>
+                <Group spacing={5} className={classes.useless}>
                     {items}
                 </Group>
                 <Group position="right">
-                    <SwitchToggle />
+                    <div className={classes.useless}>
+                        <SwitchToggle />
+                    </div>
                     <Button radius="xl" h={30} onClick={() => goToInstall()}>
                         Get Started
                     </Button>
