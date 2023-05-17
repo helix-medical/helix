@@ -3,6 +3,7 @@ import { createStyles, Header, Container, Group, Button, Burger, rem, UnstyledBu
 import { useDisclosure } from '@mantine/hooks';
 import { SwitchToggle } from './toggle-color-scheme';
 import HelixLogo from './logo';
+import { goToInstall } from '../helpers/links';
 
 const HEADER_HEIGHT = rem(60);
 
@@ -77,8 +78,8 @@ const HeaderWebsite = () => {
                 </Group>
                 <Group position="right">
                     <SwitchToggle />
-                    <Button radius="xl" h={30}>
-                        Get early access
+                    <Button radius="xl" h={30} onClick={() => goToInstall()}>
+                        Get Started
                     </Button>
                 </Group>
             </Container>
