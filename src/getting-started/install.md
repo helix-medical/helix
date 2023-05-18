@@ -15,19 +15,21 @@ Pour cela, il faut donc prévoir un peu de matériel et d'espace disque. Voici l
   + 32 Go d'espace disque (pour uen installation pérenne)
   + Un processeur récent (Intel Core i3 ou supérieur, ou équivalent)
 + [Docker](https://docs.docker.com/get-docker/) et [Docker Compose](https://docs.docker.com/compose/compose-file/)
++ [Git](https://git-scm.com/downloads)
++ [lx-tool](../lx-tool/install.md)
 
 ## Étapes
 
 Commencez par cloner le repo:
 
 ```bash
-git clone https://github.com/helix-medical/releases && cd releases
+git clone https://github.com/helix-medical/releases.git ~/helix && cd releases
 ```
 
 Ensuite, lancez l'utilitaire d'installation. L'utilitaire va vous demander quelques informations, et vous guider dans l'installation.
 
 ```bash
-lx config
+lx install
 ```
 
 Enfin, démarrez Helix:

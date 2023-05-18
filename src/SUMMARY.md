@@ -19,7 +19,7 @@
   - [Patients](./api/patients.md)
   - [Users](./api/users.md)
 
-- [Utility `lx`](./lx-tool/index.md)
+- [lx-tool](./lx-tool/index.md)
   - [Installation](./lx-tool/install.md)
   - [Usage](./lx-tool/usage.md)
 
