@@ -37,10 +37,7 @@ const useNextAppointmentWrapper = (input: IEvent) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [input]);
 
-    return {
-        navigate,
-        event,
-    };
+    return { navigate, event };
 };
 
 export { useNextAppointmentWrapper };
