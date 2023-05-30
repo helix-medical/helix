@@ -1,14 +1,19 @@
 import React from 'react';
-import { Button, Grid, Group, Modal, PasswordInput, Text, useMantineTheme } from '@mantine/core';
+import { Button, Grid, Group, Modal, PasswordInput, Text } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
+import { ForceOMeter } from '../../components/force-o-meter';
+import ModalOverlay from '../../components/modal-overlay';
 
 const ChangePassword = ({ show, toggleModal }: { show: boolean; toggleModal: () => void }): JSX.Element => {
     const handleClose = () => toggleModal();
-    const theme = useMantineTheme();
 
     const handleClick = () => {
         if (form.validate().hasErrors) return;
         console.log(form.values);
+    };
+
+    const changePassword = (value: string) => {
+        form.setFieldValue('newPassword', value);
     };
 
     const form = useForm({
@@ -26,11 +31,7 @@ const ChangePassword = ({ show, toggleModal }: { show: boolean; toggleModal: () 
 
     return (
         <Modal.Root opened={show} onClose={handleClose} padding={12}>
-            <Modal.Overlay
-                color={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
-                opacity={0.55}
-                blur={3}
-            />
+            <Modal.Overlay {...ModalOverlay} />
             <Modal.Content>
                 <Modal.Header>
                     <Modal.Title>
@@ -52,11 +53,9 @@ const ChangePassword = ({ show, toggleModal }: { show: boolean; toggleModal: () 
                                 />
                             </Grid.Col>
                             <Grid.Col span={12}>
-                                <PasswordInput
-                                    label="New Password"
-                                    placeholder="New Password"
-                                    withAsterisk
-                                    {...form.getInputProps('newPassword')}
+                                <ForceOMeter
+                                    value={form.values.newPassword}
+                                    setValue={(value) => changePassword(value)}
                                 />
                             </Grid.Col>
                             <Grid.Col span={12}>
