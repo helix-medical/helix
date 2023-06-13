@@ -1,4 +1,4 @@
-# Helix | Client
+# Helix | Client - ![CodeQL Analisys](https://github.com/helix-medical/client/actions/workflows/github-code-scanning/codeql/badge.svg) ![Published on Docker Hub](https://github.com/helix-medical/client/actions/workflows/publish-docker-hub.yml/badge.svg) 
 
 *A system for patients management.*
 
