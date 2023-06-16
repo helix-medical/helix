@@ -14,21 +14,44 @@
 
 <!-- ![CodeQL Analysis](https://img.shields.io/github/actions/workflow/status/helix-medical/client/github-code-scanning/codeql) -->
 
----
+<!-- Concept -->
+The Helix Project ([website](https://helix-medical.github.io)) is a Patient Management System (PMS) specially built for Osteopaths purposes. You can find some popular features like:
 
-> **Helix** is a project that aims to provide a **free** and **open-source** solution for **medical centers** to manage their patients and their appointments.
++ Patient management (medical history, appointments, billing, ...)
++ Appointment management (personal and professional calendar ...)
++ Billing management (invoices, export to Excel, ...)
++ Multi-user management (with different roles for the whole cabinet)
 
-## Scripts
+All that features are available in a single application, with a simple and intuitive interface, and **for ever** free!
 
-- `npm start`: start the development server
-- `npm run build`: build the project to production build
-- `npm run deploy`: build and serve the production server
+## Technical stack
+
+The client is built with [React](https://reactjs.org/) and [TypeScript](https://www.typescriptlang.org/), and is available as a [Docker image](https://hub.docker.com/r/xavier2p/helix-client).
+For UI design, we use [Mantine](https://mantine.dev/), a React UI library with a simple API and great docs.
 
 ## Installation
 
+Please see the [installation guide](https://helix-medical.github.io/docs/getting-started/index.html) for more information.
+
 ## Development
 
+```bash
+# Clone the repository
+git clone https://github.com/helix-medical/client.git && cd client
+
+# Install dependencies
+npm install
+
+# Run the application
+npm start
+
+# To build the application and serve the production build
+npm run deploy
+```
+
 ## Contributing
+
+Feel free to open a pull request if you want to contribute to the project!
 
 ## License
 
