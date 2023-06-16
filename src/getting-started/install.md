@@ -23,7 +23,7 @@ Pour cela, il faut donc prévoir un peu de matériel et d'espace disque. Voici l
 Commencez par cloner le repo:
 
 ```bash
-git clone https://github.com/helix-medical/releases.git ~/helix && cd releases
+git clone https://github.com/helix-medical/releases.git ~/.helix && cd ~/.helix
 ```
 
 Ensuite, lancez l'utilitaire d'installation. L'utilitaire va vous demander quelques informations, et vous guider dans l'installation.
