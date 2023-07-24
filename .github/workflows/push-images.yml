@@ -14,7 +14,7 @@ jobs:
       contents: read
 
     env:
-      DOCKER_IMAGE: helix-server
+      DOCKER_IMAGE: helix-client
 
     steps:
       - name: Checkout the repository
