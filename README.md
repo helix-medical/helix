@@ -2,7 +2,7 @@
     <img src="https://github.com/helix-medical/.github/blob/main/assets/helix-banner.png?raw=true" />
     <h1>The Helix Project: <code>database</code></h1>
     <div>
-        <img src="https://img.shields.io/github/actions/workflow/status/helix-medical/database/publish-docker-hub.yml?label=Build%20to%20Docker&logo=github&style=for-the-badge" />
+        <img src="https://img.shields.io/github/actions/workflow/status/helix-medical/database/push-images.yml?label=Build%20to%20Docker&logo=github&style=for-the-badge" />
         <img src="https://img.shields.io/github/languages/top/helix-medical/database?logo=docker&style=for-the-badge" />
     </div>
     <div>
