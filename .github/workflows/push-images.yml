@@ -106,8 +106,8 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            my-docker-hub-namespace/my-docker-hub-repository
-            ghcr.io/${{ github.repository }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:${{ github.ref_name }}
+            ghcr.io/${{ github.repository }}:${{ github.ref_name }}
 
       - name: Build and Push
         uses: docker/build-push-action@v4
