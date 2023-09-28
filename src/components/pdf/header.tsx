@@ -1,5 +1,4 @@
 import { View, Text } from '@react-pdf/renderer';
-import React from 'react';
 import cnf from '../../config/config';
 import { styles } from './header.style';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Title, Text } from '@mantine/core';
 import style from '../../styles/errors.module.css';
 

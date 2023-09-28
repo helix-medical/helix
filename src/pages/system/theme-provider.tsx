@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
 
 const colors = {

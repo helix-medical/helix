@@ -1,4 +1,3 @@
-import React from 'react';
 import { Drawer, Title } from '@mantine/core';
 
 const DrawerApp = ({ open, items, toggle }: { open: boolean; items: any; toggle: any }) => {

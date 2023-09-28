@@ -1,4 +1,3 @@
-import React from 'react';
 import { Badge, Title } from '@mantine/core';
 import { IPassif } from '../../types/interfaces';
 

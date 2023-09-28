@@ -1,4 +1,3 @@
-import React from 'react';
 import { ISum } from './types';
 import { ItemQuickView } from './item-quick-view';
 import { Title, Grid, Paper } from '@mantine/core';

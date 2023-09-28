@@ -1,4 +1,3 @@
-import React from 'react';
 import { IconSearch } from '@tabler/icons-react';
 import { IPatientListView } from './types';
 import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';

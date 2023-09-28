@@ -1,4 +1,3 @@
-import React from 'react';
 import { IAppointmentExtended } from '../../types/interfaces';
 import { IconSearch } from '@tabler/icons-react';
 import { Table, ScrollArea, Text, TextInput, Button } from '@mantine/core';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { SpotlightProvider } from '@mantine/spotlight';
 import type { SpotlightAction } from '@mantine/spotlight';
 import {

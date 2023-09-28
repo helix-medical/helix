@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ActionIcon, Card, Grid, Group, Title } from '@mantine/core';
 import useAuth from '../../hooks/use-auth';
 import Account from './account';

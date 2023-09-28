@@ -1,4 +1,3 @@
-import React from 'react';
 import useAuth from '../../hooks/use-auth';
 import { getRole } from '../../config/config';
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Calendar as BigCalendar } from 'react-big-calendar';
@@ -74,7 +74,7 @@ const Calendar = () => {
                         onSelectSlot={(range) => onCreateEvent(range)}
                         onSelectEvent={onSelectEvent as any}
                         components={customComponents}
-                        draggableAccessor={(event) => true}
+                        draggableAccessor={() => true}
                         onDragStart={(event) => console.log(event)}
                         onEventResize={handleResizeEvent as any}
                         onEventDrop={handleResizeEvent as any}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { Calendar, EventProps, Navigate, ToolbarProps, momentLocalizer } from 'react-big-calendar';
 import { IEvent } from '../../types/interfaces';

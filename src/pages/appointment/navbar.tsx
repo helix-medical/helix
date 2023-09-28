@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Badge, Title, Grid, Group } from '@mantine/core';
 import { AppointmentStyles } from './styles';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { IAppointmentData } from './types';
 import { IconCalendarCheck, IconDna, IconAlertTriangle } from '@tabler/icons-react';
 import { params } from './utils';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Document, Page, View, Text } from '@react-pdf/renderer';
 import HeaderPDF from './header';
 import { PDFStyles } from './styles';

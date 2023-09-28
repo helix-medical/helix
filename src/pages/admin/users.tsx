@@ -1,4 +1,3 @@
-import React from 'react';
 import { IconArchive, IconArchiveOff, IconEdit, IconEye } from '@tabler/icons-react';
 import { ModalAddUser } from './create';
 import { Role, ID, UserStatus } from '../../components/custom-badges';

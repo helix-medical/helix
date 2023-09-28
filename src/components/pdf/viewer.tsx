@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Group, LoadingOverlay, Modal, Title } from '@mantine/core';
 import { PDFViewer } from '@react-pdf/renderer';
 import { useViewPDF } from './logic';

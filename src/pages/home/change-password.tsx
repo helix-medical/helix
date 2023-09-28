@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Grid, Group, Modal, PasswordInput, Text } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { ForceOMeter } from '../../components/force-o-meter';

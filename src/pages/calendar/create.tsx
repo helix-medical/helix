@@ -1,4 +1,3 @@
-import React from 'react';
 import { Text, Select, Modal, SegmentedControl, TextInput, Paper, Group, Button } from '@mantine/core';
 import cnf from '../../config/config';
 import moment from 'moment';

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { ToolbarProps, Navigate, View } from 'react-big-calendar';
 import { ActionIcon, Card, Center, Grid, Group, NativeSelect, SegmentedControl, Text } from '@mantine/core';
 import { IconCalendar, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';

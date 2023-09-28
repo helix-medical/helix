@@ -50,7 +50,7 @@ const useCalendarConfig = () => {
             agendaTimeFormat: 'HH:mm',
             agendaTimeRangeFormat: ({ start, end }: { start: Date; end: Date }) =>
                 `${localizer.format(start, 'HH:mm', 'fr')} - ${localizer.format(end, 'HH:mm', 'fr')}`,
-            eventTimeRangeFormat: ({ start, end }: { start: Date; end: Date }) => '',
+            eventTimeRangeFormat: () => '',
             timeGutterFormat: 'HH:mm',
             agendaHeaderFormat: ({ start, end }: { start: Date; end: Date }) =>
                 `${localizer.format(start, 'ddd DD MMM', 'fr')} - ${localizer.format(end, 'ddd DD MMM', 'fr')}`,

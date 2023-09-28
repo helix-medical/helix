@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, Text, Button, Group } from '@mantine/core';
 import { KindAppointment } from '../../components/custom-badges';
 import { IAppointmentExtended } from '../../types/interfaces';

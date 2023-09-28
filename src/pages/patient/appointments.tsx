@@ -1,4 +1,3 @@
-import React from 'react';
 import { IAppointment, IContent } from './types';
 import { Paper, Accordion, Group, Text, Title, Textarea, ThemeIcon, Tooltip } from '@mantine/core';
 import moment from 'moment';

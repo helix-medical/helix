@@ -1,4 +1,3 @@
-import React from 'react';
 import { Document, Page, Text, View } from '@react-pdf/renderer';
 import moment from 'moment';
 import HeaderPDF from './header';
@@ -47,6 +46,7 @@ const FactureContent = ({ data }: { data: any }) => (
     </Page>
 );
 
+//@ts-expect-error
 const Facture = ({ id, data }: { id: string; data: any }) => (
     <Document title={`facture-${data.factureNumber}`} author="Helix">
         <FactureContent data={data} />

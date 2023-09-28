@@ -1,4 +1,3 @@
-import React from 'react';
 import { Title, Grid, Select, NumberInput, TextInput, Paper, Button } from '@mantine/core';
 import { useAppFormContext } from './form-context';
 import { IconCurrencyEuro } from '@tabler/icons-react';

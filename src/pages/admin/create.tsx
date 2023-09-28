@@ -1,4 +1,3 @@
-import React from 'react';
 import { Modal, Button, Grid, TextInput, Select, Text, PasswordInput, Group } from '@mantine/core';
 import { useUserCreate } from './create.logic';
 import ModalOverlay from '../../components/modal-overlay';

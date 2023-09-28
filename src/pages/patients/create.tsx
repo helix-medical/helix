@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Modal, TextInput, Select, Group, Grid, Text, useMantineTheme, Textarea } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import useComponentLogic from './create.logic';

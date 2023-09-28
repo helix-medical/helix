@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Anamnesis } from './anamnesis';
 import { AppFormProvider } from './form-context';
 import { Button, Center, useMantineTheme } from '@mantine/core';

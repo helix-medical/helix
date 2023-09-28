@@ -1,4 +1,3 @@
-import React from 'react';
 import { Transactions } from './transactions';
 import { QuickView } from './quick-view';
 import { Title } from '@mantine/core';

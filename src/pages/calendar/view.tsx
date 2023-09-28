@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Center, Group, Modal, Paper, Text, ThemeIcon } from '@mantine/core';
 import { IEvent } from '../../types/interfaces';
 import moment from 'moment';

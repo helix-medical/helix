@@ -1,4 +1,3 @@
-import React from 'react';
 import { TextInput, Title, Grid, Paper } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
 import { IAppointmentData } from './types';

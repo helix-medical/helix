@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, Text, Button, Group } from '@mantine/core';
 import { Sex, ID } from '../../components/custom-badges';
 import { useNavigate } from 'react-router-dom';

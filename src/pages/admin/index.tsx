@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, Center, Grid, Title } from '@mantine/core';
 import { ListUsers } from './users';
 

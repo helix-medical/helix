@@ -1,4 +1,3 @@
-import React from 'react';
 import { Textarea, Title, Grid, Paper } from '@mantine/core';
 import nbLines from '../../helpers/get-lines';
 import { useAppFormContext } from './form-context';

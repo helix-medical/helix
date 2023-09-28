@@ -1,4 +1,3 @@
-import React from 'react';
 import { Alert, Code } from '@mantine/core';
 import { IconAlertOctagon } from '@tabler/icons-react';
 
