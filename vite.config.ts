@@ -5,6 +5,9 @@ export default ({ mode }) => {
     process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
     return defineConfig({
         plugins: [react()],
+        build: {
+            emptyOutDir: true,
+        },
         server: {
             port: 3000,
         },

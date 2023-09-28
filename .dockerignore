@@ -5,3 +5,6 @@ README.md
 logs/
 .env
 build/
+.github/
+LICENSE
+dist/

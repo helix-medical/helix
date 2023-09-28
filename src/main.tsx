@@ -4,7 +4,7 @@ import * as serviceWorkerRegistration from './config/service-worker-registration
 import Helix from './helix';
 
 // disable console.log in production
-if (process.env.NODE_ENV === 'production') {
+if (import.meta.env.PROD) {
     disableReactDevTools();
     console.log = () => {};
     console.error = () => {};
