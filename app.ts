@@ -14,15 +14,21 @@ import credentials from './middleware/credentials';
 import logger from './tools/logger';
 import events from './routers/events';
 import unsecured from './routers/unsecured';
+import rateLimit from 'express-rate-limit';
 
 // Config
 const app: Express = express();
 const port = process.env.PORT_API || 3001;
+const limiter = rateLimit({
+    windowMs: 60 * 1000,
+    max: 10,
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(credentials);
 app.use(cors());
 app.use(cookieParser());
+app.use(limiter);
 
 // Logger
 app.use(logger.checkpoint);
