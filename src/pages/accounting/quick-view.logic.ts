@@ -1,9 +1,9 @@
-import { ISum } from "./types";
-import { useState, useEffect } from "react";
-import cnf from "../../config/config";
-import moment from "moment";
-import setNotification from "../../components/errors/feedback-notification";
-import useApplicationRoutes from "../../api/routes";
+import { ISum } from './types';
+import { useState, useEffect } from 'react';
+import cnf from '../../config/config';
+import moment from 'moment';
+import setNotification from '../../components/errors/feedback-notification';
+import useApplicationRoutes from '../../api/routes';
 
 const useQuickView = () => {
     const routes = useApplicationRoutes();

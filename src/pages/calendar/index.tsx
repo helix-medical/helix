@@ -28,7 +28,8 @@ const Calendar = () => {
         onCreateEvent,
         range,
     } = useCalendar();
-    const { customComponents, formats, localizer, messages, slotGroupPropGetter, eventPropGetter } = useCalendarConfig();
+    const { customComponents, formats, localizer, messages, slotGroupPropGetter, eventPropGetter } =
+        useCalendarConfig();
     const HelixCalendar = withDragAndDrop(BigCalendar);
 
     const [view, setView] = useState('calendar');

@@ -2,7 +2,7 @@ import { Button, Divider, Paper, ScrollArea, Table, Title, Text } from '@mantine
 import { ITransaction } from './types';
 import { usePatientAccounting } from './accounting.logic';
 import moment from 'moment';
-import {PaymentMethod} from '../../components/custom-badges';
+import { PaymentMethod } from '../../components/custom-badges';
 import ViewPDF from '../../components/pdf/viewer';
 
 const rows = (data: ITransaction[], handler: (id: string) => any) =>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
 import jwtDecode from 'jwt-decode';
