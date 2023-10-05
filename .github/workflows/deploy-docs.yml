@@ -2,8 +2,8 @@ name: Build and Deploy Helix Documentation
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - docs/**.md
 
 permissions:
   contents: write
