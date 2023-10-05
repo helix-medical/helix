@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Container, Divider, Group, Text, Title } from '@mantine/core';
 import { useComponentsStyles } from './styles';
 import { goToDemo, goToInstall } from '../helpers/links';

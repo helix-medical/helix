@@ -1,4 +1,3 @@
-import React from 'react';
 import { Title, SimpleGrid, Text, Button, Grid, Col, Container, Avatar } from '@mantine/core';
 import { reviewsData } from './data';
 import { useUserReviewStyles } from './styles';

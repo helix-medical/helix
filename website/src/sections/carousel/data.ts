@@ -32,11 +32,6 @@ const carouselData = [
         description: `Prenez vos notes de rendez-vous avec Helix. Notre interface est simple et intuitive, et vous ne manquerez jamais une information importante.`,
         image: appointment,
     },
-    // {
-    //     title: 'List view',
-    //     description: '--------------------------',
-    //     image: '',
-    // },
     {
         title: 'Comptabilité',
         description: `Helix vous permet de gérer votre comptabilité. Vous gardez toujours un œil sur vos paiements et vos factures.`,

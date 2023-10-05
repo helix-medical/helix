@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Group, Anchor, Text } from '@mantine/core';
 import HelixLogo from './logo';
 import { useComponentsStyles } from './styles';

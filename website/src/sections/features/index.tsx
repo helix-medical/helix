@@ -1,4 +1,3 @@
-import React from 'react';
 import { Title, Text, Card, SimpleGrid, Container, rem } from '@mantine/core';
 import { useFeaturesStyles } from './styles';
 import { featuresData } from './data';

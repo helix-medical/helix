@@ -1,4 +1,3 @@
-import React from 'react';
 import { Image, Container, Title, Button, Group, Text, List, ThemeIcon, rem } from '@mantine/core';
 import { IconBrandGithub, IconCheck } from '@tabler/icons-react';
 import home from '../../assets/homepage.png';

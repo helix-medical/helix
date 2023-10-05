@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Title, Accordion, Text } from '@mantine/core';
 import { useQuestionsStyles } from './styles';
 import { questionsData } from './data';

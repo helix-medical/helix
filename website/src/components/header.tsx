@@ -1,4 +1,3 @@
-import React from 'react';
 import { Header, Container, Group, Button, Burger, rem, UnstyledButton, Menu } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { SwitchToggle } from './toggle-color-scheme';

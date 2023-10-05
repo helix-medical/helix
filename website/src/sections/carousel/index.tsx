@@ -1,4 +1,3 @@
-import React from 'react';
 import { Carousel } from '@mantine/carousel';
 import { Card, Container, Image, Paper, Text, Title } from '@mantine/core';
 import { useCarouselStyles } from './styles';

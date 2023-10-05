@@ -1,4 +1,3 @@
-import React from 'react';
 // import Banner from '../sections/banner';
 import Faq from '../sections/questions';
 import Features from '../sections/features';
@@ -11,7 +10,7 @@ import AffixWebsite from '../components/affix';
 import CarouselSection from '../sections/carousel';
 import InterSection from '../components/inter-section';
 
-const App = () => {
+const HelixWebsite = () => {
     return (
         <ThemeProvider>
             <Layout>
@@ -29,4 +28,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default HelixWebsite;

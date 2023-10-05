@@ -1,4 +1,3 @@
-import React from 'react';
 import { Text, Title, TextInput, Button, Image, Container } from '@mantine/core';
 import logo from '../../assets/logo.png';
 import { useBannerStyles } from './styles';
