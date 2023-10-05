@@ -20,3 +20,4 @@ jobs:
         uses: Andrew-Chen-Wang/github-wiki-action@v4
         with:
           path: docs/src
+          commit-message: Update Wiki from ${{ github.sha }}
