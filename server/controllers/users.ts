@@ -1,31 +1,91 @@
 import { Response, Request } from 'express';
-import db from '../database/config';
-import logger from '../system/logger';
-import sc from '../tools/statusCodes';
 import uuid from '../tools/uuid';
 import queries from '../database/queries';
 import bcrypt from 'bcrypt';
 
 const readAll = async (req: Request, res: Response) => {
-    logger.get(req.originalUrl, 'REQ');
-    const sqlQuery = `SELECT * FROM users`;
-    db.query(sqlQuery, (err: any, data: any) => {
-        if (!err) {
-            logger.get(req.originalUrl, 'OK', 'Return all users');
-            return res.status(sc.OK).json(data);
-        }
-        logger.get(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json(err);
-    });
+    const sqlQuery = `
+        SELECT
+            uid,
+            name,
+            lastName,
+            lastActive,
+            state,
+            role
+        FROM
+            users
+        ORDER BY
+            name ASC
+    `;
+    await queries.pull(req, res, sqlQuery, [], { id: '', name: 'Users', verb: 'returned' });
+};
+
+const getForConnection = async (req: Request, res: Response) => {
+    const sqlQuery = `
+        SELECT
+            name,
+            lastName,
+            uid
+        FROM
+            users
+        WHERE
+            state != "disabled"
+        ORDER BY
+            name ASC
+    `;
+    await queries.pull(req, res, sqlQuery, [], { id: '', name: 'Users', verb: 'returned for connection' });
+};
+
+const getPractitioners = async (req: Request, res: Response) => {
+    const sqlQuery = `
+        SELECT
+            name,
+            lastName,
+            uid
+        FROM
+            users
+        WHERE
+            role = "practitioner" 
+            AND state != "disabled"
+        ORDER BY
+            name ASC
+    `;
+    await queries.pull(req, res, sqlQuery, [], { id: '', name: 'Practitioners', verb: 'returned for appointment' });
+};
+
+const readOne = async (req: Request, res: Response) => {
+    const sqlQuery = `
+        SELECT
+            uid,
+            name,
+            lastName,
+            lastActive,
+            state,
+            role
+        FROM
+            users
+        WHERE
+            uid = ?
+    `;
+    await queries.pull(req, res, sqlQuery, [req.params.id], { id: req.params.id, name: 'User', verb: 'returned' });
 };
 
 const create = async (req: Request, res: Response) => {
-    logger.post(req.originalUrl, 'REQ');
     let id = uuid();
-    while (await queries.checkId(id, 'users')) id = uuid();
+    while (await queries.checkId(id, 'users', 'uid')) id = uuid();
     const sqlQuery = `
-    INSERT INTO users (uid, name, lastName, role, state, password, clearPassword)
-    VALUES (?)
+        INSERT INTO
+            users (
+                uid,
+                name,
+                lastName,
+                role,
+                state,
+                password,
+                lastActive
+            )
+        VALUES
+            (?)
     `;
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const values = [
@@ -35,20 +95,42 @@ const create = async (req: Request, res: Response) => {
         req.body.role,
         'first-time',
         hashedPassword,
-        req.body.password,
+        '1970-01-01 00:00:00',
     ];
 
-    db.query(sqlQuery, [values], (err: any, data: { insertId: any }) => {
-        if (!err) {
-            logger.post(req.originalUrl, 'OK', `User ${id} created`);
-            return res.status(sc.CREATED).json({ id: id, message: `User ${id} created` });
-        }
-        logger.post(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json({ message: err.message });
-    });
+    await queries.push(req, res, sqlQuery, [values], { id, name: 'User', verb: 'created' });
 };
 
-export default module.exports = {
+const disable = async (req: Request, res: Response) => {
+    const sqlQuery = `
+        UPDATE
+            users
+        SET
+            state = "disabled"
+        WHERE
+            uid = ?
+    `;
+    await queries.push(req, res, sqlQuery, [req.params.id], { id: req.params.id, name: 'User', verb: 'disabled' });
+};
+
+const enable = async (req: Request, res: Response) => {
+    const sqlQuery = `
+        UPDATE
+            users
+        SET
+            state = "regular"
+        WHERE
+            uid = ?
+    `;
+    await queries.push(req, res, sqlQuery, [req.params.id], { id: req.params.id, name: 'User', verb: 'enabled' });
+};
+
+export default {
     readAll,
     create,
+    getForConnection,
+    readOne,
+    getPractitioners,
+    disable,
+    enable,
 };

@@ -19,7 +19,16 @@
         "city": {
             "type": "string"
         },
-        "nextApp": {
+        "address": {
+            "type": "string"
+        },
+        "phone": {
+            "type": "string"
+        },
+        "job": {
+            "type": "string"
+        },
+        "doctor": {
             "type": "string"
         },
         "passif": {
@@ -33,8 +42,10 @@
         "sex",
         "email",
         "city",
-        "nextApp",
-        "passif"
+        "passif",
+        "address",
+        "phone",
+        "job"
     ],
     "additionalProperties": false
 }

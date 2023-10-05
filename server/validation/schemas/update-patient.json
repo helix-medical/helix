@@ -19,6 +19,18 @@
         "city": {
             "type": "string"
         },
+        "address": {
+            "type": "string"
+        },
+        "phone": {
+            "type": "string"
+        },
+        "job": {
+            "type": "string"
+        },
+        "doctor": {
+            "type": "string"
+        },
         "passif": {
             "type": "string"
         }
@@ -30,7 +42,10 @@
         "sex",
         "email",
         "city",
-        "passif"
+        "passif",
+        "address",
+        "phone",
+        "job"
     ],
     "additionalProperties": false
 }

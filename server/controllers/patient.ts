@@ -1,18 +1,29 @@
 import { Response, Request } from 'express';
-import db from '../database/config';
-import logger from '../system/logger';
-import sc from '../tools/statusCodes';
 import uuid from '../tools/uuid';
 import queries from '../database/queries';
 
 const create = async (req: Request, res: Response) => {
-    logger.post(req.originalUrl, 'REQ');
     let id = uuid();
-    while (await queries.checkId(id, 'users')) id = uuid();
-    const sqlQuery =
-        'INSERT ' +
-        'INTO patients ' +
-        '(`id`, `name`, `lastName`, `birthDate`, `sex`, `email`, `city`, `nextApp`, `passif`) VALUES (?)';
+    while (await queries.checkId(id, 'patients', 'id')) id = uuid();
+    const sqlQuery = `
+        INSERT INTO
+            patients (
+                id,
+                name,
+                lastName,
+                birthDate,
+                sex,
+                email,
+                phone,
+                address,
+                city,
+                job,
+                doctor,
+                passif
+            )
+        VALUES
+            (?)
+    `;
     const values = [
         id,
         req.body.name,
@@ -20,52 +31,51 @@ const create = async (req: Request, res: Response) => {
         req.body.birthDate,
         req.body.sex,
         req.body.email,
+        req.body.phone,
+        req.body.address,
         req.body.city,
-        req.body.nextApp,
+        req.body.job,
+        req.body.doctor,
         req.body.passif,
     ];
 
-    db.query(sqlQuery, [values], (err: any, data: any) => {
-        if (err) {
-            logger.post(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json(err);
-        }
-        logger.post(req.originalUrl, 'OK', `Patient ${id} added`);
-        return res.status(sc.OK).json(`Patient ${id} added`);
-    });
+    await queries.push(req, res, sqlQuery, [values], { id, name: 'Patient', verb: 'created' });
 };
 
 const read = async (req: Request, res: Response) => {
-    logger.get(req.originalUrl, 'REQ');
     const patientId = req.params.id;
     const sqlQuery = `
-    SELECT *
-    FROM patients
-    WHERE id = ?
+        SELECT
+            *
+        FROM
+            patients
+        WHERE
+            id = ?
     `;
-    db.query(sqlQuery, patientId, (err: any, data: any) => {
-        if (!err) {
-            if (data.length === 0) {
-                logger.get(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
-                return res.status(sc.NOT_FOUND).json(`Patient ${patientId} not found`);
-            }
 
-            logger.get(req.originalUrl, 'OK', `Patient ${patientId} found`);
-            return res.status(sc.OK).json(data);
-        }
-
-        logger.get(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json(err);
-    });
+    await queries.pull(req, res, sqlQuery, [patientId], { id: patientId, name: 'Patient', verb: 'returned' });
 };
 
 const update = async (req: Request, res: Response) => {
-    logger.put(req.originalUrl, 'REQ');
     const patientId = req.params.id;
-    const sqlQuery =
-        'UPDATE patients ' +
-        'SET `name` = ?, `lastName` = ?, `birthDate` = ?, `sex` = ?, `email` = ?, `city` = ?, `passif` = ? ' +
-        'WHERE id = ?';
+    const sqlQuery = `
+        UPDATE
+            patients
+        SET
+            name = ?,
+            lastName = ?,
+            birthDate = ?,
+            sex = ?,
+            email = ?,
+            city = ?,
+            passif = ?,
+            address = ?,
+            phone = ?,
+            job = ?,
+            doctor = ?
+        WHERE
+            id = ?
+    `;
     const values = [
         req.body.name,
         req.body.lastName,
@@ -74,56 +84,25 @@ const update = async (req: Request, res: Response) => {
         req.body.email,
         req.body.city,
         req.body.passif,
+        req.body.address,
+        req.body.phone,
+        req.body.job,
+        req.body.doctor,
     ];
 
-    db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
-        if (err) {
-            logger.put(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json(err);
-        }
-        logger.put(req.originalUrl, 'OK', `Patient ${patientId} updated`);
-        return res.status(sc.OK).json(`Patient ${patientId} updated`);
-    });
-};
-
-const addAppointment = async (req: Request, res: Response) => {
-    logger.put(req.originalUrl, 'REQ');
-    const patientId = req.params.id;
-    const sqlQuery =
-        'UPDATE patients ' + 'SET `passif` = JSON_ARRAY_APPEND(`passif`, "$.lastAppointments", ?) ' + 'WHERE id = ?';
-    const values = [req.body.id];
-
-    db.query(sqlQuery, [...values, patientId], (err: any, data: any) => {
-        if (err) {
-            logger.put(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json(err);
-        }
-        logger.put(req.originalUrl, 'OK', `Appointment ${req.body.id} added to patient ${patientId}`);
-        return res.status(sc.OK).json(data);
-    });
+    await queries.push(req, res, sqlQuery, [...values, patientId], { id: patientId, name: 'Patient', verb: 'updated' });
 };
 
 const delete_ = async (req: Request, res: Response) => {
-    logger.del(req.originalUrl, 'REQ');
     const patientId = req.params.id;
-    const sqlQuery = `DELETE 
-    FROM patients
-    WHERE id = ?
+    const sqlQuery = `
+        DELETE 
+        FROM
+            patients
+        WHERE
+            id = ?
     `;
-
-    db.query(sqlQuery, patientId, (err: any, data: any) => {
-        if (err) {
-            logger.del(req.originalUrl, 'ERR', err);
-            return res.status(sc.METHOD_FAILURE).json(err);
-        }
-        if (data.affectedRows === 0) {
-            logger.del(req.originalUrl, 'ERR', `Patient ${patientId} not found`);
-            return res.status(sc.NOT_FOUND).json(`Patient ${patientId} not found`);
-        }
-
-        logger.del(req.originalUrl, 'OK', `Patient ${patientId} deleted`);
-        return res.status(sc.OK).json(`Patient ${patientId} deleted`);
-    });
+    await queries.push(req, res, sqlQuery, [patientId], { id: patientId, name: 'Patient', verb: 'deleted' });
 };
 
 export default module.exports = {
@@ -131,5 +110,4 @@ export default module.exports = {
     read,
     update,
     delete: delete_,
-    addAppointment,
 };

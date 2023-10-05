@@ -1,16 +1,16 @@
 {
     "type": "object",
     "properties": {
-        "anamnesis": {
+        "content": {
             "type": "string"
         },
-        "conclusion": {
+        "payment": {
             "type": "string"
         }
     },
     "required": [
-        "anamnesis",
-        "conclusion"
+        "content",
+        "payment"
     ],
     "additionalProperties": false
 }

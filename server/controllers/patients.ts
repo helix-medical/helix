@@ -1,30 +1,25 @@
 import { Response, Request } from 'express';
-import db from '../database/config';
-import logger from '../system/logger';
-import sc from '../tools/statusCodes';
+import queries from '../database/queries';
 
 const readAll = async (req: Request, res: Response) => {
-    logger.get(req.originalUrl, 'REQ');
     const sqlQuery = `
-    SELECT *
-    FROM patients
+        SELECT id, name, lastName, email, sex, birthDate
+        FROM patients
+        ORDER BY name ASC
     `;
-    db.query(sqlQuery, (err: any, data: any) => {
-        if (!err) {
-            logger.get(req.originalUrl, 'OK', 'Return all patients');
-            return res.status(sc.OK).json(data);
-        }
+    await queries.pull(req, res, sqlQuery, [], { id: '', name: 'Patients', verb: 'returned' });
+};
 
-        if (err.code === 'ER_NO_SUCH_TABLE') {
-            err.sqlState = 'No patients table in database. Please contact your administrator.';
-            err.sql = 'Error while getting patients list';
-        }
-
-        logger.get(req.originalUrl, 'ERR', err);
-        return res.status(sc.BAD_REQUEST).json(err);
-    });
+const readAllConnexion = async (req: Request, res: Response) => {
+    const sqlQuery = `
+        SELECT id, name, lastName
+        FROM patients
+        ORDER BY name ASC
+    `;
+    await queries.pull(req, res, sqlQuery, [], { id: '', name: 'Patients', verb: 'returned for appointment' });
 };
 
 export default module.exports = {
     readAll,
+    readAllConnexion,
 };

@@ -1,17 +1,17 @@
 import mysql from 'mysql';
 require('dotenv').config();
-import logger from '../system/logger';
+import logger from '../tools/logger';
 
 const db = mysql.createConnection({
-    host: process.env.HOST_DB,
-    user: process.env.USER_DB,
-    password: process.env.PASSWORD_DB,
-    database: process.env.NAME_DB,
+    host: process.env.HELIX_DB_HOST,
+    user: process.env.HELIX_DB_USER,
+    password: process.env.HELIX_DB_PASSWORD,
+    database: process.env.HELIX_DB_NAME,
 });
 
 db.connect((err: any) => {
     if (err) {
-        logger.err(err);
+        logger.error(err);
         return;
     }
     logger.info('Connected to database');
