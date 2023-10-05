@@ -1,0 +1,12 @@
+name: Release a new Helix version
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'release'
