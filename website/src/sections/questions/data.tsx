@@ -55,9 +55,11 @@ const questionsData = [
             <Text>
                 Helix est une application web, c'est-à-dire qu'il n'y a pas d'installation à effectuer sur votre
                 appareil. La seule installation requise est celle du serveur. Vous trouverez plus d'informations dans la{' '}
-                <Anchor span href="https://helix-medical.github.io/docs/getting-started/index.html" target="_blank">
-                    documentation d'Helix
-                </Anchor>
+                <span>
+                    <Anchor href="https://helix-medical.github.io/docs/getting-started/index.html" target="_blank">
+                        documentation d'Helix
+                    </Anchor>
+                </span>
                 .
             </Text>
         ),
@@ -69,9 +71,11 @@ const questionsData = [
             <Text>
                 Pour toute demande, informations, retour d'expérience, ou autre, n'hésitez pas à nous contacter par mail
                 à l'adresse{' '}
-                <Anchor span href="mailto:contact.helix@skiff.com" target="_blank">
-                    contact.helix@skiff.com
-                </Anchor>
+                <span>
+                    <Anchor href="mailto:contact.helix@skiff.com" target="_blank">
+                        contact.helix@skiff.com
+                    </Anchor>
+                </span>
                 . Nous serons ravis de vous répondre !
             </Text>
         ),
@@ -87,9 +91,11 @@ const questionsData = [
                 </Text>
                 . Cela signifie que vous pouvez contribuer au projet en proposant des améliorations, en corrigeant des
                 bugs, ou en ajoutant des fonctionnalités. Vous pouvez trouver plus d'informations sur la{' '}
-                <Anchor span href="https://helix-medical.github.io/docs/contributing/index.html" target="_blank">
-                    documentation d'Helix
-                </Anchor>
+                <span>
+                    <Anchor href="https://helix-medical.github.io/docs/contributing/index.html" target="_blank">
+                        documentation d'Helix
+                    </Anchor>
+                </span>
                 .
             </Text>
         ),
@@ -100,13 +106,17 @@ const questionsData = [
         answer: (
             <Text>
                 Vous pouvez signaler un bug en créant une{' '}
-                <Anchor span href="https://github.com/helix-medical" target="_blank">
-                    issue sur GitHub
-                </Anchor>
+                <span>
+                    <Anchor href="https://github.com/helix-medical" target="_blank">
+                        issue sur GitHub
+                    </Anchor>
+                </span>
                 , ou encore en nous contactant par mail à l'adresse{' '}
-                <Anchor span href="mailto:contact.helix@skiff.com" target="_blank">
-                    contact.helix@skiff.com
-                </Anchor>
+                <span>
+                    <Anchor href="mailto:contact.helix@skiff.com" target="_blank">
+                        contact.helix@skiff.com
+                    </Anchor>
+                </span>
                 . Nous vous remercions d'avance pour votre aide !
             </Text>
         ),

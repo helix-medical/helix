@@ -7,7 +7,7 @@ export default ({ mode }) => {
         plugins: [react()],
         build: {
             emptyOutDir: true,
-            outDir: '../server/build/public',
+            // outDir: '../server/build/public',
         },
         server: {
             port: 3000,

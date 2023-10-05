@@ -2,8 +2,8 @@ name: Deploy the Helix Documentation to GitHub Wiki
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'docs/**'
 
 permissions:
   contents: write

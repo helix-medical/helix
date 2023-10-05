@@ -4,11 +4,13 @@
     <img src="https://github.com/Xavier2p/helix/blob/main/.github/assets/helix-banner.png?raw=true" />
     <h1>The Helix Project</h1>
     <!-- Badges -->
-    <a href="https://hub.docker.com/r/xavier2p/helix-client">
-        <img src="https://img.shields.io/docker/v/xavier2p/helix-client?label=image%20version&style=for-the-badge&logo=docker" />
+    <a href="../client/">
+        <img src="https://img.shields.io/github/package-json/v/xavier2p/helix?filename=client%2Fpackage.json&style=for-the-badge&logo=react&logoColor=%2361DAFB&label=client&color=%2361DAFB
+" />
     </a>
-    <a href="https://hub.docker.com/r/xavier2p/helix-server">
-        <img src="https://img.shields.io/docker/v/xavier2p/helix-server?label=server%20version&style=for-the-badge&logo=docker" />
+    <a href="../server/">
+        <img src="https://img.shields.io/github/package-json/v/xavier2p/helix?filename=server%2Fpackage.json&style=for-the-badge&logo=nodedotjs&logoColor=%23339933&label=server&color=%23339933
+" />
     </a>
     <a href="https://hub.docker.com/r/xavier2p/helix-db">
         <img src="https://img.shields.io/docker/v/xavier2p/helix-db?label=database%20version&style=for-the-badge&logo=docker" />
@@ -17,7 +19,8 @@
         <a href="https://github.com/helix-medical/.github/blob/main/LICENSE">
             <img src="https://img.shields.io/github/license/helix-medical/.github?style=for-the-badge&logo=github" />
         </a>
-        <img src="https://img.shields.io/github/contributors/helix-medical/.github?style=for-the-badge&logo=github" />
+        <img src="https://img.shields.io/github/stars/xavier2p/helix?style=for-the-badge&logo=github&color=yellow
+" />
         <a href="https://helix-medical.github.io">
             <img src="https://img.shields.io/website?down_color=brigthred&down_message=DOWN&logo=github&style=for-the-badge&up_color=brigthgreen&up_message=UP&url=https%3A%2F%2Fhelix-medical.github.io" />
         </a>
