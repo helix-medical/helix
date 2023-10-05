@@ -5,6 +5,7 @@ export default ({ mode }) => {
     process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
     return defineConfig({
         plugins: [react()],
+        base: '/helix',
         build: {
             emptyOutDir: true,
             // outDir: '../server/build/public',
