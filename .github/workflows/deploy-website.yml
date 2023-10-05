@@ -3,7 +3,7 @@ name: Deploy Helix Website
 on:
   push:
     paths:
-      - website
+      - website/*
 
 permissions:
   contents: write
