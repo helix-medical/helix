@@ -3,5 +3,8 @@ node_modules/
 .prettierrc*
 README.md
 logs/
-.env
+.env*
 build/
+.git/
+.github/
+LICENSE

@@ -18,11 +18,12 @@ import rateLimit from 'express-rate-limit';
 
 // Config
 const app: Express = express();
-const port = process.env.PORT_API || 3001;
+const port = 3001;
 const limiter = rateLimit({
     windowMs: 60 * 1000,
     max: 10,
 });
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(credentials);
