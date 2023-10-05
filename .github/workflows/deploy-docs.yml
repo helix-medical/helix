@@ -1,37 +1,22 @@
-name: Build and Deploy Helix Documentation
+name: Deploy the Helix Documentation to GitHub Wiki
 
 on:
   push:
-    paths:
-      - docs
+    branches:
+      - main
 
 permissions:
   contents: write
 
 jobs:
   deploy:
-    name: Deploy
+    name: Publish to Wiki
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-
-      - name: Install mdbook
-        run: |
-          cargo install mdbook --no-default-features --features search --vers "^0.4" --locked
-          cargo install mdbook-mermaid
-
-      - name: Build Documentation
-        working-directory: ./docs
-        run: mdbook build
-
       - name: Deploy Documentation
-        uses: peaceiris/actions-gh-pages@v3
+        uses: Andrew-Chen-Wang/github-wiki-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/book
+          path: docs/src
