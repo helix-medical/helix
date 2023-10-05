@@ -1,65 +1,18 @@
-import React from 'react';
-import axios from 'axios';
-import { Modal, Button, Grid, TextInput, Select, Text, PasswordInput, Group, useMantineTheme } from '@mantine/core';
-import { useForm, isNotEmpty } from '@mantine/form';
+import { Modal, Button, Grid, TextInput, Select, Text, PasswordInput, Group } from '@mantine/core';
+import { useUserCreate } from './create.logic';
+import ModalOverlay from '../../components/modal-overlay';
 
 interface IProps {
     show: boolean;
     toggleModal: () => void;
-    handler: any;
 }
 
-const ModalAddUser = ({ show, toggleModal, handler }: IProps): JSX.Element => {
-    const handleClose = () => toggleModal();
-    const theme = useMantineTheme();
-
-    const form = useForm({
-        initialValues: {
-            name: '',
-            lastName: '',
-            role: '',
-            password: '',
-        },
-
-        validate: {
-            name: (value) => (value.length < 2 ? 'Name must be at least 2 chars' : null),
-            lastName: (value) => (value.length < 2 ? 'Last name must be at least 2 chars' : null),
-            role: isNotEmpty('Role is required'),
-            password: isNotEmpty('Password is required'),
-        },
-    });
-
-    const handleClick = async (e: { preventDefault: () => void }) => {
-        e.preventDefault();
-        if (form.validate().hasErrors) return;
-        console.log(form.values);
-        try {
-            const res = await axios.post(`/api/users/add`, form.values, {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true,
-            });
-            handler({
-                fail: false,
-                message: res.data.message,
-            });
-        } catch (error: any) {
-            console.log(error);
-            handler({
-                fail: true,
-                message: error.response.data.message,
-            });
-        }
-        toggleModal();
-        // window.location.reload();
-    };
+const ModalAddUser = ({ show, toggleModal }: IProps): JSX.Element => {
+    const { form, handleClick } = useUserCreate(toggleModal);
 
     return (
-        <Modal.Root opened={show} onClose={handleClose} padding={12}>
-            <Modal.Overlay
-                color={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
-                opacity={0.55}
-                blur={3}
-            />
+        <Modal.Root opened={show} onClose={toggleModal} padding={12}>
+            <Modal.Overlay {...ModalOverlay} />
             <Modal.Content>
                 <Modal.Header>
                     <Modal.Title>
@@ -111,7 +64,7 @@ const ModalAddUser = ({ show, toggleModal, handler }: IProps): JSX.Element => {
                             </Grid.Col>
                         </Grid>
                         <Group position="right" p="md">
-                            <Button variant="light" color="red" onClick={handleClose}>
+                            <Button variant="light" color="red" onClick={toggleModal}>
                                 Cancel
                             </Button>
                             <Button
@@ -129,4 +82,4 @@ const ModalAddUser = ({ show, toggleModal, handler }: IProps): JSX.Element => {
     );
 };
 
-export default ModalAddUser;
+export { ModalAddUser };

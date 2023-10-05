@@ -1,51 +1,47 @@
-import React from 'react';
-import { Textarea, Title, Grid, TextInput } from '@mantine/core';
-import getNbLines from '../../tools/getLines';
-import { IConclusion } from '../../interfaces';
-import { useAppFormContext } from './formContext';
+import { Textarea, Title, Grid, Paper } from '@mantine/core';
+import nbLines from '../../helpers/get-lines';
+import { useAppFormContext } from './form-context';
 
-interface IProps {
-    conclusion: IConclusion;
-    view?: boolean;
-}
-
-function Conclusion({ conclusion, view }: IProps): JSX.Element {
-    const nbLines = (text: string, base: number) => (view ? getNbLines(text) : base);
-    const formContext = useAppFormContext();
+const Conclusion = ({ view }: { view: boolean }): JSX.Element => {
+    const form = useAppFormContext();
 
     return (
-        <>
+        <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
             <Title order={2}>Conclusion</Title>
             <Grid columns={12}>
                 <Grid.Col span={12}>
-                    <TextInput
+                    <Textarea
                         label="Diagnosis"
-                        defaultValue={view ? conclusion.diagnosis : undefined}
-                        {...(view ? null : formContext.getInputProps('conclusion.diagnosis'))}
+                        {...form.getInputProps('conclusion.diagnosis')}
+                        placeholder="Diagnosis"
                         readOnly={view}
+                        maxRows={nbLines(form.values.conclusion.diagnosis)}
+                        minRows={nbLines(form.values.conclusion.diagnosis)}
                     />
                 </Grid.Col>
                 <Grid.Col span={12}>
                     <Textarea
                         label="Treatment"
-                        maxRows={nbLines(conclusion.treatment, 3)}
-                        defaultValue={view ? conclusion.treatment : undefined}
-                        {...(view ? null : formContext.getInputProps('conclusion.treatment'))}
+                        maxRows={nbLines(form.values.conclusion.treatment)}
+                        minRows={nbLines(form.values.conclusion.treatment)}
+                        {...form.getInputProps('conclusion.treatment')}
+                        placeholder="Treatment"
                         readOnly={view}
                     />
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col span={12}>
                     <Textarea
-                        label="Observations"
-                        maxRows={nbLines(conclusion.observations, 3)}
-                        defaultValue={view ? conclusion.observations : undefined}
-                        {...(view ? null : formContext.getInputProps('conclusion.observations'))}
+                        label="Conseils"
+                        maxRows={nbLines(form.values.conclusion.observations)}
+                        minRows={nbLines(form.values.conclusion.observations)}
+                        {...form.getInputProps('conclusion.observations')}
+                        placeholder="Conseils"
                         readOnly={view}
                     />
                 </Grid.Col>
             </Grid>
-        </>
+        </Paper>
     );
-}
+};
 
-export default Conclusion;
+export { Conclusion };

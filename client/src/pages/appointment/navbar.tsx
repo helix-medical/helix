@@ -1,24 +1,34 @@
-import React from 'react';
 import { Button, Badge, Title, Grid, Group } from '@mantine/core';
+import { AppointmentStyles } from './styles';
 
 interface IProps {
     view?: boolean;
+    color: string;
+    handler?: () => void;
 }
 
-function NavBarAppointment({ view }: IProps): JSX.Element {
+const NavBarAppointment = ({ view, color, handler }: IProps): JSX.Element => {
+    const { classes } = AppointmentStyles();
+
     return (
         <Grid justify="space-between" align="center" p="md">
             <Group>
                 <Title order={1}>
-                    Appointment&nbsp;
-                    <Badge color={view ? 'red' : 'blue'} size="xl" radius="sm">
+                    Appointment{' '}
+                    <Badge color={view ? 'red' : 'green'} size="xl" radius="sm" className={classes.useless}>
                         {view ? 'READONLY' : 'CAN EDIT'}
                     </Badge>
                 </Title>
             </Group>
-            <Group>{view && <Button>Export to PDF</Button>}</Group>
+            <Group>
+                {view ? (
+                    <Button onClick={handler} color={color}>
+                        Export to PDF
+                    </Button>
+                ) : null}
+            </Group>
         </Grid>
     );
-}
+};
 
-export default NavBarAppointment;
+export { NavBarAppointment };

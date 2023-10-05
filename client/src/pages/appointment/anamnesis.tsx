@@ -1,63 +1,47 @@
-import React from 'react';
-import { Textarea, Title, Grid, Divider } from '@mantine/core';
-import getNbLines from '../../tools/getLines';
-import { IAnamnesis } from '../../interfaces';
-import { useAppFormContext } from './formContext';
+import { Textarea, Title, Grid, Paper } from '@mantine/core';
+import nbLines from '../../helpers/get-lines';
+import { useAppFormContext } from './form-context';
 
-interface IProps {
-    anamnesis: IAnamnesis;
-    view?: boolean;
-}
-
-const Anamnesis = ({ anamnesis, view }: IProps): JSX.Element => {
-    const nbLines = (text: string, base: number) => (view ? getNbLines(text) : base);
-    const formContext = useAppFormContext();
+const Anamnesis = ({ view }: { view: boolean }): JSX.Element => {
+    const form = useAppFormContext();
 
     return (
-        <div className="debug">
-            <Divider my='lg' />
+        <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
             <Title order={2}>Anamnesis</Title>
             <Grid columns={12}>
                 <Grid.Col span={12}>
                     <Textarea
                         label="Reasons for the consultation"
-                        maxRows={nbLines(anamnesis.reasons, 1)}
-                        defaultValue={view ? anamnesis.reasons : undefined}
-                        {...(view ? null : formContext.getInputProps('anamnesis.reasons'))}
+                        maxRows={nbLines(form.values.anamnesis.reasons)}
+                        minRows={nbLines(form.values.anamnesis.reasons)}
+                        {...form.getInputProps('anamnesis.reasons')}
                         readOnly={view}
+                        placeholder="Reasons for the consultation"
                     />
                 </Grid.Col>
                 <Grid.Col span={12}>
                     <Textarea
                         label="Symptoms"
-                        maxRows={nbLines(anamnesis.symptoms, 3)}
-                        defaultValue={view ? anamnesis.symptoms : undefined}
-                        {...(view ? null : formContext.getInputProps('anamnesis.symptoms'))}
+                        maxRows={nbLines(form.values.anamnesis.symptoms)}
+                        minRows={nbLines(form.values.anamnesis.symptoms)}
+                        {...form.getInputProps('anamnesis.symptoms')}
                         readOnly={view}
+                        placeholder="Symptoms"
                     />
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col span={12}>
                     <Textarea
-                        label="Known diseases"
-                        maxRows={nbLines(anamnesis.knownDiseases, 3)}
-                        defaultValue={view ? anamnesis.knownDiseases : undefined}
-                        {...(view ? null : formContext.getInputProps('anamnesis.knownDiseases'))}
+                        label="Antécédents sur la zone"
+                        maxRows={nbLines(form.values.anamnesis.knownDiseases)}
+                        minRows={nbLines(form.values.anamnesis.knownDiseases)}
+                        {...form.getInputProps('anamnesis.knownDiseases')}
                         readOnly={view}
-                    />
-                </Grid.Col>
-                <Grid.Col span={6}>
-                    <Textarea
-                        label="Medications"
-                        maxRows={nbLines(anamnesis.knownMedications, 3)}
-                        defaultValue={view ? anamnesis.knownMedications : undefined}
-                        {...(view ? null : formContext.getInputProps('anamnesis.knownMedications'))}
-                        readOnly={view}
+                        placeholder="Antécédents sur la zone"
                     />
                 </Grid.Col>
             </Grid>
-            <Divider my='lg' />
-        </div>
+        </Paper>
     );
 };
 
-export default Anamnesis;
+export { Anamnesis };

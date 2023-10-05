@@ -1,31 +1,25 @@
-import React from 'react';
-import { TextInput, Title, Grid, Divider } from '@mantine/core';
-import dateToReadable from '../../tools/date';
-import { IAppointmentDataView, IAppointmentDataEdit } from '../../interfaces';
+import { TextInput, Title, Grid, Paper } from '@mantine/core';
+import { UseFormReturnType } from '@mantine/form';
+import { IAppointmentData } from './types';
 
-interface IProps {
-    appointment: IAppointmentDataView | IAppointmentDataEdit;
-}
+const Metadata = ({ data }: { data: UseFormReturnType<IAppointmentData> }): JSX.Element => (
+    <Paper shadow="sm" radius="md" p="lg" withBorder my="lg">
+        <Title order={2}>Appointment Data</Title>
+        <Grid columns={12}>
+            <Grid.Col xs={6} sm={3} md={3}>
+                <TextInput label="Date" readOnly defaultValue={data.values.date} />
+            </Grid.Col>
+            <Grid.Col xs={6} sm={3} md={3}>
+                <TextInput label="Kind" readOnly {...data.getInputProps('kind')} />
+            </Grid.Col>
+            <Grid.Col xs={6} sm={3} md={3}>
+                <TextInput label="Patient ID" readOnly defaultValue={data.values.patientID.toUpperCase()} />
+            </Grid.Col>
+            <Grid.Col xs={6} sm={3} md={3}>
+                <TextInput label="Practitioner" readOnly defaultValue={data.values.practitionerName} />
+            </Grid.Col>
+        </Grid>
+    </Paper>
+);
 
-function Metadata({ appointment }: IProps): JSX.Element {
-    return (
-        <>
-            <Divider my='lg' />
-            <Title order={2}>Appointment Data</Title>
-            <Grid>
-                <Grid.Col span={4}>
-                    <TextInput label="Date" readOnly defaultValue={dateToReadable(appointment.date)} />
-                </Grid.Col>
-                <Grid.Col span={4}>
-                    <TextInput label="Kind" readOnly defaultValue={appointment.reasons} />
-                </Grid.Col>
-                <Grid.Col span={4}>
-                    <TextInput label="Patient ID" readOnly defaultValue={appointment.patientId} />
-                </Grid.Col>
-            </Grid>
-            <Divider my='lg' />
-        </>
-    );
-}
-
-export default Metadata;
+export { Metadata };
