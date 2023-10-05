@@ -14,8 +14,8 @@
         <img src="https://img.shields.io/docker/v/xavier2p/helix-db?label=database%20version&style=for-the-badge&logo=docker" />
     </a>
     <div>
-        <a href="https://github.com/helix-medical/.github/blob/main/LICENSE">
-            <img src="https://img.shields.io/github/license/helix-medical/.github?style=for-the-badge&logo=github" />
+        <a href="https://github.com/Xavier2p/helix/blob/main/LICENSE">
+            <img src="https://img.shields.io/github/license/xavier2p/helix?style=for-the-badge&logo=github" />
         </a>
         <img src="https://img.shields.io/github/stars/xavier2p/helix?style=for-the-badge&logo=github&color=yellow" />
         <a href="https://helix-medical.github.io">
