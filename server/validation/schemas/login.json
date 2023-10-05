@@ -1,0 +1,17 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{8}$"
+        },
+        "password": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "password"
+    ],
+    "additionalProperties": false
+}

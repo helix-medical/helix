@@ -1,0 +1,22 @@
+{
+    "type": "object",
+    "properties": {
+        "patientId": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}$"
+        },
+        "kind": {
+            "type": "string"
+        },
+        "event": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}$"
+        }
+    },
+    "required": [
+        "patientId",
+        "event",
+        "kind"
+    ],
+    "additionalProperties": false
+}

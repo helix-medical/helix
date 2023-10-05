@@ -1,0 +1,27 @@
+{
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string"
+        },
+        "start": {
+            "type": "string"
+        },
+        "end": {
+            "type": "string"
+        },
+        "calendar": {
+            "type": "string"
+        },
+        "appID": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "title",
+        "start",
+        "end",
+        "calendar"
+    ],
+    "additionalProperties": false
+}

@@ -1,0 +1,16 @@
+{
+    "type": "object",
+    "properties": {
+        "content": {
+            "type": "string"
+        },
+        "payment": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "content",
+        "payment"
+    ],
+    "additionalProperties": false
+}

@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "properties": {
+        "appId": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}$"
+        },
+        "patientId": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}$"
+        }
+    },
+    "required": [
+        "appId",
+        "patientId"
+    ],
+    "additionalProperties": false
+}

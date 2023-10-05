@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "properties": {
+        "amount": {
+            "type": "number"
+        },
+        "method": {
+            "type": "string"
+        },
+        "date": {
+            "type": "string"
+        },
+        "appointment": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}$"
+        }
+    },
+    "required": [
+        "amount",
+        "method",
+        "date",
+        "appointment"
+    ],
+    "additionalProperties": false
+}
