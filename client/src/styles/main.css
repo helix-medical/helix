@@ -1,0 +1,111 @@
+:root {
+  --header-background-color: #2C3049;
+  --patients-color: #87E3CF;
+  --calendar-color: #D6689E;
+  --appointments-color: #FE7C6B;
+  --title-color: #FFB400;
+  --app-background-color: #1E2334;
+}
+
+.body {
+  /* text-align: center; */
+  margin: 16px;
+}
+
+.App-header {
+  background-color: #282c34;
+  /* min-height: 100vh; */
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-header h1 {
+  margin: 10px;
+  /* align-content: start; */
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: #61dafb 1px solid; */
+  margin: 10px;
+}
+
+.form input {
+  margin: 10px;
+}
+
+.patients {
+  display: flex;
+  /* flex-direction: column; */
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.card-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  /* border: #61dafb 1px solid; */
+}
+
+.card-view button {
+  margin: 10px;
+}
+
+.delete {
+  background-color: red;
+}
+
+.edit {
+  background-color: blue;
+}
+
+.view {
+  background-color: green;
+}
+
+.App-header a {
+  /* align-items: center; */
+  justify-content: center;
+  margin: 10px;
+}
+
+.right-button {
+  align-self: flex-end;
+}
+
+.debug {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.buttons-nav Button {
+  margin-left: 10px;
+}
+
+.step {
+  margin: 10px;
+}
+
+.card-view {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button-center {
+  margin-left: auto;
+  margin-right: auto;
+}
