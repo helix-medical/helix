@@ -9,8 +9,8 @@ const links = [
     { label: 'Home', link: '#' },
     { label: 'Features', link: '#features' },
     { label: 'FAQ', link: '#faq' },
-    { label: 'Docs', link: 'https://helix-medical.github.io/docs/' },
-    { label: 'Demo', link: 'https://helix-medical.github.io/demo/' },
+    { label: 'Docs', link: 'https://github.com/Xavier2p/helix/wiki' },
+    // { label: 'Demo', link: 'https://helix-medical.github.io/demo/' },
 ];
 
 const HeaderWebsite = () => {
