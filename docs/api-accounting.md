@@ -1,5 +1,3 @@
-# Accounting
-
 ## Schema
 
 ```mermaid

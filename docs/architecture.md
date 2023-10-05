@@ -1,5 +1,3 @@
-# General Principles
-
 ## Architecture
 
 ```mermaid

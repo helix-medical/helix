@@ -1,5 +1,3 @@
-# Users
-
 ## Schema
 
 ```mermaid

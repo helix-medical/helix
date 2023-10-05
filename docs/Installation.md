@@ -1,10 +1,10 @@
-# Installation
+## Installation
 
 > **A prendre en compte avant l'installation**
 >
 > Merci de vous assurer que vous avez bien lu les [précautions d'usage](disclaimer.md) avant d'installer Helix.
 
-## Prérequis
+### Prérequis
 
 La philosophie de Helix est d'être hébergé chez soi, en *self-hosting*. C'est un gage de confidentialité, non négligeable dans le milieu médical, et cela permet à Helix de rester gratuit, et sans publicités.
 
@@ -18,7 +18,7 @@ Pour cela, il faut donc prévoir un peu de matériel et d'espace disque. Voici l
 + [Git](https://git-scm.com/downloads)
 + [lx-tool](../lx-tool/install.md)
 
-## Étapes
+### Étapes
 
 Commencez par cloner le repo:
 

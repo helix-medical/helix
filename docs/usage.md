@@ -1,5 +1,5 @@
-# Usage
+## Usage
 
-> **Not implemented yet**
+> **Warning**  
 >
->Not Found: /docs/docs/getting-started/usage.md
+>Not Found: /docs/usage.md

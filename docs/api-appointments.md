@@ -1,5 +1,3 @@
-# Appointments
-
 ## Schema
 
 ```mermaid

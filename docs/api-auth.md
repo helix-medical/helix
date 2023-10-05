@@ -1,5 +1,3 @@
-# Auth
-
 ## Schema
 
 ```mermaid

@@ -1,4 +1,4 @@
-# Schema
+This is a schema of the API. It is not a complete documentation, but it is a good starting point.
 
 ```mermaid
 flowchart TB

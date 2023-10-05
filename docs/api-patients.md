@@ -1,5 +1,3 @@
-# Patients
-
 ## Schema
 
 ```mermaid

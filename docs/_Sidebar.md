@@ -1,26 +1,21 @@
-# Summary
+# The Helix Project Wiki
 
-[Home](./index.md)
+[Home](https://github.com/Xavier2p/helix/wiki)
 
-- [Getting Started](./getting-started/index.md)
-  - [Disclaimer](./getting-started/disclaimer.md)
-  - [Installation](./getting-started/install.md)
-  - [Usage](./getting-started/usage.md)
-  - [Configuration](./getting-started/configuration.md)
+- Getting Started
+  - [Disclaimer](https://github.com/Xavier2p/helix/wiki/Disclaimer)
+  - [Installation](https://github.com/Xavier2p/helix/wiki/Installation)
+  - [Usage](https://github.com/Xavier2p/helix/wiki/Usage)
+  - [Configuration](https://github.com/Xavier2p/helix/wiki/Configuration)
 
-- [General](./general/index.md)
+- General
+  - [Architecture](https://github.com/Xavier2p/helix/wiki/Architecture)
 
-- [API](./api/index.md)
-  - [Schema](./api/schema.md)
-  - [Accounting](./api/accounting.md)
-  - [Appointments](./api/appointments.md)
-  - [Auth](./api/auth.md)
-  - [Events](./api/events.md)
-  - [Patients](./api/patients.md)
-  - [Users](./api/users.md)
-
-- [lx-tool](./lx-tool/index.md)
-  - [Installation](./lx-tool/install.md)
-  - [Usage](./lx-tool/usage.md)
-
-- [Contributing](./contributing/index.md)
+- API
+  - [Schema](https://github.com/Xavier2p/helix/wiki/API-Schema)
+  - [Accounting](https://github.com/Xavier2p/helix/wiki/API-Accounting)
+  - [Appointments](https://github.com/Xavier2p/helix/wiki/API-Appointments)
+  - [Auth](https://github.com/Xavier2p/helix/wiki/API-Auth)
+  - [Events](https://github.com/Xavier2p/helix/wiki/API-Events)
+  - [Patients](https://github.com/Xavier2p/helix/wiki/API-Patients)
+  - [Users](https://github.com/Xavier2p/helix/wiki/API-Users)

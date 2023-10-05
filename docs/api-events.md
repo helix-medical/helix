@@ -1,5 +1,3 @@
-# Events
-
 ## Schema
 
 ```mermaid

@@ -1,4 +1,5 @@
-# Welcome to Helix Documentation
+> Welcome to the Helix documentation!
+> Here, you will find information about installing and using Helix, as well as contributing to its development.
 
 ## What is Helix?
 
