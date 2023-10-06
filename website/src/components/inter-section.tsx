@@ -22,6 +22,7 @@ const InterSection = () => {
                     onClick={() => goToDemo()}
                     variant="light"
                     className={classes.control}
+                    disabled
                 >
                     Démonstration
                 </Button>

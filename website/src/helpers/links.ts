@@ -4,6 +4,6 @@ const goToSources = () => window.open('https://github.com/Xavier2p/helix', '_bla
 
 const goToDocs = () => window.open('https://github.com/Xavier2p/helix/wiki', '_blank');
 
-// const goToDemo = () => window.open('https://helix-medical.github.io/demo/', '_blank');
+const goToDemo = () => window.open('#', '_blank');
 
-export { goToInstall, goToSources, goToDocs /* goToDemo */ };
+export { goToInstall, goToSources, goToDocs, goToDemo };

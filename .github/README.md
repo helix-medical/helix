@@ -55,7 +55,7 @@ Helix is also for you if you are a developer and you want to contribute to an op
 
 ## How to install
 
-> You can find more information about how to install Helix in the [documentation](https://helix-medical.github.io/docs/getting-started/index.html).
+> You can find more information about how to install Helix in the [documentation](https://github.com/Xavier2p/helix/wiki/Installation).
 
 In a few words, you can install Helix on any Linux-based server or computer using the [docker-compose](https://github.com/helix-medical/releases/blob/main/docker-compose.yml) file available in the [releases](https://github.com/helix-medical/releases) page.
 
@@ -67,8 +67,8 @@ We working on a brand new [installer/utility tool](https://github.com/helix-medi
 
 ## License
 
-The whole project is licensed under the [GPLv3 License](https://github.com/helix-medical/.github/blob/main/LICENSE).
+The whole project is licensed under the [GPLv3 License](https://github.com/Xavier2p/helix/blob/main/LICENSE).
 
 ## Documentation
 
-The full documentation is available at [docs](https://github.com/helix-medical/docs) (`french`). You can contribute to translate it in english!
+The full documentation is available at [docs](https://github.com/Xavier2p/helix/wiki) (`french`). You can contribute to translate it in english!
