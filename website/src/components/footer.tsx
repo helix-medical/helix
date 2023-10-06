@@ -3,8 +3,8 @@ import HelixLogo from './logo';
 import { useComponentsStyles } from './styles';
 
 const links = [
-    { label: 'Docs', link: '/docs/' },
-    { label: 'GitHub', link: 'https://github.com/helix-medical' },
+    { label: 'Docs', link: 'https://github.com/Xavier2p/helix/wiki' },
+    { label: 'GitHub', link: 'https://github.com/Xavier2p/helix' },
 ];
 
 const Footer = () => {

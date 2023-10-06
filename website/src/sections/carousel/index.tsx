@@ -9,7 +9,7 @@ const CarouselSection = () => {
 
     const slides = carouselData.map((slide) => (
         <Carousel.Slide key={slide.title} onClick={() => {}}>
-            <Paper shadow="sm" withBorder radius="md" p="xl">
+            <Paper shadow="sm" radius="md" p="xl">
                 <Image src={slide.image} withPlaceholder alt={slide.title} className={classes.image} />
                 <Card m="sm" shadow="sm" radius="md" padding="sm">
                     <Title order={3} align="center" mt="xs">

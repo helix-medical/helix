@@ -54,7 +54,7 @@ const Hero = () => {
                         leftIcon={<IconBrandGithub />}
                         onClick={() => goToSources()}
                     >
-                        Code Source
+                        Voir le Code
                     </Button>
                 </Group>
             </div>
