@@ -1,21 +1,20 @@
-name: Build & Push Docker Image
+name: Build and Release Helix Docker Image
 
 on:
   push:
     tags:
       - 'v*'
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
-  push:
-    name: Push on Registries
+  build:
+    name: Build and Push Docker Image
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-
     env:
-      DOCKER_IMAGE: helix-client
-
+      IMAGE_NAME: helix
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
@@ -23,7 +22,7 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Log in to GitHub Container Registry
@@ -44,8 +43,8 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}
-            ghcr.io/${{ github.repository }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}
+            ghcr.io/${{ github.actor }}/${{ env.IMAGE_NAME }}
 
       - name: Build and Push
         uses: docker/build-push-action@v4
@@ -55,3 +54,26 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+
+  release:
+    name: Create Release for Helix
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Extract Changelog
+        id: get-changelog
+        run: echo "::set-output name=changelog::$(cat .github/CHANGELOG.md)"
+
+      - name: Create Release
+        uses: comnoco/create-release-action@v2.0.5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Helix ${{ github.ref }}
+          body: ${{ steps.get-changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
