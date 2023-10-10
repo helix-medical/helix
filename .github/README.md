@@ -10,14 +10,16 @@
     <a href="../server/">
         <img src="https://img.shields.io/github/package-json/v/xavier2p/helix?filename=server%2Fpackage.json&style=for-the-badge&logo=nodedotjs&logoColor=%23339933&label=server&color=%23339933" />
     </a>
-    <a href="https://hub.docker.com/r/xavier2p/helix-db">
-        <img src="https://img.shields.io/docker/v/xavier2p/helix-db?label=database%20version&style=for-the-badge&logo=docker" />
+    <a href="https://hub.docker.com/r/xavier2p/helix">
+        <img src="https://img.shields.io/docker/v/xavier2p/helix?label=docker%20image&style=for-the-badge&logo=docker&color=blue" />
     </a>
     <div>
         <a href="https://github.com/Xavier2p/helix/blob/main/LICENSE">
             <img src="https://img.shields.io/github/license/xavier2p/helix?style=for-the-badge&logo=github" />
         </a>
+        <a>
         <img src="https://img.shields.io/github/stars/xavier2p/helix?style=for-the-badge&logo=github&color=yellow" />
+        </a href="https://github.com/Xavier2p/helix/stargazers">
         <a href="https://xavier2p.github.io/helix">
             <img src="https://img.shields.io/website?down_color=brigthred&down_message=DOWN&logo=github&style=for-the-badge&up_color=brigthgreen&up_message=UP&url=https%3A%2F%2Fxavier2p.github.io%2Fhelix" />
         </a>
@@ -28,7 +30,7 @@
 </div>
 
 <!-- Concept -->
-The Helix Project ([website](https://helix-medical.github.io)) is a Patient Management System (PMS) specially built for Osteopaths purposes. You can find some popular features like:
+The Helix Project ([website](https://xavier2p.github.io/helix)) is a Patient Management System (PMS) specially built for Osteopaths purposes. You can find some popular features like:
 
 + Patient management (medical history, appointments, billing, ...)
 + Appointment management (personal and professional calendar ...)
@@ -57,7 +59,7 @@ Helix is also for you if you are a developer and you want to contribute to an op
 
 > You can find more information about how to install Helix in the [documentation](https://github.com/Xavier2p/helix/wiki/Installation).
 
-In a few words, you can install Helix on any Linux-based server or computer using the [docker-compose](https://github.com/helix-medical/releases/blob/main/docker-compose.yml) file available in the [releases](https://github.com/helix-medical/releases) page.
+In a few words, you can install Helix on any Linux-based server or computer using the [docker-compose](https://github.com/Xavier2p/helix/blob/main/docker-compose.yml) file available in the [releases](https://github.com/Xavier2p/helix/releases) page.
 
 We working on a brand new [installer/utility tool](https://github.com/helix-medical/lx-tool) to make the installation process easier. Stay tuned!
 
