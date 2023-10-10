@@ -132,15 +132,17 @@ jobs:
 
       - name: Extract Changelog
         id: get-changelog
-        run: echo "::set-output name=changelog::$(cat .github/CHANGELOG.md)"
+        uses: jaywcjlove/github-action-read-file@v1.2.1
+        with:
+          path: .github/CHANGELOG.md
 
       - name: Create Release
         uses: comnoco/create-release-action@v2.0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Helix ${{ github.ref }}
-          body: ${{ steps.get-changelog.outputs.changelog }}
+          tag_name: ${{ github.ref_name }}
+          release_name: Helix ${{ github.ref_name }}
+          body: ${{ steps.get-changelog.outputs.content }}
           draft: false
           prerelease: false
