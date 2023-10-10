@@ -17,9 +17,9 @@
         <a href="https://github.com/Xavier2p/helix/blob/main/LICENSE">
             <img src="https://img.shields.io/github/license/xavier2p/helix?style=for-the-badge&logo=github" />
         </a>
-        <a>
+        <a href="https://github.com/Xavier2p/helix/stargazers">
         <img src="https://img.shields.io/github/stars/xavier2p/helix?style=for-the-badge&logo=github&color=yellow" />
-        </a href="https://github.com/Xavier2p/helix/stargazers">
+        </a>
         <a href="https://xavier2p.github.io/helix">
             <img src="https://img.shields.io/website?down_color=brigthred&down_message=DOWN&logo=github&style=for-the-badge&up_color=brigthgreen&up_message=UP&url=https%3A%2F%2Fxavier2p.github.io%2Fhelix" />
         </a>
