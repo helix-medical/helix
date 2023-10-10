@@ -9,6 +9,7 @@ export default ({ mode }) => {
         build: {
             emptyOutDir: true,
             outDir: mode === 'production' ? './dist' : '../server/build/public',
+            rollupOptions: {},
         },
         server: {
             port: 3000,

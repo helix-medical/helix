@@ -39,7 +39,7 @@ Please see the [installation guide](https://helix-medical.github.io/docs/getting
 git clone https://github.com/helix-medical/server.git && cd client
 
 # Install dependencies
-npm install
+npm install nodemon concurrently
 
 # Run the application
 npm run dev
