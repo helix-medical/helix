@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 jobs:
   build-server:
@@ -63,10 +62,13 @@ jobs:
           path: ./client/dist
 
   docker-image:
+    name: Build and Push Docker Image
     needs:
       - build-server
       - build-client
-    name: Build and Push Docker Image
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: helix
@@ -124,6 +126,7 @@ jobs:
 
   release:
     name: Create Release for Helix
+    permissions: write-all
     needs: docker-image
     runs-on: ubuntu-latest
     steps:

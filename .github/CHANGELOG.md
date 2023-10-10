@@ -1,4 +1,4 @@
-# Helix `v0.1.0` - 2023-10-10
+# Helix `v0.1.2` - 2023-10-10
 
 ## Changes
 
@@ -26,7 +26,7 @@
 ## Update your Docker Image
 
 ```bash
-docker pull ghcr.io/xavier2p/helix:v0.1.0
+docker pull ghcr.io/xavier2p/helix:v0.1.2
 ```
 
 Thanks for using Helix!
