@@ -1,5 +1,3 @@
-# Helix `v0.1.2` - 2023-10-10
-
 ## Changes
 
 ### New features

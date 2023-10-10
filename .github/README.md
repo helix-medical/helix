@@ -18,12 +18,12 @@
             <img src="https://img.shields.io/github/license/xavier2p/helix?style=for-the-badge&logo=github" />
         </a>
         <img src="https://img.shields.io/github/stars/xavier2p/helix?style=for-the-badge&logo=github&color=yellow" />
-        <a href="https://helix-medical.github.io">
-            <img src="https://img.shields.io/website?down_color=brigthred&down_message=DOWN&logo=github&style=for-the-badge&up_color=brigthgreen&up_message=UP&url=https%3A%2F%2Fhelix-medical.github.io" />
+        <a href="https://xavier2p.github.io/helix">
+            <img src="https://img.shields.io/website?down_color=brigthred&down_message=DOWN&logo=github&style=for-the-badge&up_color=brigthgreen&up_message=UP&url=https%3A%2F%2Fxavier2p.github.io%2Fhelix" />
         </a>
     </div>
-    <a href="https://github.com/helix-medical/releases/releases">
-        <img src="https://img.shields.io/github/v/release/helix-medical/releases?style=for-the-badge&label=latest&logo=github&color=green" />
+    <a href="https://github.com/Xavier2p/helix/releases">
+        <img src="https://img.shields.io/github/v/release/Xavier2p/wiki?style=for-the-badge&label=latest&logo=github&color=green" />
     </a>
 </div>
 
