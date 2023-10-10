@@ -23,7 +23,7 @@
         </a>
     </div>
     <a href="https://github.com/Xavier2p/helix/releases">
-        <img src="https://img.shields.io/github/v/release/Xavier2p/wiki?style=for-the-badge&label=latest&logo=github&color=green" />
+        <img src="https://img.shields.io/github/v/release/Xavier2p/helix?style=for-the-badge&label=latest&logo=github&color=green" />
     </a>
 </div>
 
