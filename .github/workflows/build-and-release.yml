@@ -10,7 +10,62 @@ permissions:
   packages: write
 
 jobs:
-  build:
+  build-server:
+    name: Build Helix Server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: ./server
+        run: npm clean-install
+
+      - name: Build
+        working-directory: ./server
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: server
+          path: ./server/build
+
+  build-client:
+    name: Build Helix Client
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: ./client
+        run: npm clean-install
+
+      - name: Build
+        working-directory: ./client
+        run: npm run ci
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: client
+          path: ./client/dist
+
+  docker-image:
+    needs:
+      - build-server
+      - build-client
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
     env:
@@ -18,6 +73,18 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
+
+      - name: Download Server Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: server
+          path: ./server/build
+
+      - name: Download Client Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: client
+          path: ./client/dist
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -57,11 +124,11 @@ jobs:
 
   release:
     name: Create Release for Helix
-    needs: build
+    needs: docker-image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Extract Changelog
         id: get-changelog

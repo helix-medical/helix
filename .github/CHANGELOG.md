@@ -1,27 +1,32 @@
-# Helix `<version>` - `<date>`
+# Helix `v0.1.0` - 2023-10-10
 
 ## Changes
 
 ### New features
 
-+
++ Not at this point
 
 ### Improvements
 
-+
++ New docker configuration
++ New docker image
 
 ### Bug fixes
 
-+
++ No
 
 ### Security fixes
 
-+
++ No
+
+### Known issues
+
++ Not working
 
 ## Update your Docker Image
 
 ```bash
-docker pull ghcr.io/xavier2p/helix:<version>
+docker pull ghcr.io/xavier2p/helix:v0.1.0
 ```
 
 Thanks for using Helix!
