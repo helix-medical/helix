@@ -7,7 +7,7 @@ export default ({ mode }) => {
         plugins: [react()],
         build: {
             emptyOutDir: true,
-            outDir: mode === 'production' ? './dist' : '../server/build/public',
+            outDir: mode === 'production' ? './dist' : '../server/build/www',
             rollupOptions: {},
         },
         server: {

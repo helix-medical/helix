@@ -8,16 +8,15 @@ import path from 'path';
 import rateLimit from 'express-rate-limit';
 import sc from './tools/status-codes';
 import server from './routers/api';
-import client from './client';
 require('dotenv').config();
 
 // Config
 const api: Express = express();
 const port = 3001;
-const limiter = rateLimit({
-    windowMs: 60 * 1000,
-    max: 40,
-});
+// const limiter = rateLimit({
+//     windowMs: 60 * 1000,
+//     max: 40,
+// });
 
 api.use(express.json());
 api.use(express.urlencoded({ extended: true }));
@@ -26,6 +25,9 @@ api.use(cors());
 api.use(cookieParser());
 // api.use(limiter);
 
+// Static www
+api.use(express.static(path.join(__dirname, 'www')));
+
 // Logger
 api.use(logger.checkpoint);
 
@@ -33,7 +35,10 @@ api.use(logger.checkpoint);
 api.use('/api', server);
 
 // Client
-api.use('/', client);
+api.get('*', (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, 'www', 'index.html'));
+    logger.success(req, res, 'Return client');
+});
 
 // 404
 api.all('*', (req: Request, res: Response) => {

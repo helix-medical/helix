@@ -16,26 +16,23 @@ Pour cela, il faut donc prévoir un peu de matériel et d'espace disque. Voici l
   + Un processeur récent (Intel Core i3 ou supérieur, ou équivalent)
 + [Docker](https://docs.docker.com/get-docker/) et [Docker Compose](https://docs.docker.com/compose/compose-file/)
 + [Git](https://git-scm.com/downloads)
-+ [lx-tool](../lx-tool/install.md)
+<!-- + [lx-tool](../lx-tool/install.md) -->
 
 ### Étapes
 
-Commencez par cloner le repo:
+Commencez par télécharger le fichier `docker-compose.yml`:
 
 ```bash
-git clone https://github.com/helix-medical/releases.git ~/.helix && cd ~/.helix
+# with curl
+curl -o docker-compose.yml https://raw.githubusercontent.com/Xavier2p/helix/main/docker-compose.yml
+# or with wget
+wget https://raw.githubusercontent.com/Xavier2p/helix/main/docker-compose.yml
 ```
 
-Ensuite, lancez l'utilitaire d'installation. L'utilitaire va vous demander quelques informations, et vous guider dans l'installation.
+Vous pouvez maintenant lancer Helix avec la commande suivante:
 
 ```bash
-lx install
+docker-compose up -d
 ```
 
-Enfin, démarrez Helix:
-
-```bash
-lx start
-```
-
-Et c'est tout ! Helix est maintenant installé et fonctionnel. Vous pouvez vous connecter à l'adresse `http://localhost:3000` (ou `http://<votre-ip>:3000` si vous utilisez un serveur distant).
+Et c'est tout ! Helix est maintenant installé et fonctionnel. Vous pouvez vous connecter à l'adresse `http://localhost` (ou `http://<server-ip>` si vous utilisez un serveur distant).

@@ -54,7 +54,7 @@ COPY client/dist ./
 # Build Final Image
 ################################################################################
 FROM alpine:latest AS production
-WORKDIR /app
+WORKDIR /helix
 
 # Install node
 RUN apk add --update nodejs
@@ -62,7 +62,7 @@ RUN apk add --update nodejs
 # Copy the app
 COPY --from=builder-server /app ./build
 COPY --from=builder-server /app/node_modules ./node_modules
-COPY --from=builder-client /app ./build/public
+COPY --from=builder-client /app ./build/www
 
 # Set the port
 EXPOSE 3001

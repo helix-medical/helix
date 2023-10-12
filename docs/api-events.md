@@ -23,16 +23,17 @@ flowchart TB
 
 ## Middlewares
 
-!!! info "Middlewares"
-    The middlewares are used to check if the request body is valid.
-    Return a `406 NOT_ACCEPTABLE` error if the request body is invalid.
-    Else, the request is passed to the next middleware.
+> **Information**: Middlewares
+>
+> The middlewares are used to check if the request body is valid.
+> Return a `406 NOT_ACCEPTABLE` error if the request body is invalid.
+> Else, the request is passed to the next middleware.
 
 ### Create
 
 Check if the request body is valid.
 
-```json title="Request Body"
+```jsonc
 {
   "start": "YYYY-MM-DD HH:mm",
   "end": "YYYY-MM-DD HH:mm",
@@ -46,7 +47,7 @@ Check if the request body is valid.
 
 Check if the request body is valid.
 
-```json title="Request Body"
+```json
 {
   "start": "YYYY-MM-DD HH:mm",
   "end": "YYYY-MM-DD HH:mm",
@@ -57,7 +58,7 @@ Check if the request body is valid.
 
 Check if the request body is valid.
 
-```json title="Request Body"
+```json
 {
   "calendar": "[0-9a-fA-F]{8}",
 }
@@ -69,7 +70,7 @@ Check if the request body is valid.
 
 Return all events.
 
-```json title="Response Body"
+```json
 [
   {
     "id": "[0-9a-fA-F]{8}",
@@ -87,7 +88,7 @@ Return all events.
 
 Return one event.
 
-```json title="Response Body"
+```json
 {
   "id": "[0-9a-fA-F]{8}",
   "start": "YYYY-MM-DD HH:mm",
@@ -102,7 +103,7 @@ Return one event.
 
 Create an event.
 
-```json title="Request Body"
+```jsonc
 {
   "start": "YYYY-MM-DD HH:mm",
   "end": "YYYY-MM-DD HH:mm",
@@ -112,7 +113,7 @@ Create an event.
 }
 ```
 
-```json title="Response Body"
+```json
 {
   "id": "[0-9a-fA-F]{8}",
   "message": "Event ${id} created"
@@ -130,7 +131,7 @@ Update the date of an event.
 }
 ```
 
-```json title="Response Body"
+```json
 {
   "id": "[0-9a-fA-F]{8}",
   "message": "Event ${id} updated"
@@ -141,13 +142,13 @@ Update the date of an event.
 
 Update the calendar of an event.
 
-```json title="Request Body"
+```json
 {
   "calendar": "[0-9a-fA-F]{8}",
 }
 ```
 
-```json title="Response Body"
+```json
 {
   "id": "[0-9a-fA-F]{8}",
   "message": "Event ${id} updated"
@@ -158,7 +159,7 @@ Update the calendar of an event.
 
 Delete an event.
 
-```json title="Response Body"
+```json
 {
   "id": "[0-9a-fA-F]{8}",
   "message": "Event ${id} deleted"
