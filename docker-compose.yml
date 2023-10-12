@@ -1,0 +1,12 @@
+---
+version: '3.9'
+
+services:
+  helix:
+    image: ghcr.io/xavier2p/helix:latest
+    container_name: helix
+    ports:
+      - 80:3001
+    volumes:
+      - ./config:/app/config
+    restart: unless-stopped

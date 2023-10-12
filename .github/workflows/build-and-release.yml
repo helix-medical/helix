@@ -1,3 +1,4 @@
+---
 name: Build and Release Helix Docker Image
 
 on:
