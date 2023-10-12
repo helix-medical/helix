@@ -1,30 +1,27 @@
 ## Changes
 
-### New features
-
-+ Not at this point
+<!-- ### New features
++ Not at this point -->
 
 ### Improvements
 
-+ New docker configuration
-+ New docker image
++ Docker compose file updated
 
 ### Bug fixes
 
-+ No
++ Finally working with a single server
 
 ### Security fixes
 
-+ No
++ Removing a possibility of injection
 
-### Known issues
-
-+ Not working
+<!-- ### Known issues
++ Not working -->
 
 ## Update your Docker Image
 
 ```bash
-docker pull ghcr.io/xavier2p/helix:v0.1.2
+docker pull ghcr.io/xavier2p/helix:latest
 ```
 
 Thanks for using Helix!
