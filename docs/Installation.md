@@ -40,11 +40,11 @@ wget https://raw.githubusercontent.com/Xavier2p/helix/main/.env.example && mv .e
 
 Vous pouvez maintenant éditer le fichier `.env` avec votre éditeur de texte favori. Les variables à modifier sont:
 
-+ DB_ROOT_PASSWORD: le mot de passe de l'utilisateur root de la base de données.
-+ DB_USER: le nom d'utilisateur de la base de données.
-+ DB_PATH: le chemin vers le dossier de la base de données. Par défaut, il est situé dans le dossier `data` du dossier courant.
-+ ACCESS_TOKEN_SECRET: la clé secrète utilisée pour générer les tokens d'authentification. A génerer avec `openssl rand -hex 32`.
-+ REFRESH_TOKEN_SECRET: la clé secrète utilisée pour générer les tokens de rafraichissement. A génerer avec `openssl rand -hex 32`.
++ `DB_ROOT_PASSWORD`: le mot de passe de l'utilisateur root de la base de données.
++ `DB_USER`: le nom d'utilisateur de la base de données.
++ `DB_PATH`: le chemin vers le dossier de la base de données. Par défaut, il est situé dans le dossier `data` du dossier courant.
++ `ACCESS_TOKEN_SECRET`: la clé secrète utilisée pour générer les tokens d'authentification. A génerer avec `openssl rand -hex 32`.
++ `REFRESH_TOKEN_SECRET`: la clé secrète utilisée pour générer les tokens de rafraichissement. A génerer avec `openssl rand -hex 32`.
 
 Vous pouvez maintenant lancer Helix avec la commande suivante:
 
