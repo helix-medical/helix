@@ -2,7 +2,7 @@ build:
     npm --prefix ./server run build
     npm --prefix ./client run build
 
-run:
+run: build
     node ./server/build/server.js
 
 docker:

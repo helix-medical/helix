@@ -4,7 +4,7 @@
 >
 > Merci de vous assurer que vous avez bien lu les [précautions d'usage](disclaimer.md) avant d'installer Helix.
 
-### Prérequis
+### Pré-requis
 
 La philosophie de Helix est d'être hébergé chez soi, en *self-hosting*. C'est un gage de confidentialité, non négligeable dans le milieu médical, et cela permet à Helix de rester gratuit, et sans publicités.
 
