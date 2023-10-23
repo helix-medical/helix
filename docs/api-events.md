@@ -23,7 +23,7 @@ flowchart TB
 
 ## Middlewares
 
-> **Information**: Middlewares
+> **Information**  
 >
 > The middlewares are used to check if the request body is valid.
 > Return a `406 NOT_ACCEPTABLE` error if the request body is invalid.

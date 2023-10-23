@@ -19,10 +19,11 @@ click PTNS_DEL "#delete"
 
 ## Middleware
 
-!!! info "Middlewares"
-    The middlewares are used to check if the request body is valid.
-    Return a `406 NOT_ACCEPTABLE` error if the request body is invalid.
-    Else, the request is passed to the next middleware.
+> **Information**  
+>
+> The middlewares are used to check if the request body is valid.
+> Return a `406 NOT_ACCEPTABLE` error if the request body is invalid.
+> Else, the request is passed to the next middleware.
 
 ### Create
 

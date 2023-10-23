@@ -1,5 +1,5 @@
 ## Configuration
 
-> **Not implemented yet**
+> **Warning**  
 >
 > Not Found: /docs/configuration.md
