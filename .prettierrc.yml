@@ -1,5 +1,5 @@
 trailingComma: "es5"
-tabWidth: 4
+tabWidth: 2
 semi: true
 singleQuote: true
 printWidth: 120
@@ -8,7 +8,7 @@ overrides:
     options:
       tabWidth: 2
       printWidth: 80
-  - files: '*.md'
+  - files: "*.md"
     options:
       tabWidth: 2
       printWidth: 80

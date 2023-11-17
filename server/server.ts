@@ -5,7 +5,7 @@ import errorHandler from './tools/errors';
 import express, { Express, Request, Response } from 'express';
 import logger from './tools/logger';
 import path from 'path';
-import rateLimit from 'express-rate-limit';
+// import rateLimit from 'express-rate-limit';
 import sc from './tools/status-codes';
 import server from './routers/api';
 require('dotenv').config();
@@ -36,14 +36,14 @@ api.use('/api', server);
 
 // Client
 api.get('*', (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, 'www', 'index.html'));
-    logger.success(req, res, 'Return client');
+  res.sendFile(path.join(__dirname, 'www', 'index.html'));
+  logger.success(req, res, 'Return client');
 });
 
 // 404
 api.all('*', (req: Request, res: Response) => {
-    res.status(sc.NOT_FOUND).json({ error: 'Route not found' });
-    logger.fail(req, res, 'Not found');
+  res.status(sc.NOT_FOUND).json({ error: 'Route not found' });
+  logger.fail(req, res, 'Not found');
 });
 
 // Errors
@@ -51,5 +51,5 @@ api.use(errorHandler);
 
 // Start
 api.listen(port, () => {
-    logger.info(`Server listening on port ${port}`);
+  logger.info(`Server listening on port ${port}`);
 });
