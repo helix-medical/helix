@@ -35,12 +35,12 @@ RUN npm clean-install
 
 # Copy and build the project
 COPY . .
-RUN npm run build
+RUN npm run docker
 
 ################################################################################
 # Build Final Image
 ################################################################################
 FROM nginx:alpine AS production
 # state to verify
-WORKDIR /usr/share/nginx/html
-COPY  --from=build /helix-website/dist/* .
+WORKDIR /usr/share/nginx/html/
+COPY  --from=build /helix-website/dist .
