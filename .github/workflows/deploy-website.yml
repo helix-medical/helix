@@ -1,5 +1,5 @@
 ---
-name: Deploy Helix Website
+name: Build and Deploy Helix Website
 
 on:
   push:
@@ -8,14 +8,15 @@ on:
 
 permissions:
   contents: write
+  packages: write
 
 jobs:
-  deploy:
-    name: Deploy
+  static:
+    name: Deploy static website on GitHub Pages
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Build
         working-directory: website
@@ -26,3 +27,32 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./website/dist
+
+  package:
+    name: Build Docker image for Helix Website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and Push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ghcr.io/${{ github.actor }}/helix-website
