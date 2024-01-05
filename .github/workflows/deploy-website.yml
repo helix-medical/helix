@@ -55,4 +55,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/${{ github.actor }}/helix-website
+          tags: ghcr.io/xavier2p/helix-website
