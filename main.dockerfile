@@ -45,7 +45,7 @@ WORKDIR /app
 
 # Install packages
 COPY client/package*.json .
-RUN npm clean-install
+RUN npm install
 
 # Copy the builded client
 COPY client/dist ./

@@ -3,27 +3,28 @@ services:
   app:
     image: ghcr.io/xavier2p/helix:latest
     container_name: helix
-    depends_on:
-      db:
-        condition: service_healthy
+    # depends_on:
+    # db:
+    #   condition: service_healthy
     ports:
       - 3001:3001
     restart: unless-stopped
     env_file: ./.env
     environment:
       - HELIX_DB_NAME=helix
-      - HELIX_DB_HOST=helix-db
+      - HELIX_DB_HOST=mariadb
       - HELIX_DB_USER=${DB_USER}
       - HELIX_DB_PASSWORD=${DB_ROOT_PASSWORD}
       - ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
       - REFRESH_TOKEN_SECRET=${REFRESH_TOKEN_SECRET}
 
   db:
-    image: xavier2p/helix-db:latest
-    container_name: helix-db
+    image: mariadb:latest
+    container_name: mariadb
     restart: unless-stopped
     volumes:
-      - ${DB_PATH}:/var/lib/mariadb
+      - ${DB_PATH}:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=${DB_NAME}
     env_file: ./.env

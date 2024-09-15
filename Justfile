@@ -8,4 +8,4 @@ run: build
 docker:
     npm --prefix ./server run build
     npm --prefix ./client run ci
-    docker buildx build . --tag 'ghcr.io/xavier2p/helix:latest'
+    docker buildx build . -f main.dockerfile --tag 'ghcr.io/xavier2p/helix:latest'

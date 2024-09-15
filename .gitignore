@@ -24,6 +24,7 @@ dist
 dist-ssr
 book
 target
+pkgs
 
 # misc
 .DS_Store
