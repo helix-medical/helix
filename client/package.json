@@ -21,7 +21,7 @@
         "@mantine/spotlight": "^7.10.2",
         "@react-pdf/renderer": "^3.1.9",
         "@tabler/icons-react": "^2.12.0",
-        "axios": "^1.6.0",
+        "axios": "^1.7.4",
         "dayjs": "^1.11.7",
         "file-saver": "^2.0.5",
         "jwt-decode": "^3.1.2",
