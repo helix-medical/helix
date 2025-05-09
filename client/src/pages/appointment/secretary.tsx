@@ -1,4 +1,4 @@
-import { Title, Grid, Select, NumberInput, TextInput, Paper, Button } from '@mantine/core';
+import { Button, Grid, NumberInput, Paper, Select, TextInput, Title } from '@mantine/core';
 import { useAppFormContext } from './form-context';
 import { IconCurrencyEuro } from '@tabler/icons-react';
 import cnf from '../../config/config';
@@ -25,7 +25,7 @@ const Secretary = ({ view }: IProps): JSX.Element => {
                         />
                     ) : ( */}
           <NumberInput
-            icon={<IconCurrencyEuro size="1rem" />}
+            leftSection={<IconCurrencyEuro size="1rem" />}
             label="Amount"
             placeholder="Amount"
             {...form.getInputProps('payment.amount')}
@@ -55,8 +55,8 @@ const Secretary = ({ view }: IProps): JSX.Element => {
           <DateTimePicker
             label="Next Appointment"
             placeholder="Date"
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
+            // onPointerEnterCapture={undefined}
+            // onPointerLeaveCapture={undefined}
           />
         </Grid.Col>
         <Grid.Col span={6}>

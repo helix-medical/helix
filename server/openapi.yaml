@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Helix API
+  description: Endpoint for Helix, a Patient Management System
+  version: 1.0.0
+servers:
+  - url: 'https://api.helix.care'
+    description: Helix Cloud API server
+  - url: 'http://localhost:3001/api'
+    description: Local development server
+paths:
+  

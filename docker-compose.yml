@@ -1,7 +1,9 @@
 ---
 services:
   app:
-    image: ghcr.io/xavier2p/helix:latest
+    build:
+      context: .
+      dockerfile: main.dockerfile
     container_name: helix
     depends_on:
       db:

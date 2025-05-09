@@ -1,15 +1,36 @@
-import { Outlet } from 'react-router-dom';
-import { HeaderApp } from './header';
-import { useLayoutStyles } from './styles';
 import { AppShell } from '@mantine/core';
+import { Outlet } from 'react-router-dom';
+import HelixNavbar from './navbar';
 
 const Layout = () => {
-    const { classes } = useLayoutStyles();
-    return (
-        <AppShell header={<HeaderApp />} className={classes.body}>
-            <Outlet />
-        </AppShell>
-    );
+  // const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
+  // const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(false);
+
+  return (
+    <AppShell
+      // header={{ height: rem(60) }}
+      padding="md"
+      navbar={{
+        width: 300,
+        breakpoint: 'xs',
+        //   collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
+      }}
+    >
+      <AppShell.Header>{/*<HeaderApp />*/}</AppShell.Header>
+      <AppShell.Navbar>
+        <HelixNavbar />
+      </AppShell.Navbar>
+      <AppShell.Main>
+        <Outlet />
+        {/*<Button onClick={toggleDesktop} visibleFrom="sm">*/}
+        {/*  Toggle navbar*/}
+        {/*</Button>*/}
+        {/*<Button onClick={toggleMobile} hiddenFrom="sm">*/}
+        {/*  Toggle navbar*/}
+        {/*</Button>*/}
+      </AppShell.Main>
+    </AppShell>
+  );
 };
 
 export default Layout;

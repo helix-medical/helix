@@ -1,0 +1,43 @@
+---
+name: helixdev
+
+services:
+  database:
+    image: xavier2p/helix-db:latest
+    restart: unless-stopped
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./data:/var/lib/mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    env_file: ../server/.env
+
+  logto:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    image: svhd/logto:${TAG-latest}
+    entrypoint: [ "sh", "-c", "npm run cli db seed -- --swe && npm start" ]
+    ports:
+      - 3010:3010
+      - 3002:3002
+    environment:
+      - TRUST_PROXY_HEADER=1
+      - DB_URL=postgres://postgres:p0stgr3s@postgres:5432/logto
+      - PORT=3010
+      # Mandatory for GitPod to map host env to the container, thus GitPod can dynamically configure the public URL of Logto;
+      # Or, you can leverage it for local testing.
+      - ENDPOINT
+      - ADMIN_ENDPOINT
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: p0stgr3s
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5

@@ -6,18 +6,26 @@
 [![workflow](https://img.shields.io/github/actions/workflow/status/xavier2p/helix/build-and-release.yml?label=ci&logo=github&style=for-the-badge)](../.github/workflows/build-and-release.yml)
 
 <!-- Concept -->
-The Helix Project ([website](https://xavier2p.github.io/helix)) is a Patient Management System (PMS) specially built for Osteopaths purposes. You can find some popular features like:
+The Helix Project ([website](https://xavier2p.github.io/helix)) is a Patient Management System (PMS) specially built for
+Osteopaths purposes. You can find some popular features like:
 
 + Patient management (medical history, appointments, billing, ...)
 + Appointment management (personal and professional calendar ...)
 + Billing management (invoices, export to Excel, ...)
 + Multi-user management (with different roles for the whole cabinet)
 
-All that features are available in a single application, with a simple and intuitive interface, and **for ever** free!
+All those features are available in a single application, with a simple and intuitive interface, and **for ever** free!
+
+## Roadmap
+
+- [ ] Change mechanism of navbar (using AppShell,
+  doc [here](https://mantine.dev/core/app-shell/#collapsed-navbaraside-configuration))
+- [ ] Fix the entire style of the application (using [Mantine CSS modules](https://mantine.dev/styles/css-modules/))
 
 ## Technical stack
 
-The client is built with [React](https://reactjs.org/) and [TypeScript](https://www.typescriptlang.org/). To build the application, we use [Vite](https://vitejs.dev/), a fast build tool for modern web apps.
+The client is built with [React](https://reactjs.org/) and [TypeScript](https://www.typescriptlang.org/). To build the
+application, we use [Vite](https://vitejs.dev/), a fast build tool for modern web apps.
 For UI design, we use [Mantine](https://mantine.dev/), a React UI library with a simple API and great docs.
 
 ## Development

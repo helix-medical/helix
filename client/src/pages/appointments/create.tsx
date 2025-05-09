@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Modal, Select, Group, Text, Grid, useMantineTheme } from '@mantine/core';
+import { Button, Grid, Group, Modal, Select, Text, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import setNotification from '../../components/errors/feedback-notification';
@@ -18,6 +18,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
     form.reset();
     toggleModal();
   };
+  const { colorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
   const [patients, setPatients] = useState([]);
   const [practitioners, setPractitioners] = useState([]);
@@ -60,7 +61,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
         response.data.map((patient: any) => ({
           label: `${patient.name} ${patient.lastName}`,
           value: patient.id,
-        }))
+        })),
       );
     } catch (error: any) {
       if (!error?.response) setNotification(true, 'Network error');
@@ -75,7 +76,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
         response.data.map((practitioner: any) => ({
           label: `${practitioner.name} ${practitioner.lastName}`,
           value: practitioner.uid,
-        }))
+        })),
       );
     } catch (error: any) {
       if (!error?.response) setNotification(true, 'Network error');
@@ -108,14 +109,14 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
   return (
     <Modal.Root opened={show} onClose={handleClose}>
       <Modal.Overlay
-        color={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
+        color={colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
         opacity={0.55}
         blur={3}
       />
       <Modal.Content>
         <Modal.Header>
           <Modal.Title>
-            <Text size="xl" weight={700}>
+            <Text size="xl" fw={700}>
               Add Appointment
             </Text>
           </Modal.Title>
@@ -126,8 +127,8 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
             <Grid columns={12}>
               <Grid.Col span={12}>
                 <DateTimePicker
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
+                  // onPointerEnterCapture={undefined}
+                  // onPointerLeaveCapture={undefined}
                   label="Date"
                   placeholder="Date"
                   withAsterisk
@@ -142,7 +143,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                   {...form.getInputProps('patientId')}
                   data={patients}
                   searchable
-                  nothingFound="No patients found, ensure you have created a patient first"
+                  nothingFoundMessage="No patients found, ensure you have created a patient first"
                 />
               </Grid.Col>
               <Grid.Col span={12}>
@@ -152,7 +153,7 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                   withAsterisk
                   data={['first-visit', 'follow-up', 'pediatrics', 'maternity', 'emergency']}
                   searchable
-                  dropdownPosition="bottom"
+                  comboboxProps={{ position: 'bottom', middlewares: { flip: false, shift: false } }}
                   {...form.getInputProps('kind')}
                 />
               </Grid.Col>
@@ -164,11 +165,11 @@ const ModalCreateApp = ({ show, toggleModal }: IProps): JSX.Element => {
                   {...form.getInputProps('practitioner')}
                   data={practitioners}
                   searchable
-                  nothingFound="No practitioners found, ensure you have created a practitioner first"
+                  nothingFoundMessage="No practitioners found, ensure you have created a practitioner first"
                 />
               </Grid.Col>
             </Grid>
-            <Group position="right" p="md">
+            <Group align="right" p="md">
               <Button variant="light" color="red" onClick={handleClose}>
                 Cancel
               </Button>

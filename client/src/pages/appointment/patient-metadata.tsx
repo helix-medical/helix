@@ -1,38 +1,38 @@
 import { IAppointmentData } from './types';
-import { IconCalendarCheck, IconDna, IconAlertTriangle } from '@tabler/icons-react';
+import { IconAlertTriangle, IconCalendarCheck, IconDna } from '@tabler/icons-react';
 import { params } from './utils';
-import { Textarea, Title, Tabs, Button, Badge, Center, Paper, TextInput, Grid } from '@mantine/core';
+import { Badge, Button, Center, Grid, Paper, Tabs, Textarea, TextInput, Title } from '@mantine/core';
 import { useAppointmentPatient } from './patient.logic';
 import { UseFormReturnType } from '@mantine/form';
 import GrantAccess from '../../components/auth/grant-access';
 
 const Biodatas = ({ data, view }: { data: UseFormReturnType<IAppointmentData>; view: boolean }): JSX.Element => (
-  <Grid columns={12}>
-    <Grid.Col sm={6} md={4}>
+  <Grid columns={12} gutter="lg">
+    <Grid.Col span={4}>
       <TextInput label="Name" {...data.getInputProps('name')} {...params(view)} />
     </Grid.Col>
-    <Grid.Col sm={6} md={4}>
+    <Grid.Col span={4}>
       <TextInput label="Last Name" {...data.getInputProps('lastName')} {...params(view)} />
     </Grid.Col>
-    <Grid.Col xs={4} sm={2} md={4}>
+    <Grid.Col span={4}>
       <TextInput label="Sex" readOnly {...data.getInputProps('sex')} />
     </Grid.Col>
-    <Grid.Col xs={8} sm={4} md={4}>
+    <Grid.Col span={4}>
       <TextInput label="Birth Date" {...data.getInputProps('birthDate')} {...params(view)} />
     </Grid.Col>
-    <Grid.Col sm={6} md={4}>
+    <Grid.Col span={4}>
       <TextInput label="Email" {...data.getInputProps('email')} {...params(view)} />
     </Grid.Col>
-    <Grid.Col sm={6} md={4}>
+    <Grid.Col span={4}>
       <TextInput label="Phone" {...data.getInputProps('phone')} {...params(view)} />
     </Grid.Col>
-    <Grid.Col sm={6} md={4}>
+    <Grid.Col span={4}>
       <TextInput label="Address" {...data.getInputProps('address')} {...params(view)} />
     </Grid.Col>
-    <Grid.Col sm={6} md={4}>
+    <Grid.Col span={4}>
       <TextInput label="Job" {...data.getInputProps('job')} {...params(view)} />
     </Grid.Col>
-    <Grid.Col sm={6} md={4}>
+    <Grid.Col span={4}>
       <TextInput label="City" {...data.getInputProps('city')} {...params(view)} />
     </Grid.Col>
   </Grid>
@@ -52,18 +52,26 @@ const PatientMetadata = ({ form, color, view }: IProps): JSX.Element => {
       <form onSubmit={handleSubmit}>
         <Tabs defaultValue="data" radius="md" color={color}>
           <Tabs.List>
-            <Tabs.Tab value="data" icon={<IconDna size="1rem" />}>
+            <Tabs.Tab value="data" leftSection={<IconDna size="1rem" />}>
               BioData
             </Tabs.Tab>
-            <Tabs.Tab value="medical" icon={<IconAlertTriangle size="1rem" />}>
+            <Tabs.Tab value="medical" leftSection={<IconAlertTriangle size="1rem" />}>
               Antécédents
             </Tabs.Tab>
             <Tabs.Tab
               value="appointments"
-              icon={<IconCalendarCheck size="1rem" />}
+              leftSection={<IconCalendarCheck size="1rem" />}
               disabled
               rightSection={
-                <Badge w={16} h={16} sx={{ pointerEvents: 'none' }} variant="filled" size="xs" p={0} color={color}>
+                <Badge
+                  w={16}
+                  h={16}
+                  // sx={{ pointerEvents: 'none' }}
+                  variant="filled"
+                  size="xs"
+                  p={0}
+                  color={color}
+                >
                   {form.values.lastAppointments.length - 1}
                 </Badge>
               }

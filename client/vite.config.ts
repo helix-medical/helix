@@ -11,7 +11,18 @@ export default ({ mode }) => {
       rollupOptions: {},
     },
     server: {
-      port: 3000,
+      host: process.env.VITE_HOST,
+      port: +process.env.VITE_PORT,
+      proxy: {
+        '/api': {
+          target: process.env.VITE_API_URL,
+          changeOrigin: true,
+        },
+        '/auth': {
+          target: process.env.VITE_AUTH_URL,
+          changeOrigin: true,
+        },
+      },
     },
   });
 };

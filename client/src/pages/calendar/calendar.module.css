@@ -1,0 +1,75 @@
+/*[data-theme='light'] {*/
+/*    --calendar-border-color: inherit;*/
+/*    --calendar-today-bg: var(--mantine-color-fr-cyan-0);*/
+/*    --calendar-event-bg: var(--mantine-color-fr-cyan-4);*/
+/*    --calendar-test-event-bg: var(--mantine-color-fr-orange-4);*/
+/*}*/
+
+/*!*[data-theme='dark'] {*!*/
+/*:root {*/
+/*    --calendar-border-color: #373A40;*/
+/*    --calendar-today-bg: var(--mantine-color-fr-cyan-9);*/
+/*    --calendar-event-bg: var(--mantine-color-fr-cyan-6);*/
+/*    --calendar-test-event-bg: var(--mantine-color-fr-orange-6);*/
+/*}*/
+
+/*.calendar :global(.rbc-time-content) {*/
+/*    border-top: 2px solid var(--calendar-border-color);*/
+/*}*/
+
+/*.calendar :global(.rbc-day-slot .rbc-time-slot) {*/
+/*    !*border: 2px solid var(--calendar-border-color);*!*/
+/*    border: none;*/
+/*}*/
+
+/*.calendar :global(.rbc-time-header-content),*/
+/*.calendar :global(.rbc-header + .rbc-header),*/
+/*.calendar :global(.rbc-day-bg + .rbc-day-bg),*/
+/*.calendar :global(.rbc-timeslot-group) {*/
+/*    border-left: 2px solid var(--calendar-border-color);*/
+/*}*/
+
+/*.calendar :global(.rbc-header) {*/
+/*    border-bottom: 2px solid var(--calendar-border-color);*/
+/*    padding-bottom: 5px;*/
+/*}*/
+
+/*.calendar :global(.rbc-event-label) {*/
+/*    display: none;*/
+/*}*/
+
+/*.calendar :global(.rbc-today) {*/
+/*    background-color: var(--calendar-today-bg);*/
+/*}*/
+
+/*.calendar :global(.rbc-event) {*/
+/*    margin: 5px;*/
+/*    background-color: var(--calendar-event-bg);*/
+/*}*/
+
+/*.calendar :global(.rbc-day-slot .rbc-event) {*/
+/*    border: none;*/
+/*}*/
+
+/*.calendar :global(.test-event) {*/
+/*    background-color: var(--calendar-test-event-bg);*/
+/*}*/
+
+/*.calendar :global(.rbc-time-view),*/
+/*.calendar :global(.rbc-event-container),*/
+/*.calendar :global(.rbc-agenda-view table.rbc-agenda-table) {*/
+/*    border: 1px solid var(--calendar-border-color);*/
+/*    border-radius: var(--mantine-radius-sm);*/
+/*}*/
+
+/*.calendar :global(.rbc-agenda-view table.rbc-agenda-table tbody > tr > td + td) {*/
+/*    border-left: 1px solid var(--calendar-border-color);*/
+/*}*/
+
+/*.calendar :global(.rbc-agenda-view table.rbc-agenda-table tbody > tr + tr) {*/
+/*    border-top: 1px solid var(--calendar-border-color);*/
+/*}*/
+
+/*.calendar :global(.rbc-agenda-view table.rbc-agenda-table thead > tr > th) {*/
+/*    border-bottom: 1px solid var(--calendar-border-color);*/
+/*}*/

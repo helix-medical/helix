@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: '/api',
+  baseURL: '/api',
 });
 
 const secureAPI = axios.create({
-    baseURL: '/api',
-    headers: { 'Content-Type': 'application/json' },
-    withCredentials: true,
+  baseURL: '/api',
+  headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
 });
 
 export default api;

@@ -1,104 +1,94 @@
-import { SpotlightProvider } from '@mantine/spotlight';
-import type { SpotlightAction } from '@mantine/spotlight';
+import { Spotlight, SpotlightActionData, SpotlightActionGroupData } from '@mantine/spotlight';
 import {
-    IconHome,
-    IconCalendar,
-    IconSearch,
-    IconUsers,
-    IconCalendarCheck,
-    IconCalendarPlus,
-    IconUsersPlus,
-    IconCoins,
+  IconCalendar,
+  IconCalendarPlus,
+  IconCoins,
+  IconHome,
+  IconSearch,
+  IconUsers,
+  IconUsersPlus,
 } from '@tabler/icons-react';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Spotlight = ({ children }: { children: JSX.Element }) => {
-    const navigate = useNavigate();
-    const [query, setQuery] = useState<string>('');
-    const actions: SpotlightAction[] =
-        query === 'patients'
-            ? [
-                  {
-                      title: 'View Patients',
-                      description: 'Get full information about patients',
-                      onTrigger: () => navigate('/patients'),
-                      keywords: ['patients', 'patient', 'view'],
-                      icon: <IconUsers size="1.2rem" />,
-                  },
-                  {
-                      title: 'Add Patient',
-                      description: 'Add new patient',
-                      onTrigger: () => navigate('/patients/add'),
-                      keywords: ['patients', 'patient', 'add'],
-                      icon: <IconUsersPlus size="1.2rem" />,
-                  },
-              ]
-            : query === 'appointments'
-            ? [
-                  {
-                      title: 'View Appointments',
-                      description: 'Get full information about appointments',
-                      onTrigger: () => navigate('/appointments'),
-                      keywords: ['appointments', 'appointment', 'view'],
-                      icon: <IconUsers size="1.2rem" />,
-                  },
-                  {
-                      title: 'Add Appointment',
-                      description: 'Add new appointment',
-                      onTrigger: () => navigate('/appointments/add'),
-                      keywords: ['appointments', 'appointment', 'add'],
-                      icon: <IconCalendarPlus size="1.2rem" />,
-                  },
-              ]
-            : [
-                  {
-                      title: 'Home',
-                      description: 'Get to home page',
-                      onTrigger: () => navigate('/'),
-                      icon: <IconHome size="1.2rem" />,
-                  },
-                  {
-                      title: 'Patients',
-                      description: 'Get full information about patients',
-                      onTrigger: () => setQuery('patients'),
-                      icon: <IconUsers size="1.2rem" />,
-                      closeOnTrigger: false,
-                  },
-                  {
-                      title: 'Appointments',
-                      description: 'Get full information about appointments',
-                      onTrigger: () => setQuery('appointments'),
-                      icon: <IconCalendarCheck size="1.2rem" />,
-                      closeOnTrigger: false,
-                  },
-                  {
-                      title: 'Calendar',
-                      description: 'Get full information about calendar',
-                      onTrigger: () => navigate('/calendar'),
-                      icon: <IconCalendar size="1.2rem" />,
-                  },
-                  {
-                      title: 'Accounting',
-                      description: 'Get full information about accounting',
-                      onTrigger: () => navigate('/accounting'),
-                      icon: <IconCoins size="1.2rem" />,
-                  },
-              ];
+const HelixSpotlight = () => {
+  const navigate = useNavigate();
 
-    return (
-        <SpotlightProvider
-            query={query}
-            actions={actions}
-            searchIcon={<IconSearch size="1.2rem" />}
-            searchPlaceholder="Search..."
-            shortcut={['mod + k', '/']}
-            onQueryChange={setQuery}
-            nothingFoundMessage="Nothing found..."
-        >
-            {children}
-        </SpotlightProvider>
-    );
+  const actions: (SpotlightActionGroupData | SpotlightActionData)[] = [
+    {
+      group: 'Patients',
+      actions: [
+        {
+          id: 'view-patients',
+          label: 'View Patients',
+          description: 'Get full information about patients',
+          onClick: () => navigate('/patients'),
+          leftSection: <IconUsers size="1.2rem" />,
+        },
+        {
+          id: 'add-patient',
+          label: 'Add Patient',
+          description: 'Add new patient',
+          onClick: () => navigate('/patients/add'),
+          leftSection: <IconUsersPlus size="1.2rem" />,
+        },
+      ],
+    },
+    {
+      group: 'Appointments',
+      actions: [
+        {
+          id: 'view-appointments',
+          label: 'View Appointments',
+          description: 'Get full information about appointments',
+          onClick: () => navigate('/appointments'),
+          leftSection: <IconUsers size="1.2rem" />,
+        },
+        {
+          id: 'add-appointment',
+          label: 'Add Appointment',
+          description: 'Add new appointment',
+          onClick: () => navigate('/appointments/add'),
+          leftSection: <IconCalendarPlus size="1.2rem" />,
+        },
+      ],
+    },
+    {
+      group: 'Main',
+      actions: [
+        {
+          id: 'go-home',
+          label: 'Go to Home',
+          description: 'Get to home page',
+          onClick: () => navigate('/'),
+          leftSection: <IconHome size="1.2rem" />,
+        },
+        {
+          id: 'view-calendar',
+          label: 'Calendar',
+          description: 'Get full information about calendar',
+          onClick: () => navigate('/calendar'),
+          leftSection: <IconCalendar size="1.2rem" />,
+        },
+        {
+          id: 'view-accounting',
+          label: 'Accounting',
+          description: 'Get full information about accounting',
+          onClick: () => navigate('/accounting'),
+          leftSection: <IconCoins size="1.2rem" />,
+        },
+      ],
+    },
+  ];
+
+  return (
+    <Spotlight
+      actions={actions}
+      shortcut={['mod + k', '/']}
+      searchProps={{ leftSection: <IconSearch size="1.2rem" />, placeholder: 'Search in Helix' }}
+      nothingFound="Nothing found..."
+      highlightQuery
+    />
+  );
 };
 
-export default Spotlight;
+export default HelixSpotlight;

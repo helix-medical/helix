@@ -1,0 +1,42 @@
+.root {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.title {
+    font-weight: 900;
+    font-size: var(--mantine-font-size-xl);
+    margin-bottom: var(--mantine-spacing-md);
+    font-family: var(--mantine-font-family);
+}
+
+@media (max-width: var(--mantine-breakpoint-sm)) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .control {
+        width: 100%;
+    }
+
+    .desktopImage {
+        display: none;
+    }
+}
+
+@media (min-width: var(--mantine-breakpoint-sm)) {
+    .mobileImage {
+        display: none;
+    }
+}
+
+.notFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    font-size: var(--mantine-font-size-lg);
+}
