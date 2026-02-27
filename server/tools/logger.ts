@@ -1,36 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import color from 'colors';
 import moment from 'moment';
-// import path from 'path';
-// import fs from 'fs';
 
-const colorMethod = (method: string) => {
-  switch (method) {
-    case 'GET':
-      return 'GET'.green;
-    case 'POST':
-      return 'PST'.blue;
-    case 'PUT':
-      return 'PUT'.yellow;
-    case 'DELETE':
-      return 'DEL'.red;
-    case 'USE':
-      return 'USE'.magenta;
-    case 'INFO':
-      return 'INF'.cyan;
-    case 'ERROR':
-      return 'ERR'.red;
-    default:
-      return '???'.gray;
-  }
-};
-
-const log = (method: string, state: string, url: string, ...message: string[]) => {
-  color.enable();
+const log = (level: string, method: string, url: string, statusCode: number, ...message: string[]) => {
   const date = moment().format('YYYY-MM-DD HH:mm:ss');
-  const line = `${date} [${colorMethod(method)}] -- [${state}] -- ${url}${
-    message.length > 0 ? ` -- ${message}` : ''
-  }`;
+  const line = `${date} ${level} ${method.toUpperCase()} ${url} ${statusCode} ${message}`;
   console.log(line);
   // fs.appendFile(path.join(__dirname, '../../logs/log.txt'), `${line} \n`, (err) => {
   //     if (err) console.log(err);
@@ -38,27 +11,32 @@ const log = (method: string, state: string, url: string, ...message: string[]) =
 };
 
 const checkpoint = (req: Request, res: Response, next: NextFunction) => {
-  log(req.method, 'REQ'.gray, req.url);
+  log('DBG', req.method, req.originalUrl, res.statusCode, 'Request received');
   next();
 };
 
 const fail = (req: Request, res: Response, ...message: string[]) => {
-  log(req.method, `${res.statusCode}`.red, req.originalUrl, ...message);
+  log('INF', req.method, req.originalUrl, res.statusCode, ...message);
+
+  res.on('finish', () => {
+    console.log(`Response sent with status code ${res.statusCode}`);
+  });
 };
 
 const success = (req: Request, res: Response, ...message: string[]) => {
-  log(req.method, `${res.statusCode === 304 ? 200 : res.statusCode}`.green, req.originalUrl, ...message);
+  log('INF', req.method, req.originalUrl, res.statusCode, ...message);
 };
 
 const info = (message: string) => {
-  log('INFO', `200`.green, message);
+  log('INF', 'ALL', '/', 100, message);
 };
 
 const error = (message: string) => {
-  log('ERROR', `500`.red, message);
+  log('ERR', 'ALL', '/', 500, message);
 };
 
 export default {
+  log,
   checkpoint,
   fail,
   success,

@@ -15,21 +15,18 @@ import {
   UnstyledButton,
 } from '@mantine/core';
 import {
-  IconCalendarWeek,
-  IconChevronUp,
   IconClipboardText,
   IconCurrencyBitcoin,
   IconLogout,
-  IconMail,
   IconSearch,
   IconSettings,
   IconUsersGroup,
 } from '@tabler/icons-react';
 import classes from './styles.module.css';
 import { useNavigate } from 'react-router-dom';
-import useLogout from '../../hooks/use-logout.ts';
 import logo from '../../assets/logo.png';
 import packageJson from '../../../package.json';
+import useLogtoUserInfo from '../../hooks/use-orgs-data.ts';
 
 interface ILink {
   label: string;
@@ -55,7 +52,6 @@ const links: ILink[] = [
     color: 'teal',
     desc: 'Gérer la comptabilité',
   },
-  { label: 'Calendrier', link: '/calendar', icon: IconCalendarWeek, color: 'blue', desc: 'Gérer le calendrier' },
 ];
 
 const MenuItem = (item: ILink) => {
@@ -77,14 +73,14 @@ const MenuItem = (item: ILink) => {
       color={color}
       variant="subtle"
       active={window.location.pathname.includes(link)}
-      disabled={link === '/calendar'}
     />
   );
 };
 
 const HelixNavbar = () => {
-  const logout = useLogout();
   const navigate = useNavigate();
+  const { user, fullUserInfo, signOut } = useLogtoUserInfo();
+
   return (
     <>
       <AppShell.Section>
@@ -95,6 +91,7 @@ const HelixNavbar = () => {
             <Code>v{packageJson.version}</Code>
           </Group>
         </UnstyledButton>
+        <Text ta="center">{fullUserInfo?.organization_data?.[0]?.name ?? ''}</Text>
         <TextInput
           rightSection={<IconSearch size="1.2rem" />}
           className={classes.textsearch}
@@ -107,16 +104,6 @@ const HelixNavbar = () => {
       <AppShell.Section grow component={ScrollArea}></AppShell.Section>
       <AppShell.Section>
         <NavLink
-          disabled
-          label={<Text size="md">Inbox</Text>}
-          rightSection={<IconChevronUp size="1.2rem" />}
-          leftSection={
-            <Indicator processing size={10}>
-              <IconMail size="1.2rem" />
-            </Indicator>
-          }
-        />
-        <NavLink
           label={<Text size="md">Administration</Text>}
           leftSection={<IconSettings size="1.2rem" />}
           active={window.location.pathname === '/settings'}
@@ -128,23 +115,31 @@ const HelixNavbar = () => {
         <Divider />
         <UnstyledButton className={classes.user}>
           <Group>
-            <Avatar
-              src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-4.png"
-              radius="xl"
-            />
-
+            <Indicator position="bottom-end" color="green" size={10}>
+              {user?.picture ? (
+                <Avatar src={user?.picture} radius="md" />
+              ) : (
+                <Avatar name={user?.name ?? ''} color="initials" radius="md" />
+              )}
+            </Indicator>
             <div style={{ flex: 1 }}>
               <Text size="sm" fw={500}>
-                Maivy Ostéo
+                {user?.name}
               </Text>
 
               <Text c="dimmed" size="xs">
-                marie.de-place@osteo.bzh
+                {user?.email}
               </Text>
             </div>
 
             <Tooltip label="Logout" color="red" withArrow>
-              <ActionIcon color="red" variant="light" size="lg" component="button" onClick={logout}>
+              <ActionIcon
+                color="red"
+                variant="light"
+                size="lg"
+                component="button"
+                onClick={() => signOut('http://localhost:3000/login')}
+              >
                 <IconLogout size="1.2rem" />
               </ActionIcon>
             </Tooltip>

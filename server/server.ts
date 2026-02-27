@@ -1,13 +1,14 @@
-import cookieParser from 'cookie-parser';
 import cors from './config/cors';
 import credentials from './middleware/credentials';
 import errorHandler from './tools/errors';
 import express, { Express, Request, Response } from 'express';
 import logger from './tools/logger';
+import log from './tools/newLogger';
 import path from 'path';
-// import rateLimit from 'express-rate-limit';
 import sc from './tools/status-codes';
 import server from './routers/api';
+// import rateLimit from 'express-rate-limit';
+
 require('dotenv').config();
 
 // Config
@@ -22,19 +23,16 @@ api.use(express.json());
 api.use(express.urlencoded({ extended: true }));
 api.use(credentials);
 api.use(cors());
-api.use(cookieParser());
 // api.use(limiter);
 
-// Static www
-api.use(express.static(path.join(__dirname, 'www')));
-
 // Logger
-api.use(logger.checkpoint);
+api.use(log.middleware);
 
 // Main
 api.use('/api', server);
 
 // Client
+api.use(express.static(path.join(__dirname, 'www')));
 api.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'www', 'index.html'));
   logger.success(req, res, 'Return client');

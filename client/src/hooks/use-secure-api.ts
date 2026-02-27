@@ -1,43 +1,40 @@
+import { useLogto } from '@logto/react';
 import { secureAPI } from '../api/api';
 import { useEffect } from 'react';
-import useRefreshToken from './use-refresh-token';
-import useAuth from './use-auth';
 
 const useSecureAPI = () => {
-    const refresh = useRefreshToken();
-    const { auth } = useAuth();
+  const { getAccessToken, isAuthenticated } = useLogto();
 
-    useEffect(() => {
-        const requestIntercept = secureAPI.interceptors.request.use(
-            (config: any): any => {
-                if (!config.headers['Authorization']) {
-                    config.headers['Authorization'] = `Bearer ${auth.accessToken}`;
-                }
-                return config;
-            },
-            (error: any) => Promise.reject(error)
-        );
+  useEffect(() => {
+    const reqId = secureAPI.interceptors.request.use(
+      async (config) => {
+        if (isAuthenticated) {
+          const token = await getAccessToken('http://localhost:3001/api');
+          // @ts-expect-error i know
+          config.headers = {
+            ...config.headers,
+            Authorization: `Bearer ${token}`,
+          };
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
 
-        const responseIntercept = secureAPI.interceptors.response.use(
-            (response) => response,
-            async (error) => {
-                const previousRequest = error?.config;
-                if (error?.response?.status === 403 && !previousRequest?.sent) {
-                    previousRequest.sent = true;
-                    const token = await refresh();
-                    previousRequest.headers['Authorization'] = `Bearer ${token}`;
-                    return secureAPI(previousRequest);
-                }
-                return Promise.reject(error);
-            }
-        );
-        return () => {
-            secureAPI.interceptors.response.eject(responseIntercept);
-            secureAPI.interceptors.request.eject(requestIntercept);
-        };
-    }, [auth, refresh]);
+    const resId = secureAPI.interceptors.response.use(
+      (res) => res,
+      async (error) => {
+        return Promise.reject(error);
+      }
+    );
 
-    return secureAPI;
+    return () => {
+      secureAPI.interceptors.request.eject(reqId);
+      secureAPI.interceptors.response.eject(resId);
+    };
+  }, [getAccessToken, isAuthenticated]);
+
+  return secureAPI;
 };
 
 export default useSecureAPI;

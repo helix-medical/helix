@@ -9,7 +9,6 @@ import { PatientMetadata } from './patient-metadata';
 import { Secretary } from './secretary';
 import { useAppointmentValidate } from './validate.logic';
 import { useAppointmentGet } from './get.logic';
-import GrantAccess from '../../components/auth/grant-access';
 
 const Appointment = (): JSX.Element => {
   const id = window.location.href.split('/').slice(-1)[0];
@@ -30,19 +29,19 @@ const Appointment = (): JSX.Element => {
       <PatientMetadata form={data} color={mainColor} view={view} />
       <AppFormProvider form={content}>
         <form onSubmit={handleSubmit}>
-          <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
-            <Anamnesis view={view} />
-            <Conclusion view={view} />
-          </GrantAccess>
+          {/*<GrantAccess levels={['ADMIN', 'PRACTITIONER']}>*/}
+          <Anamnesis view={view} />
+          <Conclusion view={view} />
+          {/*</GrantAccess>*/}
           <Secretary view={view} />
           {view ? null : (
-            <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
-              <Center>
-                <Button type="submit" m="lg" color={mainColor}>
-                  Valid Appointment
-                </Button>
-              </Center>
-            </GrantAccess>
+            // <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
+            <Center>
+              <Button type="submit" m="lg" color={mainColor}>
+                Valid Appointment
+              </Button>
+            </Center>
+            // </GrantAccess>
           )}
         </form>
       </AppFormProvider>

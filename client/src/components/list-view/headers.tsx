@@ -7,9 +7,9 @@ const TableHeader = ({
   callback,
 }: {
   type: string;
-  reversed: any;
-  sortBy: any;
-  callback: any;
+  reversed: boolean;
+  sortBy: string;
+  callback: (arg: string) => void;
 }) => {
   if (type === 'patients') {
     return (

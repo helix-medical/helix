@@ -39,3 +39,5 @@ lerna-debug.log*
 *.log
 .obsidian/
 cli/
+docker/pg
+docker/data

@@ -1,0 +1,14 @@
+---
+name: helix-db
+
+services:
+  mariadb:
+    image: xavier2p/helix-db:latest
+    restart: unless-stopped
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./data:/var/lib/mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    env_file: ../server/.env

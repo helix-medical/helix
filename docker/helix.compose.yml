@@ -1,0 +1,18 @@
+---
+name: helix-dev
+
+services:
+  app:
+    image: 'helix/app:latest'
+    container_name: helix
+    ports:
+      - 3001:3001
+    restart: unless-stopped
+    env_file: ../server/.env
+    environment:
+      - HELIX_DB_NAME=helix
+      - HELIX_DB_HOST=helix-db
+      - HELIX_DB_USER=${DB_USER}
+      - HELIX_DB_PASSWORD=${DB_ROOT_PASSWORD}
+      - ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
+      - REFRESH_TOKEN_SECRET=${REFRESH_TOKEN_SECRET}

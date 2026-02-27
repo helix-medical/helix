@@ -1,8 +1,9 @@
 import { Router } from 'express';
-const router: Router = Router();
 import controller from '../controllers/appointment';
 import controllerAll from '../controllers/appointments';
 import middleware from '../middleware/appointments';
+
+const router: Router = Router();
 
 router.get('/patient/:id', controllerAll.getByPatient);
 router.get('/read/:id/', controller.read);

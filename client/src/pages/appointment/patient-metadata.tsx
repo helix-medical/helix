@@ -4,7 +4,7 @@ import { params } from './utils';
 import { Badge, Button, Center, Grid, Paper, Tabs, Textarea, TextInput, Title } from '@mantine/core';
 import { useAppointmentPatient } from './patient.logic';
 import { UseFormReturnType } from '@mantine/form';
-import GrantAccess from '../../components/auth/grant-access';
+// import GrantAccess from '../../components/auth/grant-access';
 
 const Biodatas = ({ data, view }: { data: UseFormReturnType<IAppointmentData>; view: boolean }): JSX.Element => (
   <Grid columns={12} gutter="lg">
@@ -83,11 +83,11 @@ const PatientMetadata = ({ form, color, view }: IProps): JSX.Element => {
             <Biodatas data={form} view={view} />
           </Tabs.Panel>
           <Tabs.Panel value="medical">
-            <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
-              <Title order={3}>Antécédents Médicaux</Title>
-              <Textarea maxRows={10} placeholder="Antécédents médicaux" {...form.getInputProps('medicalIssues')} />
-              <TextInput label="Médecin traitant" placeholder="Médecin traitant" {...form.getInputProps('doctor')} />
-            </GrantAccess>
+            {/*<GrantAccess levels={['ADMIN', 'PRACTITIONER']}>*/}
+            <Title order={3}>Antécédents Médicaux</Title>
+            <Textarea maxRows={10} placeholder="Antécédents médicaux" {...form.getInputProps('medicalIssues')} />
+            <TextInput label="Médecin traitant" placeholder="Médecin traitant" {...form.getInputProps('doctor')} />
+            {/*</GrantAccess>*/}
           </Tabs.Panel>
           <Tabs.Panel value="appointments">
             {/* <PreviousAppointments data={form} color={color} /> */}
@@ -95,13 +95,13 @@ const PatientMetadata = ({ form, color, view }: IProps): JSX.Element => {
           </Tabs.Panel>
         </Tabs>
         {view ? null : (
-          <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
-            <Center>
-              <Button variant="light" mt="lg" color="fr-orange.4" type="submit">
-                Update Patient Data
-              </Button>
-            </Center>
-          </GrantAccess>
+          // <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
+          <Center>
+            <Button variant="light" mt="lg" color="fr-orange.4" type="submit">
+              Update Patient Data
+            </Button>
+          </Center>
+          // </GrantAccess>
         )}
       </form>
     </Paper>

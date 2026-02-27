@@ -1,6 +1,5 @@
 import { ActionIcon, Avatar, Grid, Group, Title, Tooltip } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
-import GrantAccess from '../../components/auth/grant-access';
 import { usePatientNavBar } from './navbar.logic';
 import { IPatient } from './types';
 import { usePatientContext } from './context';
@@ -45,23 +44,23 @@ const PatientNavBar = ({ form }: { form: UseFormReturnType<IPatient> }) => {
               </ActionIcon>
             </Tooltip>
           </>
-          <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
-            <Tooltip label={update ? 'Enregistrer' : 'Modifier'} withArrow color="green">
-              <ActionIcon variant="light" color="green" size="xl" onClick={(event) => handleUpdate(event)}>
-                {update ? <IconCheck size="1.5rem" /> : <IconEdit size="1.5rem" />}
-              </ActionIcon>
-            </Tooltip>
-            <Tooltip label="Exporter le dossier" withArrow color="blue">
-              <ActionIcon variant="light" color="blue" size="xl" onClick={handleExport}>
-                <IconDownload size="1.5rem" />
-              </ActionIcon>
-            </Tooltip>
-            <Tooltip label="Supprimer" withArrow color="red">
-              <ActionIcon variant="light" color="red" size="xl" onClick={() => handleDelete(form.values.id)}>
-                <IconTrash size="1.5rem" />
-              </ActionIcon>
-            </Tooltip>
-          </GrantAccess>
+          {/*<GrantAccess levels={['ADMIN', 'PRACTITIONER']}>*/}
+          <Tooltip label={update ? 'Enregistrer' : 'Modifier'} withArrow color="green">
+            <ActionIcon variant="light" color="green" size="xl" onClick={(event) => handleUpdate(event)}>
+              {update ? <IconCheck size="1.5rem" /> : <IconEdit size="1.5rem" />}
+            </ActionIcon>
+          </Tooltip>
+          <Tooltip label="Exporter le dossier" withArrow color="blue">
+            <ActionIcon variant="light" color="blue" size="xl" onClick={handleExport}>
+              <IconDownload size="1.5rem" />
+            </ActionIcon>
+          </Tooltip>
+          <Tooltip label="Supprimer" withArrow color="red">
+            <ActionIcon variant="light" color="red" size="xl" onClick={() => handleDelete(form.values.id)}>
+              <IconTrash size="1.5rem" />
+            </ActionIcon>
+          </Tooltip>
+          {/*</GrantAccess>*/}
         </Group>
       </Grid.Col>
       {showExport ? <ViewPDF open={showExport} id={form.values.id} type="patient" handler={handleExport} /> : null}

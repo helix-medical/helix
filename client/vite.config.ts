@@ -19,7 +19,7 @@ export default ({ mode }) => {
           changeOrigin: true,
         },
         '/auth': {
-          target: process.env.VITE_AUTH_URL,
+          target: process.env.LOGTO_ENDPOINT,
           changeOrigin: true,
         },
       },

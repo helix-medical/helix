@@ -5,7 +5,6 @@ import { KindAppointment } from '../custom-badges';
 import { IconPhone, IconSend } from '@tabler/icons-react';
 import moment from 'moment';
 import cnf from '../../config/config';
-import GrantAccess from '../auth/grant-access';
 
 const PeekAppointment = ({ input }: { input: IEvent }) => {
   const { navigate, event } = usePeekAppointment(input);
@@ -34,14 +33,14 @@ const PeekAppointment = ({ input }: { input: IEvent }) => {
       <Divider my="sm" />
       <Text fz="md" fw={700} mt="sm">
         Patient
-        <GrantAccess levels={['ADMIN', 'PRACTITIONER']}>
-          {' - '}
-          <Anchor onClick={() => navigate(`/patients/${event.patientID}`)} color="fr-yellow.3" component="button">
-            <Text span fz="sm" fw={500}>
-              More details
-            </Text>
-          </Anchor>
-        </GrantAccess>
+        {/*<GrantAccess levels={['ADMIN', 'PRACTITIONER']}>*/}
+        {' - '}
+        <Anchor onClick={() => navigate(`/patients/${event.patientID}`)} color="fr-yellow.3" component="button">
+          <Text span fz="sm" fw={500}>
+            More details
+          </Text>
+        </Anchor>
+        {/*</GrantAccess>*/}
       </Text>
       <Text fz="sm">
         <Text span fw={700}>

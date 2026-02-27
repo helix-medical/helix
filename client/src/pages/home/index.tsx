@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { ActionIcon, Card, Grid, Group, Title } from '@mantine/core';
-import useAuth from '../../hooks/use-auth';
 import Account from './account';
 import AccountingTile from './accounting';
 import { IconArrowUpRight } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import NextAppointmentWrapper from './next-appointment-wrapper';
 import ModalUserSettings from '../../components/user-settings';
+import useLogtoUserInfo from '../../hooks/use-orgs-data.ts';
 
 const Home = () => {
-  const { auth } = useAuth();
+  // const { auth } = useAuth();
+  const { user } = useLogtoUserInfo();
   const navigate = useNavigate();
   const [event, setEvent] = useState({
     id: '',
@@ -21,7 +22,7 @@ const Home = () => {
 
   return (
     <>
-      <Title order={1}>Bonjour {auth.name} !</Title>
+      <Title order={1}>Bonjour {user?.name} !</Title>
       ajouter un composant de calendrier ici et aussi des stats sur combien de rendez-vous vous avez fait
       <Grid columns={12} p="lg">
         <Grid.Col span={4}>
@@ -41,7 +42,7 @@ const Home = () => {
           </Card>
         </Grid.Col>
         <Grid.Col span={4}>
-          <Account id={auth.id} />
+          <Account id={user?.sub ?? ''} />
         </Grid.Col>
       </Grid>
       <ModalUserSettings />
